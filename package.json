@@ -1,0 +1,19 @@
+{
+  "name": "ch-word-card",
+  "version": "0.0.0",
+  "description": "Chinise word card",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ykanda/ch-word-card"
+  },
+  "dependencies": {
+    "gulp": "^3.8.10",
+    "gulp-less": ""
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Yasuhiro KANDA",
+  "license": ""
+}
