@@ -23,22 +23,25 @@ gulp.task('less', function() {
 
 
 
-var watches = [
-  { glob: './src/html/**/*.html', task: 'html' },
-  { glob: './src/css/**/*.less',  task: 'less' },
-  { glob: './src/js/**/*.js',     task: 'js'   },
-];
-watches.forEach(
-  function (value, index, array) {
-    console.log(value);
-    gulp.task('watch', function() {
+gulp.task('watch', function()
+{
+  var watches = [
+    { glob: './src/html/**/*.html', task: 'html' },
+    { glob: './src/css/**/*.less',  task: 'less' },
+    { glob: './src/js/**/*.js',     task: 'js'   },
+  ];
+  watches.forEach(
+    function (value, index, array) {
+      console.log(value);
       gulp.watch(
         value.glob,
         function (event) { gulp.run(value.task); }
       );
-    });
-  }
-);
+    }
+  );
+});
+
+
 
 
 gulp.task('default', ['html', 'js', 'less', 'watch']);
