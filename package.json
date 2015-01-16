@@ -7,8 +7,10 @@
     "url": "git://github.com/ykanda/ch-word-card"
   },
   "dependencies": {
-    "gulp": "^3.8.10",
-    "gulp-less": ""
+    "gulp":        "^3.8.10",
+    "gulp-util":   "",
+    "gulp-less":   "",
+    "gulp-coffee": ""
   },
   "devDependencies": {},
   "scripts": {

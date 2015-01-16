@@ -11,21 +11,45 @@
     <script type="text/javascript" src="./js/main.js"></script>
   </head>
   <body>
-    <div data-role="page">
+    <div id="page-index" data-role="page">
       <div data-role="header">
         <h1>Chinese Word Card</h1>
       </div>
       <div role="main" class="ui-content">
-        <p id="word">Word</p>
-        <p id="pinyin">拼音</p>
-        <p id="zhuyin">注音</p>
+        <a id="button-start" href="#page-card" class="ui-btn">単語帳を開く</a>
+      </div>
+    </div><!-- #page-index -->
+
+    <div id="page-card" data-role="page">
+      <div data-role="header">
+        <h1>Chinese Word Card</h1>
+      </div>
+      <div role="main" class="ui-content">
+        <div class="ui-grid-solo">
+          <div class="ui-block-a"><span id="card-word-jp"></span></div>
+        </div>
+        <div class="ui-grid-a">
+          <div class="ui-block-a"><span id="card-word-ch-t"></span></div>
+          <div class="ui-block-b"><span id="card-zhuyin"></span></div>
+        </div>
+        <div class="ui-grid-a">
+          <div class="ui-block-a"><span id="card-word-ch-s"></span></div>
+          <div class="ui-block-b"><span id="card-pinyin"></span></div>
+        </div>
+        <div class="ui-grid-solo">
+          <div class="ui-block-a">
+            <span id="card-position"></span> of
+            <span id="card-total"></span>
+          </div>
+        </div>
         <p>
-        <a id="button-next" href="javascript: void(0);" class="ui-btn ui-icon-arrow-r ui-btn-icon-notext"></a>
+          <a id="button-prev" href="javascript: void(0);" class="ui-btn ui-btn-inline ui-icon-arrow-l ui-corner-all" data-role="button">前</a>
+          <a id="button-next" href="javascript: void(0);" class="ui-btn ui-btn-inline ui-icon-arrow-r ui-corner-all" data-role="button">次</a>
         </p>
       </div>
       <div data-role="footer">
         <h4></h4>
       </div>
-    </div>
+    </div><!-- #page-card -->
   </body>
 </html>
