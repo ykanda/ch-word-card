@@ -6,7 +6,9 @@
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js"></script>
-    <!-- -->
+
+    <!-- App -->
+    <link rel="stylesheet" href="./css/main.css" />
     <script type="text/javascript" src="./js/data.js"></script>
     <script type="text/javascript" src="./js/main.js"></script>
   </head>
@@ -20,8 +22,13 @@
       </div>
     </div><!-- #page-index -->
 
+
     <div id="page-card" data-role="page">
+      <div id="page-card-side-menu" data-role="panel">
+      </div><!-- page-card-side-menu -->
+
       <div data-role="header">
+        <a href="#page-card-side-menu" class="ui-btn ui-btn-left ui-icon-bars ui-btn-icon-notext"></a>
         <h1>Chinese Word Card</h1>
       </div>
       <div role="main" class="ui-content">
@@ -36,19 +43,23 @@
           <div class="ui-block-a"><span id="card-word-ch-s"></span></div>
           <div class="ui-block-b"><span id="card-pinyin"></span></div>
         </div>
-        <div class="ui-grid-solo">
+      </div>
+
+      <div data-fullscreen="true" data-role="footer" data-position="fixed">
+        <div class="ui-grid-b">
           <div class="ui-block-a">
-            <span id="card-position"></span> of
-            <span id="card-total"></span>
+            <a id="button-prev" href="javascript: void(0);" class="ui-btn ui-icon-arrow-l ui-corner-all" data-role="button">前</a>
+          </div>
+          <div class="ui-block-b">
+            <div id="card-position-info">
+              <span id="card-position"></span> of
+              <span id="card-total"></span>
+            </div>
+          </div>
+          <div class="ui-block-c">
+            <a id="button-next" href="javascript: void(0);" class="ui-btn ui-icon-arrow-r ui-corner-all" data-role="button">次</a>
           </div>
         </div>
-        <p>
-          <a id="button-prev" href="javascript: void(0);" class="ui-btn ui-btn-inline ui-icon-arrow-l ui-corner-all" data-role="button">前</a>
-          <a id="button-next" href="javascript: void(0);" class="ui-btn ui-btn-inline ui-icon-arrow-r ui-corner-all" data-role="button">次</a>
-        </p>
-      </div>
-      <div data-role="footer">
-        <h4></h4>
       </div>
     </div><!-- #page-card -->
   </body>
