@@ -24,31 +24,42 @@
 
 
     <div id="page-card" data-role="page">
-      <div id="page-card-side-menu" data-role="panel">
+      <div id="page-card-side-menu" data-role="panel" data-display="push">
+        <ul data-role="listview">
+          <li data-icon="home"><a href="#page-index">Home</a></li>
+          <!-- li data-icon="gear"><a href="#page-config">Config</a></li -->
+        </ul>
       </div><!-- page-card-side-menu -->
 
       <div data-role="header">
         <a href="#page-card-side-menu" class="ui-btn ui-btn-left ui-icon-bars ui-btn-icon-notext"></a>
         <h1>Chinese Word Card</h1>
       </div>
-      <div role="main" class="ui-content">
-        <div class="ui-grid-solo">
-          <div class="ui-block-a"><span id="card-word-jp"></span></div>
+      <div role="main" data-role="content" class="ui-content">
+
+        <h2><span id="card-word-jp"></span></h2>
+
+        <div class="ui-bar ui-bar-a">
+          <h3>繁体中国語 - 注音</h3>
         </div>
-        <div class="ui-grid-a">
-          <div class="ui-block-a"><span id="card-word-ch-t"></span></div>
-          <div class="ui-block-b"><span id="card-zhuyin"></span></div>
+        <div class="ui-body ui-body-a" style="text-align: center; padding-top: 1em; padding-bottom: 1em;">
+          <span id="card-word-ch-t"></span><br />
+          <span id="card-zhuyin"></span>
         </div>
-        <div class="ui-grid-a">
-          <div class="ui-block-a"><span id="card-word-ch-s"></span></div>
-          <div class="ui-block-b"><span id="card-pinyin"></span></div>
+
+        <div class="ui-bar ui-bar-a">
+          <h3>簡体中国語 - 拼音</h3>
+        </div>
+        <div class="ui-body ui-body-a" style="text-align: center; padding-top: 1em; padding-bottom: 1em;">
+          <span id="card-word-ch-s"></span><br />
+          <span id="card-pinyin"></span>
         </div>
       </div>
 
       <div data-fullscreen="true" data-role="footer" data-position="fixed">
         <div class="ui-grid-b">
           <div class="ui-block-a">
-            <a id="button-prev" href="javascript: void(0);" class="ui-btn ui-icon-arrow-l ui-corner-all" data-role="button">前</a>
+            <a id="button-prev" href="javascript: void(0);" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-corner-all">前</a>
           </div>
           <div class="ui-block-b">
             <div id="card-position-info">
@@ -57,10 +68,21 @@
             </div>
           </div>
           <div class="ui-block-c">
-            <a id="button-next" href="javascript: void(0);" class="ui-btn ui-icon-arrow-r ui-corner-all" data-role="button">次</a>
+            <a id="button-next" href="javascript: void(0);" class="ui-btn ui-icon-arrow-r ui-btn-icon-notext ui-corner-all">次</a>
           </div>
         </div>
       </div>
     </div><!-- #page-card -->
+
+
+    <div id="page-config" data-role="page">
+      <div data-role="header">
+        <h1>Config</h1>
+      </div>
+      <div data-role="main" class="ui-content">
+      </div>
+    </div>
+
+
   </body>
 </html>
