@@ -10,7 +10,8 @@
     "gulp":        "^3.8.10",
     "gulp-util":   "",
     "gulp-less":   "",
-    "gulp-coffee": ""
+    "gulp-coffee": "",
+    "gulp-shell":  ""
   },
   "devDependencies": {},
   "scripts": {

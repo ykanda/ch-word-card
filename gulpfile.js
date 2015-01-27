@@ -1,9 +1,9 @@
 'use strict';
 var gulp      = require('gulp');
 var gulp_util = require('gulp-util');
-var gulp_util = require('gulp-util');
 var less      = require('gulp-less');
 var coffee    = require('gulp-coffee');
+var shell     = require('gulp-shell');
 
 
 gulp.task('html', function() {
@@ -32,6 +32,14 @@ gulp.task('less', function() {
 });
 
 
+gulp.task('csv2dat', function() {
+  return gulp.src('src/csv/dict.csv', { read: false })
+    .pipe(shell([
+      './bin/csv2dat <%= file.path %>'
+    ]));
+});
+
+
 
 gulp.task('watch', function()
 {
@@ -54,4 +62,4 @@ gulp.task('watch', function()
 
 
 
-gulp.task('default', ['html', 'coffee', 'js', 'less']);
+gulp.task('default', ['html', 'coffee', 'js', 'less', 'csv2dat']);

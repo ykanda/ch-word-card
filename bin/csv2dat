@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+   
+if __FILE__ == $0
+  csv_file_path = ARGV[0] 
+  puts "csv2dat:", csv_file_path
+end
+
+exit 0
+# vim: set ft=ruby
