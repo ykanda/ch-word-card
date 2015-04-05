@@ -1,44 +1,8 @@
 'use strict';
-var gulp      = require('gulp');
-var gulp_util = require('gulp-util');
-var less      = require('gulp-less');
-var coffee    = require('gulp-coffee');
-var shell     = require('gulp-shell');
 
-
-gulp.task('html', function() {
-  return gulp.src('src/html/**/*.html')
-    .pipe(gulp.dest('dest/'));
-});
-
-
-gulp.task('js', function() {
-  return gulp.src('src/js/**/*.js')
-    .pipe(gulp.dest('dest/js/'));
-});
-
-
-gulp.task('coffee', function() {
-  return gulp.src('src/coffee/**/*.coffee')
-    .pipe(coffee({ bare: true }).on('error', gulp_util.log))
-    .pipe(gulp.dest('dest/js/'));
-});
-
-
-gulp.task('less', function() {
-  return gulp.src('src/css/**/*.less')
-    .pipe(less())
-    .pipe(gulp.dest('dest/css/'));
-});
-
-
-gulp.task('csv2dat', function() {
-  return gulp.src('src/csv/dict.csv', { read: false })
-    .pipe(shell([
-      './bin/csv2dat <%= file.path %>'
-    ]));
-});
-
+var require_dir  = require('require-dir')
+var require_task = require_dir('./gulp', { recurse : true })
+var gulp         = require('gulp');
 
 
 gulp.task('watch', function()
@@ -58,8 +22,4 @@ gulp.task('watch', function()
     }
   );
 });
-
-
-
-
 gulp.task('default', ['html', 'coffee', 'js', 'less', 'csv2dat']);

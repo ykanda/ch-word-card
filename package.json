@@ -7,14 +7,18 @@
     "url": "git://github.com/ykanda/ch-word-card"
   },
   "dependencies": {
-    "vue":         "",
-    "gulp":        "^3.8.10",
-    "gulp-util":   "",
-    "gulp-less":   "",
+    "vue": "",
+    "gulp": "^3.8.10",
+    "gulp-util": "",
+    "gulp-less": "",
     "gulp-coffee": "",
-    "gulp-shell":  ""
+    "gulp-shell": ""
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "require-dir": "^0.3.0",
+    "vue-loader": "^1.1.2",
+    "webpack": "^1.7.3"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
