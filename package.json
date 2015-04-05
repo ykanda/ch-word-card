@@ -7,6 +7,7 @@
     "url": "git://github.com/ykanda/ch-word-card"
   },
   "dependencies": {
+    "vue":         "",
     "gulp":        "^3.8.10",
     "gulp-util":   "",
     "gulp-less":   "",
