@@ -9,9 +9,9 @@ gulp.task('watch', function()
 {
   var watches = [
     { glob: './src/html/**/*.html',     task: [ 'html'   ]},
-    { glob: './src/css/**/*.less',      task: [ 'less'   ]},
-    { glob: './src/coffee/**/*.coffee', task: [ 'coffee' ]},
-    { glob: './src/js/**/*.js',         task: [ 'js'     ]},
+//  { glob: './src/css/**/*.less',      task: [ 'less'   ]},
+//  { glob: './src/coffee/**/*.coffee', task: [ 'coffee' ]},
+//  { glob: './src/js/**/*.js',         task: [ 'js'     ]},
   ];
   watches.forEach(
     function (value, index, array) {
@@ -22,4 +22,5 @@ gulp.task('watch', function()
     }
   );
 });
-gulp.task('default', ['html', 'coffee', 'js', 'less', 'csv2dat']);
+
+gulp.task('default', ['vue', 'html']);
