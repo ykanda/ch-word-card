@@ -1,5 +1,13 @@
 'use strict'
 
+
+require('bootstrap-webpack')
+// global.jQuery = require('jquery')
+// require('bootstrap')
+// require('bootstrap/dist/css/bootstrap.css')
+// require('bootstrap/dist/css/bootstrap-theme.css')
+
+
 var Vue  = require('vue')
 var page = require('page')
 var app  = new Vue(require('./app.vue'))
@@ -7,14 +15,12 @@ var app  = new Vue(require('./app.vue'))
 
 page("/", function(context) {
   window.scrollTo(0, 0)
-  console.log('/')
   app.view = 'page_top'
 })
 
 
 page("/card", function(context) {
   window.scrollTo(0, 0)
-  console.log('/card')
   app.view = 'page_card'
 })
 

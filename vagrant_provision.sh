@@ -15,6 +15,9 @@ apt-get -y install nginx
 ln -snb \
   ${CONF}/etc/nginx/sites-available/default \
          /etc/nginx/sites-available/default
+ln -snb \
+  ${CONF}/etc/nginx/mime.types \
+         /etc/nginx/mime.types
 
 
 # make alias WEBROOT
