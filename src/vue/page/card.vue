@@ -1,28 +1,47 @@
+<style>
+  span.cwc-word {
+    font-size: xx-large;
+  }
+  a.cwc-button {
+    font-size: xx-large;
+  }
+</style>
+
+
 <template>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid text-center">
+      <a href="/" class="btn navbar-btn btn-primary" href="#" role="button"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
+    </div>
+  </nav>
   <div class="container">
-    <div class="alert alert-danger" role="alert">
-      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-      <span class="sr-only">Error:</span>
-      Enter a valid email address
-    </div>
-    <div v-cloak>
-      {{ currentCardNumber }} of {{ numOfCards }}
-    </div>
+    <div class="progress" v-cloak>
+      <div class="progress-bar" role="progressbar" aria-valuenow="{{ currentCardNumber }}" aria-valuemin="0" aria-valuemax="{{ numOfCards }}" style="width: {{ progress }}%;">
+        <span class="sr-only">{{ currentCardNumber }} of {{ numOfCards }}</span>
+      </div>
+   </div>
+
     <!-- 日本語 -->
-    <div>
-      {{ currentCard.jp }}<br />
-      <a href="" v-on="click : openCh()" v-show="openChineseWord == false">↓</a>
+    <div class="text-center">
+      <span class="cwc-word">{{ currentCard.jp }}</span>
+    </div>
+    <div class="text-center">
+      <a href="" class="btn btn-default" v-on="click : openCh()" v-show="openChineseWord == false">
+        <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+      </a>
     </div>
 
     <!-- 繁体中国語, 注音 -->
-    <div v-show="openChineseWord == true">
-      {{ currentCard.ch_t   }}<br />
-      {{ currentCard.zhuyin }}<br />
+    <div class="text-center" v-show="openChineseWord == true">
+      <span class="cwc-word">{{ currentCard.ch_t   }}</span><br />
+      <span class="cwc-word">{{ currentCard.zhuyin }}</span><br />
       <span v-show="isNotEndOfCards">
-        <a href="#" v-on="click : nextCard()" >次</a>
+        <a href="#" class="btn btn-default" v-on="click : nextCard()">
+          <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+        </a>
       </span>
       <span v-show="isEndOfCards">
-        <a href="/card">もう一度</a>
+        <a href="#" class="btn btn-default" v-on="click: reset()"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></a>
       </span>
     </div>
 
@@ -36,8 +55,6 @@
       <a href="" v-on="click">↓</a>
     </div>
     -->
-
-    <a href="/">top</a>
   </div><!-- /.container -->
 </template>
 
@@ -71,6 +88,9 @@ module.exports = {
   },
 
   computed : {
+    progress : function () {
+      return parseInt((this.index / (this.cards.length - 1)) * 100.0)
+    },
     numOfCards : function () {
       return this.cards.length 
     },
@@ -92,6 +112,10 @@ module.exports = {
       this.openChineseWord = false
       this.index++
     },
+    reset : function () {
+      this.openChineseWord = false
+      this.index = 0
+    }
   }
 }
 </script>

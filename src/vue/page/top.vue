@@ -1,6 +1,9 @@
 <template>
-  日本語・中国語単語帳
-  <a href="/card">単語帳を開く</a><br />
+ <div class="jumbotron" class='text-center'>
+   <h1>日文・中文<br>単語練習帳</h1>
+   <p class="text-center">...</p>
+   <p class="text-center"><a  href="/card" class="btn btn-primary btn-lg" href="#" role="button">単語帳を開く</a></p>
+ </div>
 </template>
 
 
