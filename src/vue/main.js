@@ -1,11 +1,29 @@
 'use strict'
 
 
+global.jQuery = require('jquery')
 require('bootstrap-webpack')
-// global.jQuery = require('jquery')
-// require('bootstrap')
-// require('bootstrap/dist/css/bootstrap.css')
-// require('bootstrap/dist/css/bootstrap-theme.css')
+require('bootstrap-drawer/dist/js/drawer.js')
+require('bootstrap-drawer/dist/css/bootstrap-drawer.css')
+
+
+// Drawer
+// see : https://github.com/clineamb/bootstrap-drawer/blob/master/example/index.html
+global.jQuery('#drawerMenu').drawer({
+  toggle : false
+})
+
+global.jQuery('#drawerMenu .drawer-contents .drawer-nav a').click(
+  function () {
+    global.jQuery('#drawerMenu').drawer('toggle');
+    // return false;
+  }
+)
+
+global.jQuery('#other-toggle').click(function () {
+  global.jQuery('#drawerMenu').drawer('toggle');
+  return false;
+})
 
 
 var Vue  = require('vue')
@@ -26,3 +44,5 @@ page("/card", function(context) {
 
 // ROUTING!!
 page()
+
+

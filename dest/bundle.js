@@ -44,17 +44,35 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict'
+	/* WEBPACK VAR INJECTION */(function(global) {'use strict'
 
 
+	global.jQuery = __webpack_require__(4)
 	__webpack_require__(1)
-	// global.jQuery = require('jquery')
-	// require('bootstrap')
-	// require('bootstrap/dist/css/bootstrap.css')
-	// require('bootstrap/dist/css/bootstrap-theme.css')
+	__webpack_require__(6)
+	__webpack_require__(10)
 
 
-	var Vue  = __webpack_require__(4)
+	// Drawer
+	// see : https://github.com/clineamb/bootstrap-drawer/blob/master/example/index.html
+	global.jQuery('#drawerMenu').drawer({
+	  toggle : false
+	})
+
+	global.jQuery('#drawerMenu .drawer-contents .drawer-nav a').click(
+	  function () {
+	    global.jQuery('#drawerMenu').drawer('toggle');
+	    // return false;
+	  }
+	)
+
+	global.jQuery('#other-toggle').click(function () {
+	  global.jQuery('#drawerMenu').drawer('toggle');
+	  return false;
+	})
+
+
+	var Vue  = __webpack_require__(5)
 	var page = __webpack_require__(2)
 	var app  = new Vue(__webpack_require__(3))
 
@@ -74,12 +92,15 @@
 	page()
 
 
+
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
 /***/ },
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(22);
-	__webpack_require__(5);
+	__webpack_require__(26);
+	__webpack_require__(7);
 
 
 /***/ },
@@ -94,7 +115,7 @@
 	   * Module dependencies.
 	   */
 
-	  var pathtoRegexp = __webpack_require__(24);
+	  var pathtoRegexp = __webpack_require__(29);
 
 	  /**
 	   * Module exports.
@@ -706,7 +727,7 @@
 
 	  page.sameOrigin = sameOrigin;
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(21)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)))
 
 /***/ },
 /* 3 */
@@ -719,11043 +740,14 @@
 	    view : 'page_top'
 	  },
 	  components : {
-	    page_top  : __webpack_require__(6),
-	    page_card : __webpack_require__(7)
+	    page_top  : __webpack_require__(8),
+	    page_card : __webpack_require__(9)
 	  }}
 	module.exports.template = __vue_template__;
 
 
 /***/ },
 /* 4 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var extend = _.extend
-
-	/**
-	 * The exposed Vue constructor.
-	 *
-	 * API conventions:
-	 * - public API methods/properties are prefiexed with `$`
-	 * - internal methods/properties are prefixed with `_`
-	 * - non-prefixed properties are assumed to be proxied user
-	 *   data.
-	 *
-	 * @constructor
-	 * @param {Object} [options]
-	 * @public
-	 */
-
-	function Vue (options) {
-	  this._init(options)
-	}
-
-	/**
-	 * Mixin global API
-	 */
-
-	extend(Vue, __webpack_require__(8))
-
-	/**
-	 * Vue and every constructor that extends Vue has an
-	 * associated options object, which can be accessed during
-	 * compilation steps as `this.constructor.options`.
-	 *
-	 * These can be seen as the default options of every
-	 * Vue instance.
-	 */
-
-	Vue.options = {
-	  directives  : __webpack_require__(19),
-	  filters     : __webpack_require__(20),
-	  partials    : {},
-	  transitions : {},
-	  components  : {}
-	}
-
-	/**
-	 * Build up the prototype
-	 */
-
-	var p = Vue.prototype
-
-	/**
-	 * $data has a setter which does a bunch of
-	 * teardown/setup work
-	 */
-
-	Object.defineProperty(p, '$data', {
-	  get: function () {
-	    return this._data
-	  },
-	  set: function (newData) {
-	    this._setData(newData)
-	  }
-	})
-
-	/**
-	 * Mixin internal instance methods
-	 */
-
-	extend(p, __webpack_require__(9))
-	extend(p, __webpack_require__(10))
-	extend(p, __webpack_require__(11))
-	extend(p, __webpack_require__(12))
-
-	/**
-	 * Mixin public API methods
-	 */
-
-	extend(p, __webpack_require__(13))
-	extend(p, __webpack_require__(14))
-	extend(p, __webpack_require__(15))
-	extend(p, __webpack_require__(16))
-	extend(p, __webpack_require__(17))
-
-	module.exports = _.Vue = Vue
-
-/***/ },
-/* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(106);
-	__webpack_require__(107);
-	__webpack_require__(108);
-	__webpack_require__(109);
-	__webpack_require__(110);
-	__webpack_require__(111);
-	__webpack_require__(112);
-	__webpack_require__(113);
-	__webpack_require__(114);
-	__webpack_require__(115);
-	__webpack_require__(116);
-	__webpack_require__(117);
-
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __vue_template__ = "<div class=\"jumbotron\">\n   <h1>日文・中文<br>単語練習帳</h1>\n   <p class=\"text-center\">...</p>\n   <p class=\"text-center\"><a href=\"/card\" class=\"btn btn-primary btn-lg\" role=\"button\">単語帳を開く</a></p>\n </div>";
-	module.exports = {
-	  data : function () {
-	    return {}
-	  }
-
-	}
-	module.exports.template = __vue_template__;
-
-
-/***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(66)("a.cwc-button,span.cwc-word{font-size:xx-large}");
-	var __vue_template__ = "<nav class=\"navbar navbar-inverse\">\n    <div class=\"container-fluid text-center\">\n      <a href=\"/\" class=\"btn navbar-btn btn-primary\" role=\"button\"><span class=\"glyphicon glyphicon-home\" aria-hidden=\"true\"></span></a>\n    </div>\n  </nav>\n  <div class=\"container\">\n    <div class=\"progress\" v-cloak=\"\">\n      <div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"{{ currentCardNumber }}\" aria-valuemin=\"0\" aria-valuemax=\"{{ numOfCards }}\" style=\"width: {{ progress }}%\">\n        <span class=\"sr-only\">{{ currentCardNumber }} of {{ numOfCards }}</span>\n      </div>\n   </div>\n\n    <!-- 日本語 -->\n    <div class=\"text-center\">\n      <span class=\"cwc-word\">{{ currentCard.jp }}</span>\n    </div>\n    <div class=\"text-center\">\n      <a href=\"\" class=\"btn btn-default\" v-on=\"click : openCh()\" v-show=\"openChineseWord == false\">\n        <span class=\"glyphicon glyphicon-chevron-down\" aria-hidden=\"true\"></span>\n      </a>\n    </div>\n\n    <!-- 繁体中国語, 注音 -->\n    <div class=\"text-center\" v-show=\"openChineseWord == true\">\n      <span class=\"cwc-word\">{{ currentCard.ch_t   }}</span><br>\n      <span class=\"cwc-word\">{{ currentCard.zhuyin }}</span><br>\n      <span v-show=\"isNotEndOfCards\">\n        <a href=\"#\" class=\"btn btn-default\" v-on=\"click : nextCard()\">\n          <span class=\"glyphicon glyphicon-chevron-down\" aria-hidden=\"true\"></span>\n        </a>\n      </span>\n      <span v-show=\"isEndOfCards\">\n        <a href=\"#\" class=\"btn btn-default\" v-on=\"click: reset()\"><span class=\"glyphicon glyphicon-repeat\" aria-hidden=\"true\"></span></a>\n      </span>\n    </div>\n\n    <!-- 簡体中国語 - 拼音 -->\n    <!--\n    <div>\n      {{currentCard.ch_s}}\n      {{currentCard.pinyin}}\n    </div>\n    <div>\n      <a href=\"\" v-on=\"click\">↓</a>\n    </div>\n    -->\n  </div><!-- /.container -->";
-	api    = __webpack_require__(26)
-	config = __webpack_require__(27)
-
-
-	module.exports = {
-	  data : function () {
-	    return {
-	      cards : [{
-	        jp     : '',
-	        ch_t   : '',
-	        ch_s   : '',
-	        zhuyin : '',
-	        pinyin : ''
-	      }],
-	      index : 0,
-	      openChineseWord  : false, 
-	    }
-	  },
-
-	  created : function () {
-	    var option = {}
-	    var _this = this
-	    api.getCards(option).then(function(response) {
-	      _this.cards = response
-	      console.log(response)
-	    })
-	  },
-
-	  computed : {
-	    progress : function () {
-	      return parseInt((this.index / (this.cards.length - 1)) * 100.0)
-	    },
-	    numOfCards : function () {
-	      return this.cards.length 
-	    },
-	    currentCardNumber : function () {
-	      return (this.index + 1)
-	    },
-	    currentCard : function () {
-	      return this.cards[ this.index ]
-	    },
-	    isNotEndOfCards : function () { return (this.index <  (this.cards.length - 1)) },
-	    isEndOfCards    : function () { return (this.index >= (this.cards.length - 1)) },
-	  },
-
-	  methods : {
-	    openCh : function () {
-	      this.openChineseWord = true
-	    },
-	    nextCard : function () {
-	      this.openChineseWord = false
-	      this.index++
-	    },
-	    reset : function () {
-	      this.openChineseWord = false
-	      this.index = 0
-	    }
-	  }
-	}
-	module.exports.template = __vue_template__;
-
-
-/***/ },
-/* 8 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var mergeOptions = __webpack_require__(28)
-
-	/**
-	 * Expose useful internals
-	 */
-
-	exports.util = _
-	exports.nextTick = _.nextTick
-	exports.config = __webpack_require__(29)
-
-	exports.compiler = {
-	  compile: __webpack_require__(30),
-	  transclude: __webpack_require__(31)
-	}
-
-	exports.parsers = {
-	  path: __webpack_require__(32),
-	  text: __webpack_require__(33),
-	  template: __webpack_require__(34),
-	  directive: __webpack_require__(35),
-	  expression: __webpack_require__(36)
-	}
-
-	/**
-	 * Each instance constructor, including Vue, has a unique
-	 * cid. This enables us to create wrapped "child
-	 * constructors" for prototypal inheritance and cache them.
-	 */
-
-	exports.cid = 0
-	var cid = 1
-
-	/**
-	 * Class inehritance
-	 *
-	 * @param {Object} extendOptions
-	 */
-
-	exports.extend = function (extendOptions) {
-	  extendOptions = extendOptions || {}
-	  var Super = this
-	  var Sub = createClass(extendOptions.name || 'VueComponent')
-	  Sub.prototype = Object.create(Super.prototype)
-	  Sub.prototype.constructor = Sub
-	  Sub.cid = cid++
-	  Sub.options = mergeOptions(
-	    Super.options,
-	    extendOptions
-	  )
-	  Sub['super'] = Super
-	  // allow further extension
-	  Sub.extend = Super.extend
-	  // create asset registers, so extended classes
-	  // can have their private assets too.
-	  createAssetRegisters(Sub)
-	  return Sub
-	}
-
-	/**
-	 * A function that returns a sub-class constructor with the
-	 * given name. This gives us much nicer output when
-	 * logging instances in the console.
-	 *
-	 * @param {String} name
-	 * @return {Function}
-	 */
-
-	function createClass (name) {
-	  return new Function(
-	    'return function ' + _.camelize(name, true) +
-	    ' (options) { this._init(options) }'
-	  )()
-	}
-
-	/**
-	 * Plugin system
-	 *
-	 * @param {Object} plugin
-	 */
-
-	exports.use = function (plugin) {
-	  // additional parameters
-	  var args = _.toArray(arguments, 1)
-	  args.unshift(this)
-	  if (typeof plugin.install === 'function') {
-	    plugin.install.apply(plugin, args)
-	  } else {
-	    plugin.apply(null, args)
-	  }
-	  return this
-	}
-
-	/**
-	 * Define asset registration methods on a constructor.
-	 *
-	 * @param {Function} Constructor
-	 */
-
-	var assetTypes = [
-	  'directive',
-	  'filter',
-	  'partial',
-	  'transition'
-	]
-
-	function createAssetRegisters (Constructor) {
-
-	  /* Asset registration methods share the same signature:
-	   *
-	   * @param {String} id
-	   * @param {*} definition
-	   */
-
-	  assetTypes.forEach(function (type) {
-	    Constructor[type] = function (id, definition) {
-	      if (!definition) {
-	        return this.options[type + 's'][id]
-	      } else {
-	        this.options[type + 's'][id] = definition
-	      }
-	    }
-	  })
-
-	  /**
-	   * Component registration needs to automatically invoke
-	   * Vue.extend on object values.
-	   *
-	   * @param {String} id
-	   * @param {Object|Function} definition
-	   */
-
-	  Constructor.component = function (id, definition) {
-	    if (!definition) {
-	      return this.options.components[id]
-	    } else {
-	      if (_.isPlainObject(definition)) {
-	        definition.name = id
-	        definition = _.Vue.extend(definition)
-	      }
-	      this.options.components[id] = definition
-	    }
-	  }
-	}
-
-	createAssetRegisters(exports)
-
-/***/ },
-/* 9 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var mergeOptions = __webpack_require__(28)
-
-	/**
-	 * The main init sequence. This is called for every
-	 * instance, including ones that are created from extended
-	 * constructors.
-	 *
-	 * @param {Object} options - this options object should be
-	 *                           the result of merging class
-	 *                           options and the options passed
-	 *                           in to the constructor.
-	 */
-
-	exports._init = function (options) {
-
-	  options = options || {}
-
-	  this.$el           = null
-	  this.$parent       = options._parent
-	  this.$root         = options._root || this
-	  this.$             = {} // child vm references
-	  this.$$            = {} // element references
-	  this._watcherList  = [] // all watchers as an array
-	  this._watchers     = {} // internal watchers as a hash
-	  this._userWatchers = {} // user watchers as a hash
-	  this._directives   = [] // all directives
-
-	  // a flag to avoid this being observed
-	  this._isVue = true
-
-	  // events bookkeeping
-	  this._events         = {}    // registered callbacks
-	  this._eventsCount    = {}    // for $broadcast optimization
-	  this._eventCancelled = false // for event cancellation
-
-	  // block instance properties
-	  this._isBlock     = false
-	  this._blockStart  =          // @type {CommentNode}
-	  this._blockEnd    = null     // @type {CommentNode}
-
-	  // lifecycle state
-	  this._isCompiled  =
-	  this._isDestroyed =
-	  this._isReady     =
-	  this._isAttached  =
-	  this._isBeingDestroyed = false
-
-	  // children
-	  this._children = []
-	  this._childCtors = {}
-	  // transcluded components that belong to the parent
-	  this._transCpnts = null
-
-	  // merge options.
-	  options = this.$options = mergeOptions(
-	    this.constructor.options,
-	    options,
-	    this
-	  )
-
-	  // set data after merge.
-	  this._data = options.data || {}
-
-	  // initialize data observation and scope inheritance.
-	  this._initScope()
-
-	  // setup event system and option events.
-	  this._initEvents()
-
-	  // call created hook
-	  this._callHook('created')
-
-	  // if `el` option is passed, start compilation.
-	  if (options.el) {
-	    this.$mount(options.el)
-	  }
-	}
-
-/***/ },
-/* 10 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var inDoc = _.inDoc
-
-	/**
-	 * Setup the instance's option events & watchers.
-	 * If the value is a string, we pull it from the
-	 * instance's methods by name.
-	 */
-
-	exports._initEvents = function () {
-	  var options = this.$options
-	  registerCallbacks(this, '$on', options.events)
-	  registerCallbacks(this, '$watch', options.watch)
-	}
-
-	/**
-	 * Register callbacks for option events and watchers.
-	 *
-	 * @param {Vue} vm
-	 * @param {String} action
-	 * @param {Object} hash
-	 */
-
-	function registerCallbacks (vm, action, hash) {
-	  if (!hash) return
-	  var handlers, key, i, j
-	  for (key in hash) {
-	    handlers = hash[key]
-	    if (_.isArray(handlers)) {
-	      for (i = 0, j = handlers.length; i < j; i++) {
-	        register(vm, action, key, handlers[i])
-	      }
-	    } else {
-	      register(vm, action, key, handlers)
-	    }
-	  }
-	}
-
-	/**
-	 * Helper to register an event/watch callback.
-	 *
-	 * @param {Vue} vm
-	 * @param {String} action
-	 * @param {String} key
-	 * @param {*} handler
-	 */
-
-	function register (vm, action, key, handler) {
-	  var type = typeof handler
-	  if (type === 'function') {
-	    vm[action](key, handler)
-	  } else if (type === 'string') {
-	    var methods = vm.$options.methods
-	    var method = methods && methods[handler]
-	    if (method) {
-	      vm[action](key, method)
-	    } else {
-	      _.warn(
-	        'Unknown method: "' + handler + '" when ' +
-	        'registering callback for ' + action +
-	        ': "' + key + '".'
-	      )
-	    }
-	  }
-	}
-
-	/**
-	 * Setup recursive attached/detached calls
-	 */
-
-	exports._initDOMHooks = function () {
-	  this.$on('hook:attached', onAttached)
-	  this.$on('hook:detached', onDetached)
-	}
-
-	/**
-	 * Callback to recursively call attached hook on children
-	 */
-
-	function onAttached () {
-	  this._isAttached = true
-	  this._children.forEach(callAttach)
-	  if (this._transCpnts) {
-	    this._transCpnts.forEach(callAttach)
-	  }
-	}
-
-	/**
-	 * Iterator to call attached hook
-	 * 
-	 * @param {Vue} child
-	 */
-
-	function callAttach (child) {
-	  if (!child._isAttached && inDoc(child.$el)) {
-	    child._callHook('attached')
-	  }
-	}
-
-	/**
-	 * Callback to recursively call detached hook on children
-	 */
-
-	function onDetached () {
-	  this._isAttached = false
-	  this._children.forEach(callDetach)
-	  if (this._transCpnts) {
-	    this._transCpnts.forEach(callDetach)
-	  }
-	}
-
-	/**
-	 * Iterator to call detached hook
-	 * 
-	 * @param {Vue} child
-	 */
-
-	function callDetach (child) {
-	  if (child._isAttached && !inDoc(child.$el)) {
-	    child._callHook('detached')
-	  }
-	}
-
-	/**
-	 * Trigger all handlers for a hook
-	 *
-	 * @param {String} hook
-	 */
-
-	exports._callHook = function (hook) {
-	  var handlers = this.$options[hook]
-	  if (handlers) {
-	    for (var i = 0, j = handlers.length; i < j; i++) {
-	      handlers[i].call(this)
-	    }
-	  }
-	  this.$emit('hook:' + hook)
-	}
-
-/***/ },
-/* 11 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var Observer = __webpack_require__(63)
-	var Dep = __webpack_require__(37)
-
-	/**
-	 * Setup the scope of an instance, which contains:
-	 * - observed data
-	 * - computed properties
-	 * - user methods
-	 * - meta properties
-	 */
-
-	exports._initScope = function () {
-	  this._initData()
-	  this._initComputed()
-	  this._initMethods()
-	  this._initMeta()
-	}
-
-	/**
-	 * Initialize the data. 
-	 */
-
-	exports._initData = function () {
-	  // proxy data on instance
-	  var data = this._data
-	  var keys = Object.keys(data)
-	  var i = keys.length
-	  var key
-	  while (i--) {
-	    key = keys[i]
-	    if (!_.isReserved(key)) {
-	      this._proxy(key)
-	    }
-	  }
-	  // observe data
-	  Observer.create(data).addVm(this)
-	}
-
-	/**
-	 * Swap the isntance's $data. Called in $data's setter.
-	 *
-	 * @param {Object} newData
-	 */
-
-	exports._setData = function (newData) {
-	  newData = newData || {}
-	  var oldData = this._data
-	  this._data = newData
-	  var keys, key, i
-	  // unproxy keys not present in new data
-	  keys = Object.keys(oldData)
-	  i = keys.length
-	  while (i--) {
-	    key = keys[i]
-	    if (!_.isReserved(key) && !(key in newData)) {
-	      this._unproxy(key)
-	    }
-	  }
-	  // proxy keys not already proxied,
-	  // and trigger change for changed values
-	  keys = Object.keys(newData)
-	  i = keys.length
-	  while (i--) {
-	    key = keys[i]
-	    if (!this.hasOwnProperty(key) && !_.isReserved(key)) {
-	      // new property
-	      this._proxy(key)
-	    }
-	  }
-	  oldData.__ob__.removeVm(this)
-	  Observer.create(newData).addVm(this)
-	  this._digest()
-	}
-
-	/**
-	 * Proxy a property, so that
-	 * vm.prop === vm._data.prop
-	 *
-	 * @param {String} key
-	 */
-
-	exports._proxy = function (key) {
-	  // need to store ref to self here
-	  // because these getter/setters might
-	  // be called by child instances!
-	  var self = this
-	  Object.defineProperty(self, key, {
-	    configurable: true,
-	    enumerable: true,
-	    get: function proxyGetter () {
-	      return self._data[key]
-	    },
-	    set: function proxySetter (val) {
-	      self._data[key] = val
-	    }
-	  })
-	}
-
-	/**
-	 * Unproxy a property.
-	 *
-	 * @param {String} key
-	 */
-
-	exports._unproxy = function (key) {
-	  delete this[key]
-	}
-
-	/**
-	 * Force update on every watcher in scope.
-	 */
-
-	exports._digest = function () {
-	  var i = this._watcherList.length
-	  while (i--) {
-	    this._watcherList[i].update()
-	  }
-	  var children = this._children
-	  i = children.length
-	  while (i--) {
-	    var child = children[i]
-	    if (child.$options.inherit) {
-	      child._digest()
-	    }
-	  }
-	}
-
-	/**
-	 * Setup computed properties. They are essentially
-	 * special getter/setters
-	 */
-
-	function noop () {}
-	exports._initComputed = function () {
-	  var computed = this.$options.computed
-	  if (computed) {
-	    for (var key in computed) {
-	      var userDef = computed[key]
-	      var def = {
-	        enumerable: true,
-	        configurable: true
-	      }
-	      if (typeof userDef === 'function') {
-	        def.get = _.bind(userDef, this)
-	        def.set = noop
-	      } else {
-	        def.get = userDef.get
-	          ? _.bind(userDef.get, this)
-	          : noop
-	        def.set = userDef.set
-	          ? _.bind(userDef.set, this)
-	          : noop
-	      }
-	      Object.defineProperty(this, key, def)
-	    }
-	  }
-	}
-
-	/**
-	 * Setup instance methods. Methods must be bound to the
-	 * instance since they might be called by children
-	 * inheriting them.
-	 */
-
-	exports._initMethods = function () {
-	  var methods = this.$options.methods
-	  if (methods) {
-	    for (var key in methods) {
-	      this[key] = _.bind(methods[key], this)
-	    }
-	  }
-	}
-
-	/**
-	 * Initialize meta information like $index, $key & $value.
-	 */
-
-	exports._initMeta = function () {
-	  var metas = this.$options._meta
-	  if (metas) {
-	    for (var key in metas) {
-	      this._defineMeta(key, metas[key])
-	    }
-	  }
-	}
-
-	/**
-	 * Define a meta property, e.g $index, $key, $value
-	 * which only exists on the vm instance but not in $data.
-	 *
-	 * @param {String} key
-	 * @param {*} value
-	 */
-
-	exports._defineMeta = function (key, value) {
-	  var dep = new Dep()
-	  Object.defineProperty(this, key, {
-	    enumerable: true,
-	    configurable: true,
-	    get: function metaGetter () {
-	      if (Observer.target) {
-	        Observer.target.addDep(dep)
-	      }
-	      return value
-	    },
-	    set: function metaSetter (val) {
-	      if (val !== value) {
-	        value = val
-	        dep.notify()
-	      }
-	    }
-	  })
-	}
-
-/***/ },
-/* 12 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var Directive = __webpack_require__(38)
-	var compile = __webpack_require__(30)
-	var transclude = __webpack_require__(31)
-
-	/**
-	 * Transclude, compile and link element.
-	 *
-	 * If a pre-compiled linker is available, that means the
-	 * passed in element will be pre-transcluded and compiled
-	 * as well - all we need to do is to call the linker.
-	 *
-	 * Otherwise we need to call transclude/compile/link here.
-	 *
-	 * @param {Element} el
-	 * @return {Element}
-	 */
-
-	exports._compile = function (el) {
-	  var options = this.$options
-	  var parent = options._parent
-	  if (options._linkFn) {
-	    this._initElement(el)
-	    options._linkFn(this, el)
-	  } else {
-	    var raw = el
-	    if (options._asComponent) {
-	      // separate container element and content
-	      var content = options._content = _.extractContent(raw)
-	      // create two separate linekrs for container and content
-	      var parentOptions = parent.$options
-	      
-	      // hack: we need to skip the paramAttributes for this
-	      // child instance when compiling its parent container
-	      // linker. there could be a better way to do this.
-	      parentOptions._skipAttrs = options.paramAttributes
-	      var containerLinkFn =
-	        compile(raw, parentOptions, true, true)
-	      parentOptions._skipAttrs = null
-
-	      if (content) {
-	        var ol = parent._children.length
-	        var contentLinkFn =
-	          compile(content, parentOptions, true)
-	        // call content linker now, before transclusion
-	        this._contentUnlinkFn = contentLinkFn(parent, content)
-	        this._transCpnts = parent._children.slice(ol)
-	      }
-	      // tranclude, this possibly replaces original
-	      el = transclude(el, options)
-	      this._initElement(el)
-	      // now call the container linker on the resolved el
-	      this._containerUnlinkFn = containerLinkFn(parent, el)
-	    } else {
-	      // simply transclude
-	      el = transclude(el, options)
-	      this._initElement(el)
-	    }
-	    var linkFn = compile(el, options)
-	    linkFn(this, el)
-	    if (options.replace) {
-	      _.replace(raw, el)
-	    }
-	  }
-	  return el
-	}
-
-	/**
-	 * Initialize instance element. Called in the public
-	 * $mount() method.
-	 *
-	 * @param {Element} el
-	 */
-
-	exports._initElement = function (el) {
-	  if (el instanceof DocumentFragment) {
-	    this._isBlock = true
-	    this.$el = this._blockStart = el.firstChild
-	    this._blockEnd = el.lastChild
-	    this._blockFragment = el
-	  } else {
-	    this.$el = el
-	  }
-	  this.$el.__vue__ = this
-	  this._callHook('beforeCompile')
-	}
-
-	/**
-	 * Create and bind a directive to an element.
-	 *
-	 * @param {String} name - directive name
-	 * @param {Node} node   - target node
-	 * @param {Object} desc - parsed directive descriptor
-	 * @param {Object} def  - directive definition object
-	 */
-
-	exports._bindDir = function (name, node, desc, def) {
-	  this._directives.push(
-	    new Directive(name, node, this, desc, def)
-	  )
-	}
-
-	/**
-	 * Teardown an instance, unobserves the data, unbind all the
-	 * directives, turn off all the event listeners, etc.
-	 *
-	 * @param {Boolean} remove - whether to remove the DOM node.
-	 * @param {Boolean} deferCleanup - if true, defer cleanup to
-	 *                                 be called later
-	 */
-
-	exports._destroy = function (remove, deferCleanup) {
-	  if (this._isBeingDestroyed) {
-	    return
-	  }
-	  this._callHook('beforeDestroy')
-	  this._isBeingDestroyed = true
-	  var i
-	  // remove self from parent. only necessary
-	  // if parent is not being destroyed as well.
-	  var parent = this.$parent
-	  if (parent && !parent._isBeingDestroyed) {
-	    i = parent._children.indexOf(this)
-	    parent._children.splice(i, 1)
-	  }
-	  // destroy all children.
-	  i = this._children.length
-	  while (i--) {
-	    this._children[i].$destroy()
-	  }
-	  // teardown parent linkers
-	  if (this._containerUnlinkFn) {
-	    this._containerUnlinkFn()
-	  }
-	  if (this._contentUnlinkFn) {
-	    this._contentUnlinkFn()
-	  }
-	  // teardown all directives. this also tearsdown all
-	  // directive-owned watchers. intentionally check for
-	  // directives array length on every loop since directives
-	  // that manages partial compilation can splice ones out
-	  for (i = 0; i < this._directives.length; i++) {
-	    this._directives[i]._teardown()
-	  }
-	  // teardown all user watchers.
-	  for (i in this._userWatchers) {
-	    this._userWatchers[i].teardown()
-	  }
-	  // remove reference to self on $el
-	  if (this.$el) {
-	    this.$el.__vue__ = null
-	  }
-	  // remove DOM element
-	  var self = this
-	  if (remove && this.$el) {
-	    this.$remove(function () {
-	      self._cleanup()
-	    })
-	  } else if (!deferCleanup) {
-	    this._cleanup()
-	  }
-	}
-
-	/**
-	 * Clean up to ensure garbage collection.
-	 * This is called after the leave transition if there
-	 * is any.
-	 */
-
-	exports._cleanup = function () {
-	  // remove reference from data ob
-	  this._data.__ob__.removeVm(this)
-	  this._data =
-	  this._watchers =
-	  this._userWatchers =
-	  this._watcherList =
-	  this.$el =
-	  this.$parent =
-	  this.$root =
-	  this._children =
-	  this._transCpnts =
-	  this._directives = null
-	  // call the last hook...
-	  this._isDestroyed = true
-	  this._callHook('destroyed')
-	  // turn off all instance listeners.
-	  this.$off()
-	}
-
-/***/ },
-/* 13 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var Watcher = __webpack_require__(39)
-	var Path = __webpack_require__(32)
-	var textParser = __webpack_require__(33)
-	var dirParser = __webpack_require__(35)
-	var expParser = __webpack_require__(36)
-	var filterRE = /[^|]\|[^|]/
-
-	/**
-	 * Get the value from an expression on this vm.
-	 *
-	 * @param {String} exp
-	 * @return {*}
-	 */
-
-	exports.$get = function (exp) {
-	  var res = expParser.parse(exp)
-	  if (res) {
-	    return res.get.call(this, this)
-	  }
-	}
-
-	/**
-	 * Set the value from an expression on this vm.
-	 * The expression must be a valid left-hand
-	 * expression in an assignment.
-	 *
-	 * @param {String} exp
-	 * @param {*} val
-	 */
-
-	exports.$set = function (exp, val) {
-	  var res = expParser.parse(exp, true)
-	  if (res && res.set) {
-	    res.set.call(this, this, val)
-	  }
-	}
-
-	/**
-	 * Add a property on the VM
-	 *
-	 * @param {String} key
-	 * @param {*} val
-	 */
-
-	exports.$add = function (key, val) {
-	  this._data.$add(key, val)
-	}
-
-	/**
-	 * Delete a property on the VM
-	 *
-	 * @param {String} key
-	 */
-
-	exports.$delete = function (key) {
-	  this._data.$delete(key)
-	}
-
-	/**
-	 * Watch an expression, trigger callback when its
-	 * value changes.
-	 *
-	 * @param {String} exp
-	 * @param {Function} cb
-	 * @param {Boolean} [deep]
-	 * @param {Boolean} [immediate]
-	 * @return {Function} - unwatchFn
-	 */
-
-	exports.$watch = function (exp, cb, deep, immediate) {
-	  var vm = this
-	  var key = deep ? exp + '**deep**' : exp
-	  var watcher = vm._userWatchers[key]
-	  var wrappedCb = function (val, oldVal) {
-	    cb.call(vm, val, oldVal)
-	  }
-	  if (!watcher) {
-	    watcher = vm._userWatchers[key] =
-	      new Watcher(vm, exp, wrappedCb, {
-	        deep: deep,
-	        user: true
-	      })
-	  } else {
-	    watcher.addCb(wrappedCb)
-	  }
-	  if (immediate) {
-	    wrappedCb(watcher.value)
-	  }
-	  return function unwatchFn () {
-	    watcher.removeCb(wrappedCb)
-	    if (!watcher.active) {
-	      vm._userWatchers[key] = null
-	    }
-	  }
-	}
-
-	/**
-	 * Evaluate a text directive, including filters.
-	 *
-	 * @param {String} text
-	 * @return {String}
-	 */
-
-	exports.$eval = function (text) {
-	  // check for filters.
-	  if (filterRE.test(text)) {
-	    var dir = dirParser.parse(text)[0]
-	    // the filter regex check might give false positive
-	    // for pipes inside strings, so it's possible that
-	    // we don't get any filters here
-	    return dir.filters
-	      ? _.applyFilters(
-	          this.$get(dir.expression),
-	          _.resolveFilters(this, dir.filters).read,
-	          this
-	        )
-	      : this.$get(dir.expression)
-	  } else {
-	    // no filter
-	    return this.$get(text)
-	  }
-	}
-
-	/**
-	 * Interpolate a piece of template text.
-	 *
-	 * @param {String} text
-	 * @return {String}
-	 */
-
-	exports.$interpolate = function (text) {
-	  var tokens = textParser.parse(text)
-	  var vm = this
-	  if (tokens) {
-	    return tokens.length === 1
-	      ? vm.$eval(tokens[0].value)
-	      : tokens.map(function (token) {
-	          return token.tag
-	            ? vm.$eval(token.value)
-	            : token.value
-	        }).join('')
-	  } else {
-	    return text
-	  }
-	}
-
-	/**
-	 * Log instance data as a plain JS object
-	 * so that it is easier to inspect in console.
-	 * This method assumes console is available.
-	 *
-	 * @param {String} [path]
-	 */
-
-	exports.$log = function (path) {
-	  var data = path
-	    ? Path.get(this._data, path)
-	    : this._data
-	  if (data) {
-	    data = JSON.parse(JSON.stringify(data))
-	  }
-	  console.log(data)
-	}
-
-/***/ },
-/* 14 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var transition = __webpack_require__(64)
-
-	/**
-	 * Append instance to target
-	 *
-	 * @param {Node} target
-	 * @param {Function} [cb]
-	 * @param {Boolean} [withTransition] - defaults to true
-	 */
-
-	exports.$appendTo = function (target, cb, withTransition) {
-	  return insert(
-	    this, target, cb, withTransition,
-	    append, transition.append
-	  )
-	}
-
-	/**
-	 * Prepend instance to target
-	 *
-	 * @param {Node} target
-	 * @param {Function} [cb]
-	 * @param {Boolean} [withTransition] - defaults to true
-	 */
-
-	exports.$prependTo = function (target, cb, withTransition) {
-	  target = query(target)
-	  if (target.hasChildNodes()) {
-	    this.$before(target.firstChild, cb, withTransition)
-	  } else {
-	    this.$appendTo(target, cb, withTransition)
-	  }
-	  return this
-	}
-
-	/**
-	 * Insert instance before target
-	 *
-	 * @param {Node} target
-	 * @param {Function} [cb]
-	 * @param {Boolean} [withTransition] - defaults to true
-	 */
-
-	exports.$before = function (target, cb, withTransition) {
-	  return insert(
-	    this, target, cb, withTransition,
-	    before, transition.before
-	  )
-	}
-
-	/**
-	 * Insert instance after target
-	 *
-	 * @param {Node} target
-	 * @param {Function} [cb]
-	 * @param {Boolean} [withTransition] - defaults to true
-	 */
-
-	exports.$after = function (target, cb, withTransition) {
-	  target = query(target)
-	  if (target.nextSibling) {
-	    this.$before(target.nextSibling, cb, withTransition)
-	  } else {
-	    this.$appendTo(target.parentNode, cb, withTransition)
-	  }
-	  return this
-	}
-
-	/**
-	 * Remove instance from DOM
-	 *
-	 * @param {Function} [cb]
-	 * @param {Boolean} [withTransition] - defaults to true
-	 */
-
-	exports.$remove = function (cb, withTransition) {
-	  var inDoc = this._isAttached && _.inDoc(this.$el)
-	  // if we are not in document, no need to check
-	  // for transitions
-	  if (!inDoc) withTransition = false
-	  var op
-	  var self = this
-	  var realCb = function () {
-	    if (inDoc) self._callHook('detached')
-	    if (cb) cb()
-	  }
-	  if (
-	    this._isBlock &&
-	    !this._blockFragment.hasChildNodes()
-	  ) {
-	    op = withTransition === false
-	      ? append
-	      : transition.removeThenAppend
-	    blockOp(this, this._blockFragment, op, realCb)
-	  } else {
-	    op = withTransition === false
-	      ? remove
-	      : transition.remove
-	    op(this.$el, this, realCb)
-	  }
-	  return this
-	}
-
-	/**
-	 * Shared DOM insertion function.
-	 *
-	 * @param {Vue} vm
-	 * @param {Element} target
-	 * @param {Function} [cb]
-	 * @param {Boolean} [withTransition]
-	 * @param {Function} op1 - op for non-transition insert
-	 * @param {Function} op2 - op for transition insert
-	 * @return vm
-	 */
-
-	function insert (vm, target, cb, withTransition, op1, op2) {
-	  target = query(target)
-	  var targetIsDetached = !_.inDoc(target)
-	  var op = withTransition === false || targetIsDetached
-	    ? op1
-	    : op2
-	  var shouldCallHook =
-	    !targetIsDetached &&
-	    !vm._isAttached &&
-	    !_.inDoc(vm.$el)
-	  if (vm._isBlock) {
-	    blockOp(vm, target, op, cb)
-	  } else {
-	    op(vm.$el, target, vm, cb)
-	  }
-	  if (shouldCallHook) {
-	    vm._callHook('attached')
-	  }
-	  return vm
-	}
-
-	/**
-	 * Execute a transition operation on a block instance,
-	 * iterating through all its block nodes.
-	 *
-	 * @param {Vue} vm
-	 * @param {Node} target
-	 * @param {Function} op
-	 * @param {Function} cb
-	 */
-
-	function blockOp (vm, target, op, cb) {
-	  var current = vm._blockStart
-	  var end = vm._blockEnd
-	  var next
-	  while (next !== end) {
-	    next = current.nextSibling
-	    op(current, target, vm)
-	    current = next
-	  }
-	  op(end, target, vm, cb)
-	}
-
-	/**
-	 * Check for selectors
-	 *
-	 * @param {String|Element} el
-	 */
-
-	function query (el) {
-	  return typeof el === 'string'
-	    ? document.querySelector(el)
-	    : el
-	}
-
-	/**
-	 * Append operation that takes a callback.
-	 *
-	 * @param {Node} el
-	 * @param {Node} target
-	 * @param {Vue} vm - unused
-	 * @param {Function} [cb]
-	 */
-
-	function append (el, target, vm, cb) {
-	  target.appendChild(el)
-	  if (cb) cb()
-	}
-
-	/**
-	 * InsertBefore operation that takes a callback.
-	 *
-	 * @param {Node} el
-	 * @param {Node} target
-	 * @param {Vue} vm - unused
-	 * @param {Function} [cb]
-	 */
-
-	function before (el, target, vm, cb) {
-	  _.before(el, target)
-	  if (cb) cb()
-	}
-
-	/**
-	 * Remove operation that takes a callback.
-	 *
-	 * @param {Node} el
-	 * @param {Vue} vm - unused
-	 * @param {Function} [cb]
-	 */
-
-	function remove (el, vm, cb) {
-	  _.remove(el)
-	  if (cb) cb()
-	}
-
-/***/ },
-/* 15 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-
-	/**
-	 * Listen on the given `event` with `fn`.
-	 *
-	 * @param {String} event
-	 * @param {Function} fn
-	 */
-
-	exports.$on = function (event, fn) {
-	  (this._events[event] || (this._events[event] = []))
-	    .push(fn)
-	  modifyListenerCount(this, event, 1)
-	  return this
-	}
-
-	/**
-	 * Adds an `event` listener that will be invoked a single
-	 * time then automatically removed.
-	 *
-	 * @param {String} event
-	 * @param {Function} fn
-	 */
-
-	exports.$once = function (event, fn) {
-	  var self = this
-	  function on () {
-	    self.$off(event, on)
-	    fn.apply(this, arguments)
-	  }
-	  on.fn = fn
-	  this.$on(event, on)
-	  return this
-	}
-
-	/**
-	 * Remove the given callback for `event` or all
-	 * registered callbacks.
-	 *
-	 * @param {String} event
-	 * @param {Function} fn
-	 */
-
-	exports.$off = function (event, fn) {
-	  var cbs
-	  // all
-	  if (!arguments.length) {
-	    if (this.$parent) {
-	      for (event in this._events) {
-	        cbs = this._events[event]
-	        if (cbs) {
-	          modifyListenerCount(this, event, -cbs.length)
-	        }
-	      }
-	    }
-	    this._events = {}
-	    return this
-	  }
-	  // specific event
-	  cbs = this._events[event]
-	  if (!cbs) {
-	    return this
-	  }
-	  if (arguments.length === 1) {
-	    modifyListenerCount(this, event, -cbs.length)
-	    this._events[event] = null
-	    return this
-	  }
-	  // specific handler
-	  var cb
-	  var i = cbs.length
-	  while (i--) {
-	    cb = cbs[i]
-	    if (cb === fn || cb.fn === fn) {
-	      modifyListenerCount(this, event, -1)
-	      cbs.splice(i, 1)
-	      break
-	    }
-	  }
-	  return this
-	}
-
-	/**
-	 * Trigger an event on self.
-	 *
-	 * @param {String} event
-	 */
-
-	exports.$emit = function (event) {
-	  this._eventCancelled = false
-	  var cbs = this._events[event]
-	  if (cbs) {
-	    // avoid leaking arguments:
-	    // http://jsperf.com/closure-with-arguments
-	    var i = arguments.length - 1
-	    var args = new Array(i)
-	    while (i--) {
-	      args[i] = arguments[i + 1]
-	    }
-	    i = 0
-	    cbs = cbs.length > 1
-	      ? _.toArray(cbs)
-	      : cbs
-	    for (var l = cbs.length; i < l; i++) {
-	      if (cbs[i].apply(this, args) === false) {
-	        this._eventCancelled = true
-	      }
-	    }
-	  }
-	  return this
-	}
-
-	/**
-	 * Recursively broadcast an event to all children instances.
-	 *
-	 * @param {String} event
-	 * @param {...*} additional arguments
-	 */
-
-	exports.$broadcast = function (event) {
-	  // if no child has registered for this event,
-	  // then there's no need to broadcast.
-	  if (!this._eventsCount[event]) return
-	  var children = this._children
-	  for (var i = 0, l = children.length; i < l; i++) {
-	    var child = children[i]
-	    child.$emit.apply(child, arguments)
-	    if (!child._eventCancelled) {
-	      child.$broadcast.apply(child, arguments)
-	    }
-	  }
-	  return this
-	}
-
-	/**
-	 * Recursively propagate an event up the parent chain.
-	 *
-	 * @param {String} event
-	 * @param {...*} additional arguments
-	 */
-
-	exports.$dispatch = function () {
-	  var parent = this.$parent
-	  while (parent) {
-	    parent.$emit.apply(parent, arguments)
-	    parent = parent._eventCancelled
-	      ? null
-	      : parent.$parent
-	  }
-	  return this
-	}
-
-	/**
-	 * Modify the listener counts on all parents.
-	 * This bookkeeping allows $broadcast to return early when
-	 * no child has listened to a certain event.
-	 *
-	 * @param {Vue} vm
-	 * @param {String} event
-	 * @param {Number} count
-	 */
-
-	var hookRE = /^hook:/
-	function modifyListenerCount (vm, event, count) {
-	  var parent = vm.$parent
-	  // hooks do not get broadcasted so no need
-	  // to do bookkeeping for them
-	  if (!parent || !count || hookRE.test(event)) return
-	  while (parent) {
-	    parent._eventsCount[event] =
-	      (parent._eventsCount[event] || 0) + count
-	    parent = parent.$parent
-	  }
-	}
-
-/***/ },
-/* 16 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-
-	/**
-	 * Create a child instance that prototypally inehrits
-	 * data on parent. To achieve that we create an intermediate
-	 * constructor with its prototype pointing to parent.
-	 *
-	 * @param {Object} opts
-	 * @param {Function} [BaseCtor]
-	 * @return {Vue}
-	 * @public
-	 */
-
-	exports.$addChild = function (opts, BaseCtor) {
-	  BaseCtor = BaseCtor || _.Vue
-	  opts = opts || {}
-	  var parent = this
-	  var ChildVue
-	  var inherit = opts.inherit !== undefined
-	    ? opts.inherit
-	    : BaseCtor.options.inherit
-	  if (inherit) {
-	    var ctors = parent._childCtors
-	    ChildVue = ctors[BaseCtor.cid]
-	    if (!ChildVue) {
-	      var optionName = BaseCtor.options.name
-	      var className = optionName
-	        ? _.camelize(optionName, true)
-	        : 'VueComponent'
-	      ChildVue = new Function(
-	        'return function ' + className + ' (options) {' +
-	        'this.constructor = ' + className + ';' +
-	        'this._init(options) }'
-	      )()
-	      ChildVue.options = BaseCtor.options
-	      ChildVue.prototype = this
-	      ctors[BaseCtor.cid] = ChildVue
-	    }
-	  } else {
-	    ChildVue = BaseCtor
-	  }
-	  opts._parent = parent
-	  opts._root = parent.$root
-	  var child = new ChildVue(opts)
-	  this._children.push(child)
-	  return child
-	}
-
-/***/ },
-/* 17 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var compile = __webpack_require__(30)
-
-	/**
-	 * Set instance target element and kick off the compilation
-	 * process. The passed in `el` can be a selector string, an
-	 * existing Element, or a DocumentFragment (for block
-	 * instances).
-	 *
-	 * @param {Element|DocumentFragment|string} el
-	 * @public
-	 */
-
-	exports.$mount = function (el) {
-	  if (this._isCompiled) {
-	    _.warn('$mount() should be called only once.')
-	    return
-	  }
-	  if (!el) {
-	    el = document.createElement('div')
-	  } else if (typeof el === 'string') {
-	    var selector = el
-	    el = document.querySelector(el)
-	    if (!el) {
-	      _.warn('Cannot find element: ' + selector)
-	      return
-	    }
-	  }
-	  this._compile(el)
-	  this._isCompiled = true
-	  this._callHook('compiled')
-	  if (_.inDoc(this.$el)) {
-	    this._callHook('attached')
-	    this._initDOMHooks()
-	    ready.call(this)
-	  } else {
-	    this._initDOMHooks()
-	    this.$once('hook:attached', ready)
-	  }
-	  return this
-	}
-
-	/**
-	 * Mark an instance as ready.
-	 */
-
-	function ready () {
-	  this._isAttached = true
-	  this._isReady = true
-	  this._callHook('ready')
-	}
-
-	/**
-	 * Teardown the instance, simply delegate to the internal
-	 * _destroy.
-	 */
-
-	exports.$destroy = function (remove, deferCleanup) {
-	  this._destroy(remove, deferCleanup)
-	}
-
-	/**
-	 * Partially compile a piece of DOM and return a
-	 * decompile function.
-	 *
-	 * @param {Element|DocumentFragment} el
-	 * @return {Function}
-	 */
-
-	exports.$compile = function (el) {
-	  return compile(el, this.$options, true)(this, el)
-	}
-
-/***/ },
-/* 18 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var lang   = __webpack_require__(40)
-	var extend = lang.extend
-
-	extend(exports, lang)
-	extend(exports, __webpack_require__(41))
-	extend(exports, __webpack_require__(42))
-	extend(exports, __webpack_require__(43))
-	extend(exports, __webpack_require__(44))
-
-/***/ },
-/* 19 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// manipulation directives
-	exports.text       = __webpack_require__(45)
-	exports.html       = __webpack_require__(46)
-	exports.attr       = __webpack_require__(47)
-	exports.show       = __webpack_require__(48)
-	exports['class']   = __webpack_require__(49)
-	exports.el         = __webpack_require__(50)
-	exports.ref        = __webpack_require__(51)
-	exports.cloak      = __webpack_require__(52)
-	exports.style      = __webpack_require__(53)
-	exports.partial    = __webpack_require__(54)
-	exports.transition = __webpack_require__(55)
-
-	// event listener directives
-	exports.on         = __webpack_require__(56)
-	exports.model      = __webpack_require__(65)
-
-	// child vm directives
-	exports.component  = __webpack_require__(57)
-	exports.repeat     = __webpack_require__(58)
-	exports['if']      = __webpack_require__(59)
-
-	// child vm communication directives
-	exports['with']    = __webpack_require__(60)
-	exports.events     = __webpack_require__(61)
-
-/***/ },
-/* 20 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-
-	/**
-	 * Stringify value.
-	 *
-	 * @param {Number} indent
-	 */
-
-	exports.json = {
-	  read: function (value, indent) {
-	    return typeof value === 'string'
-	      ? value
-	      : JSON.stringify(value, null, Number(indent) || 2)
-	  },
-	  write: function (value) {
-	    try {
-	      return JSON.parse(value)
-	    } catch (e) {
-	      return value
-	    }
-	  }
-	}
-
-	/**
-	 * 'abc' => 'Abc'
-	 */
-
-	exports.capitalize = function (value) {
-	  if (!value && value !== 0) return ''
-	  value = value.toString()
-	  return value.charAt(0).toUpperCase() + value.slice(1)
-	}
-
-	/**
-	 * 'abc' => 'ABC'
-	 */
-
-	exports.uppercase = function (value) {
-	  return (value || value === 0)
-	    ? value.toString().toUpperCase()
-	    : ''
-	}
-
-	/**
-	 * 'AbC' => 'abc'
-	 */
-
-	exports.lowercase = function (value) {
-	  return (value || value === 0)
-	    ? value.toString().toLowerCase()
-	    : ''
-	}
-
-	/**
-	 * 12345 => $12,345.00
-	 *
-	 * @param {String} sign
-	 */
-
-	var digitsRE = /(\d{3})(?=\d)/g
-
-	exports.currency = function (value, sign) {
-	  value = parseFloat(value)
-	  if (!value && value !== 0) return ''
-	  sign = sign || '$'
-	  var s = Math.floor(Math.abs(value)).toString(),
-	    i = s.length % 3,
-	    h = i > 0
-	      ? (s.slice(0, i) + (s.length > 3 ? ',' : ''))
-	      : '',
-	    f = '.' + value.toFixed(2).slice(-2)
-	  return (value < 0 ? '-' : '') +
-	    sign + h + s.slice(i).replace(digitsRE, '$1,') + f
-	}
-
-	/**
-	 * 'item' => 'items'
-	 *
-	 * @params
-	 *  an array of strings corresponding to
-	 *  the single, double, triple ... forms of the word to
-	 *  be pluralized. When the number to be pluralized
-	 *  exceeds the length of the args, it will use the last
-	 *  entry in the array.
-	 *
-	 *  e.g. ['single', 'double', 'triple', 'multiple']
-	 */
-
-	exports.pluralize = function (value) {
-	  var args = _.toArray(arguments, 1)
-	  return args.length > 1
-	    ? (args[value % 10 - 1] || args[args.length - 1])
-	    : (args[0] + (value === 1 ? '' : 's'))
-	}
-
-	/**
-	 * A special filter that takes a handler function,
-	 * wraps it so it only gets triggered on specific
-	 * keypresses. v-on only.
-	 *
-	 * @param {String} key
-	 */
-
-	var keyCodes = {
-	  enter    : 13,
-	  tab      : 9,
-	  'delete' : 46,
-	  up       : 38,
-	  left     : 37,
-	  right    : 39,
-	  down     : 40,
-	  esc      : 27
-	}
-
-	exports.key = function (handler, key) {
-	  if (!handler) return
-	  var code = keyCodes[key]
-	  if (!code) {
-	    code = parseInt(key, 10)
-	  }
-	  return function (e) {
-	    if (e.keyCode === code) {
-	      return handler.call(this, e)
-	    }
-	  }
-	}
-
-	// expose keycode hash
-	exports.key.keyCodes = keyCodes
-
-	/**
-	 * Install special array filters
-	 */
-
-	_.extend(exports, __webpack_require__(62))
-
-/***/ },
-/* 21 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// shim for using process in browser
-
-	var process = module.exports = {};
-	var queue = [];
-	var draining = false;
-
-	function drainQueue() {
-	    if (draining) {
-	        return;
-	    }
-	    draining = true;
-	    var currentQueue;
-	    var len = queue.length;
-	    while(len) {
-	        currentQueue = queue;
-	        queue = [];
-	        var i = -1;
-	        while (++i < len) {
-	            currentQueue[i]();
-	        }
-	        len = queue.length;
-	    }
-	    draining = false;
-	}
-	process.nextTick = function (fun) {
-	    queue.push(fun);
-	    if (!draining) {
-	        setTimeout(drainQueue, 0);
-	    }
-	};
-
-	process.title = 'browser';
-	process.browser = true;
-	process.env = {};
-	process.argv = [];
-	process.version = ''; // empty string to avoid regexp issues
-	process.versions = {};
-
-	function noop() {}
-
-	process.on = noop;
-	process.addListener = noop;
-	process.once = noop;
-	process.off = noop;
-	process.removeListener = noop;
-	process.removeAllListeners = noop;
-	process.emit = noop;
-
-	process.binding = function (name) {
-	    throw new Error('process.binding is not supported');
-	};
-
-	// TODO(shtylman)
-	process.cwd = function () { return '/' };
-	process.chdir = function (dir) {
-	    throw new Error('process.chdir is not supported');
-	};
-	process.umask = function() { return 0; };
-
-
-/***/ },
-/* 22 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	var dispose = __webpack_require__(25)
-		// The css code:
-		(__webpack_require__(23));
-	// Hot Module Replacement
-	if(false) {
-		module.hot.accept();
-		module.hot.dispose(dispose);
-	}
-
-/***/ },
-/* 23 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports =
-		"/*! normalize.css v3.0.2 | MIT License | git.io/normalize */\nhtml {\n  font-family: sans-serif;\n  -ms-text-size-adjust: 100%;\n  -webkit-text-size-adjust: 100%;\n}\nbody {\n  margin: 0;\n}\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nmain,\nmenu,\nnav,\nsection,\nsummary {\n  display: block;\n}\naudio,\ncanvas,\nprogress,\nvideo {\n  display: inline-block;\n  vertical-align: baseline;\n}\naudio:not([controls]) {\n  display: none;\n  height: 0;\n}\n[hidden],\ntemplate {\n  display: none;\n}\na {\n  background-color: transparent;\n}\na:active,\na:hover {\n  outline: 0;\n}\nabbr[title] {\n  border-bottom: 1px dotted;\n}\nb,\nstrong {\n  font-weight: bold;\n}\ndfn {\n  font-style: italic;\n}\nh1 {\n  font-size: 2em;\n  margin: 0.67em 0;\n}\nmark {\n  background: #ff0;\n  color: #000;\n}\nsmall {\n  font-size: 80%;\n}\nsub,\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline;\n}\nsup {\n  top: -0.5em;\n}\nsub {\n  bottom: -0.25em;\n}\nimg {\n  border: 0;\n}\nsvg:not(:root) {\n  overflow: hidden;\n}\nfigure {\n  margin: 1em 40px;\n}\nhr {\n  -moz-box-sizing: content-box;\n  box-sizing: content-box;\n  height: 0;\n}\npre {\n  overflow: auto;\n}\ncode,\nkbd,\npre,\nsamp {\n  font-family: monospace, monospace;\n  font-size: 1em;\n}\nbutton,\ninput,\noptgroup,\nselect,\ntextarea {\n  color: inherit;\n  font: inherit;\n  margin: 0;\n}\nbutton {\n  overflow: visible;\n}\nbutton,\nselect {\n  text-transform: none;\n}\nbutton,\nhtml input[type=\"button\"],\ninput[type=\"reset\"],\ninput[type=\"submit\"] {\n  -webkit-appearance: button;\n  cursor: pointer;\n}\nbutton[disabled],\nhtml input[disabled] {\n  cursor: default;\n}\nbutton::-moz-focus-inner,\ninput::-moz-focus-inner {\n  border: 0;\n  padding: 0;\n}\ninput {\n  line-height: normal;\n}\ninput[type=\"checkbox\"],\ninput[type=\"radio\"] {\n  box-sizing: border-box;\n  padding: 0;\n}\ninput[type=\"number\"]::-webkit-inner-spin-button,\ninput[type=\"number\"]::-webkit-outer-spin-button {\n  height: auto;\n}\ninput[type=\"search\"] {\n  -webkit-appearance: textfield;\n  -moz-box-sizing: content-box;\n  -webkit-box-sizing: content-box;\n  box-sizing: content-box;\n}\ninput[type=\"search\"]::-webkit-search-cancel-button,\ninput[type=\"search\"]::-webkit-search-decoration {\n  -webkit-appearance: none;\n}\nfieldset {\n  border: 1px solid #c0c0c0;\n  margin: 0 2px;\n  padding: 0.35em 0.625em 0.75em;\n}\nlegend {\n  border: 0;\n  padding: 0;\n}\ntextarea {\n  overflow: auto;\n}\noptgroup {\n  font-weight: bold;\n}\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\ntd,\nth {\n  padding: 0;\n}\n/*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */\n@media print {\n  *,\n  *:before,\n  *:after {\n    background: transparent !important;\n    color: #000 !important;\n    box-shadow: none !important;\n    text-shadow: none !important;\n  }\n  a,\n  a:visited {\n    text-decoration: underline;\n  }\n  a[href]:after {\n    content: \" (\" attr(href) \")\";\n  }\n  abbr[title]:after {\n    content: \" (\" attr(title) \")\";\n  }\n  a[href^=\"#\"]:after,\n  a[href^=\"javascript:\"]:after {\n    content: \"\";\n  }\n  pre,\n  blockquote {\n    border: 1px solid #999;\n    page-break-inside: avoid;\n  }\n  thead {\n    display: table-header-group;\n  }\n  tr,\n  img {\n    page-break-inside: avoid;\n  }\n  img {\n    max-width: 100% !important;\n  }\n  p,\n  h2,\n  h3 {\n    orphans: 3;\n    widows: 3;\n  }\n  h2,\n  h3 {\n    page-break-after: avoid;\n  }\n  select {\n    background: #fff !important;\n  }\n  .navbar {\n    display: none;\n  }\n  .btn > .caret,\n  .dropup > .btn > .caret {\n    border-top-color: #000 !important;\n  }\n  .label {\n    border: 1px solid #000;\n  }\n  .table {\n    border-collapse: collapse !important;\n  }\n  .table td,\n  .table th {\n    background-color: #fff !important;\n  }\n  .table-bordered th,\n  .table-bordered td {\n    border: 1px solid #ddd !important;\n  }\n}\n* {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n}\n*:before,\n*:after {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n}\nhtml {\n  font-size: 10px;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n}\nbody {\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  font-size: 14px;\n  line-height: 1.428571429;\n  color: #333333;\n  background-color: #ffffff;\n}\ninput,\nbutton,\nselect,\ntextarea {\n  font-family: inherit;\n  font-size: inherit;\n  line-height: inherit;\n}\na {\n  color: #337ab7;\n  text-decoration: none;\n}\na:hover,\na:focus {\n  color: #23527c;\n  text-decoration: underline;\n}\na:focus {\n  outline: thin dotted;\n  outline: 5px auto -webkit-focus-ring-color;\n  outline-offset: -2px;\n}\nfigure {\n  margin: 0;\n}\nimg {\n  vertical-align: middle;\n}\n.img-responsive,\n.thumbnail > img,\n.thumbnail a > img,\n.carousel-inner > .item > img,\n.carousel-inner > .item > a > img {\n  display: block;\n  max-width: 100%;\n  height: auto;\n}\n.img-rounded {\n  border-radius: 6px;\n}\n.img-thumbnail {\n  padding: 4px;\n  line-height: 1.428571429;\n  background-color: #ffffff;\n  border: 1px solid #dddddd;\n  border-radius: 4px;\n  -webkit-transition: all 0.2s ease-in-out;\n  -o-transition: all 0.2s ease-in-out;\n  transition: all 0.2s ease-in-out;\n  display: inline-block;\n  max-width: 100%;\n  height: auto;\n}\n.img-circle {\n  border-radius: 50%;\n}\nhr {\n  margin-top: 20px;\n  margin-bottom: 20px;\n  border: 0;\n  border-top: 1px solid #eeeeee;\n}\n.sr-only {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  margin: -1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n}\n.sr-only-focusable:active,\n.sr-only-focusable:focus {\n  position: static;\n  width: auto;\n  height: auto;\n  margin: 0;\n  overflow: visible;\n  clip: auto;\n}\n[role=\"button\"] {\n  cursor: pointer;\n}\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\n.h1,\n.h2,\n.h3,\n.h4,\n.h5,\n.h6 {\n  font-family: inherit;\n  font-weight: 500;\n  line-height: 1.1;\n  color: inherit;\n}\nh1 small,\nh2 small,\nh3 small,\nh4 small,\nh5 small,\nh6 small,\n.h1 small,\n.h2 small,\n.h3 small,\n.h4 small,\n.h5 small,\n.h6 small,\nh1 .small,\nh2 .small,\nh3 .small,\nh4 .small,\nh5 .small,\nh6 .small,\n.h1 .small,\n.h2 .small,\n.h3 .small,\n.h4 .small,\n.h5 .small,\n.h6 .small {\n  font-weight: normal;\n  line-height: 1;\n  color: #777777;\n}\nh1,\n.h1,\nh2,\n.h2,\nh3,\n.h3 {\n  margin-top: 20px;\n  margin-bottom: 10px;\n}\nh1 small,\n.h1 small,\nh2 small,\n.h2 small,\nh3 small,\n.h3 small,\nh1 .small,\n.h1 .small,\nh2 .small,\n.h2 .small,\nh3 .small,\n.h3 .small {\n  font-size: 65%;\n}\nh4,\n.h4,\nh5,\n.h5,\nh6,\n.h6 {\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\nh4 small,\n.h4 small,\nh5 small,\n.h5 small,\nh6 small,\n.h6 small,\nh4 .small,\n.h4 .small,\nh5 .small,\n.h5 .small,\nh6 .small,\n.h6 .small {\n  font-size: 75%;\n}\nh1,\n.h1 {\n  font-size: 36px;\n}\nh2,\n.h2 {\n  font-size: 30px;\n}\nh3,\n.h3 {\n  font-size: 24px;\n}\nh4,\n.h4 {\n  font-size: 18px;\n}\nh5,\n.h5 {\n  font-size: 14px;\n}\nh6,\n.h6 {\n  font-size: 12px;\n}\np {\n  margin: 0 0 10px;\n}\n.lead {\n  margin-bottom: 20px;\n  font-size: 16px;\n  font-weight: 300;\n  line-height: 1.4;\n}\n@media (min-width: 768px) {\n  .lead {\n    font-size: 21px;\n  }\n}\nsmall,\n.small {\n  font-size: 85%;\n}\nmark,\n.mark {\n  background-color: #fcf8e3;\n  padding: .2em;\n}\n.text-left {\n  text-align: left;\n}\n.text-right {\n  text-align: right;\n}\n.text-center {\n  text-align: center;\n}\n.text-justify {\n  text-align: justify;\n}\n.text-nowrap {\n  white-space: nowrap;\n}\n.text-lowercase {\n  text-transform: lowercase;\n}\n.text-uppercase {\n  text-transform: uppercase;\n}\n.text-capitalize {\n  text-transform: capitalize;\n}\n.text-muted {\n  color: #777777;\n}\n.text-primary {\n  color: #337ab7;\n}\na.text-primary:hover {\n  color: #286090;\n}\n.text-success {\n  color: #3c763d;\n}\na.text-success:hover {\n  color: #2b542c;\n}\n.text-info {\n  color: #31708f;\n}\na.text-info:hover {\n  color: #245269;\n}\n.text-warning {\n  color: #8a6d3b;\n}\na.text-warning:hover {\n  color: #66512c;\n}\n.text-danger {\n  color: #a94442;\n}\na.text-danger:hover {\n  color: #843534;\n}\n.bg-primary {\n  color: #fff;\n  background-color: #337ab7;\n}\na.bg-primary:hover {\n  background-color: #286090;\n}\n.bg-success {\n  background-color: #dff0d8;\n}\na.bg-success:hover {\n  background-color: #c1e2b3;\n}\n.bg-info {\n  background-color: #d9edf7;\n}\na.bg-info:hover {\n  background-color: #afd9ee;\n}\n.bg-warning {\n  background-color: #fcf8e3;\n}\na.bg-warning:hover {\n  background-color: #f7ecb5;\n}\n.bg-danger {\n  background-color: #f2dede;\n}\na.bg-danger:hover {\n  background-color: #e4b9b9;\n}\n.page-header {\n  padding-bottom: 9px;\n  margin: 40px 0 20px;\n  border-bottom: 1px solid #eeeeee;\n}\nul,\nol {\n  margin-top: 0;\n  margin-bottom: 10px;\n}\nul ul,\nol ul,\nul ol,\nol ol {\n  margin-bottom: 0;\n}\n.list-unstyled {\n  padding-left: 0;\n  list-style: none;\n}\n.list-inline {\n  padding-left: 0;\n  list-style: none;\n  margin-left: -5px;\n}\n.list-inline > li {\n  display: inline-block;\n  padding-left: 5px;\n  padding-right: 5px;\n}\ndl {\n  margin-top: 0;\n  margin-bottom: 20px;\n}\ndt,\ndd {\n  line-height: 1.428571429;\n}\ndt {\n  font-weight: bold;\n}\ndd {\n  margin-left: 0;\n}\n@media (min-width: 768px) {\n  .dl-horizontal dt {\n    float: left;\n    width: 160px;\n    clear: left;\n    text-align: right;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n  }\n  .dl-horizontal dd {\n    margin-left: 180px;\n  }\n}\nabbr[title],\nabbr[data-original-title] {\n  cursor: help;\n  border-bottom: 1px dotted #777777;\n}\n.initialism {\n  font-size: 90%;\n  text-transform: uppercase;\n}\nblockquote {\n  padding: 10px 20px;\n  margin: 0 0 20px;\n  font-size: 17.5px;\n  border-left: 5px solid #eeeeee;\n}\nblockquote p:last-child,\nblockquote ul:last-child,\nblockquote ol:last-child {\n  margin-bottom: 0;\n}\nblockquote footer,\nblockquote small,\nblockquote .small {\n  display: block;\n  font-size: 80%;\n  line-height: 1.428571429;\n  color: #777777;\n}\nblockquote footer:before,\nblockquote small:before,\nblockquote .small:before {\n  content: '\\2014 \\00A0';\n}\n.blockquote-reverse,\nblockquote.pull-right {\n  padding-right: 15px;\n  padding-left: 0;\n  border-right: 5px solid #eeeeee;\n  border-left: 0;\n  text-align: right;\n}\n.blockquote-reverse footer:before,\nblockquote.pull-right footer:before,\n.blockquote-reverse small:before,\nblockquote.pull-right small:before,\n.blockquote-reverse .small:before,\nblockquote.pull-right .small:before {\n  content: '';\n}\n.blockquote-reverse footer:after,\nblockquote.pull-right footer:after,\n.blockquote-reverse small:after,\nblockquote.pull-right small:after,\n.blockquote-reverse .small:after,\nblockquote.pull-right .small:after {\n  content: '\\00A0 \\2014';\n}\naddress {\n  margin-bottom: 20px;\n  font-style: normal;\n  line-height: 1.428571429;\n}\ncode,\nkbd,\npre,\nsamp {\n  font-family: Menlo, Monaco, Consolas, \"Courier New\", monospace;\n}\ncode {\n  padding: 2px 4px;\n  font-size: 90%;\n  color: #c7254e;\n  background-color: #f9f2f4;\n  border-radius: 4px;\n}\nkbd {\n  padding: 2px 4px;\n  font-size: 90%;\n  color: #ffffff;\n  background-color: #333333;\n  border-radius: 3px;\n  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.25);\n}\nkbd kbd {\n  padding: 0;\n  font-size: 100%;\n  font-weight: bold;\n  box-shadow: none;\n}\npre {\n  display: block;\n  padding: 9.5px;\n  margin: 0 0 10px;\n  font-size: 13px;\n  line-height: 1.428571429;\n  word-break: break-all;\n  word-wrap: break-word;\n  color: #333333;\n  background-color: #f5f5f5;\n  border: 1px solid #cccccc;\n  border-radius: 4px;\n}\npre code {\n  padding: 0;\n  font-size: inherit;\n  color: inherit;\n  white-space: pre-wrap;\n  background-color: transparent;\n  border-radius: 0;\n}\n.pre-scrollable {\n  max-height: 340px;\n  overflow-y: scroll;\n}\n.container {\n  margin-right: auto;\n  margin-left: auto;\n  padding-left: 15px;\n  padding-right: 15px;\n}\n@media (min-width: 768px) {\n  .container {\n    width: 750px;\n  }\n}\n@media (min-width: 992px) {\n  .container {\n    width: 970px;\n  }\n}\n@media (min-width: 1200px) {\n  .container {\n    width: 1170px;\n  }\n}\n.container-fluid {\n  margin-right: auto;\n  margin-left: auto;\n  padding-left: 15px;\n  padding-right: 15px;\n}\n.row {\n  margin-left: -15px;\n  margin-right: -15px;\n}\n.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {\n  position: relative;\n  min-height: 1px;\n  padding-left: 15px;\n  padding-right: 15px;\n}\n.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12 {\n  float: left;\n}\n.col-xs-12 {\n  width: 100%;\n}\n.col-xs-11 {\n  width: 91.66666666666666%;\n}\n.col-xs-10 {\n  width: 83.33333333333334%;\n}\n.col-xs-9 {\n  width: 75%;\n}\n.col-xs-8 {\n  width: 66.66666666666666%;\n}\n.col-xs-7 {\n  width: 58.333333333333336%;\n}\n.col-xs-6 {\n  width: 50%;\n}\n.col-xs-5 {\n  width: 41.66666666666667%;\n}\n.col-xs-4 {\n  width: 33.33333333333333%;\n}\n.col-xs-3 {\n  width: 25%;\n}\n.col-xs-2 {\n  width: 16.666666666666664%;\n}\n.col-xs-1 {\n  width: 8.333333333333332%;\n}\n.col-xs-pull-12 {\n  right: 100%;\n}\n.col-xs-pull-11 {\n  right: 91.66666666666666%;\n}\n.col-xs-pull-10 {\n  right: 83.33333333333334%;\n}\n.col-xs-pull-9 {\n  right: 75%;\n}\n.col-xs-pull-8 {\n  right: 66.66666666666666%;\n}\n.col-xs-pull-7 {\n  right: 58.333333333333336%;\n}\n.col-xs-pull-6 {\n  right: 50%;\n}\n.col-xs-pull-5 {\n  right: 41.66666666666667%;\n}\n.col-xs-pull-4 {\n  right: 33.33333333333333%;\n}\n.col-xs-pull-3 {\n  right: 25%;\n}\n.col-xs-pull-2 {\n  right: 16.666666666666664%;\n}\n.col-xs-pull-1 {\n  right: 8.333333333333332%;\n}\n.col-xs-pull-0 {\n  right: auto;\n}\n.col-xs-push-12 {\n  left: 100%;\n}\n.col-xs-push-11 {\n  left: 91.66666666666666%;\n}\n.col-xs-push-10 {\n  left: 83.33333333333334%;\n}\n.col-xs-push-9 {\n  left: 75%;\n}\n.col-xs-push-8 {\n  left: 66.66666666666666%;\n}\n.col-xs-push-7 {\n  left: 58.333333333333336%;\n}\n.col-xs-push-6 {\n  left: 50%;\n}\n.col-xs-push-5 {\n  left: 41.66666666666667%;\n}\n.col-xs-push-4 {\n  left: 33.33333333333333%;\n}\n.col-xs-push-3 {\n  left: 25%;\n}\n.col-xs-push-2 {\n  left: 16.666666666666664%;\n}\n.col-xs-push-1 {\n  left: 8.333333333333332%;\n}\n.col-xs-push-0 {\n  left: auto;\n}\n.col-xs-offset-12 {\n  margin-left: 100%;\n}\n.col-xs-offset-11 {\n  margin-left: 91.66666666666666%;\n}\n.col-xs-offset-10 {\n  margin-left: 83.33333333333334%;\n}\n.col-xs-offset-9 {\n  margin-left: 75%;\n}\n.col-xs-offset-8 {\n  margin-left: 66.66666666666666%;\n}\n.col-xs-offset-7 {\n  margin-left: 58.333333333333336%;\n}\n.col-xs-offset-6 {\n  margin-left: 50%;\n}\n.col-xs-offset-5 {\n  margin-left: 41.66666666666667%;\n}\n.col-xs-offset-4 {\n  margin-left: 33.33333333333333%;\n}\n.col-xs-offset-3 {\n  margin-left: 25%;\n}\n.col-xs-offset-2 {\n  margin-left: 16.666666666666664%;\n}\n.col-xs-offset-1 {\n  margin-left: 8.333333333333332%;\n}\n.col-xs-offset-0 {\n  margin-left: 0%;\n}\n@media (min-width: 768px) {\n  .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {\n    float: left;\n  }\n  .col-sm-12 {\n    width: 100%;\n  }\n  .col-sm-11 {\n    width: 91.66666666666666%;\n  }\n  .col-sm-10 {\n    width: 83.33333333333334%;\n  }\n  .col-sm-9 {\n    width: 75%;\n  }\n  .col-sm-8 {\n    width: 66.66666666666666%;\n  }\n  .col-sm-7 {\n    width: 58.333333333333336%;\n  }\n  .col-sm-6 {\n    width: 50%;\n  }\n  .col-sm-5 {\n    width: 41.66666666666667%;\n  }\n  .col-sm-4 {\n    width: 33.33333333333333%;\n  }\n  .col-sm-3 {\n    width: 25%;\n  }\n  .col-sm-2 {\n    width: 16.666666666666664%;\n  }\n  .col-sm-1 {\n    width: 8.333333333333332%;\n  }\n  .col-sm-pull-12 {\n    right: 100%;\n  }\n  .col-sm-pull-11 {\n    right: 91.66666666666666%;\n  }\n  .col-sm-pull-10 {\n    right: 83.33333333333334%;\n  }\n  .col-sm-pull-9 {\n    right: 75%;\n  }\n  .col-sm-pull-8 {\n    right: 66.66666666666666%;\n  }\n  .col-sm-pull-7 {\n    right: 58.333333333333336%;\n  }\n  .col-sm-pull-6 {\n    right: 50%;\n  }\n  .col-sm-pull-5 {\n    right: 41.66666666666667%;\n  }\n  .col-sm-pull-4 {\n    right: 33.33333333333333%;\n  }\n  .col-sm-pull-3 {\n    right: 25%;\n  }\n  .col-sm-pull-2 {\n    right: 16.666666666666664%;\n  }\n  .col-sm-pull-1 {\n    right: 8.333333333333332%;\n  }\n  .col-sm-pull-0 {\n    right: auto;\n  }\n  .col-sm-push-12 {\n    left: 100%;\n  }\n  .col-sm-push-11 {\n    left: 91.66666666666666%;\n  }\n  .col-sm-push-10 {\n    left: 83.33333333333334%;\n  }\n  .col-sm-push-9 {\n    left: 75%;\n  }\n  .col-sm-push-8 {\n    left: 66.66666666666666%;\n  }\n  .col-sm-push-7 {\n    left: 58.333333333333336%;\n  }\n  .col-sm-push-6 {\n    left: 50%;\n  }\n  .col-sm-push-5 {\n    left: 41.66666666666667%;\n  }\n  .col-sm-push-4 {\n    left: 33.33333333333333%;\n  }\n  .col-sm-push-3 {\n    left: 25%;\n  }\n  .col-sm-push-2 {\n    left: 16.666666666666664%;\n  }\n  .col-sm-push-1 {\n    left: 8.333333333333332%;\n  }\n  .col-sm-push-0 {\n    left: auto;\n  }\n  .col-sm-offset-12 {\n    margin-left: 100%;\n  }\n  .col-sm-offset-11 {\n    margin-left: 91.66666666666666%;\n  }\n  .col-sm-offset-10 {\n    margin-left: 83.33333333333334%;\n  }\n  .col-sm-offset-9 {\n    margin-left: 75%;\n  }\n  .col-sm-offset-8 {\n    margin-left: 66.66666666666666%;\n  }\n  .col-sm-offset-7 {\n    margin-left: 58.333333333333336%;\n  }\n  .col-sm-offset-6 {\n    margin-left: 50%;\n  }\n  .col-sm-offset-5 {\n    margin-left: 41.66666666666667%;\n  }\n  .col-sm-offset-4 {\n    margin-left: 33.33333333333333%;\n  }\n  .col-sm-offset-3 {\n    margin-left: 25%;\n  }\n  .col-sm-offset-2 {\n    margin-left: 16.666666666666664%;\n  }\n  .col-sm-offset-1 {\n    margin-left: 8.333333333333332%;\n  }\n  .col-sm-offset-0 {\n    margin-left: 0%;\n  }\n}\n@media (min-width: 992px) {\n  .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {\n    float: left;\n  }\n  .col-md-12 {\n    width: 100%;\n  }\n  .col-md-11 {\n    width: 91.66666666666666%;\n  }\n  .col-md-10 {\n    width: 83.33333333333334%;\n  }\n  .col-md-9 {\n    width: 75%;\n  }\n  .col-md-8 {\n    width: 66.66666666666666%;\n  }\n  .col-md-7 {\n    width: 58.333333333333336%;\n  }\n  .col-md-6 {\n    width: 50%;\n  }\n  .col-md-5 {\n    width: 41.66666666666667%;\n  }\n  .col-md-4 {\n    width: 33.33333333333333%;\n  }\n  .col-md-3 {\n    width: 25%;\n  }\n  .col-md-2 {\n    width: 16.666666666666664%;\n  }\n  .col-md-1 {\n    width: 8.333333333333332%;\n  }\n  .col-md-pull-12 {\n    right: 100%;\n  }\n  .col-md-pull-11 {\n    right: 91.66666666666666%;\n  }\n  .col-md-pull-10 {\n    right: 83.33333333333334%;\n  }\n  .col-md-pull-9 {\n    right: 75%;\n  }\n  .col-md-pull-8 {\n    right: 66.66666666666666%;\n  }\n  .col-md-pull-7 {\n    right: 58.333333333333336%;\n  }\n  .col-md-pull-6 {\n    right: 50%;\n  }\n  .col-md-pull-5 {\n    right: 41.66666666666667%;\n  }\n  .col-md-pull-4 {\n    right: 33.33333333333333%;\n  }\n  .col-md-pull-3 {\n    right: 25%;\n  }\n  .col-md-pull-2 {\n    right: 16.666666666666664%;\n  }\n  .col-md-pull-1 {\n    right: 8.333333333333332%;\n  }\n  .col-md-pull-0 {\n    right: auto;\n  }\n  .col-md-push-12 {\n    left: 100%;\n  }\n  .col-md-push-11 {\n    left: 91.66666666666666%;\n  }\n  .col-md-push-10 {\n    left: 83.33333333333334%;\n  }\n  .col-md-push-9 {\n    left: 75%;\n  }\n  .col-md-push-8 {\n    left: 66.66666666666666%;\n  }\n  .col-md-push-7 {\n    left: 58.333333333333336%;\n  }\n  .col-md-push-6 {\n    left: 50%;\n  }\n  .col-md-push-5 {\n    left: 41.66666666666667%;\n  }\n  .col-md-push-4 {\n    left: 33.33333333333333%;\n  }\n  .col-md-push-3 {\n    left: 25%;\n  }\n  .col-md-push-2 {\n    left: 16.666666666666664%;\n  }\n  .col-md-push-1 {\n    left: 8.333333333333332%;\n  }\n  .col-md-push-0 {\n    left: auto;\n  }\n  .col-md-offset-12 {\n    margin-left: 100%;\n  }\n  .col-md-offset-11 {\n    margin-left: 91.66666666666666%;\n  }\n  .col-md-offset-10 {\n    margin-left: 83.33333333333334%;\n  }\n  .col-md-offset-9 {\n    margin-left: 75%;\n  }\n  .col-md-offset-8 {\n    margin-left: 66.66666666666666%;\n  }\n  .col-md-offset-7 {\n    margin-left: 58.333333333333336%;\n  }\n  .col-md-offset-6 {\n    margin-left: 50%;\n  }\n  .col-md-offset-5 {\n    margin-left: 41.66666666666667%;\n  }\n  .col-md-offset-4 {\n    margin-left: 33.33333333333333%;\n  }\n  .col-md-offset-3 {\n    margin-left: 25%;\n  }\n  .col-md-offset-2 {\n    margin-left: 16.666666666666664%;\n  }\n  .col-md-offset-1 {\n    margin-left: 8.333333333333332%;\n  }\n  .col-md-offset-0 {\n    margin-left: 0%;\n  }\n}\n@media (min-width: 1200px) {\n  .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12 {\n    float: left;\n  }\n  .col-lg-12 {\n    width: 100%;\n  }\n  .col-lg-11 {\n    width: 91.66666666666666%;\n  }\n  .col-lg-10 {\n    width: 83.33333333333334%;\n  }\n  .col-lg-9 {\n    width: 75%;\n  }\n  .col-lg-8 {\n    width: 66.66666666666666%;\n  }\n  .col-lg-7 {\n    width: 58.333333333333336%;\n  }\n  .col-lg-6 {\n    width: 50%;\n  }\n  .col-lg-5 {\n    width: 41.66666666666667%;\n  }\n  .col-lg-4 {\n    width: 33.33333333333333%;\n  }\n  .col-lg-3 {\n    width: 25%;\n  }\n  .col-lg-2 {\n    width: 16.666666666666664%;\n  }\n  .col-lg-1 {\n    width: 8.333333333333332%;\n  }\n  .col-lg-pull-12 {\n    right: 100%;\n  }\n  .col-lg-pull-11 {\n    right: 91.66666666666666%;\n  }\n  .col-lg-pull-10 {\n    right: 83.33333333333334%;\n  }\n  .col-lg-pull-9 {\n    right: 75%;\n  }\n  .col-lg-pull-8 {\n    right: 66.66666666666666%;\n  }\n  .col-lg-pull-7 {\n    right: 58.333333333333336%;\n  }\n  .col-lg-pull-6 {\n    right: 50%;\n  }\n  .col-lg-pull-5 {\n    right: 41.66666666666667%;\n  }\n  .col-lg-pull-4 {\n    right: 33.33333333333333%;\n  }\n  .col-lg-pull-3 {\n    right: 25%;\n  }\n  .col-lg-pull-2 {\n    right: 16.666666666666664%;\n  }\n  .col-lg-pull-1 {\n    right: 8.333333333333332%;\n  }\n  .col-lg-pull-0 {\n    right: auto;\n  }\n  .col-lg-push-12 {\n    left: 100%;\n  }\n  .col-lg-push-11 {\n    left: 91.66666666666666%;\n  }\n  .col-lg-push-10 {\n    left: 83.33333333333334%;\n  }\n  .col-lg-push-9 {\n    left: 75%;\n  }\n  .col-lg-push-8 {\n    left: 66.66666666666666%;\n  }\n  .col-lg-push-7 {\n    left: 58.333333333333336%;\n  }\n  .col-lg-push-6 {\n    left: 50%;\n  }\n  .col-lg-push-5 {\n    left: 41.66666666666667%;\n  }\n  .col-lg-push-4 {\n    left: 33.33333333333333%;\n  }\n  .col-lg-push-3 {\n    left: 25%;\n  }\n  .col-lg-push-2 {\n    left: 16.666666666666664%;\n  }\n  .col-lg-push-1 {\n    left: 8.333333333333332%;\n  }\n  .col-lg-push-0 {\n    left: auto;\n  }\n  .col-lg-offset-12 {\n    margin-left: 100%;\n  }\n  .col-lg-offset-11 {\n    margin-left: 91.66666666666666%;\n  }\n  .col-lg-offset-10 {\n    margin-left: 83.33333333333334%;\n  }\n  .col-lg-offset-9 {\n    margin-left: 75%;\n  }\n  .col-lg-offset-8 {\n    margin-left: 66.66666666666666%;\n  }\n  .col-lg-offset-7 {\n    margin-left: 58.333333333333336%;\n  }\n  .col-lg-offset-6 {\n    margin-left: 50%;\n  }\n  .col-lg-offset-5 {\n    margin-left: 41.66666666666667%;\n  }\n  .col-lg-offset-4 {\n    margin-left: 33.33333333333333%;\n  }\n  .col-lg-offset-3 {\n    margin-left: 25%;\n  }\n  .col-lg-offset-2 {\n    margin-left: 16.666666666666664%;\n  }\n  .col-lg-offset-1 {\n    margin-left: 8.333333333333332%;\n  }\n  .col-lg-offset-0 {\n    margin-left: 0%;\n  }\n}\ntable {\n  background-color: transparent;\n}\ncaption {\n  padding-top: 8px;\n  padding-bottom: 8px;\n  color: #777777;\n  text-align: left;\n}\nth {\n  text-align: left;\n}\n.table {\n  width: 100%;\n  max-width: 100%;\n  margin-bottom: 20px;\n}\n.table > thead > tr > th,\n.table > tbody > tr > th,\n.table > tfoot > tr > th,\n.table > thead > tr > td,\n.table > tbody > tr > td,\n.table > tfoot > tr > td {\n  padding: 8px;\n  line-height: 1.428571429;\n  vertical-align: top;\n  border-top: 1px solid #dddddd;\n}\n.table > thead > tr > th {\n  vertical-align: bottom;\n  border-bottom: 2px solid #dddddd;\n}\n.table > caption + thead > tr:first-child > th,\n.table > colgroup + thead > tr:first-child > th,\n.table > thead:first-child > tr:first-child > th,\n.table > caption + thead > tr:first-child > td,\n.table > colgroup + thead > tr:first-child > td,\n.table > thead:first-child > tr:first-child > td {\n  border-top: 0;\n}\n.table > tbody + tbody {\n  border-top: 2px solid #dddddd;\n}\n.table .table {\n  background-color: #ffffff;\n}\n.table-condensed > thead > tr > th,\n.table-condensed > tbody > tr > th,\n.table-condensed > tfoot > tr > th,\n.table-condensed > thead > tr > td,\n.table-condensed > tbody > tr > td,\n.table-condensed > tfoot > tr > td {\n  padding: 5px;\n}\n.table-bordered {\n  border: 1px solid #dddddd;\n}\n.table-bordered > thead > tr > th,\n.table-bordered > tbody > tr > th,\n.table-bordered > tfoot > tr > th,\n.table-bordered > thead > tr > td,\n.table-bordered > tbody > tr > td,\n.table-bordered > tfoot > tr > td {\n  border: 1px solid #dddddd;\n}\n.table-bordered > thead > tr > th,\n.table-bordered > thead > tr > td {\n  border-bottom-width: 2px;\n}\n.table-striped > tbody > tr:nth-of-type(odd) {\n  background-color: #f9f9f9;\n}\n.table-hover > tbody > tr:hover {\n  background-color: #f5f5f5;\n}\ntable col[class*=\"col-\"] {\n  position: static;\n  float: none;\n  display: table-column;\n}\ntable td[class*=\"col-\"],\ntable th[class*=\"col-\"] {\n  position: static;\n  float: none;\n  display: table-cell;\n}\n.table > thead > tr > td.active,\n.table > tbody > tr > td.active,\n.table > tfoot > tr > td.active,\n.table > thead > tr > th.active,\n.table > tbody > tr > th.active,\n.table > tfoot > tr > th.active,\n.table > thead > tr.active > td,\n.table > tbody > tr.active > td,\n.table > tfoot > tr.active > td,\n.table > thead > tr.active > th,\n.table > tbody > tr.active > th,\n.table > tfoot > tr.active > th {\n  background-color: #f5f5f5;\n}\n.table-hover > tbody > tr > td.active:hover,\n.table-hover > tbody > tr > th.active:hover,\n.table-hover > tbody > tr.active:hover > td,\n.table-hover > tbody > tr:hover > .active,\n.table-hover > tbody > tr.active:hover > th {\n  background-color: #e8e8e8;\n}\n.table > thead > tr > td.success,\n.table > tbody > tr > td.success,\n.table > tfoot > tr > td.success,\n.table > thead > tr > th.success,\n.table > tbody > tr > th.success,\n.table > tfoot > tr > th.success,\n.table > thead > tr.success > td,\n.table > tbody > tr.success > td,\n.table > tfoot > tr.success > td,\n.table > thead > tr.success > th,\n.table > tbody > tr.success > th,\n.table > tfoot > tr.success > th {\n  background-color: #dff0d8;\n}\n.table-hover > tbody > tr > td.success:hover,\n.table-hover > tbody > tr > th.success:hover,\n.table-hover > tbody > tr.success:hover > td,\n.table-hover > tbody > tr:hover > .success,\n.table-hover > tbody > tr.success:hover > th {\n  background-color: #d0e9c6;\n}\n.table > thead > tr > td.info,\n.table > tbody > tr > td.info,\n.table > tfoot > tr > td.info,\n.table > thead > tr > th.info,\n.table > tbody > tr > th.info,\n.table > tfoot > tr > th.info,\n.table > thead > tr.info > td,\n.table > tbody > tr.info > td,\n.table > tfoot > tr.info > td,\n.table > thead > tr.info > th,\n.table > tbody > tr.info > th,\n.table > tfoot > tr.info > th {\n  background-color: #d9edf7;\n}\n.table-hover > tbody > tr > td.info:hover,\n.table-hover > tbody > tr > th.info:hover,\n.table-hover > tbody > tr.info:hover > td,\n.table-hover > tbody > tr:hover > .info,\n.table-hover > tbody > tr.info:hover > th {\n  background-color: #c4e3f3;\n}\n.table > thead > tr > td.warning,\n.table > tbody > tr > td.warning,\n.table > tfoot > tr > td.warning,\n.table > thead > tr > th.warning,\n.table > tbody > tr > th.warning,\n.table > tfoot > tr > th.warning,\n.table > thead > tr.warning > td,\n.table > tbody > tr.warning > td,\n.table > tfoot > tr.warning > td,\n.table > thead > tr.warning > th,\n.table > tbody > tr.warning > th,\n.table > tfoot > tr.warning > th {\n  background-color: #fcf8e3;\n}\n.table-hover > tbody > tr > td.warning:hover,\n.table-hover > tbody > tr > th.warning:hover,\n.table-hover > tbody > tr.warning:hover > td,\n.table-hover > tbody > tr:hover > .warning,\n.table-hover > tbody > tr.warning:hover > th {\n  background-color: #faf2cc;\n}\n.table > thead > tr > td.danger,\n.table > tbody > tr > td.danger,\n.table > tfoot > tr > td.danger,\n.table > thead > tr > th.danger,\n.table > tbody > tr > th.danger,\n.table > tfoot > tr > th.danger,\n.table > thead > tr.danger > td,\n.table > tbody > tr.danger > td,\n.table > tfoot > tr.danger > td,\n.table > thead > tr.danger > th,\n.table > tbody > tr.danger > th,\n.table > tfoot > tr.danger > th {\n  background-color: #f2dede;\n}\n.table-hover > tbody > tr > td.danger:hover,\n.table-hover > tbody > tr > th.danger:hover,\n.table-hover > tbody > tr.danger:hover > td,\n.table-hover > tbody > tr:hover > .danger,\n.table-hover > tbody > tr.danger:hover > th {\n  background-color: #ebcccc;\n}\n.table-responsive {\n  overflow-x: auto;\n  min-height: 0.01%;\n}\n@media screen and (max-width: 767px) {\n  .table-responsive {\n    width: 100%;\n    margin-bottom: 15px;\n    overflow-y: hidden;\n    -ms-overflow-style: -ms-autohiding-scrollbar;\n    border: 1px solid #dddddd;\n  }\n  .table-responsive > .table {\n    margin-bottom: 0;\n  }\n  .table-responsive > .table > thead > tr > th,\n  .table-responsive > .table > tbody > tr > th,\n  .table-responsive > .table > tfoot > tr > th,\n  .table-responsive > .table > thead > tr > td,\n  .table-responsive > .table > tbody > tr > td,\n  .table-responsive > .table > tfoot > tr > td {\n    white-space: nowrap;\n  }\n  .table-responsive > .table-bordered {\n    border: 0;\n  }\n  .table-responsive > .table-bordered > thead > tr > th:first-child,\n  .table-responsive > .table-bordered > tbody > tr > th:first-child,\n  .table-responsive > .table-bordered > tfoot > tr > th:first-child,\n  .table-responsive > .table-bordered > thead > tr > td:first-child,\n  .table-responsive > .table-bordered > tbody > tr > td:first-child,\n  .table-responsive > .table-bordered > tfoot > tr > td:first-child {\n    border-left: 0;\n  }\n  .table-responsive > .table-bordered > thead > tr > th:last-child,\n  .table-responsive > .table-bordered > tbody > tr > th:last-child,\n  .table-responsive > .table-bordered > tfoot > tr > th:last-child,\n  .table-responsive > .table-bordered > thead > tr > td:last-child,\n  .table-responsive > .table-bordered > tbody > tr > td:last-child,\n  .table-responsive > .table-bordered > tfoot > tr > td:last-child {\n    border-right: 0;\n  }\n  .table-responsive > .table-bordered > tbody > tr:last-child > th,\n  .table-responsive > .table-bordered > tfoot > tr:last-child > th,\n  .table-responsive > .table-bordered > tbody > tr:last-child > td,\n  .table-responsive > .table-bordered > tfoot > tr:last-child > td {\n    border-bottom: 0;\n  }\n}\nfieldset {\n  padding: 0;\n  margin: 0;\n  border: 0;\n  min-width: 0;\n}\nlegend {\n  display: block;\n  width: 100%;\n  padding: 0;\n  margin-bottom: 20px;\n  font-size: 21px;\n  line-height: inherit;\n  color: #333333;\n  border: 0;\n  border-bottom: 1px solid #e5e5e5;\n}\nlabel {\n  display: inline-block;\n  max-width: 100%;\n  margin-bottom: 5px;\n  font-weight: bold;\n}\ninput[type=\"search\"] {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n}\ninput[type=\"radio\"],\ninput[type=\"checkbox\"] {\n  margin: 4px 0 0;\n  margin-top: 1px \\9;\n  line-height: normal;\n}\ninput[type=\"file\"] {\n  display: block;\n}\ninput[type=\"range\"] {\n  display: block;\n  width: 100%;\n}\nselect[multiple],\nselect[size] {\n  height: auto;\n}\ninput[type=\"file\"]:focus,\ninput[type=\"radio\"]:focus,\ninput[type=\"checkbox\"]:focus {\n  outline: thin dotted;\n  outline: 5px auto -webkit-focus-ring-color;\n  outline-offset: -2px;\n}\noutput {\n  display: block;\n  padding-top: 7px;\n  font-size: 14px;\n  line-height: 1.428571429;\n  color: #555555;\n}\n.form-control {\n  display: block;\n  width: 100%;\n  height: 34px;\n  padding: 6px 12px;\n  font-size: 14px;\n  line-height: 1.428571429;\n  color: #555555;\n  background-color: #ffffff;\n  background-image: none;\n  border: 1px solid #cccccc;\n  border-radius: 4px;\n  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);\n  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);\n  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;\n  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;\n  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;\n}\n.form-control:focus {\n  border-color: #66afe9;\n  outline: 0;\n  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);\n  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);\n}\n.form-control::-moz-placeholder {\n  color: #999999;\n  opacity: 1;\n}\n.form-control:-ms-input-placeholder {\n  color: #999999;\n}\n.form-control::-webkit-input-placeholder {\n  color: #999999;\n}\n.form-control[disabled],\n.form-control[readonly],\nfieldset[disabled] .form-control {\n  background-color: #eeeeee;\n  opacity: 1;\n}\n.form-control[disabled],\nfieldset[disabled] .form-control {\n  cursor: not-allowed;\n}\ntextarea.form-control {\n  height: auto;\n}\ninput[type=\"search\"] {\n  -webkit-appearance: none;\n}\n@media screen and (-webkit-min-device-pixel-ratio: 0) {\n  input[type=\"date\"],\n  input[type=\"time\"],\n  input[type=\"datetime-local\"],\n  input[type=\"month\"] {\n    line-height: 34px;\n  }\n  input[type=\"date\"].input-sm,\n  input[type=\"time\"].input-sm,\n  input[type=\"datetime-local\"].input-sm,\n  input[type=\"month\"].input-sm,\n  .input-group-sm input[type=\"date\"],\n  .input-group-sm input[type=\"time\"],\n  .input-group-sm input[type=\"datetime-local\"],\n  .input-group-sm input[type=\"month\"] {\n    line-height: 30px;\n  }\n  input[type=\"date\"].input-lg,\n  input[type=\"time\"].input-lg,\n  input[type=\"datetime-local\"].input-lg,\n  input[type=\"month\"].input-lg,\n  .input-group-lg input[type=\"date\"],\n  .input-group-lg input[type=\"time\"],\n  .input-group-lg input[type=\"datetime-local\"],\n  .input-group-lg input[type=\"month\"] {\n    line-height: 46px;\n  }\n}\n.form-group {\n  margin-bottom: 15px;\n}\n.radio,\n.checkbox {\n  position: relative;\n  display: block;\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n.radio label,\n.checkbox label {\n  min-height: 20px;\n  padding-left: 20px;\n  margin-bottom: 0;\n  font-weight: normal;\n  cursor: pointer;\n}\n.radio input[type=\"radio\"],\n.radio-inline input[type=\"radio\"],\n.checkbox input[type=\"checkbox\"],\n.checkbox-inline input[type=\"checkbox\"] {\n  position: absolute;\n  margin-left: -20px;\n  margin-top: 4px \\9;\n}\n.radio + .radio,\n.checkbox + .checkbox {\n  margin-top: -5px;\n}\n.radio-inline,\n.checkbox-inline {\n  position: relative;\n  display: inline-block;\n  padding-left: 20px;\n  margin-bottom: 0;\n  vertical-align: middle;\n  font-weight: normal;\n  cursor: pointer;\n}\n.radio-inline + .radio-inline,\n.checkbox-inline + .checkbox-inline {\n  margin-top: 0;\n  margin-left: 10px;\n}\ninput[type=\"radio\"][disabled],\ninput[type=\"checkbox\"][disabled],\ninput[type=\"radio\"].disabled,\ninput[type=\"checkbox\"].disabled,\nfieldset[disabled] input[type=\"radio\"],\nfieldset[disabled] input[type=\"checkbox\"] {\n  cursor: not-allowed;\n}\n.radio-inline.disabled,\n.checkbox-inline.disabled,\nfieldset[disabled] .radio-inline,\nfieldset[disabled] .checkbox-inline {\n  cursor: not-allowed;\n}\n.radio.disabled label,\n.checkbox.disabled label,\nfieldset[disabled] .radio label,\nfieldset[disabled] .checkbox label {\n  cursor: not-allowed;\n}\n.form-control-static {\n  padding-top: 7px;\n  padding-bottom: 7px;\n  margin-bottom: 0;\n  min-height: 34px;\n}\n.form-control-static.input-lg,\n.form-control-static.input-sm {\n  padding-left: 0;\n  padding-right: 0;\n}\n.input-sm {\n  height: 30px;\n  padding: 5px 10px;\n  font-size: 12px;\n  line-height: 1.5;\n  border-radius: 3px;\n}\nselect.input-sm {\n  height: 30px;\n  line-height: 30px;\n}\ntextarea.input-sm,\nselect[multiple].input-sm {\n  height: auto;\n}\n.form-group-sm .form-control {\n  height: 30px;\n  padding: 5px 10px;\n  font-size: 12px;\n  line-height: 1.5;\n  border-radius: 3px;\n}\nselect.form-group-sm .form-control {\n  height: 30px;\n  line-height: 30px;\n}\ntextarea.form-group-sm .form-control,\nselect[multiple].form-group-sm .form-control {\n  height: auto;\n}\n.form-group-sm .form-control-static {\n  height: 30px;\n  padding: 5px 10px;\n  font-size: 12px;\n  line-height: 1.5;\n  min-height: 32px;\n}\n.input-lg {\n  height: 46px;\n  padding: 10px 16px;\n  font-size: 18px;\n  line-height: 1.3333333;\n  border-radius: 6px;\n}\nselect.input-lg {\n  height: 46px;\n  line-height: 46px;\n}\ntextarea.input-lg,\nselect[multiple].input-lg {\n  height: auto;\n}\n.form-group-lg .form-control {\n  height: 46px;\n  padding: 10px 16px;\n  font-size: 18px;\n  line-height: 1.3333333;\n  border-radius: 6px;\n}\nselect.form-group-lg .form-control {\n  height: 46px;\n  line-height: 46px;\n}\ntextarea.form-group-lg .form-control,\nselect[multiple].form-group-lg .form-control {\n  height: auto;\n}\n.form-group-lg .form-control-static {\n  height: 46px;\n  padding: 10px 16px;\n  font-size: 18px;\n  line-height: 1.3333333;\n  min-height: 38px;\n}\n.has-feedback {\n  position: relative;\n}\n.has-feedback .form-control {\n  padding-right: 42.5px;\n}\n.form-control-feedback {\n  position: absolute;\n  top: 0;\n  right: 0;\n  z-index: 2;\n  display: block;\n  width: 34px;\n  height: 34px;\n  line-height: 34px;\n  text-align: center;\n  pointer-events: none;\n}\n.input-lg + .form-control-feedback {\n  width: 46px;\n  height: 46px;\n  line-height: 46px;\n}\n.input-sm + .form-control-feedback {\n  width: 30px;\n  height: 30px;\n  line-height: 30px;\n}\n.has-success .help-block,\n.has-success .control-label,\n.has-success .radio,\n.has-success .checkbox,\n.has-success .radio-inline,\n.has-success .checkbox-inline,\n.has-success.radio label,\n.has-success.checkbox label,\n.has-success.radio-inline label,\n.has-success.checkbox-inline label {\n  color: #3c763d;\n}\n.has-success .form-control {\n  border-color: #3c763d;\n  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);\n  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);\n}\n.has-success .form-control:focus {\n  border-color: #2b542c;\n  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168;\n  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168;\n}\n.has-success .input-group-addon {\n  color: #3c763d;\n  border-color: #3c763d;\n  background-color: #dff0d8;\n}\n.has-success .form-control-feedback {\n  color: #3c763d;\n}\n.has-warning .help-block,\n.has-warning .control-label,\n.has-warning .radio,\n.has-warning .checkbox,\n.has-warning .radio-inline,\n.has-warning .checkbox-inline,\n.has-warning.radio label,\n.has-warning.checkbox label,\n.has-warning.radio-inline label,\n.has-warning.checkbox-inline label {\n  color: #8a6d3b;\n}\n.has-warning .form-control {\n  border-color: #8a6d3b;\n  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);\n  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);\n}\n.has-warning .form-control:focus {\n  border-color: #66512c;\n  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c0a16b;\n  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c0a16b;\n}\n.has-warning .input-group-addon {\n  color: #8a6d3b;\n  border-color: #8a6d3b;\n  background-color: #fcf8e3;\n}\n.has-warning .form-control-feedback {\n  color: #8a6d3b;\n}\n.has-error .help-block,\n.has-error .control-label,\n.has-error .radio,\n.has-error .checkbox,\n.has-error .radio-inline,\n.has-error .checkbox-inline,\n.has-error.radio label,\n.has-error.checkbox label,\n.has-error.radio-inline label,\n.has-error.checkbox-inline label {\n  color: #a94442;\n}\n.has-error .form-control {\n  border-color: #a94442;\n  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);\n  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);\n}\n.has-error .form-control:focus {\n  border-color: #843534;\n  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;\n  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;\n}\n.has-error .input-group-addon {\n  color: #a94442;\n  border-color: #a94442;\n  background-color: #f2dede;\n}\n.has-error .form-control-feedback {\n  color: #a94442;\n}\n.has-feedback label ~ .form-control-feedback {\n  top: 25px;\n}\n.has-feedback label.sr-only ~ .form-control-feedback {\n  top: 0;\n}\n.help-block {\n  display: block;\n  margin-top: 5px;\n  margin-bottom: 10px;\n  color: #737373;\n}\n@media (min-width: 768px) {\n  .form-inline .form-group {\n    display: inline-block;\n    margin-bottom: 0;\n    vertical-align: middle;\n  }\n  .form-inline .form-control {\n    display: inline-block;\n    width: auto;\n    vertical-align: middle;\n  }\n  .form-inline .form-control-static {\n    display: inline-block;\n  }\n  .form-inline .input-group {\n    display: inline-table;\n    vertical-align: middle;\n  }\n  .form-inline .input-group .input-group-addon,\n  .form-inline .input-group .input-group-btn,\n  .form-inline .input-group .form-control {\n    width: auto;\n  }\n  .form-inline .input-group > .form-control {\n    width: 100%;\n  }\n  .form-inline .control-label {\n    margin-bottom: 0;\n    vertical-align: middle;\n  }\n  .form-inline .radio,\n  .form-inline .checkbox {\n    display: inline-block;\n    margin-top: 0;\n    margin-bottom: 0;\n    vertical-align: middle;\n  }\n  .form-inline .radio label,\n  .form-inline .checkbox label {\n    padding-left: 0;\n  }\n  .form-inline .radio input[type=\"radio\"],\n  .form-inline .checkbox input[type=\"checkbox\"] {\n    position: relative;\n    margin-left: 0;\n  }\n  .form-inline .has-feedback .form-control-feedback {\n    top: 0;\n  }\n}\n.form-horizontal .radio,\n.form-horizontal .checkbox,\n.form-horizontal .radio-inline,\n.form-horizontal .checkbox-inline {\n  margin-top: 0;\n  margin-bottom: 0;\n  padding-top: 7px;\n}\n.form-horizontal .radio,\n.form-horizontal .checkbox {\n  min-height: 27px;\n}\n.form-horizontal .form-group {\n  margin-left: -15px;\n  margin-right: -15px;\n}\n@media (min-width: 768px) {\n  .form-horizontal .control-label {\n    text-align: right;\n    margin-bottom: 0;\n    padding-top: 7px;\n  }\n}\n.form-horizontal .has-feedback .form-control-feedback {\n  right: 15px;\n}\n@media (min-width: 768px) {\n  .form-horizontal .form-group-lg .control-label {\n    padding-top: 14.333333px;\n  }\n}\n@media (min-width: 768px) {\n  .form-horizontal .form-group-sm .control-label {\n    padding-top: 6px;\n  }\n}\n.btn {\n  display: inline-block;\n  margin-bottom: 0;\n  font-weight: normal;\n  text-align: center;\n  vertical-align: middle;\n  touch-action: manipulation;\n  cursor: pointer;\n  background-image: none;\n  border: 1px solid transparent;\n  white-space: nowrap;\n  padding: 6px 12px;\n  font-size: 14px;\n  line-height: 1.428571429;\n  border-radius: 4px;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n}\n.btn:focus,\n.btn:active:focus,\n.btn.active:focus,\n.btn.focus,\n.btn:active.focus,\n.btn.active.focus {\n  outline: thin dotted;\n  outline: 5px auto -webkit-focus-ring-color;\n  outline-offset: -2px;\n}\n.btn:hover,\n.btn:focus,\n.btn.focus {\n  color: #333333;\n  text-decoration: none;\n}\n.btn:active,\n.btn.active {\n  outline: 0;\n  background-image: none;\n  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);\n  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);\n}\n.btn.disabled,\n.btn[disabled],\nfieldset[disabled] .btn {\n  cursor: not-allowed;\n  pointer-events: none;\n  opacity: 0.65;\n  filter: alpha(opacity=65);\n  -webkit-box-shadow: none;\n  box-shadow: none;\n}\n.btn-default {\n  color: #333333;\n  background-color: #ffffff;\n  border-color: #cccccc;\n}\n.btn-default:hover,\n.btn-default:focus,\n.btn-default.focus,\n.btn-default:active,\n.btn-default.active,\n.open > .dropdown-toggle.btn-default {\n  color: #333333;\n  background-color: #e6e6e6;\n  border-color: #adadad;\n}\n.btn-default:active,\n.btn-default.active,\n.open > .dropdown-toggle.btn-default {\n  background-image: none;\n}\n.btn-default.disabled,\n.btn-default[disabled],\nfieldset[disabled] .btn-default,\n.btn-default.disabled:hover,\n.btn-default[disabled]:hover,\nfieldset[disabled] .btn-default:hover,\n.btn-default.disabled:focus,\n.btn-default[disabled]:focus,\nfieldset[disabled] .btn-default:focus,\n.btn-default.disabled.focus,\n.btn-default[disabled].focus,\nfieldset[disabled] .btn-default.focus,\n.btn-default.disabled:active,\n.btn-default[disabled]:active,\nfieldset[disabled] .btn-default:active,\n.btn-default.disabled.active,\n.btn-default[disabled].active,\nfieldset[disabled] .btn-default.active {\n  background-color: #ffffff;\n  border-color: #cccccc;\n}\n.btn-default .badge {\n  color: #ffffff;\n  background-color: #333333;\n}\n.btn-primary {\n  color: #ffffff;\n  background-color: #337ab7;\n  border-color: #2e6da4;\n}\n.btn-primary:hover,\n.btn-primary:focus,\n.btn-primary.focus,\n.btn-primary:active,\n.btn-primary.active,\n.open > .dropdown-toggle.btn-primary {\n  color: #ffffff;\n  background-color: #286090;\n  border-color: #204d74;\n}\n.btn-primary:active,\n.btn-primary.active,\n.open > .dropdown-toggle.btn-primary {\n  background-image: none;\n}\n.btn-primary.disabled,\n.btn-primary[disabled],\nfieldset[disabled] .btn-primary,\n.btn-primary.disabled:hover,\n.btn-primary[disabled]:hover,\nfieldset[disabled] .btn-primary:hover,\n.btn-primary.disabled:focus,\n.btn-primary[disabled]:focus,\nfieldset[disabled] .btn-primary:focus,\n.btn-primary.disabled.focus,\n.btn-primary[disabled].focus,\nfieldset[disabled] .btn-primary.focus,\n.btn-primary.disabled:active,\n.btn-primary[disabled]:active,\nfieldset[disabled] .btn-primary:active,\n.btn-primary.disabled.active,\n.btn-primary[disabled].active,\nfieldset[disabled] .btn-primary.active {\n  background-color: #337ab7;\n  border-color: #2e6da4;\n}\n.btn-primary .badge {\n  color: #337ab7;\n  background-color: #ffffff;\n}\n.btn-success {\n  color: #ffffff;\n  background-color: #5cb85c;\n  border-color: #4cae4c;\n}\n.btn-success:hover,\n.btn-success:focus,\n.btn-success.focus,\n.btn-success:active,\n.btn-success.active,\n.open > .dropdown-toggle.btn-success {\n  color: #ffffff;\n  background-color: #449d44;\n  border-color: #398439;\n}\n.btn-success:active,\n.btn-success.active,\n.open > .dropdown-toggle.btn-success {\n  background-image: none;\n}\n.btn-success.disabled,\n.btn-success[disabled],\nfieldset[disabled] .btn-success,\n.btn-success.disabled:hover,\n.btn-success[disabled]:hover,\nfieldset[disabled] .btn-success:hover,\n.btn-success.disabled:focus,\n.btn-success[disabled]:focus,\nfieldset[disabled] .btn-success:focus,\n.btn-success.disabled.focus,\n.btn-success[disabled].focus,\nfieldset[disabled] .btn-success.focus,\n.btn-success.disabled:active,\n.btn-success[disabled]:active,\nfieldset[disabled] .btn-success:active,\n.btn-success.disabled.active,\n.btn-success[disabled].active,\nfieldset[disabled] .btn-success.active {\n  background-color: #5cb85c;\n  border-color: #4cae4c;\n}\n.btn-success .badge {\n  color: #5cb85c;\n  background-color: #ffffff;\n}\n.btn-info {\n  color: #ffffff;\n  background-color: #5bc0de;\n  border-color: #46b8da;\n}\n.btn-info:hover,\n.btn-info:focus,\n.btn-info.focus,\n.btn-info:active,\n.btn-info.active,\n.open > .dropdown-toggle.btn-info {\n  color: #ffffff;\n  background-color: #31b0d5;\n  border-color: #269abc;\n}\n.btn-info:active,\n.btn-info.active,\n.open > .dropdown-toggle.btn-info {\n  background-image: none;\n}\n.btn-info.disabled,\n.btn-info[disabled],\nfieldset[disabled] .btn-info,\n.btn-info.disabled:hover,\n.btn-info[disabled]:hover,\nfieldset[disabled] .btn-info:hover,\n.btn-info.disabled:focus,\n.btn-info[disabled]:focus,\nfieldset[disabled] .btn-info:focus,\n.btn-info.disabled.focus,\n.btn-info[disabled].focus,\nfieldset[disabled] .btn-info.focus,\n.btn-info.disabled:active,\n.btn-info[disabled]:active,\nfieldset[disabled] .btn-info:active,\n.btn-info.disabled.active,\n.btn-info[disabled].active,\nfieldset[disabled] .btn-info.active {\n  background-color: #5bc0de;\n  border-color: #46b8da;\n}\n.btn-info .badge {\n  color: #5bc0de;\n  background-color: #ffffff;\n}\n.btn-warning {\n  color: #ffffff;\n  background-color: #f0ad4e;\n  border-color: #eea236;\n}\n.btn-warning:hover,\n.btn-warning:focus,\n.btn-warning.focus,\n.btn-warning:active,\n.btn-warning.active,\n.open > .dropdown-toggle.btn-warning {\n  color: #ffffff;\n  background-color: #ec971f;\n  border-color: #d58512;\n}\n.btn-warning:active,\n.btn-warning.active,\n.open > .dropdown-toggle.btn-warning {\n  background-image: none;\n}\n.btn-warning.disabled,\n.btn-warning[disabled],\nfieldset[disabled] .btn-warning,\n.btn-warning.disabled:hover,\n.btn-warning[disabled]:hover,\nfieldset[disabled] .btn-warning:hover,\n.btn-warning.disabled:focus,\n.btn-warning[disabled]:focus,\nfieldset[disabled] .btn-warning:focus,\n.btn-warning.disabled.focus,\n.btn-warning[disabled].focus,\nfieldset[disabled] .btn-warning.focus,\n.btn-warning.disabled:active,\n.btn-warning[disabled]:active,\nfieldset[disabled] .btn-warning:active,\n.btn-warning.disabled.active,\n.btn-warning[disabled].active,\nfieldset[disabled] .btn-warning.active {\n  background-color: #f0ad4e;\n  border-color: #eea236;\n}\n.btn-warning .badge {\n  color: #f0ad4e;\n  background-color: #ffffff;\n}\n.btn-danger {\n  color: #ffffff;\n  background-color: #d9534f;\n  border-color: #d43f3a;\n}\n.btn-danger:hover,\n.btn-danger:focus,\n.btn-danger.focus,\n.btn-danger:active,\n.btn-danger.active,\n.open > .dropdown-toggle.btn-danger {\n  color: #ffffff;\n  background-color: #c9302c;\n  border-color: #ac2925;\n}\n.btn-danger:active,\n.btn-danger.active,\n.open > .dropdown-toggle.btn-danger {\n  background-image: none;\n}\n.btn-danger.disabled,\n.btn-danger[disabled],\nfieldset[disabled] .btn-danger,\n.btn-danger.disabled:hover,\n.btn-danger[disabled]:hover,\nfieldset[disabled] .btn-danger:hover,\n.btn-danger.disabled:focus,\n.btn-danger[disabled]:focus,\nfieldset[disabled] .btn-danger:focus,\n.btn-danger.disabled.focus,\n.btn-danger[disabled].focus,\nfieldset[disabled] .btn-danger.focus,\n.btn-danger.disabled:active,\n.btn-danger[disabled]:active,\nfieldset[disabled] .btn-danger:active,\n.btn-danger.disabled.active,\n.btn-danger[disabled].active,\nfieldset[disabled] .btn-danger.active {\n  background-color: #d9534f;\n  border-color: #d43f3a;\n}\n.btn-danger .badge {\n  color: #d9534f;\n  background-color: #ffffff;\n}\n.btn-link {\n  color: #337ab7;\n  font-weight: normal;\n  border-radius: 0;\n}\n.btn-link,\n.btn-link:active,\n.btn-link.active,\n.btn-link[disabled],\nfieldset[disabled] .btn-link {\n  background-color: transparent;\n  -webkit-box-shadow: none;\n  box-shadow: none;\n}\n.btn-link,\n.btn-link:hover,\n.btn-link:focus,\n.btn-link:active {\n  border-color: transparent;\n}\n.btn-link:hover,\n.btn-link:focus {\n  color: #23527c;\n  text-decoration: underline;\n  background-color: transparent;\n}\n.btn-link[disabled]:hover,\nfieldset[disabled] .btn-link:hover,\n.btn-link[disabled]:focus,\nfieldset[disabled] .btn-link:focus {\n  color: #777777;\n  text-decoration: none;\n}\n.btn-lg,\n.btn-group-lg > .btn {\n  padding: 10px 16px;\n  font-size: 18px;\n  line-height: 1.3333333;\n  border-radius: 6px;\n}\n.btn-sm,\n.btn-group-sm > .btn {\n  padding: 5px 10px;\n  font-size: 12px;\n  line-height: 1.5;\n  border-radius: 3px;\n}\n.btn-xs,\n.btn-group-xs > .btn {\n  padding: 1px 5px;\n  font-size: 12px;\n  line-height: 1.5;\n  border-radius: 3px;\n}\n.btn-block {\n  display: block;\n  width: 100%;\n}\n.btn-block + .btn-block {\n  margin-top: 5px;\n}\ninput[type=\"submit\"].btn-block,\ninput[type=\"reset\"].btn-block,\ninput[type=\"button\"].btn-block {\n  width: 100%;\n}\n.fade {\n  opacity: 0;\n  -webkit-transition: opacity 0.15s linear;\n  -o-transition: opacity 0.15s linear;\n  transition: opacity 0.15s linear;\n}\n.fade.in {\n  opacity: 1;\n}\n.collapse {\n  display: none;\n}\n.collapse.in {\n  display: block;\n}\ntr.collapse.in {\n  display: table-row;\n}\ntbody.collapse.in {\n  display: table-row-group;\n}\n.collapsing {\n  position: relative;\n  height: 0;\n  overflow: hidden;\n  -webkit-transition-property: height, visibility;\n  transition-property: height, visibility;\n  -webkit-transition-duration: 0.35s;\n  transition-duration: 0.35s;\n  -webkit-transition-timing-function: ease;\n  transition-timing-function: ease;\n}\n@font-face {\n  font-family: 'Glyphicons Halflings';\n  src: url("+__webpack_require__(159)+");\n  src: url("+__webpack_require__(159)+"?#iefix) format('embedded-opentype'), url("+__webpack_require__(160)+") format('woff2'), url("+__webpack_require__(161)+") format('woff'), url("+__webpack_require__(162)+") format('truetype'), url("+__webpack_require__(163)+"#glyphicons_halflingsregular) format('svg');\n}\n.glyphicon {\n  position: relative;\n  top: 1px;\n  display: inline-block;\n  font-family: 'Glyphicons Halflings';\n  font-style: normal;\n  font-weight: normal;\n  line-height: 1;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n.glyphicon-asterisk:before {\n  content: \"\\2a\";\n}\n.glyphicon-plus:before {\n  content: \"\\2b\";\n}\n.glyphicon-euro:before,\n.glyphicon-eur:before {\n  content: \"\\20ac\";\n}\n.glyphicon-minus:before {\n  content: \"\\2212\";\n}\n.glyphicon-cloud:before {\n  content: \"\\2601\";\n}\n.glyphicon-envelope:before {\n  content: \"\\2709\";\n}\n.glyphicon-pencil:before {\n  content: \"\\270f\";\n}\n.glyphicon-glass:before {\n  content: \"\\e001\";\n}\n.glyphicon-music:before {\n  content: \"\\e002\";\n}\n.glyphicon-search:before {\n  content: \"\\e003\";\n}\n.glyphicon-heart:before {\n  content: \"\\e005\";\n}\n.glyphicon-star:before {\n  content: \"\\e006\";\n}\n.glyphicon-star-empty:before {\n  content: \"\\e007\";\n}\n.glyphicon-user:before {\n  content: \"\\e008\";\n}\n.glyphicon-film:before {\n  content: \"\\e009\";\n}\n.glyphicon-th-large:before {\n  content: \"\\e010\";\n}\n.glyphicon-th:before {\n  content: \"\\e011\";\n}\n.glyphicon-th-list:before {\n  content: \"\\e012\";\n}\n.glyphicon-ok:before {\n  content: \"\\e013\";\n}\n.glyphicon-remove:before {\n  content: \"\\e014\";\n}\n.glyphicon-zoom-in:before {\n  content: \"\\e015\";\n}\n.glyphicon-zoom-out:before {\n  content: \"\\e016\";\n}\n.glyphicon-off:before {\n  content: \"\\e017\";\n}\n.glyphicon-signal:before {\n  content: \"\\e018\";\n}\n.glyphicon-cog:before {\n  content: \"\\e019\";\n}\n.glyphicon-trash:before {\n  content: \"\\e020\";\n}\n.glyphicon-home:before {\n  content: \"\\e021\";\n}\n.glyphicon-file:before {\n  content: \"\\e022\";\n}\n.glyphicon-time:before {\n  content: \"\\e023\";\n}\n.glyphicon-road:before {\n  content: \"\\e024\";\n}\n.glyphicon-download-alt:before {\n  content: \"\\e025\";\n}\n.glyphicon-download:before {\n  content: \"\\e026\";\n}\n.glyphicon-upload:before {\n  content: \"\\e027\";\n}\n.glyphicon-inbox:before {\n  content: \"\\e028\";\n}\n.glyphicon-play-circle:before {\n  content: \"\\e029\";\n}\n.glyphicon-repeat:before {\n  content: \"\\e030\";\n}\n.glyphicon-refresh:before {\n  content: \"\\e031\";\n}\n.glyphicon-list-alt:before {\n  content: \"\\e032\";\n}\n.glyphicon-lock:before {\n  content: \"\\e033\";\n}\n.glyphicon-flag:before {\n  content: \"\\e034\";\n}\n.glyphicon-headphones:before {\n  content: \"\\e035\";\n}\n.glyphicon-volume-off:before {\n  content: \"\\e036\";\n}\n.glyphicon-volume-down:before {\n  content: \"\\e037\";\n}\n.glyphicon-volume-up:before {\n  content: \"\\e038\";\n}\n.glyphicon-qrcode:before {\n  content: \"\\e039\";\n}\n.glyphicon-barcode:before {\n  content: \"\\e040\";\n}\n.glyphicon-tag:before {\n  content: \"\\e041\";\n}\n.glyphicon-tags:before {\n  content: \"\\e042\";\n}\n.glyphicon-book:before {\n  content: \"\\e043\";\n}\n.glyphicon-bookmark:before {\n  content: \"\\e044\";\n}\n.glyphicon-print:before {\n  content: \"\\e045\";\n}\n.glyphicon-camera:before {\n  content: \"\\e046\";\n}\n.glyphicon-font:before {\n  content: \"\\e047\";\n}\n.glyphicon-bold:before {\n  content: \"\\e048\";\n}\n.glyphicon-italic:before {\n  content: \"\\e049\";\n}\n.glyphicon-text-height:before {\n  content: \"\\e050\";\n}\n.glyphicon-text-width:before {\n  content: \"\\e051\";\n}\n.glyphicon-align-left:before {\n  content: \"\\e052\";\n}\n.glyphicon-align-center:before {\n  content: \"\\e053\";\n}\n.glyphicon-align-right:before {\n  content: \"\\e054\";\n}\n.glyphicon-align-justify:before {\n  content: \"\\e055\";\n}\n.glyphicon-list:before {\n  content: \"\\e056\";\n}\n.glyphicon-indent-left:before {\n  content: \"\\e057\";\n}\n.glyphicon-indent-right:before {\n  content: \"\\e058\";\n}\n.glyphicon-facetime-video:before {\n  content: \"\\e059\";\n}\n.glyphicon-picture:before {\n  content: \"\\e060\";\n}\n.glyphicon-map-marker:before {\n  content: \"\\e062\";\n}\n.glyphicon-adjust:before {\n  content: \"\\e063\";\n}\n.glyphicon-tint:before {\n  content: \"\\e064\";\n}\n.glyphicon-edit:before {\n  content: \"\\e065\";\n}\n.glyphicon-share:before {\n  content: \"\\e066\";\n}\n.glyphicon-check:before {\n  content: \"\\e067\";\n}\n.glyphicon-move:before {\n  content: \"\\e068\";\n}\n.glyphicon-step-backward:before {\n  content: \"\\e069\";\n}\n.glyphicon-fast-backward:before {\n  content: \"\\e070\";\n}\n.glyphicon-backward:before {\n  content: \"\\e071\";\n}\n.glyphicon-play:before {\n  content: \"\\e072\";\n}\n.glyphicon-pause:before {\n  content: \"\\e073\";\n}\n.glyphicon-stop:before {\n  content: \"\\e074\";\n}\n.glyphicon-forward:before {\n  content: \"\\e075\";\n}\n.glyphicon-fast-forward:before {\n  content: \"\\e076\";\n}\n.glyphicon-step-forward:before {\n  content: \"\\e077\";\n}\n.glyphicon-eject:before {\n  content: \"\\e078\";\n}\n.glyphicon-chevron-left:before {\n  content: \"\\e079\";\n}\n.glyphicon-chevron-right:before {\n  content: \"\\e080\";\n}\n.glyphicon-plus-sign:before {\n  content: \"\\e081\";\n}\n.glyphicon-minus-sign:before {\n  content: \"\\e082\";\n}\n.glyphicon-remove-sign:before {\n  content: \"\\e083\";\n}\n.glyphicon-ok-sign:before {\n  content: \"\\e084\";\n}\n.glyphicon-question-sign:before {\n  content: \"\\e085\";\n}\n.glyphicon-info-sign:before {\n  content: \"\\e086\";\n}\n.glyphicon-screenshot:before {\n  content: \"\\e087\";\n}\n.glyphicon-remove-circle:before {\n  content: \"\\e088\";\n}\n.glyphicon-ok-circle:before {\n  content: \"\\e089\";\n}\n.glyphicon-ban-circle:before {\n  content: \"\\e090\";\n}\n.glyphicon-arrow-left:before {\n  content: \"\\e091\";\n}\n.glyphicon-arrow-right:before {\n  content: \"\\e092\";\n}\n.glyphicon-arrow-up:before {\n  content: \"\\e093\";\n}\n.glyphicon-arrow-down:before {\n  content: \"\\e094\";\n}\n.glyphicon-share-alt:before {\n  content: \"\\e095\";\n}\n.glyphicon-resize-full:before {\n  content: \"\\e096\";\n}\n.glyphicon-resize-small:before {\n  content: \"\\e097\";\n}\n.glyphicon-exclamation-sign:before {\n  content: \"\\e101\";\n}\n.glyphicon-gift:before {\n  content: \"\\e102\";\n}\n.glyphicon-leaf:before {\n  content: \"\\e103\";\n}\n.glyphicon-fire:before {\n  content: \"\\e104\";\n}\n.glyphicon-eye-open:before {\n  content: \"\\e105\";\n}\n.glyphicon-eye-close:before {\n  content: \"\\e106\";\n}\n.glyphicon-warning-sign:before {\n  content: \"\\e107\";\n}\n.glyphicon-plane:before {\n  content: \"\\e108\";\n}\n.glyphicon-calendar:before {\n  content: \"\\e109\";\n}\n.glyphicon-random:before {\n  content: \"\\e110\";\n}\n.glyphicon-comment:before {\n  content: \"\\e111\";\n}\n.glyphicon-magnet:before {\n  content: \"\\e112\";\n}\n.glyphicon-chevron-up:before {\n  content: \"\\e113\";\n}\n.glyphicon-chevron-down:before {\n  content: \"\\e114\";\n}\n.glyphicon-retweet:before {\n  content: \"\\e115\";\n}\n.glyphicon-shopping-cart:before {\n  content: \"\\e116\";\n}\n.glyphicon-folder-close:before {\n  content: \"\\e117\";\n}\n.glyphicon-folder-open:before {\n  content: \"\\e118\";\n}\n.glyphicon-resize-vertical:before {\n  content: \"\\e119\";\n}\n.glyphicon-resize-horizontal:before {\n  content: \"\\e120\";\n}\n.glyphicon-hdd:before {\n  content: \"\\e121\";\n}\n.glyphicon-bullhorn:before {\n  content: \"\\e122\";\n}\n.glyphicon-bell:before {\n  content: \"\\e123\";\n}\n.glyphicon-certificate:before {\n  content: \"\\e124\";\n}\n.glyphicon-thumbs-up:before {\n  content: \"\\e125\";\n}\n.glyphicon-thumbs-down:before {\n  content: \"\\e126\";\n}\n.glyphicon-hand-right:before {\n  content: \"\\e127\";\n}\n.glyphicon-hand-left:before {\n  content: \"\\e128\";\n}\n.glyphicon-hand-up:before {\n  content: \"\\e129\";\n}\n.glyphicon-hand-down:before {\n  content: \"\\e130\";\n}\n.glyphicon-circle-arrow-right:before {\n  content: \"\\e131\";\n}\n.glyphicon-circle-arrow-left:before {\n  content: \"\\e132\";\n}\n.glyphicon-circle-arrow-up:before {\n  content: \"\\e133\";\n}\n.glyphicon-circle-arrow-down:before {\n  content: \"\\e134\";\n}\n.glyphicon-globe:before {\n  content: \"\\e135\";\n}\n.glyphicon-wrench:before {\n  content: \"\\e136\";\n}\n.glyphicon-tasks:before {\n  content: \"\\e137\";\n}\n.glyphicon-filter:before {\n  content: \"\\e138\";\n}\n.glyphicon-briefcase:before {\n  content: \"\\e139\";\n}\n.glyphicon-fullscreen:before {\n  content: \"\\e140\";\n}\n.glyphicon-dashboard:before {\n  content: \"\\e141\";\n}\n.glyphicon-paperclip:before {\n  content: \"\\e142\";\n}\n.glyphicon-heart-empty:before {\n  content: \"\\e143\";\n}\n.glyphicon-link:before {\n  content: \"\\e144\";\n}\n.glyphicon-phone:before {\n  content: \"\\e145\";\n}\n.glyphicon-pushpin:before {\n  content: \"\\e146\";\n}\n.glyphicon-usd:before {\n  content: \"\\e148\";\n}\n.glyphicon-gbp:before {\n  content: \"\\e149\";\n}\n.glyphicon-sort:before {\n  content: \"\\e150\";\n}\n.glyphicon-sort-by-alphabet:before {\n  content: \"\\e151\";\n}\n.glyphicon-sort-by-alphabet-alt:before {\n  content: \"\\e152\";\n}\n.glyphicon-sort-by-order:before {\n  content: \"\\e153\";\n}\n.glyphicon-sort-by-order-alt:before {\n  content: \"\\e154\";\n}\n.glyphicon-sort-by-attributes:before {\n  content: \"\\e155\";\n}\n.glyphicon-sort-by-attributes-alt:before {\n  content: \"\\e156\";\n}\n.glyphicon-unchecked:before {\n  content: \"\\e157\";\n}\n.glyphicon-expand:before {\n  content: \"\\e158\";\n}\n.glyphicon-collapse-down:before {\n  content: \"\\e159\";\n}\n.glyphicon-collapse-up:before {\n  content: \"\\e160\";\n}\n.glyphicon-log-in:before {\n  content: \"\\e161\";\n}\n.glyphicon-flash:before {\n  content: \"\\e162\";\n}\n.glyphicon-log-out:before {\n  content: \"\\e163\";\n}\n.glyphicon-new-window:before {\n  content: \"\\e164\";\n}\n.glyphicon-record:before {\n  content: \"\\e165\";\n}\n.glyphicon-save:before {\n  content: \"\\e166\";\n}\n.glyphicon-open:before {\n  content: \"\\e167\";\n}\n.glyphicon-saved:before {\n  content: \"\\e168\";\n}\n.glyphicon-import:before {\n  content: \"\\e169\";\n}\n.glyphicon-export:before {\n  content: \"\\e170\";\n}\n.glyphicon-send:before {\n  content: \"\\e171\";\n}\n.glyphicon-floppy-disk:before {\n  content: \"\\e172\";\n}\n.glyphicon-floppy-saved:before {\n  content: \"\\e173\";\n}\n.glyphicon-floppy-remove:before {\n  content: \"\\e174\";\n}\n.glyphicon-floppy-save:before {\n  content: \"\\e175\";\n}\n.glyphicon-floppy-open:before {\n  content: \"\\e176\";\n}\n.glyphicon-credit-card:before {\n  content: \"\\e177\";\n}\n.glyphicon-transfer:before {\n  content: \"\\e178\";\n}\n.glyphicon-cutlery:before {\n  content: \"\\e179\";\n}\n.glyphicon-header:before {\n  content: \"\\e180\";\n}\n.glyphicon-compressed:before {\n  content: \"\\e181\";\n}\n.glyphicon-earphone:before {\n  content: \"\\e182\";\n}\n.glyphicon-phone-alt:before {\n  content: \"\\e183\";\n}\n.glyphicon-tower:before {\n  content: \"\\e184\";\n}\n.glyphicon-stats:before {\n  content: \"\\e185\";\n}\n.glyphicon-sd-video:before {\n  content: \"\\e186\";\n}\n.glyphicon-hd-video:before {\n  content: \"\\e187\";\n}\n.glyphicon-subtitles:before {\n  content: \"\\e188\";\n}\n.glyphicon-sound-stereo:before {\n  content: \"\\e189\";\n}\n.glyphicon-sound-dolby:before {\n  content: \"\\e190\";\n}\n.glyphicon-sound-5-1:before {\n  content: \"\\e191\";\n}\n.glyphicon-sound-6-1:before {\n  content: \"\\e192\";\n}\n.glyphicon-sound-7-1:before {\n  content: \"\\e193\";\n}\n.glyphicon-copyright-mark:before {\n  content: \"\\e194\";\n}\n.glyphicon-registration-mark:before {\n  content: \"\\e195\";\n}\n.glyphicon-cloud-download:before {\n  content: \"\\e197\";\n}\n.glyphicon-cloud-upload:before {\n  content: \"\\e198\";\n}\n.glyphicon-tree-conifer:before {\n  content: \"\\e199\";\n}\n.glyphicon-tree-deciduous:before {\n  content: \"\\e200\";\n}\n.glyphicon-cd:before {\n  content: \"\\e201\";\n}\n.glyphicon-save-file:before {\n  content: \"\\e202\";\n}\n.glyphicon-open-file:before {\n  content: \"\\e203\";\n}\n.glyphicon-level-up:before {\n  content: \"\\e204\";\n}\n.glyphicon-copy:before {\n  content: \"\\e205\";\n}\n.glyphicon-paste:before {\n  content: \"\\e206\";\n}\n.glyphicon-alert:before {\n  content: \"\\e209\";\n}\n.glyphicon-equalizer:before {\n  content: \"\\e210\";\n}\n.glyphicon-king:before {\n  content: \"\\e211\";\n}\n.glyphicon-queen:before {\n  content: \"\\e212\";\n}\n.glyphicon-pawn:before {\n  content: \"\\e213\";\n}\n.glyphicon-bishop:before {\n  content: \"\\e214\";\n}\n.glyphicon-knight:before {\n  content: \"\\e215\";\n}\n.glyphicon-baby-formula:before {\n  content: \"\\e216\";\n}\n.glyphicon-tent:before {\n  content: \"\\26fa\";\n}\n.glyphicon-blackboard:before {\n  content: \"\\e218\";\n}\n.glyphicon-bed:before {\n  content: \"\\e219\";\n}\n.glyphicon-apple:before {\n  content: \"\\f8ff\";\n}\n.glyphicon-erase:before {\n  content: \"\\e221\";\n}\n.glyphicon-hourglass:before {\n  content: \"\\231b\";\n}\n.glyphicon-lamp:before {\n  content: \"\\e223\";\n}\n.glyphicon-duplicate:before {\n  content: \"\\e224\";\n}\n.glyphicon-piggy-bank:before {\n  content: \"\\e225\";\n}\n.glyphicon-scissors:before {\n  content: \"\\e226\";\n}\n.glyphicon-bitcoin:before {\n  content: \"\\e227\";\n}\n.glyphicon-btc:before {\n  content: \"\\e227\";\n}\n.glyphicon-xbt:before {\n  content: \"\\e227\";\n}\n.glyphicon-yen:before {\n  content: \"\\00a5\";\n}\n.glyphicon-jpy:before {\n  content: \"\\00a5\";\n}\n.glyphicon-ruble:before {\n  content: \"\\20bd\";\n}\n.glyphicon-rub:before {\n  content: \"\\20bd\";\n}\n.glyphicon-scale:before {\n  content: \"\\e230\";\n}\n.glyphicon-ice-lolly:before {\n  content: \"\\e231\";\n}\n.glyphicon-ice-lolly-tasted:before {\n  content: \"\\e232\";\n}\n.glyphicon-education:before {\n  content: \"\\e233\";\n}\n.glyphicon-option-horizontal:before {\n  content: \"\\e234\";\n}\n.glyphicon-option-vertical:before {\n  content: \"\\e235\";\n}\n.glyphicon-menu-hamburger:before {\n  content: \"\\e236\";\n}\n.glyphicon-modal-window:before {\n  content: \"\\e237\";\n}\n.glyphicon-oil:before {\n  content: \"\\e238\";\n}\n.glyphicon-grain:before {\n  content: \"\\e239\";\n}\n.glyphicon-sunglasses:before {\n  content: \"\\e240\";\n}\n.glyphicon-text-size:before {\n  content: \"\\e241\";\n}\n.glyphicon-text-color:before {\n  content: \"\\e242\";\n}\n.glyphicon-text-background:before {\n  content: \"\\e243\";\n}\n.glyphicon-object-align-top:before {\n  content: \"\\e244\";\n}\n.glyphicon-object-align-bottom:before {\n  content: \"\\e245\";\n}\n.glyphicon-object-align-horizontal:before {\n  content: \"\\e246\";\n}\n.glyphicon-object-align-left:before {\n  content: \"\\e247\";\n}\n.glyphicon-object-align-vertical:before {\n  content: \"\\e248\";\n}\n.glyphicon-object-align-right:before {\n  content: \"\\e249\";\n}\n.glyphicon-triangle-right:before {\n  content: \"\\e250\";\n}\n.glyphicon-triangle-left:before {\n  content: \"\\e251\";\n}\n.glyphicon-triangle-bottom:before {\n  content: \"\\e252\";\n}\n.glyphicon-triangle-top:before {\n  content: \"\\e253\";\n}\n.glyphicon-console:before {\n  content: \"\\e254\";\n}\n.glyphicon-superscript:before {\n  content: \"\\e255\";\n}\n.glyphicon-subscript:before {\n  content: \"\\e256\";\n}\n.glyphicon-menu-left:before {\n  content: \"\\e257\";\n}\n.glyphicon-menu-right:before {\n  content: \"\\e258\";\n}\n.glyphicon-menu-down:before {\n  content: \"\\e259\";\n}\n.glyphicon-menu-up:before {\n  content: \"\\e260\";\n}\n.caret {\n  display: inline-block;\n  width: 0;\n  height: 0;\n  margin-left: 2px;\n  vertical-align: middle;\n  border-top: 4px dashed;\n  border-right: 4px solid transparent;\n  border-left: 4px solid transparent;\n}\n.dropup,\n.dropdown {\n  position: relative;\n}\n.dropdown-toggle:focus {\n  outline: 0;\n}\n.dropdown-menu {\n  position: absolute;\n  top: 100%;\n  left: 0;\n  z-index: 1000;\n  display: none;\n  float: left;\n  min-width: 160px;\n  padding: 5px 0;\n  margin: 2px 0 0;\n  list-style: none;\n  font-size: 14px;\n  text-align: left;\n  background-color: #ffffff;\n  border: 1px solid #cccccc;\n  border: 1px solid rgba(0, 0, 0, 0.15);\n  border-radius: 4px;\n  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);\n  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);\n  background-clip: padding-box;\n}\n.dropdown-menu.pull-right {\n  right: 0;\n  left: auto;\n}\n.dropdown-menu .divider {\n  height: 1px;\n  margin: 9px 0;\n  overflow: hidden;\n  background-color: #e5e5e5;\n}\n.dropdown-menu > li > a {\n  display: block;\n  padding: 3px 20px;\n  clear: both;\n  font-weight: normal;\n  line-height: 1.428571429;\n  color: #333333;\n  white-space: nowrap;\n}\n.dropdown-menu > li > a:hover,\n.dropdown-menu > li > a:focus {\n  text-decoration: none;\n  color: #262626;\n  background-color: #f5f5f5;\n}\n.dropdown-menu > .active > a,\n.dropdown-menu > .active > a:hover,\n.dropdown-menu > .active > a:focus {\n  color: #ffffff;\n  text-decoration: none;\n  outline: 0;\n  background-color: #337ab7;\n}\n.dropdown-menu > .disabled > a,\n.dropdown-menu > .disabled > a:hover,\n.dropdown-menu > .disabled > a:focus {\n  color: #777777;\n}\n.dropdown-menu > .disabled > a:hover,\n.dropdown-menu > .disabled > a:focus {\n  text-decoration: none;\n  background-color: transparent;\n  background-image: none;\n  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);\n  cursor: not-allowed;\n}\n.open > .dropdown-menu {\n  display: block;\n}\n.open > a {\n  outline: 0;\n}\n.dropdown-menu-right {\n  left: auto;\n  right: 0;\n}\n.dropdown-menu-left {\n  left: 0;\n  right: auto;\n}\n.dropdown-header {\n  display: block;\n  padding: 3px 20px;\n  font-size: 12px;\n  line-height: 1.428571429;\n  color: #777777;\n  white-space: nowrap;\n}\n.dropdown-backdrop {\n  position: fixed;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  top: 0;\n  z-index: 990;\n}\n.pull-right > .dropdown-menu {\n  right: 0;\n  left: auto;\n}\n.dropup .caret,\n.navbar-fixed-bottom .dropdown .caret {\n  border-top: 0;\n  border-bottom: 4px solid;\n  content: \"\";\n}\n.dropup .dropdown-menu,\n.navbar-fixed-bottom .dropdown .dropdown-menu {\n  top: auto;\n  bottom: 100%;\n  margin-bottom: 2px;\n}\n@media (min-width: 768px) {\n  .navbar-right .dropdown-menu {\n    left: auto;\n    right: 0;\n  }\n  .navbar-right .dropdown-menu-left {\n    left: 0;\n    right: auto;\n  }\n}\n.btn-group,\n.btn-group-vertical {\n  position: relative;\n  display: inline-block;\n  vertical-align: middle;\n}\n.btn-group > .btn,\n.btn-group-vertical > .btn {\n  position: relative;\n  float: left;\n}\n.btn-group > .btn:hover,\n.btn-group-vertical > .btn:hover,\n.btn-group > .btn:focus,\n.btn-group-vertical > .btn:focus,\n.btn-group > .btn:active,\n.btn-group-vertical > .btn:active,\n.btn-group > .btn.active,\n.btn-group-vertical > .btn.active {\n  z-index: 2;\n}\n.btn-group .btn + .btn,\n.btn-group .btn + .btn-group,\n.btn-group .btn-group + .btn,\n.btn-group .btn-group + .btn-group {\n  margin-left: -1px;\n}\n.btn-toolbar {\n  margin-left: -5px;\n}\n.btn-toolbar .btn-group,\n.btn-toolbar .input-group {\n  float: left;\n}\n.btn-toolbar > .btn,\n.btn-toolbar > .btn-group,\n.btn-toolbar > .input-group {\n  margin-left: 5px;\n}\n.btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle) {\n  border-radius: 0;\n}\n.btn-group > .btn:first-child {\n  margin-left: 0;\n}\n.btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle) {\n  border-bottom-right-radius: 0;\n  border-top-right-radius: 0;\n}\n.btn-group > .btn:last-child:not(:first-child),\n.btn-group > .dropdown-toggle:not(:first-child) {\n  border-bottom-left-radius: 0;\n  border-top-left-radius: 0;\n}\n.btn-group > .btn-group {\n  float: left;\n}\n.btn-group > .btn-group:not(:first-child):not(:last-child) > .btn {\n  border-radius: 0;\n}\n.btn-group > .btn-group:first-child:not(:last-child) > .btn:last-child,\n.btn-group > .btn-group:first-child:not(:last-child) > .dropdown-toggle {\n  border-bottom-right-radius: 0;\n  border-top-right-radius: 0;\n}\n.btn-group > .btn-group:last-child:not(:first-child) > .btn:first-child {\n  border-bottom-left-radius: 0;\n  border-top-left-radius: 0;\n}\n.btn-group .dropdown-toggle:active,\n.btn-group.open .dropdown-toggle {\n  outline: 0;\n}\n.btn-group > .btn + .dropdown-toggle {\n  padding-left: 8px;\n  padding-right: 8px;\n}\n.btn-group > .btn-lg + .dropdown-toggle {\n  padding-left: 12px;\n  padding-right: 12px;\n}\n.btn-group.open .dropdown-toggle {\n  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);\n  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);\n}\n.btn-group.open .dropdown-toggle.btn-link {\n  -webkit-box-shadow: none;\n  box-shadow: none;\n}\n.btn .caret {\n  margin-left: 0;\n}\n.btn-lg .caret {\n  border-width: 5px 5px 0;\n  border-bottom-width: 0;\n}\n.dropup .btn-lg .caret {\n  border-width: 0 5px 5px;\n}\n.btn-group-vertical > .btn,\n.btn-group-vertical > .btn-group,\n.btn-group-vertical > .btn-group > .btn {\n  display: block;\n  float: none;\n  width: 100%;\n  max-width: 100%;\n}\n.btn-group-vertical > .btn-group > .btn {\n  float: none;\n}\n.btn-group-vertical > .btn + .btn,\n.btn-group-vertical > .btn + .btn-group,\n.btn-group-vertical > .btn-group + .btn,\n.btn-group-vertical > .btn-group + .btn-group {\n  margin-top: -1px;\n  margin-left: 0;\n}\n.btn-group-vertical > .btn:not(:first-child):not(:last-child) {\n  border-radius: 0;\n}\n.btn-group-vertical > .btn:first-child:not(:last-child) {\n  border-top-right-radius: 4px;\n  border-bottom-right-radius: 0;\n  border-bottom-left-radius: 0;\n}\n.btn-group-vertical > .btn:last-child:not(:first-child) {\n  border-bottom-left-radius: 4px;\n  border-top-right-radius: 0;\n  border-top-left-radius: 0;\n}\n.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .btn {\n  border-radius: 0;\n}\n.btn-group-vertical > .btn-group:first-child:not(:last-child) > .btn:last-child,\n.btn-group-vertical > .btn-group:first-child:not(:last-child) > .dropdown-toggle {\n  border-bottom-right-radius: 0;\n  border-bottom-left-radius: 0;\n}\n.btn-group-vertical > .btn-group:last-child:not(:first-child) > .btn:first-child {\n  border-top-right-radius: 0;\n  border-top-left-radius: 0;\n}\n.btn-group-justified {\n  display: table;\n  width: 100%;\n  table-layout: fixed;\n  border-collapse: separate;\n}\n.btn-group-justified > .btn,\n.btn-group-justified > .btn-group {\n  float: none;\n  display: table-cell;\n  width: 1%;\n}\n.btn-group-justified > .btn-group .btn {\n  width: 100%;\n}\n.btn-group-justified > .btn-group .dropdown-menu {\n  left: auto;\n}\n[data-toggle=\"buttons\"] > .btn input[type=\"radio\"],\n[data-toggle=\"buttons\"] > .btn-group > .btn input[type=\"radio\"],\n[data-toggle=\"buttons\"] > .btn input[type=\"checkbox\"],\n[data-toggle=\"buttons\"] > .btn-group > .btn input[type=\"checkbox\"] {\n  position: absolute;\n  clip: rect(0, 0, 0, 0);\n  pointer-events: none;\n}\n.input-group {\n  position: relative;\n  display: table;\n  border-collapse: separate;\n}\n.input-group[class*=\"col-\"] {\n  float: none;\n  padding-left: 0;\n  padding-right: 0;\n}\n.input-group .form-control {\n  position: relative;\n  z-index: 2;\n  float: left;\n  width: 100%;\n  margin-bottom: 0;\n}\n.input-group-lg > .form-control,\n.input-group-lg > .input-group-addon,\n.input-group-lg > .input-group-btn > .btn {\n  height: 46px;\n  padding: 10px 16px;\n  font-size: 18px;\n  line-height: 1.3333333;\n  border-radius: 6px;\n}\nselect.input-group-lg > .form-control,\nselect.input-group-lg > .input-group-addon,\nselect.input-group-lg > .input-group-btn > .btn {\n  height: 46px;\n  line-height: 46px;\n}\ntextarea.input-group-lg > .form-control,\ntextarea.input-group-lg > .input-group-addon,\ntextarea.input-group-lg > .input-group-btn > .btn,\nselect[multiple].input-group-lg > .form-control,\nselect[multiple].input-group-lg > .input-group-addon,\nselect[multiple].input-group-lg > .input-group-btn > .btn {\n  height: auto;\n}\n.input-group-sm > .form-control,\n.input-group-sm > .input-group-addon,\n.input-group-sm > .input-group-btn > .btn {\n  height: 30px;\n  padding: 5px 10px;\n  font-size: 12px;\n  line-height: 1.5;\n  border-radius: 3px;\n}\nselect.input-group-sm > .form-control,\nselect.input-group-sm > .input-group-addon,\nselect.input-group-sm > .input-group-btn > .btn {\n  height: 30px;\n  line-height: 30px;\n}\ntextarea.input-group-sm > .form-control,\ntextarea.input-group-sm > .input-group-addon,\ntextarea.input-group-sm > .input-group-btn > .btn,\nselect[multiple].input-group-sm > .form-control,\nselect[multiple].input-group-sm > .input-group-addon,\nselect[multiple].input-group-sm > .input-group-btn > .btn {\n  height: auto;\n}\n.input-group-addon,\n.input-group-btn,\n.input-group .form-control {\n  display: table-cell;\n}\n.input-group-addon:not(:first-child):not(:last-child),\n.input-group-btn:not(:first-child):not(:last-child),\n.input-group .form-control:not(:first-child):not(:last-child) {\n  border-radius: 0;\n}\n.input-group-addon,\n.input-group-btn {\n  width: 1%;\n  white-space: nowrap;\n  vertical-align: middle;\n}\n.input-group-addon {\n  padding: 6px 12px;\n  font-size: 14px;\n  font-weight: normal;\n  line-height: 1;\n  color: #555555;\n  text-align: center;\n  background-color: #eeeeee;\n  border: 1px solid #cccccc;\n  border-radius: 4px;\n}\n.input-group-addon.input-sm {\n  padding: 5px 10px;\n  font-size: 12px;\n  border-radius: 3px;\n}\n.input-group-addon.input-lg {\n  padding: 10px 16px;\n  font-size: 18px;\n  border-radius: 6px;\n}\n.input-group-addon input[type=\"radio\"],\n.input-group-addon input[type=\"checkbox\"] {\n  margin-top: 0;\n}\n.input-group .form-control:first-child,\n.input-group-addon:first-child,\n.input-group-btn:first-child > .btn,\n.input-group-btn:first-child > .btn-group > .btn,\n.input-group-btn:first-child > .dropdown-toggle,\n.input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle),\n.input-group-btn:last-child > .btn-group:not(:last-child) > .btn {\n  border-bottom-right-radius: 0;\n  border-top-right-radius: 0;\n}\n.input-group-addon:first-child {\n  border-right: 0;\n}\n.input-group .form-control:last-child,\n.input-group-addon:last-child,\n.input-group-btn:last-child > .btn,\n.input-group-btn:last-child > .btn-group > .btn,\n.input-group-btn:last-child > .dropdown-toggle,\n.input-group-btn:first-child > .btn:not(:first-child),\n.input-group-btn:first-child > .btn-group:not(:first-child) > .btn {\n  border-bottom-left-radius: 0;\n  border-top-left-radius: 0;\n}\n.input-group-addon:last-child {\n  border-left: 0;\n}\n.input-group-btn {\n  position: relative;\n  font-size: 0;\n  white-space: nowrap;\n}\n.input-group-btn > .btn {\n  position: relative;\n}\n.input-group-btn > .btn + .btn {\n  margin-left: -1px;\n}\n.input-group-btn > .btn:hover,\n.input-group-btn > .btn:focus,\n.input-group-btn > .btn:active {\n  z-index: 2;\n}\n.input-group-btn:first-child > .btn,\n.input-group-btn:first-child > .btn-group {\n  margin-right: -1px;\n}\n.input-group-btn:last-child > .btn,\n.input-group-btn:last-child > .btn-group {\n  margin-left: -1px;\n}\n.nav {\n  margin-bottom: 0;\n  padding-left: 0;\n  list-style: none;\n}\n.nav > li {\n  position: relative;\n  display: block;\n}\n.nav > li > a {\n  position: relative;\n  display: block;\n  padding: 10px 15px;\n}\n.nav > li > a:hover,\n.nav > li > a:focus {\n  text-decoration: none;\n  background-color: #eeeeee;\n}\n.nav > li.disabled > a {\n  color: #777777;\n}\n.nav > li.disabled > a:hover,\n.nav > li.disabled > a:focus {\n  color: #777777;\n  text-decoration: none;\n  background-color: transparent;\n  cursor: not-allowed;\n}\n.nav .open > a,\n.nav .open > a:hover,\n.nav .open > a:focus {\n  background-color: #eeeeee;\n  border-color: #337ab7;\n}\n.nav .nav-divider {\n  height: 1px;\n  margin: 9px 0;\n  overflow: hidden;\n  background-color: #e5e5e5;\n}\n.nav > li > a > img {\n  max-width: none;\n}\n.nav-tabs {\n  border-bottom: 1px solid #dddddd;\n}\n.nav-tabs > li {\n  float: left;\n  margin-bottom: -1px;\n}\n.nav-tabs > li > a {\n  margin-right: 2px;\n  line-height: 1.428571429;\n  border: 1px solid transparent;\n  border-radius: 4px 4px 0 0;\n}\n.nav-tabs > li > a:hover {\n  border-color: #eeeeee #eeeeee #dddddd;\n}\n.nav-tabs > li.active > a,\n.nav-tabs > li.active > a:hover,\n.nav-tabs > li.active > a:focus {\n  color: #555555;\n  background-color: #ffffff;\n  border: 1px solid #dddddd;\n  border-bottom-color: transparent;\n  cursor: default;\n}\n.nav-tabs.nav-justified {\n  width: 100%;\n  border-bottom: 0;\n}\n.nav-tabs.nav-justified > li {\n  float: none;\n}\n.nav-tabs.nav-justified > li > a {\n  text-align: center;\n  margin-bottom: 5px;\n}\n.nav-tabs.nav-justified > .dropdown .dropdown-menu {\n  top: auto;\n  left: auto;\n}\n@media (min-width: 768px) {\n  .nav-tabs.nav-justified > li {\n    display: table-cell;\n    width: 1%;\n  }\n  .nav-tabs.nav-justified > li > a {\n    margin-bottom: 0;\n  }\n}\n.nav-tabs.nav-justified > li > a {\n  margin-right: 0;\n  border-radius: 4px;\n}\n.nav-tabs.nav-justified > .active > a,\n.nav-tabs.nav-justified > .active > a:hover,\n.nav-tabs.nav-justified > .active > a:focus {\n  border: 1px solid #dddddd;\n}\n@media (min-width: 768px) {\n  .nav-tabs.nav-justified > li > a {\n    border-bottom: 1px solid #dddddd;\n    border-radius: 4px 4px 0 0;\n  }\n  .nav-tabs.nav-justified > .active > a,\n  .nav-tabs.nav-justified > .active > a:hover,\n  .nav-tabs.nav-justified > .active > a:focus {\n    border-bottom-color: #ffffff;\n  }\n}\n.nav-pills > li {\n  float: left;\n}\n.nav-pills > li > a {\n  border-radius: 4px;\n}\n.nav-pills > li + li {\n  margin-left: 2px;\n}\n.nav-pills > li.active > a,\n.nav-pills > li.active > a:hover,\n.nav-pills > li.active > a:focus {\n  color: #ffffff;\n  background-color: #337ab7;\n}\n.nav-stacked > li {\n  float: none;\n}\n.nav-stacked > li + li {\n  margin-top: 2px;\n  margin-left: 0;\n}\n.nav-justified {\n  width: 100%;\n}\n.nav-justified > li {\n  float: none;\n}\n.nav-justified > li > a {\n  text-align: center;\n  margin-bottom: 5px;\n}\n.nav-justified > .dropdown .dropdown-menu {\n  top: auto;\n  left: auto;\n}\n@media (min-width: 768px) {\n  .nav-justified > li {\n    display: table-cell;\n    width: 1%;\n  }\n  .nav-justified > li > a {\n    margin-bottom: 0;\n  }\n}\n.nav-tabs-justified {\n  border-bottom: 0;\n}\n.nav-tabs-justified > li > a {\n  margin-right: 0;\n  border-radius: 4px;\n}\n.nav-tabs-justified > .active > a,\n.nav-tabs-justified > .active > a:hover,\n.nav-tabs-justified > .active > a:focus {\n  border: 1px solid #dddddd;\n}\n@media (min-width: 768px) {\n  .nav-tabs-justified > li > a {\n    border-bottom: 1px solid #dddddd;\n    border-radius: 4px 4px 0 0;\n  }\n  .nav-tabs-justified > .active > a,\n  .nav-tabs-justified > .active > a:hover,\n  .nav-tabs-justified > .active > a:focus {\n    border-bottom-color: #ffffff;\n  }\n}\n.tab-content > .tab-pane {\n  display: none;\n}\n.tab-content > .active {\n  display: block;\n}\n.nav-tabs .dropdown-menu {\n  margin-top: -1px;\n  border-top-right-radius: 0;\n  border-top-left-radius: 0;\n}\n.navbar {\n  position: relative;\n  min-height: 50px;\n  margin-bottom: 20px;\n  border: 1px solid transparent;\n}\n@media (min-width: 768px) {\n  .navbar {\n    border-radius: 4px;\n  }\n}\n@media (min-width: 768px) {\n  .navbar-header {\n    float: left;\n  }\n}\n.navbar-collapse {\n  overflow-x: visible;\n  padding-right: 15px;\n  padding-left: 15px;\n  border-top: 1px solid transparent;\n  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);\n  -webkit-overflow-scrolling: touch;\n}\n.navbar-collapse.in {\n  overflow-y: auto;\n}\n@media (min-width: 768px) {\n  .navbar-collapse {\n    width: auto;\n    border-top: 0;\n    box-shadow: none;\n  }\n  .navbar-collapse.collapse {\n    display: block !important;\n    height: auto !important;\n    padding-bottom: 0;\n    overflow: visible !important;\n  }\n  .navbar-collapse.in {\n    overflow-y: visible;\n  }\n  .navbar-fixed-top .navbar-collapse,\n  .navbar-static-top .navbar-collapse,\n  .navbar-fixed-bottom .navbar-collapse {\n    padding-left: 0;\n    padding-right: 0;\n  }\n}\n.navbar-fixed-top .navbar-collapse,\n.navbar-fixed-bottom .navbar-collapse {\n  max-height: 340px;\n}\n@media (max-device-width: 480px) and (orientation: landscape) {\n  .navbar-fixed-top .navbar-collapse,\n  .navbar-fixed-bottom .navbar-collapse {\n    max-height: 200px;\n  }\n}\n.container > .navbar-header,\n.container-fluid > .navbar-header,\n.container > .navbar-collapse,\n.container-fluid > .navbar-collapse {\n  margin-right: -15px;\n  margin-left: -15px;\n}\n@media (min-width: 768px) {\n  .container > .navbar-header,\n  .container-fluid > .navbar-header,\n  .container > .navbar-collapse,\n  .container-fluid > .navbar-collapse {\n    margin-right: 0;\n    margin-left: 0;\n  }\n}\n.navbar-static-top {\n  z-index: 1000;\n  border-width: 0 0 1px;\n}\n@media (min-width: 768px) {\n  .navbar-static-top {\n    border-radius: 0;\n  }\n}\n.navbar-fixed-top,\n.navbar-fixed-bottom {\n  position: fixed;\n  right: 0;\n  left: 0;\n  z-index: 1030;\n}\n@media (min-width: 768px) {\n  .navbar-fixed-top,\n  .navbar-fixed-bottom {\n    border-radius: 0;\n  }\n}\n.navbar-fixed-top {\n  top: 0;\n  border-width: 0 0 1px;\n}\n.navbar-fixed-bottom {\n  bottom: 0;\n  margin-bottom: 0;\n  border-width: 1px 0 0;\n}\n.navbar-brand {\n  float: left;\n  padding: 15px 15px;\n  font-size: 18px;\n  line-height: 20px;\n  height: 50px;\n}\n.navbar-brand:hover,\n.navbar-brand:focus {\n  text-decoration: none;\n}\n.navbar-brand > img {\n  display: block;\n}\n@media (min-width: 768px) {\n  .navbar > .container .navbar-brand,\n  .navbar > .container-fluid .navbar-brand {\n    margin-left: -15px;\n  }\n}\n.navbar-toggle {\n  position: relative;\n  float: right;\n  margin-right: 15px;\n  padding: 9px 10px;\n  margin-top: 8px;\n  margin-bottom: 8px;\n  background-color: transparent;\n  background-image: none;\n  border: 1px solid transparent;\n  border-radius: 4px;\n}\n.navbar-toggle:focus {\n  outline: 0;\n}\n.navbar-toggle .icon-bar {\n  display: block;\n  width: 22px;\n  height: 2px;\n  border-radius: 1px;\n}\n.navbar-toggle .icon-bar + .icon-bar {\n  margin-top: 4px;\n}\n@media (min-width: 768px) {\n  .navbar-toggle {\n    display: none;\n  }\n}\n.navbar-nav {\n  margin: 7.5px -15px;\n}\n.navbar-nav > li > a {\n  padding-top: 10px;\n  padding-bottom: 10px;\n  line-height: 20px;\n}\n@media (max-width: 767px) {\n  .navbar-nav .open .dropdown-menu {\n    position: static;\n    float: none;\n    width: auto;\n    margin-top: 0;\n    background-color: transparent;\n    border: 0;\n    box-shadow: none;\n  }\n  .navbar-nav .open .dropdown-menu > li > a,\n  .navbar-nav .open .dropdown-menu .dropdown-header {\n    padding: 5px 15px 5px 25px;\n  }\n  .navbar-nav .open .dropdown-menu > li > a {\n    line-height: 20px;\n  }\n  .navbar-nav .open .dropdown-menu > li > a:hover,\n  .navbar-nav .open .dropdown-menu > li > a:focus {\n    background-image: none;\n  }\n}\n@media (min-width: 768px) {\n  .navbar-nav {\n    float: left;\n    margin: 0;\n  }\n  .navbar-nav > li {\n    float: left;\n  }\n  .navbar-nav > li > a {\n    padding-top: 15px;\n    padding-bottom: 15px;\n  }\n}\n.navbar-form {\n  margin-left: -15px;\n  margin-right: -15px;\n  padding: 10px 15px;\n  border-top: 1px solid transparent;\n  border-bottom: 1px solid transparent;\n  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);\n  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);\n  margin-top: 8px;\n  margin-bottom: 8px;\n}\n@media (min-width: 768px) {\n  .navbar-form .form-group {\n    display: inline-block;\n    margin-bottom: 0;\n    vertical-align: middle;\n  }\n  .navbar-form .form-control {\n    display: inline-block;\n    width: auto;\n    vertical-align: middle;\n  }\n  .navbar-form .form-control-static {\n    display: inline-block;\n  }\n  .navbar-form .input-group {\n    display: inline-table;\n    vertical-align: middle;\n  }\n  .navbar-form .input-group .input-group-addon,\n  .navbar-form .input-group .input-group-btn,\n  .navbar-form .input-group .form-control {\n    width: auto;\n  }\n  .navbar-form .input-group > .form-control {\n    width: 100%;\n  }\n  .navbar-form .control-label {\n    margin-bottom: 0;\n    vertical-align: middle;\n  }\n  .navbar-form .radio,\n  .navbar-form .checkbox {\n    display: inline-block;\n    margin-top: 0;\n    margin-bottom: 0;\n    vertical-align: middle;\n  }\n  .navbar-form .radio label,\n  .navbar-form .checkbox label {\n    padding-left: 0;\n  }\n  .navbar-form .radio input[type=\"radio\"],\n  .navbar-form .checkbox input[type=\"checkbox\"] {\n    position: relative;\n    margin-left: 0;\n  }\n  .navbar-form .has-feedback .form-control-feedback {\n    top: 0;\n  }\n}\n@media (max-width: 767px) {\n  .navbar-form .form-group {\n    margin-bottom: 5px;\n  }\n  .navbar-form .form-group:last-child {\n    margin-bottom: 0;\n  }\n}\n@media (min-width: 768px) {\n  .navbar-form {\n    width: auto;\n    border: 0;\n    margin-left: 0;\n    margin-right: 0;\n    padding-top: 0;\n    padding-bottom: 0;\n    -webkit-box-shadow: none;\n    box-shadow: none;\n  }\n}\n.navbar-nav > li > .dropdown-menu {\n  margin-top: 0;\n  border-top-right-radius: 0;\n  border-top-left-radius: 0;\n}\n.navbar-fixed-bottom .navbar-nav > li > .dropdown-menu {\n  margin-bottom: 0;\n  border-top-right-radius: 4px;\n  border-top-left-radius: 4px;\n  border-bottom-right-radius: 0;\n  border-bottom-left-radius: 0;\n}\n.navbar-btn {\n  margin-top: 8px;\n  margin-bottom: 8px;\n}\n.navbar-btn.btn-sm {\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n.navbar-btn.btn-xs {\n  margin-top: 14px;\n  margin-bottom: 14px;\n}\n.navbar-text {\n  margin-top: 15px;\n  margin-bottom: 15px;\n}\n@media (min-width: 768px) {\n  .navbar-text {\n    float: left;\n    margin-left: 15px;\n    margin-right: 15px;\n  }\n}\n@media (min-width: 768px) {\n  .navbar-left {\n    float: left !important;\n  }\n  .navbar-right {\n    float: right !important;\n    margin-right: -15px;\n  }\n  .navbar-right ~ .navbar-right {\n    margin-right: 0;\n  }\n}\n.navbar-default {\n  background-color: #f8f8f8;\n  border-color: #e7e7e7;\n}\n.navbar-default .navbar-brand {\n  color: #777777;\n}\n.navbar-default .navbar-brand:hover,\n.navbar-default .navbar-brand:focus {\n  color: #5e5e5e;\n  background-color: transparent;\n}\n.navbar-default .navbar-text {\n  color: #777777;\n}\n.navbar-default .navbar-nav > li > a {\n  color: #777777;\n}\n.navbar-default .navbar-nav > li > a:hover,\n.navbar-default .navbar-nav > li > a:focus {\n  color: #333333;\n  background-color: transparent;\n}\n.navbar-default .navbar-nav > .active > a,\n.navbar-default .navbar-nav > .active > a:hover,\n.navbar-default .navbar-nav > .active > a:focus {\n  color: #555555;\n  background-color: #e7e7e7;\n}\n.navbar-default .navbar-nav > .disabled > a,\n.navbar-default .navbar-nav > .disabled > a:hover,\n.navbar-default .navbar-nav > .disabled > a:focus {\n  color: #cccccc;\n  background-color: transparent;\n}\n.navbar-default .navbar-toggle {\n  border-color: #dddddd;\n}\n.navbar-default .navbar-toggle:hover,\n.navbar-default .navbar-toggle:focus {\n  background-color: #dddddd;\n}\n.navbar-default .navbar-toggle .icon-bar {\n  background-color: #888888;\n}\n.navbar-default .navbar-collapse,\n.navbar-default .navbar-form {\n  border-color: #e7e7e7;\n}\n.navbar-default .navbar-nav > .open > a,\n.navbar-default .navbar-nav > .open > a:hover,\n.navbar-default .navbar-nav > .open > a:focus {\n  background-color: #e7e7e7;\n  color: #555555;\n}\n@media (max-width: 767px) {\n  .navbar-default .navbar-nav .open .dropdown-menu > li > a {\n    color: #777777;\n  }\n  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,\n  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {\n    color: #333333;\n    background-color: transparent;\n  }\n  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,\n  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,\n  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {\n    color: #555555;\n    background-color: #e7e7e7;\n  }\n  .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a,\n  .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover,\n  .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:focus {\n    color: #cccccc;\n    background-color: transparent;\n  }\n}\n.navbar-default .navbar-link {\n  color: #777777;\n}\n.navbar-default .navbar-link:hover {\n  color: #333333;\n}\n.navbar-default .btn-link {\n  color: #777777;\n}\n.navbar-default .btn-link:hover,\n.navbar-default .btn-link:focus {\n  color: #333333;\n}\n.navbar-default .btn-link[disabled]:hover,\nfieldset[disabled] .navbar-default .btn-link:hover,\n.navbar-default .btn-link[disabled]:focus,\nfieldset[disabled] .navbar-default .btn-link:focus {\n  color: #cccccc;\n}\n.navbar-inverse {\n  background-color: #222222;\n  border-color: #080808;\n}\n.navbar-inverse .navbar-brand {\n  color: #9d9d9d;\n}\n.navbar-inverse .navbar-brand:hover,\n.navbar-inverse .navbar-brand:focus {\n  color: #ffffff;\n  background-color: transparent;\n}\n.navbar-inverse .navbar-text {\n  color: #9d9d9d;\n}\n.navbar-inverse .navbar-nav > li > a {\n  color: #9d9d9d;\n}\n.navbar-inverse .navbar-nav > li > a:hover,\n.navbar-inverse .navbar-nav > li > a:focus {\n  color: #ffffff;\n  background-color: transparent;\n}\n.navbar-inverse .navbar-nav > .active > a,\n.navbar-inverse .navbar-nav > .active > a:hover,\n.navbar-inverse .navbar-nav > .active > a:focus {\n  color: #ffffff;\n  background-color: #080808;\n}\n.navbar-inverse .navbar-nav > .disabled > a,\n.navbar-inverse .navbar-nav > .disabled > a:hover,\n.navbar-inverse .navbar-nav > .disabled > a:focus {\n  color: #444444;\n  background-color: transparent;\n}\n.navbar-inverse .navbar-toggle {\n  border-color: #333333;\n}\n.navbar-inverse .navbar-toggle:hover,\n.navbar-inverse .navbar-toggle:focus {\n  background-color: #333333;\n}\n.navbar-inverse .navbar-toggle .icon-bar {\n  background-color: #ffffff;\n}\n.navbar-inverse .navbar-collapse,\n.navbar-inverse .navbar-form {\n  border-color: #101010;\n}\n.navbar-inverse .navbar-nav > .open > a,\n.navbar-inverse .navbar-nav > .open > a:hover,\n.navbar-inverse .navbar-nav > .open > a:focus {\n  background-color: #080808;\n  color: #ffffff;\n}\n@media (max-width: 767px) {\n  .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {\n    border-color: #080808;\n  }\n  .navbar-inverse .navbar-nav .open .dropdown-menu .divider {\n    background-color: #080808;\n  }\n  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {\n    color: #9d9d9d;\n  }\n  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover,\n  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus {\n    color: #ffffff;\n    background-color: transparent;\n  }\n  .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a,\n  .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:hover,\n  .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:focus {\n    color: #ffffff;\n    background-color: #080808;\n  }\n  .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a,\n  .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:hover,\n  .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:focus {\n    color: #444444;\n    background-color: transparent;\n  }\n}\n.navbar-inverse .navbar-link {\n  color: #9d9d9d;\n}\n.navbar-inverse .navbar-link:hover {\n  color: #ffffff;\n}\n.navbar-inverse .btn-link {\n  color: #9d9d9d;\n}\n.navbar-inverse .btn-link:hover,\n.navbar-inverse .btn-link:focus {\n  color: #ffffff;\n}\n.navbar-inverse .btn-link[disabled]:hover,\nfieldset[disabled] .navbar-inverse .btn-link:hover,\n.navbar-inverse .btn-link[disabled]:focus,\nfieldset[disabled] .navbar-inverse .btn-link:focus {\n  color: #444444;\n}\n.breadcrumb {\n  padding: 8px 15px;\n  margin-bottom: 20px;\n  list-style: none;\n  background-color: #f5f5f5;\n  border-radius: 4px;\n}\n.breadcrumb > li {\n  display: inline-block;\n}\n.breadcrumb > li + li:before {\n  content: \"/\\00a0\";\n  padding: 0 5px;\n  color: #cccccc;\n}\n.breadcrumb > .active {\n  color: #777777;\n}\n.pagination {\n  display: inline-block;\n  padding-left: 0;\n  margin: 20px 0;\n  border-radius: 4px;\n}\n.pagination > li {\n  display: inline;\n}\n.pagination > li > a,\n.pagination > li > span {\n  position: relative;\n  float: left;\n  padding: 6px 12px;\n  line-height: 1.428571429;\n  text-decoration: none;\n  color: #337ab7;\n  background-color: #ffffff;\n  border: 1px solid #dddddd;\n  margin-left: -1px;\n}\n.pagination > li:first-child > a,\n.pagination > li:first-child > span {\n  margin-left: 0;\n  border-bottom-left-radius: 4px;\n  border-top-left-radius: 4px;\n}\n.pagination > li:last-child > a,\n.pagination > li:last-child > span {\n  border-bottom-right-radius: 4px;\n  border-top-right-radius: 4px;\n}\n.pagination > li > a:hover,\n.pagination > li > span:hover,\n.pagination > li > a:focus,\n.pagination > li > span:focus {\n  color: #23527c;\n  background-color: #eeeeee;\n  border-color: #dddddd;\n}\n.pagination > .active > a,\n.pagination > .active > span,\n.pagination > .active > a:hover,\n.pagination > .active > span:hover,\n.pagination > .active > a:focus,\n.pagination > .active > span:focus {\n  z-index: 2;\n  color: #ffffff;\n  background-color: #337ab7;\n  border-color: #337ab7;\n  cursor: default;\n}\n.pagination > .disabled > span,\n.pagination > .disabled > span:hover,\n.pagination > .disabled > span:focus,\n.pagination > .disabled > a,\n.pagination > .disabled > a:hover,\n.pagination > .disabled > a:focus {\n  color: #777777;\n  background-color: #ffffff;\n  border-color: #dddddd;\n  cursor: not-allowed;\n}\n.pagination-lg > li > a,\n.pagination-lg > li > span {\n  padding: 10px 16px;\n  font-size: 18px;\n}\n.pagination-lg > li:first-child > a,\n.pagination-lg > li:first-child > span {\n  border-bottom-left-radius: 6px;\n  border-top-left-radius: 6px;\n}\n.pagination-lg > li:last-child > a,\n.pagination-lg > li:last-child > span {\n  border-bottom-right-radius: 6px;\n  border-top-right-radius: 6px;\n}\n.pagination-sm > li > a,\n.pagination-sm > li > span {\n  padding: 5px 10px;\n  font-size: 12px;\n}\n.pagination-sm > li:first-child > a,\n.pagination-sm > li:first-child > span {\n  border-bottom-left-radius: 3px;\n  border-top-left-radius: 3px;\n}\n.pagination-sm > li:last-child > a,\n.pagination-sm > li:last-child > span {\n  border-bottom-right-radius: 3px;\n  border-top-right-radius: 3px;\n}\n.pager {\n  padding-left: 0;\n  margin: 20px 0;\n  list-style: none;\n  text-align: center;\n}\n.pager li {\n  display: inline;\n}\n.pager li > a,\n.pager li > span {\n  display: inline-block;\n  padding: 5px 14px;\n  background-color: #ffffff;\n  border: 1px solid #dddddd;\n  border-radius: 15px;\n}\n.pager li > a:hover,\n.pager li > a:focus {\n  text-decoration: none;\n  background-color: #eeeeee;\n}\n.pager .next > a,\n.pager .next > span {\n  float: right;\n}\n.pager .previous > a,\n.pager .previous > span {\n  float: left;\n}\n.pager .disabled > a,\n.pager .disabled > a:hover,\n.pager .disabled > a:focus,\n.pager .disabled > span {\n  color: #777777;\n  background-color: #ffffff;\n  cursor: not-allowed;\n}\n.label {\n  display: inline;\n  padding: .2em .6em .3em;\n  font-size: 75%;\n  font-weight: bold;\n  line-height: 1;\n  color: #ffffff;\n  text-align: center;\n  white-space: nowrap;\n  vertical-align: baseline;\n  border-radius: .25em;\n}\na.label:hover,\na.label:focus {\n  color: #ffffff;\n  text-decoration: none;\n  cursor: pointer;\n}\n.label:empty {\n  display: none;\n}\n.btn .label {\n  position: relative;\n  top: -1px;\n}\n.label-default {\n  background-color: #777777;\n}\n.label-default[href]:hover,\n.label-default[href]:focus {\n  background-color: #5e5e5e;\n}\n.label-primary {\n  background-color: #337ab7;\n}\n.label-primary[href]:hover,\n.label-primary[href]:focus {\n  background-color: #286090;\n}\n.label-success {\n  background-color: #5cb85c;\n}\n.label-success[href]:hover,\n.label-success[href]:focus {\n  background-color: #449d44;\n}\n.label-info {\n  background-color: #5bc0de;\n}\n.label-info[href]:hover,\n.label-info[href]:focus {\n  background-color: #31b0d5;\n}\n.label-warning {\n  background-color: #f0ad4e;\n}\n.label-warning[href]:hover,\n.label-warning[href]:focus {\n  background-color: #ec971f;\n}\n.label-danger {\n  background-color: #d9534f;\n}\n.label-danger[href]:hover,\n.label-danger[href]:focus {\n  background-color: #c9302c;\n}\n.badge {\n  display: inline-block;\n  min-width: 10px;\n  padding: 3px 7px;\n  font-size: 12px;\n  font-weight: bold;\n  color: #ffffff;\n  line-height: 1;\n  vertical-align: baseline;\n  white-space: nowrap;\n  text-align: center;\n  background-color: #777777;\n  border-radius: 10px;\n}\n.badge:empty {\n  display: none;\n}\n.btn .badge {\n  position: relative;\n  top: -1px;\n}\n.btn-xs .badge,\n.btn-group-xs > .btn .badge {\n  top: 0;\n  padding: 1px 5px;\n}\na.badge:hover,\na.badge:focus {\n  color: #ffffff;\n  text-decoration: none;\n  cursor: pointer;\n}\n.list-group-item.active > .badge,\n.nav-pills > .active > a > .badge {\n  color: #337ab7;\n  background-color: #ffffff;\n}\n.list-group-item > .badge {\n  float: right;\n}\n.list-group-item > .badge + .badge {\n  margin-right: 5px;\n}\n.nav-pills > li > a > .badge {\n  margin-left: 3px;\n}\n.jumbotron {\n  padding: 30px 15px;\n  margin-bottom: 30px;\n  color: inherit;\n  background-color: #eeeeee;\n}\n.jumbotron h1,\n.jumbotron .h1 {\n  color: inherit;\n}\n.jumbotron p {\n  margin-bottom: 15px;\n  font-size: 21px;\n  font-weight: 200;\n}\n.jumbotron > hr {\n  border-top-color: #d5d5d5;\n}\n.container .jumbotron,\n.container-fluid .jumbotron {\n  border-radius: 6px;\n}\n.jumbotron .container {\n  max-width: 100%;\n}\n@media screen and (min-width: 768px) {\n  .jumbotron {\n    padding: 48px 0;\n  }\n  .container .jumbotron,\n  .container-fluid .jumbotron {\n    padding-left: 60px;\n    padding-right: 60px;\n  }\n  .jumbotron h1,\n  .jumbotron .h1 {\n    font-size: 63px;\n  }\n}\n.thumbnail {\n  display: block;\n  padding: 4px;\n  margin-bottom: 20px;\n  line-height: 1.428571429;\n  background-color: #ffffff;\n  border: 1px solid #dddddd;\n  border-radius: 4px;\n  -webkit-transition: border 0.2s ease-in-out;\n  -o-transition: border 0.2s ease-in-out;\n  transition: border 0.2s ease-in-out;\n}\n.thumbnail > img,\n.thumbnail a > img {\n  margin-left: auto;\n  margin-right: auto;\n}\na.thumbnail:hover,\na.thumbnail:focus,\na.thumbnail.active {\n  border-color: #337ab7;\n}\n.thumbnail .caption {\n  padding: 9px;\n  color: #333333;\n}\n.alert {\n  padding: 15px;\n  margin-bottom: 20px;\n  border: 1px solid transparent;\n  border-radius: 4px;\n}\n.alert h4 {\n  margin-top: 0;\n  color: inherit;\n}\n.alert .alert-link {\n  font-weight: bold;\n}\n.alert > p,\n.alert > ul {\n  margin-bottom: 0;\n}\n.alert > p + p {\n  margin-top: 5px;\n}\n.alert-dismissable,\n.alert-dismissible {\n  padding-right: 35px;\n}\n.alert-dismissable .close,\n.alert-dismissible .close {\n  position: relative;\n  top: -2px;\n  right: -21px;\n  color: inherit;\n}\n.alert-success {\n  background-color: #dff0d8;\n  border-color: #d6e9c6;\n  color: #3c763d;\n}\n.alert-success hr {\n  border-top-color: #c9e2b3;\n}\n.alert-success .alert-link {\n  color: #2b542c;\n}\n.alert-info {\n  background-color: #d9edf7;\n  border-color: #bce8f1;\n  color: #31708f;\n}\n.alert-info hr {\n  border-top-color: #a6e1ec;\n}\n.alert-info .alert-link {\n  color: #245269;\n}\n.alert-warning {\n  background-color: #fcf8e3;\n  border-color: #faebcc;\n  color: #8a6d3b;\n}\n.alert-warning hr {\n  border-top-color: #f7e1b5;\n}\n.alert-warning .alert-link {\n  color: #66512c;\n}\n.alert-danger {\n  background-color: #f2dede;\n  border-color: #ebccd1;\n  color: #a94442;\n}\n.alert-danger hr {\n  border-top-color: #e4b9c0;\n}\n.alert-danger .alert-link {\n  color: #843534;\n}\n@-webkit-keyframes progress-bar-stripes {\n  from {\n    background-position: 40px 0;\n  }\n  to {\n    background-position: 0 0;\n  }\n}\n@keyframes progress-bar-stripes {\n  from {\n    background-position: 40px 0;\n  }\n  to {\n    background-position: 0 0;\n  }\n}\n.progress {\n  overflow: hidden;\n  height: 20px;\n  margin-bottom: 20px;\n  background-color: #f5f5f5;\n  border-radius: 4px;\n  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);\n  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);\n}\n.progress-bar {\n  float: left;\n  width: 0%;\n  height: 100%;\n  font-size: 12px;\n  line-height: 20px;\n  color: #ffffff;\n  text-align: center;\n  background-color: #337ab7;\n  -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);\n  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);\n  -webkit-transition: width 0.6s ease;\n  -o-transition: width 0.6s ease;\n  transition: width 0.6s ease;\n}\n.progress-striped .progress-bar,\n.progress-bar-striped {\n  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\n  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\n  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\n  background-size: 40px 40px;\n}\n.progress.active .progress-bar,\n.progress-bar.active {\n  -webkit-animation: progress-bar-stripes 2s linear infinite;\n  -o-animation: progress-bar-stripes 2s linear infinite;\n  animation: progress-bar-stripes 2s linear infinite;\n}\n.progress-bar-success {\n  background-color: #5cb85c;\n}\n.progress-striped .progress-bar-success {\n  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\n  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\n  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\n}\n.progress-bar-info {\n  background-color: #5bc0de;\n}\n.progress-striped .progress-bar-info {\n  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\n  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\n  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\n}\n.progress-bar-warning {\n  background-color: #f0ad4e;\n}\n.progress-striped .progress-bar-warning {\n  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\n  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\n  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\n}\n.progress-bar-danger {\n  background-color: #d9534f;\n}\n.progress-striped .progress-bar-danger {\n  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\n  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\n  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\n}\n.media {\n  margin-top: 15px;\n}\n.media:first-child {\n  margin-top: 0;\n}\n.media,\n.media-body {\n  zoom: 1;\n  overflow: hidden;\n}\n.media-body {\n  width: 10000px;\n}\n.media-object {\n  display: block;\n}\n.media-right,\n.media > .pull-right {\n  padding-left: 10px;\n}\n.media-left,\n.media > .pull-left {\n  padding-right: 10px;\n}\n.media-left,\n.media-right,\n.media-body {\n  display: table-cell;\n  vertical-align: top;\n}\n.media-middle {\n  vertical-align: middle;\n}\n.media-bottom {\n  vertical-align: bottom;\n}\n.media-heading {\n  margin-top: 0;\n  margin-bottom: 5px;\n}\n.media-list {\n  padding-left: 0;\n  list-style: none;\n}\n.list-group {\n  margin-bottom: 20px;\n  padding-left: 0;\n}\n.list-group-item {\n  position: relative;\n  display: block;\n  padding: 10px 15px;\n  margin-bottom: -1px;\n  background-color: #ffffff;\n  border: 1px solid #dddddd;\n}\n.list-group-item:first-child {\n  border-top-right-radius: 4px;\n  border-top-left-radius: 4px;\n}\n.list-group-item:last-child {\n  margin-bottom: 0;\n  border-bottom-right-radius: 4px;\n  border-bottom-left-radius: 4px;\n}\na.list-group-item {\n  color: #555555;\n}\na.list-group-item .list-group-item-heading {\n  color: #333333;\n}\na.list-group-item:hover,\na.list-group-item:focus {\n  text-decoration: none;\n  color: #555555;\n  background-color: #f5f5f5;\n}\n.list-group-item.disabled,\n.list-group-item.disabled:hover,\n.list-group-item.disabled:focus {\n  background-color: #eeeeee;\n  color: #777777;\n  cursor: not-allowed;\n}\n.list-group-item.disabled .list-group-item-heading,\n.list-group-item.disabled:hover .list-group-item-heading,\n.list-group-item.disabled:focus .list-group-item-heading {\n  color: inherit;\n}\n.list-group-item.disabled .list-group-item-text,\n.list-group-item.disabled:hover .list-group-item-text,\n.list-group-item.disabled:focus .list-group-item-text {\n  color: #777777;\n}\n.list-group-item.active,\n.list-group-item.active:hover,\n.list-group-item.active:focus {\n  z-index: 2;\n  color: #ffffff;\n  background-color: #337ab7;\n  border-color: #337ab7;\n}\n.list-group-item.active .list-group-item-heading,\n.list-group-item.active:hover .list-group-item-heading,\n.list-group-item.active:focus .list-group-item-heading,\n.list-group-item.active .list-group-item-heading > small,\n.list-group-item.active:hover .list-group-item-heading > small,\n.list-group-item.active:focus .list-group-item-heading > small,\n.list-group-item.active .list-group-item-heading > .small,\n.list-group-item.active:hover .list-group-item-heading > .small,\n.list-group-item.active:focus .list-group-item-heading > .small {\n  color: inherit;\n}\n.list-group-item.active .list-group-item-text,\n.list-group-item.active:hover .list-group-item-text,\n.list-group-item.active:focus .list-group-item-text {\n  color: #c7ddef;\n}\n.list-group-item-success {\n  color: #3c763d;\n  background-color: #dff0d8;\n}\na.list-group-item-success {\n  color: #3c763d;\n}\na.list-group-item-success .list-group-item-heading {\n  color: inherit;\n}\na.list-group-item-success:hover,\na.list-group-item-success:focus {\n  color: #3c763d;\n  background-color: #d0e9c6;\n}\na.list-group-item-success.active,\na.list-group-item-success.active:hover,\na.list-group-item-success.active:focus {\n  color: #fff;\n  background-color: #3c763d;\n  border-color: #3c763d;\n}\n.list-group-item-info {\n  color: #31708f;\n  background-color: #d9edf7;\n}\na.list-group-item-info {\n  color: #31708f;\n}\na.list-group-item-info .list-group-item-heading {\n  color: inherit;\n}\na.list-group-item-info:hover,\na.list-group-item-info:focus {\n  color: #31708f;\n  background-color: #c4e3f3;\n}\na.list-group-item-info.active,\na.list-group-item-info.active:hover,\na.list-group-item-info.active:focus {\n  color: #fff;\n  background-color: #31708f;\n  border-color: #31708f;\n}\n.list-group-item-warning {\n  color: #8a6d3b;\n  background-color: #fcf8e3;\n}\na.list-group-item-warning {\n  color: #8a6d3b;\n}\na.list-group-item-warning .list-group-item-heading {\n  color: inherit;\n}\na.list-group-item-warning:hover,\na.list-group-item-warning:focus {\n  color: #8a6d3b;\n  background-color: #faf2cc;\n}\na.list-group-item-warning.active,\na.list-group-item-warning.active:hover,\na.list-group-item-warning.active:focus {\n  color: #fff;\n  background-color: #8a6d3b;\n  border-color: #8a6d3b;\n}\n.list-group-item-danger {\n  color: #a94442;\n  background-color: #f2dede;\n}\na.list-group-item-danger {\n  color: #a94442;\n}\na.list-group-item-danger .list-group-item-heading {\n  color: inherit;\n}\na.list-group-item-danger:hover,\na.list-group-item-danger:focus {\n  color: #a94442;\n  background-color: #ebcccc;\n}\na.list-group-item-danger.active,\na.list-group-item-danger.active:hover,\na.list-group-item-danger.active:focus {\n  color: #fff;\n  background-color: #a94442;\n  border-color: #a94442;\n}\n.list-group-item-heading {\n  margin-top: 0;\n  margin-bottom: 5px;\n}\n.list-group-item-text {\n  margin-bottom: 0;\n  line-height: 1.3;\n}\n.panel {\n  margin-bottom: 20px;\n  background-color: #ffffff;\n  border: 1px solid transparent;\n  border-radius: 4px;\n  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);\n  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);\n}\n.panel-body {\n  padding: 15px;\n}\n.panel-heading {\n  padding: 10px 15px;\n  border-bottom: 1px solid transparent;\n  border-top-right-radius: 3px;\n  border-top-left-radius: 3px;\n}\n.panel-heading > .dropdown .dropdown-toggle {\n  color: inherit;\n}\n.panel-title {\n  margin-top: 0;\n  margin-bottom: 0;\n  font-size: 16px;\n  color: inherit;\n}\n.panel-title > a,\n.panel-title > small,\n.panel-title > .small,\n.panel-title > small > a,\n.panel-title > .small > a {\n  color: inherit;\n}\n.panel-footer {\n  padding: 10px 15px;\n  background-color: #f5f5f5;\n  border-top: 1px solid #dddddd;\n  border-bottom-right-radius: 3px;\n  border-bottom-left-radius: 3px;\n}\n.panel > .list-group,\n.panel > .panel-collapse > .list-group {\n  margin-bottom: 0;\n}\n.panel > .list-group .list-group-item,\n.panel > .panel-collapse > .list-group .list-group-item {\n  border-width: 1px 0;\n  border-radius: 0;\n}\n.panel > .list-group:first-child .list-group-item:first-child,\n.panel > .panel-collapse > .list-group:first-child .list-group-item:first-child {\n  border-top: 0;\n  border-top-right-radius: 3px;\n  border-top-left-radius: 3px;\n}\n.panel > .list-group:last-child .list-group-item:last-child,\n.panel > .panel-collapse > .list-group:last-child .list-group-item:last-child {\n  border-bottom: 0;\n  border-bottom-right-radius: 3px;\n  border-bottom-left-radius: 3px;\n}\n.panel-heading + .list-group .list-group-item:first-child {\n  border-top-width: 0;\n}\n.list-group + .panel-footer {\n  border-top-width: 0;\n}\n.panel > .table,\n.panel > .table-responsive > .table,\n.panel > .panel-collapse > .table {\n  margin-bottom: 0;\n}\n.panel > .table caption,\n.panel > .table-responsive > .table caption,\n.panel > .panel-collapse > .table caption {\n  padding-left: 15px;\n  padding-right: 15px;\n}\n.panel > .table:first-child,\n.panel > .table-responsive:first-child > .table:first-child {\n  border-top-right-radius: 3px;\n  border-top-left-radius: 3px;\n}\n.panel > .table:first-child > thead:first-child > tr:first-child,\n.panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child,\n.panel > .table:first-child > tbody:first-child > tr:first-child,\n.panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child {\n  border-top-left-radius: 3px;\n  border-top-right-radius: 3px;\n}\n.panel > .table:first-child > thead:first-child > tr:first-child td:first-child,\n.panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child td:first-child,\n.panel > .table:first-child > tbody:first-child > tr:first-child td:first-child,\n.panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child td:first-child,\n.panel > .table:first-child > thead:first-child > tr:first-child th:first-child,\n.panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child th:first-child,\n.panel > .table:first-child > tbody:first-child > tr:first-child th:first-child,\n.panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child th:first-child {\n  border-top-left-radius: 3px;\n}\n.panel > .table:first-child > thead:first-child > tr:first-child td:last-child,\n.panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child td:last-child,\n.panel > .table:first-child > tbody:first-child > tr:first-child td:last-child,\n.panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child td:last-child,\n.panel > .table:first-child > thead:first-child > tr:first-child th:last-child,\n.panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child th:last-child,\n.panel > .table:first-child > tbody:first-child > tr:first-child th:last-child,\n.panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child th:last-child {\n  border-top-right-radius: 3px;\n}\n.panel > .table:last-child,\n.panel > .table-responsive:last-child > .table:last-child {\n  border-bottom-right-radius: 3px;\n  border-bottom-left-radius: 3px;\n}\n.panel > .table:last-child > tbody:last-child > tr:last-child,\n.panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child,\n.panel > .table:last-child > tfoot:last-child > tr:last-child,\n.panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child {\n  border-bottom-left-radius: 3px;\n  border-bottom-right-radius: 3px;\n}\n.panel > .table:last-child > tbody:last-child > tr:last-child td:first-child,\n.panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child td:first-child,\n.panel > .table:last-child > tfoot:last-child > tr:last-child td:first-child,\n.panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child td:first-child,\n.panel > .table:last-child > tbody:last-child > tr:last-child th:first-child,\n.panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child th:first-child,\n.panel > .table:last-child > tfoot:last-child > tr:last-child th:first-child,\n.panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child th:first-child {\n  border-bottom-left-radius: 3px;\n}\n.panel > .table:last-child > tbody:last-child > tr:last-child td:last-child,\n.panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child td:last-child,\n.panel > .table:last-child > tfoot:last-child > tr:last-child td:last-child,\n.panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child td:last-child,\n.panel > .table:last-child > tbody:last-child > tr:last-child th:last-child,\n.panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child th:last-child,\n.panel > .table:last-child > tfoot:last-child > tr:last-child th:last-child,\n.panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child th:last-child {\n  border-bottom-right-radius: 3px;\n}\n.panel > .panel-body + .table,\n.panel > .panel-body + .table-responsive,\n.panel > .table + .panel-body,\n.panel > .table-responsive + .panel-body {\n  border-top: 1px solid #dddddd;\n}\n.panel > .table > tbody:first-child > tr:first-child th,\n.panel > .table > tbody:first-child > tr:first-child td {\n  border-top: 0;\n}\n.panel > .table-bordered,\n.panel > .table-responsive > .table-bordered {\n  border: 0;\n}\n.panel > .table-bordered > thead > tr > th:first-child,\n.panel > .table-responsive > .table-bordered > thead > tr > th:first-child,\n.panel > .table-bordered > tbody > tr > th:first-child,\n.panel > .table-responsive > .table-bordered > tbody > tr > th:first-child,\n.panel > .table-bordered > tfoot > tr > th:first-child,\n.panel > .table-responsive > .table-bordered > tfoot > tr > th:first-child,\n.panel > .table-bordered > thead > tr > td:first-child,\n.panel > .table-responsive > .table-bordered > thead > tr > td:first-child,\n.panel > .table-bordered > tbody > tr > td:first-child,\n.panel > .table-responsive > .table-bordered > tbody > tr > td:first-child,\n.panel > .table-bordered > tfoot > tr > td:first-child,\n.panel > .table-responsive > .table-bordered > tfoot > tr > td:first-child {\n  border-left: 0;\n}\n.panel > .table-bordered > thead > tr > th:last-child,\n.panel > .table-responsive > .table-bordered > thead > tr > th:last-child,\n.panel > .table-bordered > tbody > tr > th:last-child,\n.panel > .table-responsive > .table-bordered > tbody > tr > th:last-child,\n.panel > .table-bordered > tfoot > tr > th:last-child,\n.panel > .table-responsive > .table-bordered > tfoot > tr > th:last-child,\n.panel > .table-bordered > thead > tr > td:last-child,\n.panel > .table-responsive > .table-bordered > thead > tr > td:last-child,\n.panel > .table-bordered > tbody > tr > td:last-child,\n.panel > .table-responsive > .table-bordered > tbody > tr > td:last-child,\n.panel > .table-bordered > tfoot > tr > td:last-child,\n.panel > .table-responsive > .table-bordered > tfoot > tr > td:last-child {\n  border-right: 0;\n}\n.panel > .table-bordered > thead > tr:first-child > td,\n.panel > .table-responsive > .table-bordered > thead > tr:first-child > td,\n.panel > .table-bordered > tbody > tr:first-child > td,\n.panel > .table-responsive > .table-bordered > tbody > tr:first-child > td,\n.panel > .table-bordered > thead > tr:first-child > th,\n.panel > .table-responsive > .table-bordered > thead > tr:first-child > th,\n.panel > .table-bordered > tbody > tr:first-child > th,\n.panel > .table-responsive > .table-bordered > tbody > tr:first-child > th {\n  border-bottom: 0;\n}\n.panel > .table-bordered > tbody > tr:last-child > td,\n.panel > .table-responsive > .table-bordered > tbody > tr:last-child > td,\n.panel > .table-bordered > tfoot > tr:last-child > td,\n.panel > .table-responsive > .table-bordered > tfoot > tr:last-child > td,\n.panel > .table-bordered > tbody > tr:last-child > th,\n.panel > .table-responsive > .table-bordered > tbody > tr:last-child > th,\n.panel > .table-bordered > tfoot > tr:last-child > th,\n.panel > .table-responsive > .table-bordered > tfoot > tr:last-child > th {\n  border-bottom: 0;\n}\n.panel > .table-responsive {\n  border: 0;\n  margin-bottom: 0;\n}\n.panel-group {\n  margin-bottom: 20px;\n}\n.panel-group .panel {\n  margin-bottom: 0;\n  border-radius: 4px;\n}\n.panel-group .panel + .panel {\n  margin-top: 5px;\n}\n.panel-group .panel-heading {\n  border-bottom: 0;\n}\n.panel-group .panel-heading + .panel-collapse > .panel-body,\n.panel-group .panel-heading + .panel-collapse > .list-group {\n  border-top: 1px solid #dddddd;\n}\n.panel-group .panel-footer {\n  border-top: 0;\n}\n.panel-group .panel-footer + .panel-collapse .panel-body {\n  border-bottom: 1px solid #dddddd;\n}\n.panel-default {\n  border-color: #dddddd;\n}\n.panel-default > .panel-heading {\n  color: #333333;\n  background-color: #f5f5f5;\n  border-color: #dddddd;\n}\n.panel-default > .panel-heading + .panel-collapse > .panel-body {\n  border-top-color: #dddddd;\n}\n.panel-default > .panel-heading .badge {\n  color: #f5f5f5;\n  background-color: #333333;\n}\n.panel-default > .panel-footer + .panel-collapse > .panel-body {\n  border-bottom-color: #dddddd;\n}\n.panel-primary {\n  border-color: #337ab7;\n}\n.panel-primary > .panel-heading {\n  color: #ffffff;\n  background-color: #337ab7;\n  border-color: #337ab7;\n}\n.panel-primary > .panel-heading + .panel-collapse > .panel-body {\n  border-top-color: #337ab7;\n}\n.panel-primary > .panel-heading .badge {\n  color: #337ab7;\n  background-color: #ffffff;\n}\n.panel-primary > .panel-footer + .panel-collapse > .panel-body {\n  border-bottom-color: #337ab7;\n}\n.panel-success {\n  border-color: #d6e9c6;\n}\n.panel-success > .panel-heading {\n  color: #3c763d;\n  background-color: #dff0d8;\n  border-color: #d6e9c6;\n}\n.panel-success > .panel-heading + .panel-collapse > .panel-body {\n  border-top-color: #d6e9c6;\n}\n.panel-success > .panel-heading .badge {\n  color: #dff0d8;\n  background-color: #3c763d;\n}\n.panel-success > .panel-footer + .panel-collapse > .panel-body {\n  border-bottom-color: #d6e9c6;\n}\n.panel-info {\n  border-color: #bce8f1;\n}\n.panel-info > .panel-heading {\n  color: #31708f;\n  background-color: #d9edf7;\n  border-color: #bce8f1;\n}\n.panel-info > .panel-heading + .panel-collapse > .panel-body {\n  border-top-color: #bce8f1;\n}\n.panel-info > .panel-heading .badge {\n  color: #d9edf7;\n  background-color: #31708f;\n}\n.panel-info > .panel-footer + .panel-collapse > .panel-body {\n  border-bottom-color: #bce8f1;\n}\n.panel-warning {\n  border-color: #faebcc;\n}\n.panel-warning > .panel-heading {\n  color: #8a6d3b;\n  background-color: #fcf8e3;\n  border-color: #faebcc;\n}\n.panel-warning > .panel-heading + .panel-collapse > .panel-body {\n  border-top-color: #faebcc;\n}\n.panel-warning > .panel-heading .badge {\n  color: #fcf8e3;\n  background-color: #8a6d3b;\n}\n.panel-warning > .panel-footer + .panel-collapse > .panel-body {\n  border-bottom-color: #faebcc;\n}\n.panel-danger {\n  border-color: #ebccd1;\n}\n.panel-danger > .panel-heading {\n  color: #a94442;\n  background-color: #f2dede;\n  border-color: #ebccd1;\n}\n.panel-danger > .panel-heading + .panel-collapse > .panel-body {\n  border-top-color: #ebccd1;\n}\n.panel-danger > .panel-heading .badge {\n  color: #f2dede;\n  background-color: #a94442;\n}\n.panel-danger > .panel-footer + .panel-collapse > .panel-body {\n  border-bottom-color: #ebccd1;\n}\n.well {\n  min-height: 20px;\n  padding: 19px;\n  margin-bottom: 20px;\n  background-color: #f5f5f5;\n  border: 1px solid #e3e3e3;\n  border-radius: 4px;\n  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);\n  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);\n}\n.well blockquote {\n  border-color: #ddd;\n  border-color: rgba(0, 0, 0, 0.15);\n}\n.well-lg {\n  padding: 24px;\n  border-radius: 6px;\n}\n.well-sm {\n  padding: 9px;\n  border-radius: 3px;\n}\n.close {\n  float: right;\n  font-size: 21px;\n  font-weight: bold;\n  line-height: 1;\n  color: #000000;\n  text-shadow: 0 1px 0 #ffffff;\n  opacity: 0.2;\n  filter: alpha(opacity=20);\n}\n.close:hover,\n.close:focus {\n  color: #000000;\n  text-decoration: none;\n  cursor: pointer;\n  opacity: 0.5;\n  filter: alpha(opacity=50);\n}\nbutton.close {\n  padding: 0;\n  cursor: pointer;\n  background: transparent;\n  border: 0;\n  -webkit-appearance: none;\n}\n.modal-open {\n  overflow: hidden;\n}\n.modal {\n  display: none;\n  overflow: hidden;\n  position: fixed;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: 1050;\n  -webkit-overflow-scrolling: touch;\n  outline: 0;\n}\n.modal.fade .modal-dialog {\n  -webkit-transform: translate(0, -25%);\n  -ms-transform: translate(0, -25%);\n  -o-transform: translate(0, -25%);\n  transform: translate(0, -25%);\n  -webkit-transition: -webkit-transform 0.3s ease-out;\n  -moz-transition: -moz-transform 0.3s ease-out;\n  -o-transition: -o-transform 0.3s ease-out;\n  transition: transform 0.3s ease-out;\n}\n.modal.in .modal-dialog {\n  -webkit-transform: translate(0, 0);\n  -ms-transform: translate(0, 0);\n  -o-transform: translate(0, 0);\n  transform: translate(0, 0);\n}\n.modal-open .modal {\n  overflow-x: hidden;\n  overflow-y: auto;\n}\n.modal-dialog {\n  position: relative;\n  width: auto;\n  margin: 10px;\n}\n.modal-content {\n  position: relative;\n  background-color: #ffffff;\n  border: 1px solid #999999;\n  border: 1px solid rgba(0, 0, 0, 0.2);\n  border-radius: 6px;\n  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);\n  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);\n  background-clip: padding-box;\n  outline: 0;\n}\n.modal-backdrop {\n  position: fixed;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: 1040;\n  background-color: #000000;\n}\n.modal-backdrop.fade {\n  opacity: 0;\n  filter: alpha(opacity=0);\n}\n.modal-backdrop.in {\n  opacity: 0.5;\n  filter: alpha(opacity=50);\n}\n.modal-header {\n  padding: 15px;\n  border-bottom: 1px solid #e5e5e5;\n  min-height: 16.428571429px;\n}\n.modal-header .close {\n  margin-top: -2px;\n}\n.modal-title {\n  margin: 0;\n  line-height: 1.428571429;\n}\n.modal-body {\n  position: relative;\n  padding: 15px;\n}\n.modal-footer {\n  padding: 15px;\n  text-align: right;\n  border-top: 1px solid #e5e5e5;\n}\n.modal-footer .btn + .btn {\n  margin-left: 5px;\n  margin-bottom: 0;\n}\n.modal-footer .btn-group .btn + .btn {\n  margin-left: -1px;\n}\n.modal-footer .btn-block + .btn-block {\n  margin-left: 0;\n}\n.modal-scrollbar-measure {\n  position: absolute;\n  top: -9999px;\n  width: 50px;\n  height: 50px;\n  overflow: scroll;\n}\n@media (min-width: 768px) {\n  .modal-dialog {\n    width: 600px;\n    margin: 30px auto;\n  }\n  .modal-content {\n    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);\n    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);\n  }\n  .modal-sm {\n    width: 300px;\n  }\n}\n@media (min-width: 992px) {\n  .modal-lg {\n    width: 900px;\n  }\n}\n.tooltip {\n  position: absolute;\n  z-index: 1070;\n  display: block;\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  font-size: 12px;\n  font-weight: normal;\n  line-height: 1.4;\n  opacity: 0;\n  filter: alpha(opacity=0);\n}\n.tooltip.in {\n  opacity: 0.9;\n  filter: alpha(opacity=90);\n}\n.tooltip.top {\n  margin-top: -3px;\n  padding: 5px 0;\n}\n.tooltip.right {\n  margin-left: 3px;\n  padding: 0 5px;\n}\n.tooltip.bottom {\n  margin-top: 3px;\n  padding: 5px 0;\n}\n.tooltip.left {\n  margin-left: -3px;\n  padding: 0 5px;\n}\n.tooltip-inner {\n  max-width: 200px;\n  padding: 3px 8px;\n  color: #ffffff;\n  text-align: center;\n  text-decoration: none;\n  background-color: #000000;\n  border-radius: 4px;\n}\n.tooltip-arrow {\n  position: absolute;\n  width: 0;\n  height: 0;\n  border-color: transparent;\n  border-style: solid;\n}\n.tooltip.top .tooltip-arrow {\n  bottom: 0;\n  left: 50%;\n  margin-left: -5px;\n  border-width: 5px 5px 0;\n  border-top-color: #000000;\n}\n.tooltip.top-left .tooltip-arrow {\n  bottom: 0;\n  right: 5px;\n  margin-bottom: -5px;\n  border-width: 5px 5px 0;\n  border-top-color: #000000;\n}\n.tooltip.top-right .tooltip-arrow {\n  bottom: 0;\n  left: 5px;\n  margin-bottom: -5px;\n  border-width: 5px 5px 0;\n  border-top-color: #000000;\n}\n.tooltip.right .tooltip-arrow {\n  top: 50%;\n  left: 0;\n  margin-top: -5px;\n  border-width: 5px 5px 5px 0;\n  border-right-color: #000000;\n}\n.tooltip.left .tooltip-arrow {\n  top: 50%;\n  right: 0;\n  margin-top: -5px;\n  border-width: 5px 0 5px 5px;\n  border-left-color: #000000;\n}\n.tooltip.bottom .tooltip-arrow {\n  top: 0;\n  left: 50%;\n  margin-left: -5px;\n  border-width: 0 5px 5px;\n  border-bottom-color: #000000;\n}\n.tooltip.bottom-left .tooltip-arrow {\n  top: 0;\n  right: 5px;\n  margin-top: -5px;\n  border-width: 0 5px 5px;\n  border-bottom-color: #000000;\n}\n.tooltip.bottom-right .tooltip-arrow {\n  top: 0;\n  left: 5px;\n  margin-top: -5px;\n  border-width: 0 5px 5px;\n  border-bottom-color: #000000;\n}\n.popover {\n  position: absolute;\n  top: 0;\n  left: 0;\n  z-index: 1060;\n  display: none;\n  max-width: 276px;\n  padding: 1px;\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  font-size: 14px;\n  font-weight: normal;\n  line-height: 1.428571429;\n  text-align: left;\n  background-color: #ffffff;\n  background-clip: padding-box;\n  border: 1px solid #cccccc;\n  border: 1px solid rgba(0, 0, 0, 0.2);\n  border-radius: 6px;\n  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);\n  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);\n  white-space: normal;\n}\n.popover.top {\n  margin-top: -10px;\n}\n.popover.right {\n  margin-left: 10px;\n}\n.popover.bottom {\n  margin-top: 10px;\n}\n.popover.left {\n  margin-left: -10px;\n}\n.popover-title {\n  margin: 0;\n  padding: 8px 14px;\n  font-size: 14px;\n  background-color: #f7f7f7;\n  border-bottom: 1px solid #ebebeb;\n  border-radius: 5px 5px 0 0;\n}\n.popover-content {\n  padding: 9px 14px;\n}\n.popover > .arrow,\n.popover > .arrow:after {\n  position: absolute;\n  display: block;\n  width: 0;\n  height: 0;\n  border-color: transparent;\n  border-style: solid;\n}\n.popover > .arrow {\n  border-width: 11px;\n}\n.popover > .arrow:after {\n  border-width: 10px;\n  content: \"\";\n}\n.popover.top > .arrow {\n  left: 50%;\n  margin-left: -11px;\n  border-bottom-width: 0;\n  border-top-color: #999999;\n  border-top-color: rgba(0, 0, 0, 0.25);\n  bottom: -11px;\n}\n.popover.top > .arrow:after {\n  content: \" \";\n  bottom: 1px;\n  margin-left: -10px;\n  border-bottom-width: 0;\n  border-top-color: #ffffff;\n}\n.popover.right > .arrow {\n  top: 50%;\n  left: -11px;\n  margin-top: -11px;\n  border-left-width: 0;\n  border-right-color: #999999;\n  border-right-color: rgba(0, 0, 0, 0.25);\n}\n.popover.right > .arrow:after {\n  content: \" \";\n  left: 1px;\n  bottom: -10px;\n  border-left-width: 0;\n  border-right-color: #ffffff;\n}\n.popover.bottom > .arrow {\n  left: 50%;\n  margin-left: -11px;\n  border-top-width: 0;\n  border-bottom-color: #999999;\n  border-bottom-color: rgba(0, 0, 0, 0.25);\n  top: -11px;\n}\n.popover.bottom > .arrow:after {\n  content: \" \";\n  top: 1px;\n  margin-left: -10px;\n  border-top-width: 0;\n  border-bottom-color: #ffffff;\n}\n.popover.left > .arrow {\n  top: 50%;\n  right: -11px;\n  margin-top: -11px;\n  border-right-width: 0;\n  border-left-color: #999999;\n  border-left-color: rgba(0, 0, 0, 0.25);\n}\n.popover.left > .arrow:after {\n  content: \" \";\n  right: 1px;\n  border-right-width: 0;\n  border-left-color: #ffffff;\n  bottom: -10px;\n}\n.carousel {\n  position: relative;\n}\n.carousel-inner {\n  position: relative;\n  overflow: hidden;\n  width: 100%;\n}\n.carousel-inner > .item {\n  display: none;\n  position: relative;\n  -webkit-transition: 0.6s ease-in-out left;\n  -o-transition: 0.6s ease-in-out left;\n  transition: 0.6s ease-in-out left;\n}\n.carousel-inner > .item > img,\n.carousel-inner > .item > a > img {\n  line-height: 1;\n}\n@media all and (transform-3d), (-webkit-transform-3d) {\n  .carousel-inner > .item {\n    -webkit-transition: -webkit-transform 0.6s ease-in-out;\n    -moz-transition: -moz-transform 0.6s ease-in-out;\n    -o-transition: -o-transform 0.6s ease-in-out;\n    transition: transform 0.6s ease-in-out;\n    -webkit-backface-visibility: hidden;\n    -moz-backface-visibility: hidden;\n    backface-visibility: hidden;\n    -webkit-perspective: 1000;\n    -moz-perspective: 1000;\n    perspective: 1000;\n  }\n  .carousel-inner > .item.next,\n  .carousel-inner > .item.active.right {\n    -webkit-transform: translate3d(100%, 0, 0);\n    transform: translate3d(100%, 0, 0);\n    left: 0;\n  }\n  .carousel-inner > .item.prev,\n  .carousel-inner > .item.active.left {\n    -webkit-transform: translate3d(-100%, 0, 0);\n    transform: translate3d(-100%, 0, 0);\n    left: 0;\n  }\n  .carousel-inner > .item.next.left,\n  .carousel-inner > .item.prev.right,\n  .carousel-inner > .item.active {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n    left: 0;\n  }\n}\n.carousel-inner > .active,\n.carousel-inner > .next,\n.carousel-inner > .prev {\n  display: block;\n}\n.carousel-inner > .active {\n  left: 0;\n}\n.carousel-inner > .next,\n.carousel-inner > .prev {\n  position: absolute;\n  top: 0;\n  width: 100%;\n}\n.carousel-inner > .next {\n  left: 100%;\n}\n.carousel-inner > .prev {\n  left: -100%;\n}\n.carousel-inner > .next.left,\n.carousel-inner > .prev.right {\n  left: 0;\n}\n.carousel-inner > .active.left {\n  left: -100%;\n}\n.carousel-inner > .active.right {\n  left: 100%;\n}\n.carousel-control {\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  width: 15%;\n  opacity: 0.5;\n  filter: alpha(opacity=50);\n  font-size: 20px;\n  color: #ffffff;\n  text-align: center;\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);\n}\n.carousel-control.left {\n  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);\n  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);\n  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);\n  background-repeat: repeat-x;\n  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);\n}\n.carousel-control.right {\n  left: auto;\n  right: 0;\n  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);\n  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);\n  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);\n  background-repeat: repeat-x;\n  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);\n}\n.carousel-control:hover,\n.carousel-control:focus {\n  outline: 0;\n  color: #ffffff;\n  text-decoration: none;\n  opacity: 0.9;\n  filter: alpha(opacity=90);\n}\n.carousel-control .icon-prev,\n.carousel-control .icon-next,\n.carousel-control .glyphicon-chevron-left,\n.carousel-control .glyphicon-chevron-right {\n  position: absolute;\n  top: 50%;\n  z-index: 5;\n  display: inline-block;\n}\n.carousel-control .icon-prev,\n.carousel-control .glyphicon-chevron-left {\n  left: 50%;\n  margin-left: -10px;\n}\n.carousel-control .icon-next,\n.carousel-control .glyphicon-chevron-right {\n  right: 50%;\n  margin-right: -10px;\n}\n.carousel-control .icon-prev,\n.carousel-control .icon-next {\n  width: 20px;\n  height: 20px;\n  margin-top: -10px;\n  line-height: 1;\n  font-family: serif;\n}\n.carousel-control .icon-prev:before {\n  content: '\\2039';\n}\n.carousel-control .icon-next:before {\n  content: '\\203a';\n}\n.carousel-indicators {\n  position: absolute;\n  bottom: 10px;\n  left: 50%;\n  z-index: 15;\n  width: 60%;\n  margin-left: -30%;\n  padding-left: 0;\n  list-style: none;\n  text-align: center;\n}\n.carousel-indicators li {\n  display: inline-block;\n  width: 10px;\n  height: 10px;\n  margin: 1px;\n  text-indent: -999px;\n  border: 1px solid #ffffff;\n  border-radius: 10px;\n  cursor: pointer;\n  background-color: #000 \\9;\n  background-color: rgba(0, 0, 0, 0);\n}\n.carousel-indicators .active {\n  margin: 0;\n  width: 12px;\n  height: 12px;\n  background-color: #ffffff;\n}\n.carousel-caption {\n  position: absolute;\n  left: 15%;\n  right: 15%;\n  bottom: 20px;\n  z-index: 10;\n  padding-top: 20px;\n  padding-bottom: 20px;\n  color: #ffffff;\n  text-align: center;\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);\n}\n.carousel-caption .btn {\n  text-shadow: none;\n}\n@media screen and (min-width: 768px) {\n  .carousel-control .glyphicon-chevron-left,\n  .carousel-control .glyphicon-chevron-right,\n  .carousel-control .icon-prev,\n  .carousel-control .icon-next {\n    width: 30px;\n    height: 30px;\n    margin-top: -15px;\n    font-size: 30px;\n  }\n  .carousel-control .glyphicon-chevron-left,\n  .carousel-control .icon-prev {\n    margin-left: -15px;\n  }\n  .carousel-control .glyphicon-chevron-right,\n  .carousel-control .icon-next {\n    margin-right: -15px;\n  }\n  .carousel-caption {\n    left: 20%;\n    right: 20%;\n    padding-bottom: 30px;\n  }\n  .carousel-indicators {\n    bottom: 20px;\n  }\n}\n.clearfix:before,\n.clearfix:after,\n.dl-horizontal dd:before,\n.dl-horizontal dd:after,\n.container:before,\n.container:after,\n.container-fluid:before,\n.container-fluid:after,\n.row:before,\n.row:after,\n.form-horizontal .form-group:before,\n.form-horizontal .form-group:after,\n.btn-toolbar:before,\n.btn-toolbar:after,\n.btn-group-vertical > .btn-group:before,\n.btn-group-vertical > .btn-group:after,\n.nav:before,\n.nav:after,\n.navbar:before,\n.navbar:after,\n.navbar-header:before,\n.navbar-header:after,\n.navbar-collapse:before,\n.navbar-collapse:after,\n.pager:before,\n.pager:after,\n.panel-body:before,\n.panel-body:after,\n.modal-footer:before,\n.modal-footer:after {\n  content: \" \";\n  display: table;\n}\n.clearfix:after,\n.dl-horizontal dd:after,\n.container:after,\n.container-fluid:after,\n.row:after,\n.form-horizontal .form-group:after,\n.btn-toolbar:after,\n.btn-group-vertical > .btn-group:after,\n.nav:after,\n.navbar:after,\n.navbar-header:after,\n.navbar-collapse:after,\n.pager:after,\n.panel-body:after,\n.modal-footer:after {\n  clear: both;\n}\n.center-block {\n  display: block;\n  margin-left: auto;\n  margin-right: auto;\n}\n.pull-right {\n  float: right !important;\n}\n.pull-left {\n  float: left !important;\n}\n.hide {\n  display: none !important;\n}\n.show {\n  display: block !important;\n}\n.invisible {\n  visibility: hidden;\n}\n.text-hide {\n  font: 0/0 a;\n  color: transparent;\n  text-shadow: none;\n  background-color: transparent;\n  border: 0;\n}\n.hidden {\n  display: none !important;\n}\n.affix {\n  position: fixed;\n}\n@-ms-viewport {\n  width: device-width;\n}\n.visible-xs,\n.visible-sm,\n.visible-md,\n.visible-lg {\n  display: none !important;\n}\n.visible-xs-block,\n.visible-xs-inline,\n.visible-xs-inline-block,\n.visible-sm-block,\n.visible-sm-inline,\n.visible-sm-inline-block,\n.visible-md-block,\n.visible-md-inline,\n.visible-md-inline-block,\n.visible-lg-block,\n.visible-lg-inline,\n.visible-lg-inline-block {\n  display: none !important;\n}\n@media (max-width: 767px) {\n  .visible-xs {\n    display: block !important;\n  }\n  table.visible-xs {\n    display: table;\n  }\n  tr.visible-xs {\n    display: table-row !important;\n  }\n  th.visible-xs,\n  td.visible-xs {\n    display: table-cell !important;\n  }\n}\n@media (max-width: 767px) {\n  .visible-xs-block {\n    display: block !important;\n  }\n}\n@media (max-width: 767px) {\n  .visible-xs-inline {\n    display: inline !important;\n  }\n}\n@media (max-width: 767px) {\n  .visible-xs-inline-block {\n    display: inline-block !important;\n  }\n}\n@media (min-width: 768px) and (max-width: 991px) {\n  .visible-sm {\n    display: block !important;\n  }\n  table.visible-sm {\n    display: table;\n  }\n  tr.visible-sm {\n    display: table-row !important;\n  }\n  th.visible-sm,\n  td.visible-sm {\n    display: table-cell !important;\n  }\n}\n@media (min-width: 768px) and (max-width: 991px) {\n  .visible-sm-block {\n    display: block !important;\n  }\n}\n@media (min-width: 768px) and (max-width: 991px) {\n  .visible-sm-inline {\n    display: inline !important;\n  }\n}\n@media (min-width: 768px) and (max-width: 991px) {\n  .visible-sm-inline-block {\n    display: inline-block !important;\n  }\n}\n@media (min-width: 992px) and (max-width: 1199px) {\n  .visible-md {\n    display: block !important;\n  }\n  table.visible-md {\n    display: table;\n  }\n  tr.visible-md {\n    display: table-row !important;\n  }\n  th.visible-md,\n  td.visible-md {\n    display: table-cell !important;\n  }\n}\n@media (min-width: 992px) and (max-width: 1199px) {\n  .visible-md-block {\n    display: block !important;\n  }\n}\n@media (min-width: 992px) and (max-width: 1199px) {\n  .visible-md-inline {\n    display: inline !important;\n  }\n}\n@media (min-width: 992px) and (max-width: 1199px) {\n  .visible-md-inline-block {\n    display: inline-block !important;\n  }\n}\n@media (min-width: 1200px) {\n  .visible-lg {\n    display: block !important;\n  }\n  table.visible-lg {\n    display: table;\n  }\n  tr.visible-lg {\n    display: table-row !important;\n  }\n  th.visible-lg,\n  td.visible-lg {\n    display: table-cell !important;\n  }\n}\n@media (min-width: 1200px) {\n  .visible-lg-block {\n    display: block !important;\n  }\n}\n@media (min-width: 1200px) {\n  .visible-lg-inline {\n    display: inline !important;\n  }\n}\n@media (min-width: 1200px) {\n  .visible-lg-inline-block {\n    display: inline-block !important;\n  }\n}\n@media (max-width: 767px) {\n  .hidden-xs {\n    display: none !important;\n  }\n}\n@media (min-width: 768px) and (max-width: 991px) {\n  .hidden-sm {\n    display: none !important;\n  }\n}\n@media (min-width: 992px) and (max-width: 1199px) {\n  .hidden-md {\n    display: none !important;\n  }\n}\n@media (min-width: 1200px) {\n  .hidden-lg {\n    display: none !important;\n  }\n}\n.visible-print {\n  display: none !important;\n}\n@media print {\n  .visible-print {\n    display: block !important;\n  }\n  table.visible-print {\n    display: table;\n  }\n  tr.visible-print {\n    display: table-row !important;\n  }\n  th.visible-print,\n  td.visible-print {\n    display: table-cell !important;\n  }\n}\n.visible-print-block {\n  display: none !important;\n}\n@media print {\n  .visible-print-block {\n    display: block !important;\n  }\n}\n.visible-print-inline {\n  display: none !important;\n}\n@media print {\n  .visible-print-inline {\n    display: inline !important;\n  }\n}\n.visible-print-inline-block {\n  display: none !important;\n}\n@media print {\n  .visible-print-inline-block {\n    display: inline-block !important;\n  }\n}\n@media print {\n  .hidden-print {\n    display: none !important;\n  }\n}\n";
-
-/***/ },
-/* 24 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var isArray = __webpack_require__(120);
-
-	/**
-	 * Expose `pathToRegexp`.
-	 */
-	module.exports = pathToRegexp;
-
-	/**
-	 * The main path matching regexp utility.
-	 *
-	 * @type {RegExp}
-	 */
-	var PATH_REGEXP = new RegExp([
-	  // Match escaped characters that would otherwise appear in future matches.
-	  // This allows the user to escape special characters that won't transform.
-	  '(\\\\.)',
-	  // Match Express-style parameters and un-named parameters with a prefix
-	  // and optional suffixes. Matches appear as:
-	  //
-	  // "/:test(\\d+)?" => ["/", "test", "\d+", undefined, "?"]
-	  // "/route(\\d+)" => [undefined, undefined, undefined, "\d+", undefined]
-	  '([\\/.])?(?:\\:(\\w+)(?:\\(((?:\\\\.|[^)])*)\\))?|\\(((?:\\\\.|[^)])*)\\))([+*?])?',
-	  // Match regexp special characters that are always escaped.
-	  '([.+*?=^!:${}()[\\]|\\/])'
-	].join('|'), 'g');
-
-	/**
-	 * Escape the capturing group by escaping special characters and meaning.
-	 *
-	 * @param  {String} group
-	 * @return {String}
-	 */
-	function escapeGroup (group) {
-	  return group.replace(/([=!:$\/()])/g, '\\$1');
-	}
-
-	/**
-	 * Attach the keys as a property of the regexp.
-	 *
-	 * @param  {RegExp} re
-	 * @param  {Array}  keys
-	 * @return {RegExp}
-	 */
-	function attachKeys (re, keys) {
-	  re.keys = keys;
-	  return re;
-	}
-
-	/**
-	 * Get the flags for a regexp from the options.
-	 *
-	 * @param  {Object} options
-	 * @return {String}
-	 */
-	function flags (options) {
-	  return options.sensitive ? '' : 'i';
-	}
-
-	/**
-	 * Pull out keys from a regexp.
-	 *
-	 * @param  {RegExp} path
-	 * @param  {Array}  keys
-	 * @return {RegExp}
-	 */
-	function regexpToRegexp (path, keys) {
-	  // Use a negative lookahead to match only capturing groups.
-	  var groups = path.source.match(/\((?!\?)/g);
-
-	  if (groups) {
-	    for (var i = 0; i < groups.length; i++) {
-	      keys.push({
-	        name:      i,
-	        delimiter: null,
-	        optional:  false,
-	        repeat:    false
-	      });
-	    }
-	  }
-
-	  return attachKeys(path, keys);
-	}
-
-	/**
-	 * Transform an array into a regexp.
-	 *
-	 * @param  {Array}  path
-	 * @param  {Array}  keys
-	 * @param  {Object} options
-	 * @return {RegExp}
-	 */
-	function arrayToRegexp (path, keys, options) {
-	  var parts = [];
-
-	  for (var i = 0; i < path.length; i++) {
-	    parts.push(pathToRegexp(path[i], keys, options).source);
-	  }
-
-	  var regexp = new RegExp('(?:' + parts.join('|') + ')', flags(options));
-	  return attachKeys(regexp, keys);
-	}
-
-	/**
-	 * Replace the specific tags with regexp strings.
-	 *
-	 * @param  {String} path
-	 * @param  {Array}  keys
-	 * @return {String}
-	 */
-	function replacePath (path, keys) {
-	  var index = 0;
-
-	  function replace (_, escaped, prefix, key, capture, group, suffix, escape) {
-	    if (escaped) {
-	      return escaped;
-	    }
-
-	    if (escape) {
-	      return '\\' + escape;
-	    }
-
-	    var repeat   = suffix === '+' || suffix === '*';
-	    var optional = suffix === '?' || suffix === '*';
-
-	    keys.push({
-	      name:      key || index++,
-	      delimiter: prefix || '/',
-	      optional:  optional,
-	      repeat:    repeat
-	    });
-
-	    prefix = prefix ? ('\\' + prefix) : '';
-	    capture = escapeGroup(capture || group || '[^' + (prefix || '\\/') + ']+?');
-
-	    if (repeat) {
-	      capture = capture + '(?:' + prefix + capture + ')*';
-	    }
-
-	    if (optional) {
-	      return '(?:' + prefix + '(' + capture + '))?';
-	    }
-
-	    // Basic parameter support.
-	    return prefix + '(' + capture + ')';
-	  }
-
-	  return path.replace(PATH_REGEXP, replace);
-	}
-
-	/**
-	 * Normalize the given path string, returning a regular expression.
-	 *
-	 * An empty array can be passed in for the keys, which will hold the
-	 * placeholder key descriptions. For example, using `/user/:id`, `keys` will
-	 * contain `[{ name: 'id', delimiter: '/', optional: false, repeat: false }]`.
-	 *
-	 * @param  {(String|RegExp|Array)} path
-	 * @param  {Array}                 [keys]
-	 * @param  {Object}                [options]
-	 * @return {RegExp}
-	 */
-	function pathToRegexp (path, keys, options) {
-	  keys = keys || [];
-
-	  if (!isArray(keys)) {
-	    options = keys;
-	    keys = [];
-	  } else if (!options) {
-	    options = {};
-	  }
-
-	  if (path instanceof RegExp) {
-	    return regexpToRegexp(path, keys, options);
-	  }
-
-	  if (isArray(path)) {
-	    return arrayToRegexp(path, keys, options);
-	  }
-
-	  var strict = options.strict;
-	  var end = options.end !== false;
-	  var route = replacePath(path, keys);
-	  var endsWithSlash = path.charAt(path.length - 1) === '/';
-
-	  // In non-strict mode we allow a slash at the end of match. If the path to
-	  // match already ends with a slash, we remove it for consistency. The slash
-	  // is valid at the end of a path match, not in the middle. This is important
-	  // in non-ending mode, where "/test/" shouldn't match "/test//route".
-	  if (!strict) {
-	    route = (endsWithSlash ? route.slice(0, -2) : route) + '(?:\\/(?=$))?';
-	  }
-
-	  if (end) {
-	    route += '$';
-	  } else {
-	    // In non-ending mode, we need the capturing groups to match as much as
-	    // possible by using a positive lookahead to the end or next path segment.
-	    route += strict && endsWithSlash ? '' : '(?=\\/|$)';
-	  }
-
-	  return attachKeys(new RegExp('^' + route, flags(options)), keys);
-	}
-
-
-/***/ },
-/* 25 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/*
-		MIT License http://www.opensource.org/licenses/mit-license.php
-		Author Tobias Koppers @sokra
-	*/
-	module.exports = function addStyle(cssCode) {
-		if(false) {
-			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
-		}
-		var styleElement = document.createElement("style");
-		styleElement.type = "text/css";
-		var head = document.getElementsByTagName("head")[0];
-		head.appendChild(styleElement);
-		if (styleElement.styleSheet) {
-			styleElement.styleSheet.cssText = cssCode;
-		} else {
-			styleElement.appendChild(document.createTextNode(cssCode));
-		}
-		return function() {
-			head.removeChild(styleElement);
-		};
-	}
-
-
-/***/ },
-/* 26 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict'
-	module.exports = {
-	  getCards : function (option) {
-	    return new Promise(function (resolve, reject) {
-	      resolve([
-	        {
-	          jp: "日常生活用品",
-	          ch_t: "日常生活用品",
-	          ch_s: "日常生活用品",
-	          pinyin: "rì cháng shēng huó yòng pǐn",
-	          zhuyin: "ㄖˋㄤˊㄕㄥㄏㄨㄛˊㄩㄥˋㄆㄧㄣˇ",
-	        },{
-	          jp: "ティッシュペーパー",
-	          ch_t: "面紙",
-	          ch_s: "面纸",
-	          pinyin: "miàn zhǐ",
-	          zhuyin: "ㄇㄧㄢˋㄓˇ",
-	        },{
-	          jp: "キッチンタオル, キッチンペーパー",
-	          ch_t: "廚房紙巾",
-	          ch_s: "厨房纸巾",
-	          pinyin: "chú fáng zhǐ jin",
-	          zhuyin: "ㄔㄨˋㄈㄤˊㄓˇㄐㄧㄣ",
-	        },{
-	          jp: "おりものシート",
-	          ch_t: "衛生棉",
-	          ch_s: "卫生棉",
-	          pinyin: "wèi shēng mián",
-	          zhuyin: "ㄨㄟˋㄕㄥㄇㄧㄢ",
-	        },{
-	          jp: "生理用ナプキン",
-	          ch_t: "衛生護墊",
-	          ch_s: "卫生护垫",
-	          pinyin: "wèi shēng fù diàn",
-	          zhuyin: "ㄨㄟˋㄕㄥㄏㄨˋㄉㄧㄢ",
-	        }
-	      ])
-	    })
-	  } 
-	}
-
-
-/***/ },
-/* 27 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
-
-/***/ },
-/* 28 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var extend = _.extend
-
-	/**
-	 * Option overwriting strategies are functions that handle
-	 * how to merge a parent option value and a child option
-	 * value into the final value.
-	 *
-	 * All strategy functions follow the same signature:
-	 *
-	 * @param {*} parentVal
-	 * @param {*} childVal
-	 * @param {Vue} [vm]
-	 */
-
-	var strats = Object.create(null)
-
-	/**
-	 * Helper that recursively merges two data objects together.
-	 */
-
-	function mergeData (to, from) {
-	  var key, toVal, fromVal
-	  for (key in from) {
-	    toVal = to[key]
-	    fromVal = from[key]
-	    if (!to.hasOwnProperty(key)) {
-	      to.$add(key, fromVal)
-	    } else if (_.isObject(toVal) && _.isObject(fromVal)) {
-	      mergeData(toVal, fromVal)
-	    }
-	  }
-	  return to
-	}
-
-	/**
-	 * Data
-	 */
-
-	strats.data = function (parentVal, childVal, vm) {
-	  if (!vm) {
-	    // in a Vue.extend merge, both should be functions
-	    if (!childVal) {
-	      return parentVal
-	    }
-	    if (typeof childVal !== 'function') {
-	      _.warn(
-	        'The "data" option should be a function ' +
-	        'that returns a per-instance value in component ' +
-	        'definitions.'
-	      )
-	      return parentVal
-	    }
-	    if (!parentVal) {
-	      return childVal
-	    }
-	    // when parentVal & childVal are both present,
-	    // we need to return a function that returns the
-	    // merged result of both functions... no need to
-	    // check if parentVal is a function here because
-	    // it has to be a function to pass previous merges.
-	    return function mergedDataFn () {
-	      return mergeData(
-	        childVal.call(this),
-	        parentVal.call(this)
-	      )
-	    }
-	  } else {
-	    // instance merge, return raw object
-	    var instanceData = typeof childVal === 'function'
-	      ? childVal.call(vm)
-	      : childVal
-	    var defaultData = typeof parentVal === 'function'
-	      ? parentVal.call(vm)
-	      : undefined
-	    if (instanceData) {
-	      return mergeData(instanceData, defaultData)
-	    } else {
-	      return defaultData
-	    }
-	  }
-	}
-
-	/**
-	 * El
-	 */
-
-	strats.el = function (parentVal, childVal, vm) {
-	  if (!vm && childVal && typeof childVal !== 'function') {
-	    _.warn(
-	      'The "el" option should be a function ' +
-	      'that returns a per-instance value in component ' +
-	      'definitions.'
-	    )
-	    return
-	  }
-	  var ret = childVal || parentVal
-	  // invoke the element factory if this is instance merge
-	  return vm && typeof ret === 'function'
-	    ? ret.call(vm)
-	    : ret
-	}
-
-	/**
-	 * Hooks and param attributes are merged as arrays.
-	 */
-
-	strats.created =
-	strats.ready =
-	strats.attached =
-	strats.detached =
-	strats.beforeCompile =
-	strats.compiled =
-	strats.beforeDestroy =
-	strats.destroyed =
-	strats.paramAttributes = function (parentVal, childVal) {
-	  return childVal
-	    ? parentVal
-	      ? parentVal.concat(childVal)
-	      : _.isArray(childVal)
-	        ? childVal
-	        : [childVal]
-	    : parentVal
-	}
-
-	/**
-	 * Assets
-	 *
-	 * When a vm is present (instance creation), we need to do
-	 * a three-way merge between constructor options, instance
-	 * options and parent options.
-	 */
-
-	strats.directives =
-	strats.filters =
-	strats.partials =
-	strats.transitions =
-	strats.components = function (parentVal, childVal, vm, key) {
-	  var ret = Object.create(
-	    vm && vm.$parent
-	      ? vm.$parent.$options[key]
-	      : _.Vue.options[key]
-	  )
-	  if (parentVal) {
-	    var keys = Object.keys(parentVal)
-	    var i = keys.length
-	    var field
-	    while (i--) {
-	      field = keys[i]
-	      ret[field] = parentVal[field]
-	    }
-	  }
-	  if (childVal) extend(ret, childVal)
-	  return ret
-	}
-
-	/**
-	 * Events & Watchers.
-	 *
-	 * Events & watchers hashes should not overwrite one
-	 * another, so we merge them as arrays.
-	 */
-
-	strats.watch =
-	strats.events = function (parentVal, childVal) {
-	  if (!childVal) return parentVal
-	  if (!parentVal) return childVal
-	  var ret = {}
-	  extend(ret, parentVal)
-	  for (var key in childVal) {
-	    var parent = ret[key]
-	    var child = childVal[key]
-	    if (parent && !_.isArray(parent)) {
-	      parent = [parent]
-	    }
-	    ret[key] = parent
-	      ? parent.concat(child)
-	      : [child]
-	  }
-	  return ret
-	}
-
-	/**
-	 * Other object hashes.
-	 */
-
-	strats.methods =
-	strats.computed = function (parentVal, childVal) {
-	  if (!childVal) return parentVal
-	  if (!parentVal) return childVal
-	  var ret = Object.create(parentVal)
-	  extend(ret, childVal)
-	  return ret
-	}
-
-	/**
-	 * Default strategy.
-	 */
-
-	var defaultStrat = function (parentVal, childVal) {
-	  return childVal === undefined
-	    ? parentVal
-	    : childVal
-	}
-
-	/**
-	 * Make sure component options get converted to actual
-	 * constructors.
-	 *
-	 * @param {Object} components
-	 */
-
-	function guardComponents (components) {
-	  if (components) {
-	    var def
-	    for (var key in components) {
-	      def = components[key]
-	      if (_.isPlainObject(def)) {
-	        def.name = key
-	        components[key] = _.Vue.extend(def)
-	      }
-	    }
-	  }
-	}
-
-	/**
-	 * Merge two option objects into a new one.
-	 * Core utility used in both instantiation and inheritance.
-	 *
-	 * @param {Object} parent
-	 * @param {Object} child
-	 * @param {Vue} [vm] - if vm is present, indicates this is
-	 *                     an instantiation merge.
-	 */
-
-	module.exports = function mergeOptions (parent, child, vm) {
-	  guardComponents(child.components)
-	  var options = {}
-	  var key
-	  if (child.mixins) {
-	    for (var i = 0, l = child.mixins.length; i < l; i++) {
-	      parent = mergeOptions(parent, child.mixins[i], vm)
-	    }
-	  }
-	  for (key in parent) {
-	    merge(key)
-	  }
-	  for (key in child) {
-	    if (!(parent.hasOwnProperty(key))) {
-	      merge(key)
-	    }
-	  }
-	  function merge (key) {
-	    var strat = strats[key] || defaultStrat
-	    options[key] = strat(parent[key], child[key], vm, key)
-	  }
-	  return options
-	}
-
-/***/ },
-/* 29 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = {
-
-	  /**
-	   * The prefix to look for when parsing directives.
-	   *
-	   * @type {String}
-	   */
-
-	  prefix: 'v-',
-
-	  /**
-	   * Whether to print debug messages.
-	   * Also enables stack trace for warnings.
-	   *
-	   * @type {Boolean}
-	   */
-
-	  debug: false,
-
-	  /**
-	   * Whether to suppress warnings.
-	   *
-	   * @type {Boolean}
-	   */
-
-	  silent: false,
-
-	  /**
-	   * Whether allow observer to alter data objects'
-	   * __proto__.
-	   *
-	   * @type {Boolean}
-	   */
-
-	  proto: true,
-
-	  /**
-	   * Whether to parse mustache tags in templates.
-	   *
-	   * @type {Boolean}
-	   */
-
-	  interpolate: true,
-
-	  /**
-	   * Whether to use async rendering.
-	   */
-
-	  async: true,
-
-	  /**
-	   * Whether to warn against errors caught when evaluating
-	   * expressions.
-	   */
-
-	  warnExpressionErrors: true,
-
-	  /**
-	   * Internal flag to indicate the delimiters have been
-	   * changed.
-	   *
-	   * @type {Boolean}
-	   */
-
-	  _delimitersChanged: true
-
-	}
-
-	/**
-	 * Interpolation delimiters.
-	 * We need to mark the changed flag so that the text parser
-	 * knows it needs to recompile the regex.
-	 *
-	 * @type {Array<String>}
-	 */
-
-	var delimiters = ['{{', '}}']
-	Object.defineProperty(module.exports, 'delimiters', {
-	  get: function () {
-	    return delimiters
-	  },
-	  set: function (val) {
-	    delimiters = val
-	    this._delimitersChanged = true
-	  }
-	})
-
-/***/ },
-/* 30 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var config = __webpack_require__(29)
-	var textParser = __webpack_require__(33)
-	var dirParser = __webpack_require__(35)
-	var templateParser = __webpack_require__(34)
-
-	/**
-	 * Compile a template and return a reusable composite link
-	 * function, which recursively contains more link functions
-	 * inside. This top level compile function should only be
-	 * called on instance root nodes.
-	 *
-	 * When the `asParent` flag is true, this means we are doing
-	 * a partial compile for a component's parent scope markup
-	 * (See #502). This could **only** be triggered during
-	 * compilation of `v-component`, and we need to skip v-with,
-	 * v-ref & v-component in this situation.
-	 *
-	 * @param {Element|DocumentFragment} el
-	 * @param {Object} options
-	 * @param {Boolean} partial
-	 * @param {Boolean} asParent - compiling a component
-	 *                             container as its parent.
-	 * @return {Function}
-	 */
-
-	module.exports = function compile (el, options, partial, asParent) {
-	  var params = !partial && options.paramAttributes
-	  var paramsLinkFn = params
-	    ? compileParamAttributes(el, params, options)
-	    : null
-	  var nodeLinkFn = el instanceof DocumentFragment
-	    ? null
-	    : compileNode(el, options, asParent)
-	  var childLinkFn =
-	    !(nodeLinkFn && nodeLinkFn.terminal) &&
-	    el.tagName !== 'SCRIPT' &&
-	    el.hasChildNodes()
-	      ? compileNodeList(el.childNodes, options)
-	      : null
-
-	  /**
-	   * A linker function to be called on a already compiled
-	   * piece of DOM, which instantiates all directive
-	   * instances.
-	   *
-	   * @param {Vue} vm
-	   * @param {Element|DocumentFragment} el
-	   * @return {Function|undefined}
-	   */
-
-	  return function link (vm, el) {
-	    var originalDirCount = vm._directives.length
-	    if (paramsLinkFn) paramsLinkFn(vm, el)
-	    // cache childNodes before linking parent, fix #657
-	    var childNodes = _.toArray(el.childNodes)
-	    if (nodeLinkFn) nodeLinkFn(vm, el)
-	    if (childLinkFn) childLinkFn(vm, childNodes)
-
-	    /**
-	     * If this is a partial compile, the linker function
-	     * returns an unlink function that tearsdown all
-	     * directives instances generated during the partial
-	     * linking.
-	     */
-
-	    if (partial) {
-	      var dirs = vm._directives.slice(originalDirCount)
-	      return function unlink () {
-	        var i = dirs.length
-	        while (i--) {
-	          dirs[i]._teardown()
-	        }
-	        i = vm._directives.indexOf(dirs[0])
-	        vm._directives.splice(i, dirs.length)
-	      }
-	    }
-	  }
-	}
-
-	/**
-	 * Compile a node and return a nodeLinkFn based on the
-	 * node type.
-	 *
-	 * @param {Node} node
-	 * @param {Object} options
-	 * @param {Boolean} asParent
-	 * @return {Function|undefined}
-	 */
-
-	function compileNode (node, options, asParent) {
-	  var type = node.nodeType
-	  if (type === 1 && node.tagName !== 'SCRIPT') {
-	    return compileElement(node, options, asParent)
-	  } else if (type === 3 && config.interpolate) {
-	    return compileTextNode(node, options)
-	  }
-	}
-
-	/**
-	 * Compile an element and return a nodeLinkFn.
-	 *
-	 * @param {Element} el
-	 * @param {Object} options
-	 * @param {Boolean} asParent
-	 * @return {Function|null}
-	 */
-
-	function compileElement (el, options, asParent) {
-	  var linkFn, tag, component
-	  // check custom element component, but only on non-root
-	  if (!asParent && !el.__vue__) {
-	    tag = el.tagName.toLowerCase()
-	    component =
-	      tag.indexOf('-') > 0 &&
-	      options.components[tag]
-	    if (component) {
-	      el.setAttribute(config.prefix + 'component', tag)
-	    }
-	  }
-	  if (component || el.hasAttributes()) {
-	    // check terminal direcitves
-	    if (!asParent) {
-	      linkFn = checkTerminalDirectives(el, options)
-	    }
-	    // if not terminal, build normal link function
-	    if (!linkFn) {
-	      var dirs = collectDirectives(el, options, asParent)
-	      linkFn = dirs.length
-	        ? makeDirectivesLinkFn(dirs)
-	        : null
-	    }
-	  }
-	  // if the element is a textarea, we need to interpolate
-	  // its content on initial render.
-	  if (el.tagName === 'TEXTAREA') {
-	    var realLinkFn = linkFn
-	    linkFn = function (vm, el) {
-	      el.value = vm.$interpolate(el.value)
-	      if (realLinkFn) realLinkFn(vm, el)
-	    }
-	    linkFn.terminal = true
-	  }
-	  return linkFn
-	}
-
-	/**
-	 * Build a multi-directive link function.
-	 *
-	 * @param {Array} directives
-	 * @return {Function} directivesLinkFn
-	 */
-
-	function makeDirectivesLinkFn (directives) {
-	  return function directivesLinkFn (vm, el) {
-	    // reverse apply because it's sorted low to high
-	    var i = directives.length
-	    var dir, j, k
-	    while (i--) {
-	      dir = directives[i]
-	      if (dir._link) {
-	        // custom link fn
-	        dir._link(vm, el)
-	      } else {
-	        k = dir.descriptors.length
-	        for (j = 0; j < k; j++) {
-	          vm._bindDir(dir.name, el,
-	                      dir.descriptors[j], dir.def)
-	        }
-	      }
-	    }
-	  }
-	}
-
-	/**
-	 * Compile a textNode and return a nodeLinkFn.
-	 *
-	 * @param {TextNode} node
-	 * @param {Object} options
-	 * @return {Function|null} textNodeLinkFn
-	 */
-
-	function compileTextNode (node, options) {
-	  var tokens = textParser.parse(node.nodeValue)
-	  if (!tokens) {
-	    return null
-	  }
-	  var frag = document.createDocumentFragment()
-	  var el, token
-	  for (var i = 0, l = tokens.length; i < l; i++) {
-	    token = tokens[i]
-	    el = token.tag
-	      ? processTextToken(token, options)
-	      : document.createTextNode(token.value)
-	    frag.appendChild(el)
-	  }
-	  return makeTextNodeLinkFn(tokens, frag, options)
-	}
-
-	/**
-	 * Process a single text token.
-	 *
-	 * @param {Object} token
-	 * @param {Object} options
-	 * @return {Node}
-	 */
-
-	function processTextToken (token, options) {
-	  var el
-	  if (token.oneTime) {
-	    el = document.createTextNode(token.value)
-	  } else {
-	    if (token.html) {
-	      el = document.createComment('v-html')
-	      setTokenType('html')
-	    } else if (token.partial) {
-	      el = document.createComment('v-partial')
-	      setTokenType('partial')
-	    } else {
-	      // IE will clean up empty textNodes during
-	      // frag.cloneNode(true), so we have to give it
-	      // something here...
-	      el = document.createTextNode(' ')
-	      setTokenType('text')
-	    }
-	  }
-	  function setTokenType (type) {
-	    token.type = type
-	    token.def = options.directives[type]
-	    token.descriptor = dirParser.parse(token.value)[0]
-	  }
-	  return el
-	}
-
-	/**
-	 * Build a function that processes a textNode.
-	 *
-	 * @param {Array<Object>} tokens
-	 * @param {DocumentFragment} frag
-	 */
-
-	function makeTextNodeLinkFn (tokens, frag) {
-	  return function textNodeLinkFn (vm, el) {
-	    var fragClone = frag.cloneNode(true)
-	    var childNodes = _.toArray(fragClone.childNodes)
-	    var token, value, node
-	    for (var i = 0, l = tokens.length; i < l; i++) {
-	      token = tokens[i]
-	      value = token.value
-	      if (token.tag) {
-	        node = childNodes[i]
-	        if (token.oneTime) {
-	          value = vm.$eval(value)
-	          if (token.html) {
-	            _.replace(node, templateParser.parse(value, true))
-	          } else {
-	            node.nodeValue = value
-	          }
-	        } else {
-	          vm._bindDir(token.type, node,
-	                      token.descriptor, token.def)
-	        }
-	      }
-	    }
-	    _.replace(el, fragClone)
-	  }
-	}
-
-	/**
-	 * Compile a node list and return a childLinkFn.
-	 *
-	 * @param {NodeList} nodeList
-	 * @param {Object} options
-	 * @return {Function|undefined}
-	 */
-
-	function compileNodeList (nodeList, options) {
-	  var linkFns = []
-	  var nodeLinkFn, childLinkFn, node
-	  for (var i = 0, l = nodeList.length; i < l; i++) {
-	    node = nodeList[i]
-	    nodeLinkFn = compileNode(node, options)
-	    childLinkFn =
-	      !(nodeLinkFn && nodeLinkFn.terminal) &&
-	      node.tagName !== 'SCRIPT' &&
-	      node.hasChildNodes()
-	        ? compileNodeList(node.childNodes, options)
-	        : null
-	    linkFns.push(nodeLinkFn, childLinkFn)
-	  }
-	  return linkFns.length
-	    ? makeChildLinkFn(linkFns)
-	    : null
-	}
-
-	/**
-	 * Make a child link function for a node's childNodes.
-	 *
-	 * @param {Array<Function>} linkFns
-	 * @return {Function} childLinkFn
-	 */
-
-	function makeChildLinkFn (linkFns) {
-	  return function childLinkFn (vm, nodes) {
-	    var node, nodeLinkFn, childrenLinkFn
-	    for (var i = 0, n = 0, l = linkFns.length; i < l; n++) {
-	      node = nodes[n]
-	      nodeLinkFn = linkFns[i++]
-	      childrenLinkFn = linkFns[i++]
-	      // cache childNodes before linking parent, fix #657
-	      var childNodes = _.toArray(node.childNodes)
-	      if (nodeLinkFn) {
-	        nodeLinkFn(vm, node)
-	      }
-	      if (childrenLinkFn) {
-	        childrenLinkFn(vm, childNodes)
-	      }
-	    }
-	  }
-	}
-
-	/**
-	 * Compile param attributes on a root element and return
-	 * a paramAttributes link function.
-	 *
-	 * @param {Element} el
-	 * @param {Array} attrs
-	 * @param {Object} options
-	 * @return {Function} paramsLinkFn
-	 */
-
-	function compileParamAttributes (el, attrs, options) {
-	  var params = []
-	  var i = attrs.length
-	  var name, value, param
-	  while (i--) {
-	    name = attrs[i]
-	    if (/[A-Z]/.test(name)) {
-	      _.warn(
-	        'You seem to be using camelCase for a paramAttribute, ' +
-	        'but HTML doesn\'t differentiate between upper and ' +
-	        'lower case. You should use hyphen-delimited ' +
-	        'attribute names. For more info see ' +
-	        'http://vuejs.org/api/options.html#paramAttributes'
-	      )
-	    }
-	    value = el.getAttribute(name)
-	    if (value !== null) {
-	      param = {
-	        name: name,
-	        value: value
-	      }
-	      var tokens = textParser.parse(value)
-	      if (tokens) {
-	        el.removeAttribute(name)
-	        if (tokens.length > 1) {
-	          _.warn(
-	            'Invalid param attribute binding: "' +
-	            name + '="' + value + '"' +
-	            '\nDon\'t mix binding tags with plain text ' +
-	            'in param attribute bindings.'
-	          )
-	          continue
-	        } else {
-	          param.dynamic = true
-	          param.value = tokens[0].value
-	        }
-	      }
-	      params.push(param)
-	    }
-	  }
-	  return makeParamsLinkFn(params, options)
-	}
-
-	/**
-	 * Build a function that applies param attributes to a vm.
-	 *
-	 * @param {Array} params
-	 * @param {Object} options
-	 * @return {Function} paramsLinkFn
-	 */
-
-	var dataAttrRE = /^data-/
-
-	function makeParamsLinkFn (params, options) {
-	  var def = options.directives['with']
-	  return function paramsLinkFn (vm, el) {
-	    var i = params.length
-	    var param, path
-	    while (i--) {
-	      param = params[i]
-	      // params could contain dashes, which will be
-	      // interpreted as minus calculations by the parser
-	      // so we need to wrap the path here
-	      path = _.camelize(param.name.replace(dataAttrRE, ''))
-	      if (param.dynamic) {
-	        // dynamic param attribtues are bound as v-with.
-	        // we can directly duck the descriptor here beacuse
-	        // param attributes cannot use expressions or
-	        // filters.
-	        vm._bindDir('with', el, {
-	          arg: path,
-	          expression: param.value
-	        }, def)
-	      } else {
-	        // just set once
-	        vm.$set(path, param.value)
-	      }
-	    }
-	  }
-	}
-
-	/**
-	 * Check an element for terminal directives in fixed order.
-	 * If it finds one, return a terminal link function.
-	 *
-	 * @param {Element} el
-	 * @param {Object} options
-	 * @return {Function} terminalLinkFn
-	 */
-
-	var terminalDirectives = [
-	  'repeat',
-	  'if',
-	  'component'
-	]
-
-	function skip () {}
-	skip.terminal = true
-
-	function checkTerminalDirectives (el, options) {
-	  if (_.attr(el, 'pre') !== null) {
-	    return skip
-	  }
-	  var value, dirName
-	  /* jshint boss: true */
-	  for (var i = 0; i < 3; i++) {
-	    dirName = terminalDirectives[i]
-	    if (value = _.attr(el, dirName)) {
-	      return makeTeriminalLinkFn(el, dirName, value, options)
-	    }
-	  }
-	}
-
-	/**
-	 * Build a link function for a terminal directive.
-	 *
-	 * @param {Element} el
-	 * @param {String} dirName
-	 * @param {String} value
-	 * @param {Object} options
-	 * @return {Function} terminalLinkFn
-	 */
-
-	function makeTeriminalLinkFn (el, dirName, value, options) {
-	  var descriptor = dirParser.parse(value)[0]
-	  var def = options.directives[dirName]
-	  var terminalLinkFn = function (vm, el) {
-	    vm._bindDir(dirName, el, descriptor, def)
-	  }
-	  terminalLinkFn.terminal = true
-	  return terminalLinkFn
-	}
-
-	/**
-	 * Collect the directives on an element.
-	 *
-	 * @param {Element} el
-	 * @param {Object} options
-	 * @param {Boolean} asParent
-	 * @return {Array}
-	 */
-
-	function collectDirectives (el, options, asParent) {
-	  var attrs = _.toArray(el.attributes)
-	  var i = attrs.length
-	  var dirs = []
-	  var attr, attrName, dir, dirName, dirDef
-	  while (i--) {
-	    attr = attrs[i]
-	    attrName = attr.name
-	    if (attrName.indexOf(config.prefix) === 0) {
-	      dirName = attrName.slice(config.prefix.length)
-	      if (asParent &&
-	          (dirName === 'with' ||
-	           dirName === 'component')) {
-	        continue
-	      }
-	      dirDef = options.directives[dirName]
-	      _.assertAsset(dirDef, 'directive', dirName)
-	      if (dirDef) {
-	        dirs.push({
-	          name: dirName,
-	          descriptors: dirParser.parse(attr.value),
-	          def: dirDef
-	        })
-	      }
-	    } else if (config.interpolate) {
-	      dir = collectAttrDirective(el, attrName, attr.value,
-	                                 options)
-	      if (dir) {
-	        dirs.push(dir)
-	      }
-	    }
-	  }
-	  // sort by priority, LOW to HIGH
-	  dirs.sort(directiveComparator)
-	  return dirs
-	}
-
-	/**
-	 * Check an attribute for potential dynamic bindings,
-	 * and return a directive object.
-	 *
-	 * @param {Element} el
-	 * @param {String} name
-	 * @param {String} value
-	 * @param {Object} options
-	 * @return {Object}
-	 */
-
-	function collectAttrDirective (el, name, value, options) {
-	  if (options._skipAttrs &&
-	      options._skipAttrs.indexOf(name) > -1) {
-	    return
-	  }
-	  var tokens = textParser.parse(value)
-	  if (tokens) {
-	    var def = options.directives.attr
-	    var i = tokens.length
-	    var allOneTime = true
-	    while (i--) {
-	      var token = tokens[i]
-	      if (token.tag && !token.oneTime) {
-	        allOneTime = false
-	      }
-	    }
-	    return {
-	      def: def,
-	      _link: allOneTime
-	        ? function (vm, el) {
-	            el.setAttribute(name, vm.$interpolate(value))
-	          }
-	        : function (vm, el) {
-	            var value = textParser.tokensToExp(tokens, vm)
-	            var desc = dirParser.parse(name + ':' + value)[0]
-	            vm._bindDir('attr', el, desc, def)
-	          }
-	    }
-	  }
-	}
-
-	/**
-	 * Directive priority sort comparator
-	 *
-	 * @param {Object} a
-	 * @param {Object} b
-	 */
-
-	function directiveComparator (a, b) {
-	  a = a.def.priority || 0
-	  b = b.def.priority || 0
-	  return a > b ? 1 : -1
-	}
-
-/***/ },
-/* 31 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var templateParser = __webpack_require__(34)
-
-	/**
-	 * Process an element or a DocumentFragment based on a
-	 * instance option object. This allows us to transclude
-	 * a template node/fragment before the instance is created,
-	 * so the processed fragment can then be cloned and reused
-	 * in v-repeat.
-	 *
-	 * @param {Element} el
-	 * @param {Object} options
-	 * @return {Element|DocumentFragment}
-	 */
-
-	module.exports = function transclude (el, options) {
-	  // for template tags, what we want is its content as
-	  // a documentFragment (for block instances)
-	  if (el.tagName === 'TEMPLATE') {
-	    el = templateParser.parse(el)
-	  }
-	  if (options && options.template) {
-	    el = transcludeTemplate(el, options)
-	  }
-	  if (el instanceof DocumentFragment) {
-	    _.prepend(document.createComment('v-start'), el)
-	    el.appendChild(document.createComment('v-end'))
-	  }
-	  return el
-	}
-
-	/**
-	 * Process the template option.
-	 * If the replace option is true this will swap the $el.
-	 *
-	 * @param {Element} el
-	 * @param {Object} options
-	 * @return {Element|DocumentFragment}
-	 */
-
-	function transcludeTemplate (el, options) {
-	  var template = options.template
-	  var frag = templateParser.parse(template, true)
-	  if (!frag) {
-	    _.warn('Invalid template option: ' + template)
-	  } else {
-	    var rawContent = options._content || _.extractContent(el)
-	    if (options.replace) {
-	      if (frag.childNodes.length > 1) {
-	        transcludeContent(frag, rawContent)
-	        // TODO: store directives on placeholder node
-	        // and compile it somehow
-	        // probably only check for v-with, v-ref & paramAttributes
-	        return frag
-	      } else {
-	        var replacer = frag.firstChild
-	        _.copyAttributes(el, replacer)
-	        transcludeContent(replacer, rawContent)
-	        return replacer
-	      }
-	    } else {
-	      el.appendChild(frag)
-	      transcludeContent(el, rawContent)
-	      return el
-	    }
-	  }
-	}
-
-	/**
-	 * Resolve <content> insertion points mimicking the behavior
-	 * of the Shadow DOM spec:
-	 *
-	 *   http://w3c.github.io/webcomponents/spec/shadow/#insertion-points
-	 *
-	 * @param {Element|DocumentFragment} el
-	 * @param {Element} raw
-	 */
-
-	function transcludeContent (el, raw) {
-	  var outlets = getOutlets(el)
-	  var i = outlets.length
-	  if (!i) return
-	  var outlet, select, selected, j, main
-	  // first pass, collect corresponding content
-	  // for each outlet.
-	  while (i--) {
-	    outlet = outlets[i]
-	    if (raw) {
-	      select = outlet.getAttribute('select')
-	      if (select) {  // select content
-	        selected = raw.querySelectorAll(select)
-	        outlet.content = _.toArray(
-	          selected.length
-	            ? selected
-	            : outlet.childNodes
-	        )
-	      } else { // default content
-	        main = outlet
-	      }
-	    } else { // fallback content
-	      outlet.content = _.toArray(outlet.childNodes)
-	    }
-	  }
-	  // second pass, actually insert the contents
-	  for (i = 0, j = outlets.length; i < j; i++) {
-	    outlet = outlets[i]
-	    if (outlet !== main) {
-	      insertContentAt(outlet, outlet.content)
-	    }
-	  }
-	  // finally insert the main content
-	  if (main) {
-	    insertContentAt(main, _.toArray(raw.childNodes))
-	  }
-	}
-
-	/**
-	 * Get <content> outlets from the element/list
-	 *
-	 * @param {Element|Array} el
-	 * @return {Array}
-	 */
-
-	var concat = [].concat
-	function getOutlets (el) {
-	  return _.isArray(el)
-	    ? concat.apply([], el.map(getOutlets))
-	    : el.querySelectorAll
-	      ? _.toArray(el.querySelectorAll('content'))
-	      : []
-	}
-
-	/**
-	 * Insert an array of nodes at outlet,
-	 * then remove the outlet.
-	 *
-	 * @param {Element} outlet
-	 * @param {Array} contents
-	 */
-
-	function insertContentAt (outlet, contents) {
-	  // not using util DOM methods here because
-	  // parentNode can be cached
-	  var parent = outlet.parentNode
-	  for (var i = 0, j = contents.length; i < j; i++) {
-	    parent.insertBefore(contents[i], outlet)
-	  }
-	  parent.removeChild(outlet)
-	}
-
-/***/ },
-/* 32 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var Cache = __webpack_require__(118)
-	var pathCache = new Cache(1000)
-	var identRE = /^[$_a-zA-Z]+[\w$]*$/
-
-	/**
-	 * Path-parsing algorithm scooped from Polymer/observe-js
-	 */
-
-	var pathStateMachine = {
-	  'beforePath': {
-	    'ws': ['beforePath'],
-	    'ident': ['inIdent', 'append'],
-	    '[': ['beforeElement'],
-	    'eof': ['afterPath']
-	  },
-
-	  'inPath': {
-	    'ws': ['inPath'],
-	    '.': ['beforeIdent'],
-	    '[': ['beforeElement'],
-	    'eof': ['afterPath']
-	  },
-
-	  'beforeIdent': {
-	    'ws': ['beforeIdent'],
-	    'ident': ['inIdent', 'append']
-	  },
-
-	  'inIdent': {
-	    'ident': ['inIdent', 'append'],
-	    '0': ['inIdent', 'append'],
-	    'number': ['inIdent', 'append'],
-	    'ws': ['inPath', 'push'],
-	    '.': ['beforeIdent', 'push'],
-	    '[': ['beforeElement', 'push'],
-	    'eof': ['afterPath', 'push']
-	  },
-
-	  'beforeElement': {
-	    'ws': ['beforeElement'],
-	    '0': ['afterZero', 'append'],
-	    'number': ['inIndex', 'append'],
-	    "'": ['inSingleQuote', 'append', ''],
-	    '"': ['inDoubleQuote', 'append', '']
-	  },
-
-	  'afterZero': {
-	    'ws': ['afterElement', 'push'],
-	    ']': ['inPath', 'push']
-	  },
-
-	  'inIndex': {
-	    '0': ['inIndex', 'append'],
-	    'number': ['inIndex', 'append'],
-	    'ws': ['afterElement'],
-	    ']': ['inPath', 'push']
-	  },
-
-	  'inSingleQuote': {
-	    "'": ['afterElement'],
-	    'eof': 'error',
-	    'else': ['inSingleQuote', 'append']
-	  },
-
-	  'inDoubleQuote': {
-	    '"': ['afterElement'],
-	    'eof': 'error',
-	    'else': ['inDoubleQuote', 'append']
-	  },
-
-	  'afterElement': {
-	    'ws': ['afterElement'],
-	    ']': ['inPath', 'push']
-	  }
-	}
-
-	function noop () {}
-
-	/**
-	 * Determine the type of a character in a keypath.
-	 *
-	 * @param {Char} char
-	 * @return {String} type
-	 */
-
-	function getPathCharType (char) {
-	  if (char === undefined) {
-	    return 'eof'
-	  }
-
-	  var code = char.charCodeAt(0)
-
-	  switch(code) {
-	    case 0x5B: // [
-	    case 0x5D: // ]
-	    case 0x2E: // .
-	    case 0x22: // "
-	    case 0x27: // '
-	    case 0x30: // 0
-	      return char
-
-	    case 0x5F: // _
-	    case 0x24: // $
-	      return 'ident'
-
-	    case 0x20: // Space
-	    case 0x09: // Tab
-	    case 0x0A: // Newline
-	    case 0x0D: // Return
-	    case 0xA0:  // No-break space
-	    case 0xFEFF:  // Byte Order Mark
-	    case 0x2028:  // Line Separator
-	    case 0x2029:  // Paragraph Separator
-	      return 'ws'
-	  }
-
-	  // a-z, A-Z
-	  if ((0x61 <= code && code <= 0x7A) ||
-	      (0x41 <= code && code <= 0x5A)) {
-	    return 'ident'
-	  }
-
-	  // 1-9
-	  if (0x31 <= code && code <= 0x39) {
-	    return 'number'
-	  }
-
-	  return 'else'
-	}
-
-	/**
-	 * Parse a string path into an array of segments
-	 * Todo implement cache
-	 *
-	 * @param {String} path
-	 * @return {Array|undefined}
-	 */
-
-	function parsePath (path) {
-	  var keys = []
-	  var index = -1
-	  var mode = 'beforePath'
-	  var c, newChar, key, type, transition, action, typeMap
-
-	  var actions = {
-	    push: function() {
-	      if (key === undefined) {
-	        return
-	      }
-	      keys.push(key)
-	      key = undefined
-	    },
-	    append: function() {
-	      if (key === undefined) {
-	        key = newChar
-	      } else {
-	        key += newChar
-	      }
-	    }
-	  }
-
-	  function maybeUnescapeQuote () {
-	    var nextChar = path[index + 1]
-	    if ((mode === 'inSingleQuote' && nextChar === "'") ||
-	        (mode === 'inDoubleQuote' && nextChar === '"')) {
-	      index++
-	      newChar = nextChar
-	      actions.append()
-	      return true
-	    }
-	  }
-
-	  while (mode) {
-	    index++
-	    c = path[index]
-
-	    if (c === '\\' && maybeUnescapeQuote()) {
-	      continue
-	    }
-
-	    type = getPathCharType(c)
-	    typeMap = pathStateMachine[mode]
-	    transition = typeMap[type] || typeMap['else'] || 'error'
-
-	    if (transition === 'error') {
-	      return // parse error
-	    }
-
-	    mode = transition[0]
-	    action = actions[transition[1]] || noop
-	    newChar = transition[2] === undefined
-	      ? c
-	      : transition[2]
-	    action()
-
-	    if (mode === 'afterPath') {
-	      return keys
-	    }
-	  }
-	}
-
-	/**
-	 * Format a accessor segment based on its type.
-	 *
-	 * @param {String} key
-	 * @return {Boolean}
-	 */
-
-	function formatAccessor(key) {
-	  if (identRE.test(key)) { // identifier
-	    return '.' + key
-	  } else if (+key === key >>> 0) { // bracket index
-	    return '[' + key + ']'
-	  } else { // bracket string
-	    return '["' + key.replace(/"/g, '\\"') + '"]'
-	  }
-	}
-
-	/**
-	 * Compiles a getter function with a fixed path.
-	 *
-	 * @param {Array} path
-	 * @return {Function}
-	 */
-
-	exports.compileGetter = function (path) {
-	  var body = 'return o' + path.map(formatAccessor).join('')
-	  return new Function('o', body)
-	}
-
-	/**
-	 * External parse that check for a cache hit first
-	 *
-	 * @param {String} path
-	 * @return {Array|undefined}
-	 */
-
-	exports.parse = function (path) {
-	  var hit = pathCache.get(path)
-	  if (!hit) {
-	    hit = parsePath(path)
-	    if (hit) {
-	      hit.get = exports.compileGetter(hit)
-	      pathCache.put(path, hit)
-	    }
-	  }
-	  return hit
-	}
-
-	/**
-	 * Get from an object from a path string
-	 *
-	 * @param {Object} obj
-	 * @param {String} path
-	 */
-
-	exports.get = function (obj, path) {
-	  path = exports.parse(path)
-	  if (path) {
-	    return path.get(obj)
-	  }
-	}
-
-	/**
-	 * Set on an object from a path
-	 *
-	 * @param {Object} obj
-	 * @param {String | Array} path
-	 * @param {*} val
-	 */
-
-	exports.set = function (obj, path, val) {
-	  if (typeof path === 'string') {
-	    path = exports.parse(path)
-	  }
-	  if (!path || !_.isObject(obj)) {
-	    return false
-	  }
-	  var last, key
-	  for (var i = 0, l = path.length - 1; i < l; i++) {
-	    last = obj
-	    key = path[i]
-	    obj = obj[key]
-	    if (!_.isObject(obj)) {
-	      obj = {}
-	      last.$add(key, obj)
-	    }
-	  }
-	  key = path[i]
-	  if (key in obj) {
-	    obj[key] = val
-	  } else {
-	    obj.$add(key, val)
-	  }
-	  return true
-	}
-
-/***/ },
-/* 33 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Cache = __webpack_require__(118)
-	var config = __webpack_require__(29)
-	var dirParser = __webpack_require__(35)
-	var regexEscapeRE = /[-.*+?^${}()|[\]\/\\]/g
-	var cache, tagRE, htmlRE, firstChar, lastChar
-
-	/**
-	 * Escape a string so it can be used in a RegExp
-	 * constructor.
-	 *
-	 * @param {String} str
-	 */
-
-	function escapeRegex (str) {
-	  return str.replace(regexEscapeRE, '\\$&')
-	}
-
-	/**
-	 * Compile the interpolation tag regex.
-	 *
-	 * @return {RegExp}
-	 */
-
-	function compileRegex () {
-	  config._delimitersChanged = false
-	  var open = config.delimiters[0]
-	  var close = config.delimiters[1]
-	  firstChar = open.charAt(0)
-	  lastChar = close.charAt(close.length - 1)
-	  var firstCharRE = escapeRegex(firstChar)
-	  var lastCharRE = escapeRegex(lastChar)
-	  var openRE = escapeRegex(open)
-	  var closeRE = escapeRegex(close)
-	  tagRE = new RegExp(
-	    firstCharRE + '?' + openRE +
-	    '(.+?)' +
-	    closeRE + lastCharRE + '?',
-	    'g'
-	  )
-	  htmlRE = new RegExp(
-	    '^' + firstCharRE + openRE +
-	    '.*' +
-	    closeRE + lastCharRE + '$'
-	  )
-	  // reset cache
-	  cache = new Cache(1000)
-	}
-
-	/**
-	 * Parse a template text string into an array of tokens.
-	 *
-	 * @param {String} text
-	 * @return {Array<Object> | null}
-	 *               - {String} type
-	 *               - {String} value
-	 *               - {Boolean} [html]
-	 *               - {Boolean} [oneTime]
-	 */
-
-	exports.parse = function (text) {
-	  if (config._delimitersChanged) {
-	    compileRegex()
-	  }
-	  var hit = cache.get(text)
-	  if (hit) {
-	    return hit
-	  }
-	  if (!tagRE.test(text)) {
-	    return null
-	  }
-	  var tokens = []
-	  var lastIndex = tagRE.lastIndex = 0
-	  var match, index, value, first, oneTime, partial
-	  /* jshint boss:true */
-	  while (match = tagRE.exec(text)) {
-	    index = match.index
-	    // push text token
-	    if (index > lastIndex) {
-	      tokens.push({
-	        value: text.slice(lastIndex, index)
-	      })
-	    }
-	    // tag token
-	    first = match[1].charCodeAt(0)
-	    oneTime = first === 0x2A // *
-	    partial = first === 0x3E // >
-	    value = (oneTime || partial)
-	      ? match[1].slice(1)
-	      : match[1]
-	    tokens.push({
-	      tag: true,
-	      value: value.trim(),
-	      html: htmlRE.test(match[0]),
-	      oneTime: oneTime,
-	      partial: partial
-	    })
-	    lastIndex = index + match[0].length
-	  }
-	  if (lastIndex < text.length) {
-	    tokens.push({
-	      value: text.slice(lastIndex)
-	    })
-	  }
-	  cache.put(text, tokens)
-	  return tokens
-	}
-
-	/**
-	 * Format a list of tokens into an expression.
-	 * e.g. tokens parsed from 'a {{b}} c' can be serialized
-	 * into one single expression as '"a " + b + " c"'.
-	 *
-	 * @param {Array} tokens
-	 * @param {Vue} [vm]
-	 * @return {String}
-	 */
-
-	exports.tokensToExp = function (tokens, vm) {
-	  return tokens.length > 1
-	    ? tokens.map(function (token) {
-	        return formatToken(token, vm)
-	      }).join('+')
-	    : formatToken(tokens[0], vm, true)
-	}
-
-	/**
-	 * Format a single token.
-	 *
-	 * @param {Object} token
-	 * @param {Vue} [vm]
-	 * @param {Boolean} single
-	 * @return {String}
-	 */
-
-	function formatToken (token, vm, single) {
-	  return token.tag
-	    ? vm && token.oneTime
-	      ? '"' + vm.$eval(token.value) + '"'
-	      : single
-	        ? token.value
-	        : inlineFilters(token.value)
-	    : '"' + token.value + '"'
-	}
-
-	/**
-	 * For an attribute with multiple interpolation tags,
-	 * e.g. attr="some-{{thing | filter}}", in order to combine
-	 * the whole thing into a single watchable expression, we
-	 * have to inline those filters. This function does exactly
-	 * that. This is a bit hacky but it avoids heavy changes
-	 * to directive parser and watcher mechanism.
-	 *
-	 * @param {String} exp
-	 * @return {String}
-	 */
-
-	var filterRE = /[^|]\|[^|]/
-	function inlineFilters (exp) {
-	  if (!filterRE.test(exp)) {
-	    return '(' + exp + ')'
-	  } else {
-	    var dir = dirParser.parse(exp)[0]
-	    if (!dir.filters) {
-	      return '(' + exp + ')'
-	    } else {
-	      exp = dir.expression
-	      for (var i = 0, l = dir.filters.length; i < l; i++) {
-	        var filter = dir.filters[i]
-	        var args = filter.args
-	          ? ',"' + filter.args.join('","') + '"'
-	          : ''
-	        exp = 'this.$options.filters["' + filter.name + '"]' +
-	          '.apply(this,[' + exp + args + '])'
-	      }
-	      return exp
-	    }
-	  }
-	}
-
-/***/ },
-/* 34 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var Cache = __webpack_require__(118)
-	var templateCache = new Cache(1000)
-	var idSelectorCache = new Cache(1000)
-
-	var map = {
-	  _default : [0, '', ''],
-	  legend   : [1, '<fieldset>', '</fieldset>'],
-	  tr       : [2, '<table><tbody>', '</tbody></table>'],
-	  col      : [
-	    2,
-	    '<table><tbody></tbody><colgroup>',
-	    '</colgroup></table>'
-	  ]
-	}
-
-	map.td =
-	map.th = [
-	  3,
-	  '<table><tbody><tr>',
-	  '</tr></tbody></table>'
-	]
-
-	map.option =
-	map.optgroup = [
-	  1,
-	  '<select multiple="multiple">',
-	  '</select>'
-	]
-
-	map.thead =
-	map.tbody =
-	map.colgroup =
-	map.caption =
-	map.tfoot = [1, '<table>', '</table>']
-
-	map.g =
-	map.defs =
-	map.symbol =
-	map.use =
-	map.image =
-	map.text =
-	map.circle =
-	map.ellipse =
-	map.line =
-	map.path =
-	map.polygon =
-	map.polyline =
-	map.rect = [
-	  1,
-	  '<svg ' +
-	    'xmlns="http://www.w3.org/2000/svg" ' +
-	    'xmlns:xlink="http://www.w3.org/1999/xlink" ' +
-	    'xmlns:ev="http://www.w3.org/2001/xml-events"' +
-	    'version="1.1">',
-	  '</svg>'
-	]
-
-	var tagRE = /<([\w:]+)/
-	var entityRE = /&\w+;/
-
-	/**
-	 * Convert a string template to a DocumentFragment.
-	 * Determines correct wrapping by tag types. Wrapping
-	 * strategy found in jQuery & component/domify.
-	 *
-	 * @param {String} templateString
-	 * @return {DocumentFragment}
-	 */
-
-	function stringToFragment (templateString) {
-	  // try a cache hit first
-	  var hit = templateCache.get(templateString)
-	  if (hit) {
-	    return hit
-	  }
-
-	  var frag = document.createDocumentFragment()
-	  var tagMatch = templateString.match(tagRE)
-	  var entityMatch = entityRE.test(templateString)
-
-	  if (!tagMatch && !entityMatch) {
-	    // text only, return a single text node.
-	    frag.appendChild(
-	      document.createTextNode(templateString)
-	    )
-	  } else {
-
-	    var tag    = tagMatch && tagMatch[1]
-	    var wrap   = map[tag] || map._default
-	    var depth  = wrap[0]
-	    var prefix = wrap[1]
-	    var suffix = wrap[2]
-	    var node   = document.createElement('div')
-
-	    node.innerHTML = prefix + templateString.trim() + suffix
-	    while (depth--) {
-	      node = node.lastChild
-	    }
-
-	    var child
-	    /* jshint boss:true */
-	    while (child = node.firstChild) {
-	      frag.appendChild(child)
-	    }
-	  }
-
-	  templateCache.put(templateString, frag)
-	  return frag
-	}
-
-	/**
-	 * Convert a template node to a DocumentFragment.
-	 *
-	 * @param {Node} node
-	 * @return {DocumentFragment}
-	 */
-
-	function nodeToFragment (node) {
-	  var tag = node.tagName
-	  // if its a template tag and the browser supports it,
-	  // its content is already a document fragment.
-	  if (
-	    tag === 'TEMPLATE' &&
-	    node.content instanceof DocumentFragment
-	  ) {
-	    return node.content
-	  }
-	  return tag === 'SCRIPT'
-	    ? stringToFragment(node.textContent)
-	    : stringToFragment(node.innerHTML)
-	}
-
-	// Test for the presence of the Safari template cloning bug
-	// https://bugs.webkit.org/show_bug.cgi?id=137755
-	var hasBrokenTemplate = _.inBrowser
-	  ? (function () {
-	      var a = document.createElement('div')
-	      a.innerHTML = '<template>1</template>'
-	      return !a.cloneNode(true).firstChild.innerHTML
-	    })()
-	  : false
-
-	// Test for IE10/11 textarea placeholder clone bug
-	var hasTextareaCloneBug = _.inBrowser
-	  ? (function () {
-	      var t = document.createElement('textarea')
-	      t.placeholder = 't'
-	      return t.cloneNode(true).value === 't'
-	    })()
-	  : false
-
-	/**
-	 * 1. Deal with Safari cloning nested <template> bug by
-	 *    manually cloning all template instances.
-	 * 2. Deal with IE10/11 textarea placeholder bug by setting
-	 *    the correct value after cloning.
-	 *
-	 * @param {Element|DocumentFragment} node
-	 * @return {Element|DocumentFragment}
-	 */
-
-	exports.clone = function (node) {
-	  var res = node.cloneNode(true)
-	  var i, original, cloned
-	  /* istanbul ignore if */
-	  if (hasBrokenTemplate) {
-	    original = node.querySelectorAll('template')
-	    if (original.length) {
-	      cloned = res.querySelectorAll('template')
-	      i = cloned.length
-	      while (i--) {
-	        cloned[i].parentNode.replaceChild(
-	          original[i].cloneNode(true),
-	          cloned[i]
-	        )
-	      }
-	    }
-	  }
-	  /* istanbul ignore if */
-	  if (hasTextareaCloneBug) {
-	    if (node.tagName === 'TEXTAREA') {
-	      res.value = node.value
-	    } else {
-	      original = node.querySelectorAll('textarea')
-	      if (original.length) {
-	        cloned = res.querySelectorAll('textarea')
-	        i = cloned.length
-	        while (i--) {
-	          cloned[i].value = original[i].value
-	        }
-	      }
-	    }
-	  }
-	  return res
-	}
-
-	/**
-	 * Process the template option and normalizes it into a
-	 * a DocumentFragment that can be used as a partial or a
-	 * instance template.
-	 *
-	 * @param {*} template
-	 *    Possible values include:
-	 *    - DocumentFragment object
-	 *    - Node object of type Template
-	 *    - id selector: '#some-template-id'
-	 *    - template string: '<div><span>{{msg}}</span></div>'
-	 * @param {Boolean} clone
-	 * @param {Boolean} noSelector
-	 * @return {DocumentFragment|undefined}
-	 */
-
-	exports.parse = function (template, clone, noSelector) {
-	  var node, frag
-
-	  // if the template is already a document fragment,
-	  // do nothing
-	  if (template instanceof DocumentFragment) {
-	    return clone
-	      ? template.cloneNode(true)
-	      : template
-	  }
-
-	  if (typeof template === 'string') {
-	    // id selector
-	    if (!noSelector && template.charAt(0) === '#') {
-	      // id selector can be cached too
-	      frag = idSelectorCache.get(template)
-	      if (!frag) {
-	        node = document.getElementById(template.slice(1))
-	        if (node) {
-	          frag = nodeToFragment(node)
-	          // save selector to cache
-	          idSelectorCache.put(template, frag)
-	        }
-	      }
-	    } else {
-	      // normal string template
-	      frag = stringToFragment(template)
-	    }
-	  } else if (template.nodeType) {
-	    // a direct node
-	    frag = nodeToFragment(template)
-	  }
-
-	  return frag && clone
-	    ? exports.clone(frag)
-	    : frag
-	}
-
-/***/ },
-/* 35 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var Cache = __webpack_require__(118)
-	var cache = new Cache(1000)
-	var argRE = /^[^\{\?]+$|^'[^']*'$|^"[^"]*"$/
-	var filterTokenRE = /[^\s'"]+|'[^']+'|"[^"]+"/g
-
-	/**
-	 * Parser state
-	 */
-
-	var str
-	var c, i, l
-	var inSingle
-	var inDouble
-	var curly
-	var square
-	var paren
-	var begin
-	var argIndex
-	var dirs
-	var dir
-	var lastFilterIndex
-	var arg
-
-	/**
-	 * Push a directive object into the result Array
-	 */
-
-	function pushDir () {
-	  dir.raw = str.slice(begin, i).trim()
-	  if (dir.expression === undefined) {
-	    dir.expression = str.slice(argIndex, i).trim()
-	  } else if (lastFilterIndex !== begin) {
-	    pushFilter()
-	  }
-	  if (i === 0 || dir.expression) {
-	    dirs.push(dir)
-	  }
-	}
-
-	/**
-	 * Push a filter to the current directive object
-	 */
-
-	function pushFilter () {
-	  var exp = str.slice(lastFilterIndex, i).trim()
-	  var filter
-	  if (exp) {
-	    filter = {}
-	    var tokens = exp.match(filterTokenRE)
-	    filter.name = tokens[0]
-	    filter.args = tokens.length > 1 ? tokens.slice(1) : null
-	  }
-	  if (filter) {
-	    (dir.filters = dir.filters || []).push(filter)
-	  }
-	  lastFilterIndex = i + 1
-	}
-
-	/**
-	 * Parse a directive string into an Array of AST-like
-	 * objects representing directives.
-	 *
-	 * Example:
-	 *
-	 * "click: a = a + 1 | uppercase" will yield:
-	 * {
-	 *   arg: 'click',
-	 *   expression: 'a = a + 1',
-	 *   filters: [
-	 *     { name: 'uppercase', args: null }
-	 *   ]
-	 * }
-	 *
-	 * @param {String} str
-	 * @return {Array<Object>}
-	 */
-
-	exports.parse = function (s) {
-
-	  var hit = cache.get(s)
-	  if (hit) {
-	    return hit
-	  }
-
-	  // reset parser state
-	  str = s
-	  inSingle = inDouble = false
-	  curly = square = paren = begin = argIndex = 0
-	  lastFilterIndex = 0
-	  dirs = []
-	  dir = {}
-	  arg = null
-
-	  for (i = 0, l = str.length; i < l; i++) {
-	    c = str.charCodeAt(i)
-	    if (inSingle) {
-	      // check single quote
-	      if (c === 0x27) inSingle = !inSingle
-	    } else if (inDouble) {
-	      // check double quote
-	      if (c === 0x22) inDouble = !inDouble
-	    } else if (
-	      c === 0x2C && // comma
-	      !paren && !curly && !square
-	    ) {
-	      // reached the end of a directive
-	      pushDir()
-	      // reset & skip the comma
-	      dir = {}
-	      begin = argIndex = lastFilterIndex = i + 1
-	    } else if (
-	      c === 0x3A && // colon
-	      !dir.expression &&
-	      !dir.arg
-	    ) {
-	      // argument
-	      arg = str.slice(begin, i).trim()
-	      // test for valid argument here
-	      // since we may have caught stuff like first half of
-	      // an object literal or a ternary expression.
-	      if (argRE.test(arg)) {
-	        argIndex = i + 1
-	        dir.arg = _.stripQuotes(arg) || arg
-	      }
-	    } else if (
-	      c === 0x7C && // pipe
-	      str.charCodeAt(i + 1) !== 0x7C &&
-	      str.charCodeAt(i - 1) !== 0x7C
-	    ) {
-	      if (dir.expression === undefined) {
-	        // first filter, end of expression
-	        lastFilterIndex = i + 1
-	        dir.expression = str.slice(argIndex, i).trim()
-	      } else {
-	        // already has filter
-	        pushFilter()
-	      }
-	    } else {
-	      switch (c) {
-	        case 0x22: inDouble = true; break // "
-	        case 0x27: inSingle = true; break // '
-	        case 0x28: paren++; break         // (
-	        case 0x29: paren--; break         // )
-	        case 0x5B: square++; break        // [
-	        case 0x5D: square--; break        // ]
-	        case 0x7B: curly++; break         // {
-	        case 0x7D: curly--; break         // }
-	      }
-	    }
-	  }
-
-	  if (i === 0 || begin !== i) {
-	    pushDir()
-	  }
-
-	  cache.put(s, dirs)
-	  return dirs
-	}
-
-/***/ },
-/* 36 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var Path = __webpack_require__(32)
-	var Cache = __webpack_require__(118)
-	var expressionCache = new Cache(1000)
-
-	var keywords =
-	  'Math,break,case,catch,continue,debugger,default,' +
-	  'delete,do,else,false,finally,for,function,if,in,' +
-	  'instanceof,new,null,return,switch,this,throw,true,try,' +
-	  'typeof,var,void,while,with,undefined,abstract,boolean,' +
-	  'byte,char,class,const,double,enum,export,extends,' +
-	  'final,float,goto,implements,import,int,interface,long,' +
-	  'native,package,private,protected,public,short,static,' +
-	  'super,synchronized,throws,transient,volatile,' +
-	  'arguments,let,yield'
-
-	var wsRE = /\s/g
-	var newlineRE = /\n/g
-	var saveRE = /[\{,]\s*[\w\$_]+\s*:|'[^']*'|"[^"]*"/g
-	var restoreRE = /"(\d+)"/g
-	var pathTestRE = /^[A-Za-z_$][\w$]*(\.[A-Za-z_$][\w$]*|\['.*?'\]|\[".*?"\]|\[\d+\])*$/
-	var pathReplaceRE = /[^\w$\.]([A-Za-z_$][\w$]*(\.[A-Za-z_$][\w$]*|\['.*?'\]|\[".*?"\])*)/g
-	var keywordsRE = new RegExp('^(' + keywords.replace(/,/g, '\\b|') + '\\b)')
-
-	/**
-	 * Save / Rewrite / Restore
-	 *
-	 * When rewriting paths found in an expression, it is
-	 * possible for the same letter sequences to be found in
-	 * strings and Object literal property keys. Therefore we
-	 * remove and store these parts in a temporary array, and
-	 * restore them after the path rewrite.
-	 */
-
-	var saved = []
-
-	/**
-	 * Save replacer
-	 *
-	 * @param {String} str
-	 * @return {String} - placeholder with index
-	 */
-
-	function save (str) {
-	  var i = saved.length
-	  saved[i] = str.replace(newlineRE, '\\n')
-	  return '"' + i + '"'
-	}
-
-	/**
-	 * Path rewrite replacer
-	 *
-	 * @param {String} raw
-	 * @return {String}
-	 */
-
-	function rewrite (raw) {
-	  var c = raw.charAt(0)
-	  var path = raw.slice(1)
-	  if (keywordsRE.test(path)) {
-	    return raw
-	  } else {
-	    path = path.indexOf('"') > -1
-	      ? path.replace(restoreRE, restore)
-	      : path
-	    return c + 'scope.' + path
-	  }
-	}
-
-	/**
-	 * Restore replacer
-	 *
-	 * @param {String} str
-	 * @param {String} i - matched save index
-	 * @return {String}
-	 */
-
-	function restore (str, i) {
-	  return saved[i]
-	}
-
-	/**
-	 * Rewrite an expression, prefixing all path accessors with
-	 * `scope.` and generate getter/setter functions.
-	 *
-	 * @param {String} exp
-	 * @param {Boolean} needSet
-	 * @return {Function}
-	 */
-
-	function compileExpFns (exp, needSet) {
-	  // reset state
-	  saved.length = 0
-	  // save strings and object literal keys
-	  var body = exp
-	    .replace(saveRE, save)
-	    .replace(wsRE, '')
-	  // rewrite all paths
-	  // pad 1 space here becaue the regex matches 1 extra char
-	  body = (' ' + body)
-	    .replace(pathReplaceRE, rewrite)
-	    .replace(restoreRE, restore)
-	  var getter = makeGetter(body)
-	  if (getter) {
-	    return {
-	      get: getter,
-	      body: body,
-	      set: needSet
-	        ? makeSetter(body)
-	        : null
-	    }
-	  }
-	}
-
-	/**
-	 * Compile getter setters for a simple path.
-	 *
-	 * @param {String} exp
-	 * @return {Function}
-	 */
-
-	function compilePathFns (exp) {
-	  var getter, path
-	  if (exp.indexOf('[') < 0) {
-	    // really simple path
-	    path = exp.split('.')
-	    getter = Path.compileGetter(path)
-	  } else {
-	    // do the real parsing
-	    path = Path.parse(exp)
-	    getter = path.get
-	  }
-	  return {
-	    get: getter,
-	    // always generate setter for simple paths
-	    set: function (obj, val) {
-	      Path.set(obj, path, val)
-	    }
-	  }
-	}
-
-	/**
-	 * Build a getter function. Requires eval.
-	 *
-	 * We isolate the try/catch so it doesn't affect the
-	 * optimization of the parse function when it is not called.
-	 *
-	 * @param {String} body
-	 * @return {Function|undefined}
-	 */
-
-	function makeGetter (body) {
-	  try {
-	    return new Function('scope', 'return ' + body + ';')
-	  } catch (e) {
-	    _.warn(
-	      'Invalid expression. ' +
-	      'Generated function body: ' + body
-	    )
-	  }
-	}
-
-	/**
-	 * Build a setter function.
-	 *
-	 * This is only needed in rare situations like "a[b]" where
-	 * a settable path requires dynamic evaluation.
-	 *
-	 * This setter function may throw error when called if the
-	 * expression body is not a valid left-hand expression in
-	 * assignment.
-	 *
-	 * @param {String} body
-	 * @return {Function|undefined}
-	 */
-
-	function makeSetter (body) {
-	  try {
-	    return new Function('scope', 'value', body + '=value;')
-	  } catch (e) {
-	    _.warn('Invalid setter function body: ' + body)
-	  }
-	}
-
-	/**
-	 * Check for setter existence on a cache hit.
-	 *
-	 * @param {Function} hit
-	 */
-
-	function checkSetter (hit) {
-	  if (!hit.set) {
-	    hit.set = makeSetter(hit.body)
-	  }
-	}
-
-	/**
-	 * Parse an expression into re-written getter/setters.
-	 *
-	 * @param {String} exp
-	 * @param {Boolean} needSet
-	 * @return {Function}
-	 */
-
-	exports.parse = function (exp, needSet) {
-	  exp = exp.trim()
-	  // try cache
-	  var hit = expressionCache.get(exp)
-	  if (hit) {
-	    if (needSet) {
-	      checkSetter(hit)
-	    }
-	    return hit
-	  }
-	  // we do a simple path check to optimize for them.
-	  // the check fails valid paths with unusal whitespaces,
-	  // but that's too rare and we don't care.
-	  // also skip paths that start with global "Math"
-	  var res = pathTestRE.test(exp) && exp.slice(0, 5) !== 'Math.'
-	    ? compilePathFns(exp)
-	    : compileExpFns(exp, needSet)
-	  expressionCache.put(exp, res)
-	  return res
-	}
-
-	// Export the pathRegex for external use
-	exports.pathTestRE = pathTestRE
-
-/***/ },
-/* 37 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var uid = 0
-
-	/**
-	 * A dep is an observable that can have multiple
-	 * directives subscribing to it.
-	 *
-	 * @constructor
-	 */
-
-	function Dep () {
-	  this.id = ++uid
-	  this.subs = []
-	}
-
-	var p = Dep.prototype
-
-	/**
-	 * Add a directive subscriber.
-	 *
-	 * @param {Directive} sub
-	 */
-
-	p.addSub = function (sub) {
-	  this.subs.push(sub)
-	}
-
-	/**
-	 * Remove a directive subscriber.
-	 *
-	 * @param {Directive} sub
-	 */
-
-	p.removeSub = function (sub) {
-	  if (this.subs.length) {
-	    var i = this.subs.indexOf(sub)
-	    if (i > -1) this.subs.splice(i, 1)
-	  }
-	}
-
-	/**
-	 * Notify all subscribers of a new value.
-	 */
-
-	p.notify = function () {
-	  for (var i = 0, subs = this.subs; i < subs.length; i++) {
-	    subs[i].update()
-	  }
-	}
-
-	module.exports = Dep
-
-/***/ },
-/* 38 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var config = __webpack_require__(29)
-	var Watcher = __webpack_require__(39)
-	var textParser = __webpack_require__(33)
-	var expParser = __webpack_require__(36)
-
-	/**
-	 * A directive links a DOM element with a piece of data,
-	 * which is the result of evaluating an expression.
-	 * It registers a watcher with the expression and calls
-	 * the DOM update function when a change is triggered.
-	 *
-	 * @param {String} name
-	 * @param {Node} el
-	 * @param {Vue} vm
-	 * @param {Object} descriptor
-	 *                 - {String} expression
-	 *                 - {String} [arg]
-	 *                 - {Array<Object>} [filters]
-	 * @param {Object} def - directive definition object
-	 * @constructor
-	 */
-
-	function Directive (name, el, vm, descriptor, def) {
-	  // public
-	  this.name = name
-	  this.el = el
-	  this.vm = vm
-	  // copy descriptor props
-	  this.raw = descriptor.raw
-	  this.expression = descriptor.expression
-	  this.arg = descriptor.arg
-	  this.filters = _.resolveFilters(vm, descriptor.filters)
-	  // private
-	  this._locked = false
-	  this._bound = false
-	  // init
-	  this._bind(def)
-	}
-
-	var p = Directive.prototype
-
-	/**
-	 * Initialize the directive, mixin definition properties,
-	 * setup the watcher, call definition bind() and update()
-	 * if present.
-	 *
-	 * @param {Object} def
-	 */
-
-	p._bind = function (def) {
-	  if (this.name !== 'cloak' && this.el.removeAttribute) {
-	    this.el.removeAttribute(config.prefix + this.name)
-	  }
-	  if (typeof def === 'function') {
-	    this.update = def
-	  } else {
-	    _.extend(this, def)
-	  }
-	  this._watcherExp = this.expression
-	  this._checkDynamicLiteral()
-	  if (this.bind) {
-	    this.bind()
-	  }
-	  if (this._watcherExp &&
-	      (this.update || this.twoWay) &&
-	      (!this.isLiteral || this._isDynamicLiteral) &&
-	      !this._checkStatement()) {
-	    // wrapped updater for context
-	    var dir = this
-	    var update = this._update = this.update
-	      ? function (val, oldVal) {
-	          if (!dir._locked) {
-	            dir.update(val, oldVal)
-	          }
-	        }
-	      : function () {} // noop if no update is provided
-	    // use raw expression as identifier because filters
-	    // make them different watchers
-	    var watcher = this.vm._watchers[this.raw]
-	    // v-repeat always creates a new watcher because it has
-	    // a special filter that's bound to its directive
-	    // instance.
-	    if (!watcher || this.name === 'repeat') {
-	      watcher = this.vm._watchers[this.raw] = new Watcher(
-	        this.vm,
-	        this._watcherExp,
-	        update, // callback
-	        {
-	          filters: this.filters,
-	          twoWay: this.twoWay,
-	          deep: this.deep
-	        }
-	      )
-	    } else {
-	      watcher.addCb(update)
-	    }
-	    this._watcher = watcher
-	    if (this._initValue != null) {
-	      watcher.set(this._initValue)
-	    } else if (this.update) {
-	      this.update(watcher.value)
-	    }
-	  }
-	  this._bound = true
-	}
-
-	/**
-	 * check if this is a dynamic literal binding.
-	 *
-	 * e.g. v-component="{{currentView}}"
-	 */
-
-	p._checkDynamicLiteral = function () {
-	  var expression = this.expression
-	  if (expression && this.isLiteral) {
-	    var tokens = textParser.parse(expression)
-	    if (tokens) {
-	      var exp = textParser.tokensToExp(tokens)
-	      this.expression = this.vm.$get(exp)
-	      this._watcherExp = exp
-	      this._isDynamicLiteral = true
-	    }
-	  }
-	}
-
-	/**
-	 * Check if the directive is a function caller
-	 * and if the expression is a callable one. If both true,
-	 * we wrap up the expression and use it as the event
-	 * handler.
-	 *
-	 * e.g. v-on="click: a++"
-	 *
-	 * @return {Boolean}
-	 */
-
-	p._checkStatement = function () {
-	  var expression = this.expression
-	  if (
-	    expression && this.acceptStatement &&
-	    !expParser.pathTestRE.test(expression)
-	  ) {
-	    var fn = expParser.parse(expression).get
-	    var vm = this.vm
-	    var handler = function () {
-	      fn.call(vm, vm)
-	    }
-	    if (this.filters) {
-	      handler = _.applyFilters(
-	        handler,
-	        this.filters.read,
-	        vm
-	      )
-	    }
-	    this.update(handler)
-	    return true
-	  }
-	}
-
-	/**
-	 * Check for an attribute directive param, e.g. lazy
-	 *
-	 * @param {String} name
-	 * @return {String}
-	 */
-
-	p._checkParam = function (name) {
-	  var param = this.el.getAttribute(name)
-	  if (param !== null) {
-	    this.el.removeAttribute(name)
-	  }
-	  return param
-	}
-
-	/**
-	 * Teardown the watcher and call unbind.
-	 */
-
-	p._teardown = function () {
-	  if (this._bound) {
-	    if (this.unbind) {
-	      this.unbind()
-	    }
-	    var watcher = this._watcher
-	    if (watcher && watcher.active) {
-	      watcher.removeCb(this._update)
-	      if (!watcher.active) {
-	        this.vm._watchers[this.raw] = null
-	      }
-	    }
-	    this._bound = false
-	    this.vm = this.el = this._watcher = null
-	  }
-	}
-
-	/**
-	 * Set the corresponding value with the setter.
-	 * This should only be used in two-way directives
-	 * e.g. v-model.
-	 *
-	 * @param {*} value
-	 * @param {Boolean} lock - prevent wrtie triggering update.
-	 * @public
-	 */
-
-	p.set = function (value, lock) {
-	  if (this.twoWay) {
-	    if (lock) {
-	      this._locked = true
-	    }
-	    this._watcher.set(value)
-	    if (lock) {
-	      var self = this
-	      _.nextTick(function () {
-	        self._locked = false
-	      })
-	    }
-	  }
-	}
-
-	module.exports = Directive
-
-/***/ },
-/* 39 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var config = __webpack_require__(29)
-	var Observer = __webpack_require__(63)
-	var expParser = __webpack_require__(36)
-	var batcher = __webpack_require__(119)
-	var uid = 0
-
-	/**
-	 * A watcher parses an expression, collects dependencies,
-	 * and fires callback when the expression value changes.
-	 * This is used for both the $watch() api and directives.
-	 *
-	 * @param {Vue} vm
-	 * @param {String} expression
-	 * @param {Function} cb
-	 * @param {Object} options
-	 *                 - {Array} filters
-	 *                 - {Boolean} twoWay
-	 *                 - {Boolean} deep
-	 *                 - {Boolean} user
-	 * @constructor
-	 */
-
-	function Watcher (vm, expression, cb, options) {
-	  this.vm = vm
-	  vm._watcherList.push(this)
-	  this.expression = expression
-	  this.cbs = [cb]
-	  this.id = ++uid // uid for batching
-	  this.active = true
-	  options = options || {}
-	  this.deep = options.deep
-	  this.user = options.user
-	  this.deps = Object.create(null)
-	  // setup filters if any.
-	  // We delegate directive filters here to the watcher
-	  // because they need to be included in the dependency
-	  // collection process.
-	  if (options.filters) {
-	    this.readFilters = options.filters.read
-	    this.writeFilters = options.filters.write
-	  }
-	  // parse expression for getter/setter
-	  var res = expParser.parse(expression, options.twoWay)
-	  this.getter = res.get
-	  this.setter = res.set
-	  this.value = this.get()
-	}
-
-	var p = Watcher.prototype
-
-	/**
-	 * Add a dependency to this directive.
-	 *
-	 * @param {Dep} dep
-	 */
-
-	p.addDep = function (dep) {
-	  var id = dep.id
-	  if (!this.newDeps[id]) {
-	    this.newDeps[id] = dep
-	    if (!this.deps[id]) {
-	      this.deps[id] = dep
-	      dep.addSub(this)
-	    }
-	  }
-	}
-
-	/**
-	 * Evaluate the getter, and re-collect dependencies.
-	 */
-
-	p.get = function () {
-	  this.beforeGet()
-	  var vm = this.vm
-	  var value
-	  try {
-	    value = this.getter.call(vm, vm)
-	  } catch (e) {
-	    if (config.warnExpressionErrors) {
-	      _.warn(
-	        'Error when evaluating expression "' +
-	        this.expression + '":\n   ' + e
-	      )
-	    }
-	  }
-	  // "touch" every property so they are all tracked as
-	  // dependencies for deep watching
-	  if (this.deep) {
-	    traverse(value)
-	  }
-	  value = _.applyFilters(value, this.readFilters, vm)
-	  this.afterGet()
-	  return value
-	}
-
-	/**
-	 * Set the corresponding value with the setter.
-	 *
-	 * @param {*} value
-	 */
-
-	p.set = function (value) {
-	  var vm = this.vm
-	  value = _.applyFilters(
-	    value, this.writeFilters, vm, this.value
-	  )
-	  try {
-	    this.setter.call(vm, vm, value)
-	  } catch (e) {
-	    if (config.warnExpressionErrors) {
-	      _.warn(
-	        'Error when evaluating setter "' +
-	        this.expression + '":\n   ' + e
-	      )
-	    }
-	  }
-	}
-
-	/**
-	 * Prepare for dependency collection.
-	 */
-
-	p.beforeGet = function () {
-	  Observer.target = this
-	  this.newDeps = {}
-	}
-
-	/**
-	 * Clean up for dependency collection.
-	 */
-
-	p.afterGet = function () {
-	  Observer.target = null
-	  for (var id in this.deps) {
-	    if (!this.newDeps[id]) {
-	      this.deps[id].removeSub(this)
-	    }
-	  }
-	  this.deps = this.newDeps
-	}
-
-	/**
-	 * Subscriber interface.
-	 * Will be called when a dependency changes.
-	 */
-
-	p.update = function () {
-	  if (!config.async || config.debug) {
-	    this.run()
-	  } else {
-	    batcher.push(this)
-	  }
-	}
-
-	/**
-	 * Batcher job interface.
-	 * Will be called by the batcher.
-	 */
-
-	p.run = function () {
-	  if (this.active) {
-	    var value = this.get()
-	    if (
-	      value !== this.value ||
-	      Array.isArray(value) ||
-	      this.deep
-	    ) {
-	      var oldValue = this.value
-	      this.value = value
-	      var cbs = this.cbs
-	      for (var i = 0, l = cbs.length; i < l; i++) {
-	        cbs[i](value, oldValue)
-	        // if a callback also removed other callbacks,
-	        // we need to adjust the loop accordingly.
-	        var removed = l - cbs.length
-	        if (removed) {
-	          i -= removed
-	          l -= removed
-	        }
-	      }
-	    }
-	  }
-	}
-
-	/**
-	 * Add a callback.
-	 *
-	 * @param {Function} cb
-	 */
-
-	p.addCb = function (cb) {
-	  this.cbs.push(cb)
-	}
-
-	/**
-	 * Remove a callback.
-	 *
-	 * @param {Function} cb
-	 */
-
-	p.removeCb = function (cb) {
-	  var cbs = this.cbs
-	  if (cbs.length > 1) {
-	    var i = cbs.indexOf(cb)
-	    if (i > -1) {
-	      cbs.splice(i, 1)
-	    }
-	  } else if (cb === cbs[0]) {
-	    this.teardown()
-	  }
-	}
-
-	/**
-	 * Remove self from all dependencies' subcriber list.
-	 */
-
-	p.teardown = function () {
-	  if (this.active) {
-	    // remove self from vm's watcher list
-	    // we can skip this if the vm if being destroyed
-	    // which can improve teardown performance.
-	    if (!this.vm._isBeingDestroyed) {
-	      var list = this.vm._watcherList
-	      list.splice(list.indexOf(this))
-	    }
-	    for (var id in this.deps) {
-	      this.deps[id].removeSub(this)
-	    }
-	    this.active = false
-	    this.vm = this.cbs = this.value = null
-	  }
-	}
-
-
-	/**
-	 * Recrusively traverse an object to evoke all converted
-	 * getters, so that every nested property inside the object
-	 * is collected as a "deep" dependency.
-	 *
-	 * @param {Object} obj
-	 */
-
-	function traverse (obj) {
-	  var key, val, i
-	  for (key in obj) {
-	    val = obj[key]
-	    if (_.isArray(val)) {
-	      i = val.length
-	      while (i--) traverse(val[i])
-	    } else if (_.isObject(val)) {
-	      traverse(val)
-	    }
-	  }
-	}
-
-	module.exports = Watcher
-
-/***/ },
-/* 40 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Check is a string starts with $ or _
-	 *
-	 * @param {String} str
-	 * @return {Boolean}
-	 */
-
-	exports.isReserved = function (str) {
-	  var c = str.charCodeAt(0)
-	  return c === 0x24 || c === 0x5F
-	}
-
-	/**
-	 * Guard text output, make sure undefined outputs
-	 * empty string
-	 *
-	 * @param {*} value
-	 * @return {String}
-	 */
-
-	exports.toString = function (value) {
-	  return value == null
-	    ? ''
-	    : value.toString()
-	}
-
-	/**
-	 * Check and convert possible numeric numbers before
-	 * setting back to data
-	 *
-	 * @param {*} value
-	 * @return {*|Number}
-	 */
-
-	exports.toNumber = function (value) {
-	  return (
-	    isNaN(value) ||
-	    value === null ||
-	    typeof value === 'boolean'
-	  ) ? value
-	    : Number(value)
-	}
-
-	/**
-	 * Strip quotes from a string
-	 *
-	 * @param {String} str
-	 * @return {String | false}
-	 */
-
-	exports.stripQuotes = function (str) {
-	  var a = str.charCodeAt(0)
-	  var b = str.charCodeAt(str.length - 1)
-	  return a === b && (a === 0x22 || a === 0x27)
-	    ? str.slice(1, -1)
-	    : false
-	}
-
-	/**
-	 * Camelize a hyphen-delmited string.
-	 *
-	 * @param {String} str
-	 * @return {String}
-	 */
-
-	var camelRE = /[-_](\w)/g
-	var capitalCamelRE = /(?:^|[-_])(\w)/g
-
-	exports.camelize = function (str, cap) {
-	  var RE = cap ? capitalCamelRE : camelRE
-	  return str.replace(RE, function (_, c) {
-	    return c ? c.toUpperCase () : ''
-	  })
-	}
-
-	/**
-	 * Simple bind, faster than native
-	 *
-	 * @param {Function} fn
-	 * @param {Object} ctx
-	 * @return {Function}
-	 */
-
-	exports.bind = function (fn, ctx) {
-	  return function () {
-	    return fn.apply(ctx, arguments)
-	  }
-	}
-
-	/**
-	 * Convert an Array-like object to a real Array.
-	 *
-	 * @param {Array-like} list
-	 * @param {Number} [start] - start index
-	 * @return {Array}
-	 */
-
-	exports.toArray = function (list, start) {
-	  start = start || 0
-	  var i = list.length - start
-	  var ret = new Array(i)
-	  while (i--) {
-	    ret[i] = list[i + start]
-	  }
-	  return ret
-	}
-
-	/**
-	 * Mix properties into target object.
-	 *
-	 * @param {Object} to
-	 * @param {Object} from
-	 */
-
-	exports.extend = function (to, from) {
-	  for (var key in from) {
-	    to[key] = from[key]
-	  }
-	  return to
-	}
-
-	/**
-	 * Quick object check - this is primarily used to tell
-	 * Objects from primitive values when we know the value
-	 * is a JSON-compliant type.
-	 *
-	 * @param {*} obj
-	 * @return {Boolean}
-	 */
-
-	exports.isObject = function (obj) {
-	  return obj && typeof obj === 'object'
-	}
-
-	/**
-	 * Strict object type check. Only returns true
-	 * for plain JavaScript objects.
-	 *
-	 * @param {*} obj
-	 * @return {Boolean}
-	 */
-
-	var toString = Object.prototype.toString
-	exports.isPlainObject = function (obj) {
-	  return toString.call(obj) === '[object Object]'
-	}
-
-	/**
-	 * Array type check.
-	 *
-	 * @param {*} obj
-	 * @return {Boolean}
-	 */
-
-	exports.isArray = function (obj) {
-	  return Array.isArray(obj)
-	}
-
-	/**
-	 * Define a non-enumerable property
-	 *
-	 * @param {Object} obj
-	 * @param {String} key
-	 * @param {*} val
-	 * @param {Boolean} [enumerable]
-	 */
-
-	exports.define = function (obj, key, val, enumerable) {
-	  Object.defineProperty(obj, key, {
-	    value        : val,
-	    enumerable   : !!enumerable,
-	    writable     : true,
-	    configurable : true
-	  })
-	}
-
-/***/ },
-/* 41 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Can we use __proto__?
-	 *
-	 * @type {Boolean}
-	 */
-
-	exports.hasProto = '__proto__' in {}
-
-	/**
-	 * Indicates we have a window
-	 *
-	 * @type {Boolean}
-	 */
-
-	var toString = Object.prototype.toString
-	var inBrowser = exports.inBrowser =
-	  typeof window !== 'undefined' &&
-	  toString.call(window) !== '[object Object]'
-
-	/**
-	 * Defer a task to execute it asynchronously. Ideally this
-	 * should be executed as a microtask, so we leverage
-	 * MutationObserver if it's available.
-	 * 
-	 * If the user has included a setImmediate polyfill, we can
-	 * also use that. In Node we actually prefer setImmediate to
-	 * process.nextTick so we don't block the I/O.
-	 * 
-	 * Finally, fallback to setTimeout(0) if nothing else works.
-	 *
-	 * @param {Function} cb
-	 * @param {Object} ctx
-	 */
-
-	var defer
-	/* istanbul ignore if */
-	if (typeof MutationObserver !== 'undefined') {
-	  defer = deferFromMutationObserver(MutationObserver)
-	} else
-	/* istanbul ignore if */
-	if (typeof WebkitMutationObserver !== 'undefined') {
-	  defer = deferFromMutationObserver(WebkitMutationObserver)
-	} else {
-	  defer = setTimeout
-	}
-
-	/* istanbul ignore next */
-	function deferFromMutationObserver (Observer) {
-	  var queue = []
-	  var node = document.createTextNode('0')
-	  var i = 0
-	  new Observer(function () {
-	    var l = queue.length
-	    for (var i = 0; i < l; i++) {
-	      queue[i]()
-	    }
-	    queue = queue.slice(l)
-	  }).observe(node, { characterData: true })
-	  return function mutationObserverDefer (cb) {
-	    queue.push(cb)
-	    node.nodeValue = (i = ++i % 2)
-	  }
-	}
-
-	exports.nextTick = function (cb, ctx) {
-	  if (ctx) {
-	    defer(function () { cb.call(ctx) }, 0)
-	  } else {
-	    defer(cb, 0)
-	  }
-	}
-
-	/**
-	 * Detect if we are in IE9...
-	 *
-	 * @type {Boolean}
-	 */
-
-	exports.isIE9 =
-	  inBrowser &&
-	  navigator.userAgent.indexOf('MSIE 9.0') > 0
-
-	/**
-	 * Sniff transition/animation events
-	 */
-
-	if (inBrowser && !exports.isIE9) {
-	  var isWebkitTrans =
-	    window.ontransitionend === undefined &&
-	    window.onwebkittransitionend !== undefined
-	  var isWebkitAnim =
-	    window.onanimationend === undefined &&
-	    window.onwebkitanimationend !== undefined
-	  exports.transitionProp = isWebkitTrans
-	    ? 'WebkitTransition'
-	    : 'transition'
-	  exports.transitionEndEvent = isWebkitTrans
-	    ? 'webkitTransitionEnd'
-	    : 'transitionend'
-	  exports.animationProp = isWebkitAnim
-	    ? 'WebkitAnimation'
-	    : 'animation'
-	  exports.animationEndEvent = isWebkitAnim
-	    ? 'webkitAnimationEnd'
-	    : 'animationend'
-	}
-
-/***/ },
-/* 42 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var config = __webpack_require__(29)
-
-	/**
-	 * Check if a node is in the document.
-	 *
-	 * @param {Node} node
-	 * @return {Boolean}
-	 */
-
-	var doc =
-	  typeof document !== 'undefined' &&
-	  document.documentElement
-
-	exports.inDoc = function (node) {
-	  return doc && doc.contains(node)
-	}
-
-	/**
-	 * Extract an attribute from a node.
-	 *
-	 * @param {Node} node
-	 * @param {String} attr
-	 */
-
-	exports.attr = function (node, attr) {
-	  attr = config.prefix + attr
-	  var val = node.getAttribute(attr)
-	  if (val !== null) {
-	    node.removeAttribute(attr)
-	  }
-	  return val
-	}
-
-	/**
-	 * Insert el before target
-	 *
-	 * @param {Element} el
-	 * @param {Element} target 
-	 */
-
-	exports.before = function (el, target) {
-	  target.parentNode.insertBefore(el, target)
-	}
-
-	/**
-	 * Insert el after target
-	 *
-	 * @param {Element} el
-	 * @param {Element} target 
-	 */
-
-	exports.after = function (el, target) {
-	  if (target.nextSibling) {
-	    exports.before(el, target.nextSibling)
-	  } else {
-	    target.parentNode.appendChild(el)
-	  }
-	}
-
-	/**
-	 * Remove el from DOM
-	 *
-	 * @param {Element} el
-	 */
-
-	exports.remove = function (el) {
-	  el.parentNode.removeChild(el)
-	}
-
-	/**
-	 * Prepend el to target
-	 *
-	 * @param {Element} el
-	 * @param {Element} target 
-	 */
-
-	exports.prepend = function (el, target) {
-	  if (target.firstChild) {
-	    exports.before(el, target.firstChild)
-	  } else {
-	    target.appendChild(el)
-	  }
-	}
-
-	/**
-	 * Replace target with el
-	 *
-	 * @param {Element} target
-	 * @param {Element} el
-	 */
-
-	exports.replace = function (target, el) {
-	  var parent = target.parentNode
-	  if (parent) {
-	    parent.replaceChild(el, target)
-	  }
-	}
-
-	/**
-	 * Copy attributes from one element to another.
-	 *
-	 * @param {Element} from
-	 * @param {Element} to
-	 */
-
-	exports.copyAttributes = function (from, to) {
-	  if (from.hasAttributes()) {
-	    var attrs = from.attributes
-	    for (var i = 0, l = attrs.length; i < l; i++) {
-	      var attr = attrs[i]
-	      to.setAttribute(attr.name, attr.value)
-	    }
-	  }
-	}
-
-	/**
-	 * Add event listener shorthand.
-	 *
-	 * @param {Element} el
-	 * @param {String} event
-	 * @param {Function} cb
-	 */
-
-	exports.on = function (el, event, cb) {
-	  el.addEventListener(event, cb)
-	}
-
-	/**
-	 * Remove event listener shorthand.
-	 *
-	 * @param {Element} el
-	 * @param {String} event
-	 * @param {Function} cb
-	 */
-
-	exports.off = function (el, event, cb) {
-	  el.removeEventListener(event, cb)
-	}
-
-	/**
-	 * Add class with compatibility for IE & SVG
-	 *
-	 * @param {Element} el
-	 * @param {Strong} cls
-	 */
-
-	exports.addClass = function (el, cls) {
-	  if (el.classList) {
-	    el.classList.add(cls)
-	  } else {
-	    var cur = ' ' + (el.getAttribute('class') || '') + ' '
-	    if (cur.indexOf(' ' + cls + ' ') < 0) {
-	      el.setAttribute('class', (cur + cls).trim())
-	    }
-	  }
-	}
-
-	/**
-	 * Remove class with compatibility for IE & SVG
-	 *
-	 * @param {Element} el
-	 * @param {Strong} cls
-	 */
-
-	exports.removeClass = function (el, cls) {
-	  if (el.classList) {
-	    el.classList.remove(cls)
-	  } else {
-	    var cur = ' ' + (el.getAttribute('class') || '') + ' '
-	    var tar = ' ' + cls + ' '
-	    while (cur.indexOf(tar) >= 0) {
-	      cur = cur.replace(tar, ' ')
-	    }
-	    el.setAttribute('class', cur.trim())
-	  }
-	}
-
-	/**
-	 * Extract raw content inside an element into a temporary
-	 * container div
-	 *
-	 * @param {Element} el
-	 * @return {Element}
-	 */
-
-	exports.extractContent = function (el) {
-	  var child
-	  var rawContent
-	  if (el.hasChildNodes()) {
-	    rawContent = document.createElement('div')
-	    /* jshint boss:true */
-	    while (child = el.firstChild) {
-	      rawContent.appendChild(child)
-	    }
-	  }
-	  return rawContent
-	}
-
-/***/ },
-/* 43 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(44)
-
-	/**
-	 * Resolve read & write filters for a vm instance. The
-	 * filters descriptor Array comes from the directive parser.
-	 *
-	 * This is extracted into its own utility so it can
-	 * be used in multiple scenarios.
-	 *
-	 * @param {Vue} vm
-	 * @param {Array<Object>} filters
-	 * @param {Object} [target]
-	 * @return {Object}
-	 */
-
-	exports.resolveFilters = function (vm, filters, target) {
-	  if (!filters) {
-	    return
-	  }
-	  var res = target || {}
-	  // var registry = vm.$options.filters
-	  filters.forEach(function (f) {
-	    var def = vm.$options.filters[f.name]
-	    _.assertAsset(def, 'filter', f.name)
-	    if (!def) return
-	    var args = f.args
-	    var reader, writer
-	    if (typeof def === 'function') {
-	      reader = def
-	    } else {
-	      reader = def.read
-	      writer = def.write
-	    }
-	    if (reader) {
-	      if (!res.read) res.read = []
-	      res.read.push(function (value) {
-	        return args
-	          ? reader.apply(vm, [value].concat(args))
-	          : reader.call(vm, value)
-	      })
-	    }
-	    if (writer) {
-	      if (!res.write) res.write = []
-	      res.write.push(function (value, oldVal) {
-	        return args
-	          ? writer.apply(vm, [value, oldVal].concat(args))
-	          : writer.call(vm, value, oldVal)
-	      })
-	    }
-	  })
-	  return res
-	}
-
-	/**
-	 * Apply filters to a value
-	 *
-	 * @param {*} value
-	 * @param {Array} filters
-	 * @param {Vue} vm
-	 * @param {*} oldVal
-	 * @return {*}
-	 */
-
-	exports.applyFilters = function (value, filters, vm, oldVal) {
-	  if (!filters) {
-	    return value
-	  }
-	  for (var i = 0, l = filters.length; i < l; i++) {
-	    value = filters[i].call(vm, value, oldVal)
-	  }
-	  return value
-	}
-
-/***/ },
-/* 44 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var config = __webpack_require__(29)
-
-	/**
-	 * Enable debug utilities. The enableDebug() function and
-	 * all _.log() & _.warn() calls will be dropped in the
-	 * minified production build.
-	 */
-
-	enableDebug()
-
-	function enableDebug () {
-
-	  var hasConsole = typeof console !== 'undefined'
-	  
-	  /**
-	   * Log a message.
-	   *
-	   * @param {String} msg
-	   */
-
-	  exports.log = function (msg) {
-	    if (hasConsole && config.debug) {
-	      console.log('[Vue info]: ' + msg)
-	    }
-	  }
-
-	  /**
-	   * We've got a problem here.
-	   *
-	   * @param {String} msg
-	   */
-
-	  var warned = false
-	  exports.warn = function (msg) {
-	    if (hasConsole && (!config.silent || config.debug)) {
-	      if (!config.debug && !warned) {
-	        warned = true
-	        console.log(
-	          'Set `Vue.config.debug = true` to enable debug mode.'
-	        )
-	      }
-	      console.warn('[Vue warn]: ' + msg)
-	      /* istanbul ignore if */
-	      if (config.debug) {
-	        /* jshint debug: true */
-	        debugger
-	      }
-	    }
-	  }
-
-	  /**
-	   * Assert asset exists
-	   */
-
-	  exports.assertAsset = function (val, type, id) {
-	    if (!val) {
-	      exports.warn('Failed to resolve ' + type + ': ' + id)
-	    }
-	  }
-	}
-
-/***/ },
-/* 45 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-
-	module.exports = {
-
-	  bind: function () {
-	    this.attr = this.el.nodeType === 3
-	      ? 'nodeValue'
-	      : 'textContent'
-	  },
-
-	  update: function (value) {
-	    this.el[this.attr] = _.toString(value)
-	  }
-	  
-	}
-
-/***/ },
-/* 46 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var templateParser = __webpack_require__(34)
-
-	module.exports = {
-
-	  bind: function () {
-	    // a comment node means this is a binding for
-	    // {{{ inline unescaped html }}}
-	    if (this.el.nodeType === 8) {
-	      // hold nodes
-	      this.nodes = []
-	    }
-	  },
-
-	  update: function (value) {
-	    value = _.toString(value)
-	    if (this.nodes) {
-	      this.swap(value)
-	    } else {
-	      this.el.innerHTML = value
-	    }
-	  },
-
-	  swap: function (value) {
-	    // remove old nodes
-	    var i = this.nodes.length
-	    while (i--) {
-	      _.remove(this.nodes[i])
-	    }
-	    // convert new value to a fragment
-	    // do not attempt to retrieve from id selector
-	    var frag = templateParser.parse(value, true, true)
-	    // save a reference to these nodes so we can remove later
-	    this.nodes = _.toArray(frag.childNodes)
-	    _.before(frag, this.el)
-	  }
-
-	}
-
-/***/ },
-/* 47 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// xlink
-	var xlinkNS = 'http://www.w3.org/1999/xlink'
-	var xlinkRE = /^xlink:/
-
-	module.exports = {
-
-	  priority: 850,
-
-	  bind: function () {
-	    var name = this.arg
-	    this.update = xlinkRE.test(name)
-	      ? xlinkHandler
-	      : defaultHandler
-	  }
-
-	}
-
-	function defaultHandler (value) {
-	  if (value || value === 0) {
-	    this.el.setAttribute(this.arg, value)
-	  } else {
-	    this.el.removeAttribute(this.arg)
-	  }
-	}
-
-	function xlinkHandler (value) {
-	  if (value != null) {
-	    this.el.setAttributeNS(xlinkNS, this.arg, value)
-	  } else {
-	    this.el.removeAttributeNS(xlinkNS, 'href')
-	  }
-	}
-
-/***/ },
-/* 48 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var transition = __webpack_require__(64)
-
-	module.exports = function (value) {
-	  var el = this.el
-	  transition.apply(el, value ? 1 : -1, function () {
-	    el.style.display = value ? '' : 'none'
-	  }, this.vm)
-	}
-
-/***/ },
-/* 49 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var addClass = _.addClass
-	var removeClass = _.removeClass
-
-	module.exports = function (value) {
-	  if (this.arg) {
-	    var method = value ? addClass : removeClass
-	    method(this.el, this.arg)
-	  } else {
-	    if (this.lastVal) {
-	      removeClass(this.el, this.lastVal)
-	    }
-	    if (value) {
-	      addClass(this.el, value)
-	      this.lastVal = value
-	    }
-	  }
-	}
-
-/***/ },
-/* 50 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = {
-
-	  isLiteral: true,
-
-	  bind: function () {
-	    this.vm.$$[this.expression] = this.el
-	  },
-
-	  unbind: function () {
-	    delete this.vm.$$[this.expression]
-	  }
-	  
-	}
-
-/***/ },
-/* 51 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-
-	module.exports = {
-
-	  isLiteral: true,
-
-	  bind: function () {
-	    var vm = this.el.__vue__
-	    if (!vm) {
-	      _.warn(
-	        'v-ref should only be used on a component root element.'
-	      )
-	      return
-	    }
-	    // If we get here, it means this is a `v-ref` on a
-	    // child, because parent scope `v-ref` is stripped in
-	    // `v-component` already. So we just record our own ref
-	    // here - it will overwrite parent ref in `v-component`,
-	    // if any.
-	    vm._refID = this.expression
-	  }
-	  
-	}
-
-/***/ },
-/* 52 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var config = __webpack_require__(29)
-
-	module.exports = {
-
-	  bind: function () {
-	    var el = this.el
-	    this.vm.$once('hook:compiled', function () {
-	      el.removeAttribute(config.prefix + 'cloak')
-	    })
-	  }
-
-	}
-
-/***/ },
-/* 53 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var prefixes = ['-webkit-', '-moz-', '-ms-']
-	var camelPrefixes = ['Webkit', 'Moz', 'ms']
-	var importantRE = /!important;?$/
-	var camelRE = /([a-z])([A-Z])/g
-	var testEl = null
-	var propCache = {}
-
-	module.exports = {
-
-	  deep: true,
-
-	  update: function (value) {
-	    if (this.arg) {
-	      this.setProp(this.arg, value)
-	    } else {
-	      if (typeof value === 'object') {
-	        // cache object styles so that only changed props
-	        // are actually updated.
-	        if (!this.cache) this.cache = {}
-	        for (var prop in value) {
-	          this.setProp(prop, value[prop])
-	          /* jshint eqeqeq: false */
-	          if (value[prop] != this.cache[prop]) {
-	            this.cache[prop] = value[prop]
-	            this.setProp(prop, value[prop])
-	          }
-	        }
-	      } else {
-	        this.el.style.cssText = value
-	      }
-	    }
-	  },
-
-	  setProp: function (prop, value) {
-	    prop = normalize(prop)
-	    if (!prop) return // unsupported prop
-	    // cast possible numbers/booleans into strings
-	    if (value != null) value += ''
-	    if (value) {
-	      var isImportant = importantRE.test(value)
-	        ? 'important'
-	        : ''
-	      if (isImportant) {
-	        value = value.replace(importantRE, '').trim()
-	      }
-	      this.el.style.setProperty(prop, value, isImportant)
-	    } else {
-	      this.el.style.removeProperty(prop)
-	    }
-	  }
-
-	}
-
-	/**
-	 * Normalize a CSS property name.
-	 * - cache result
-	 * - auto prefix
-	 * - camelCase -> dash-case
-	 *
-	 * @param {String} prop
-	 * @return {String}
-	 */
-
-	function normalize (prop) {
-	  if (propCache[prop]) {
-	    return propCache[prop]
-	  }
-	  var res = prefix(prop)
-	  propCache[prop] = propCache[res] = res
-	  return res
-	}
-
-	/**
-	 * Auto detect the appropriate prefix for a CSS property.
-	 * https://gist.github.com/paulirish/523692
-	 *
-	 * @param {String} prop
-	 * @return {String}
-	 */
-
-	function prefix (prop) {
-	  prop = prop.replace(camelRE, '$1-$2').toLowerCase()
-	  var camel = _.camelize(prop)
-	  var upper = camel.charAt(0).toUpperCase() + camel.slice(1)
-	  if (!testEl) {
-	    testEl = document.createElement('div')
-	  }
-	  if (camel in testEl.style) {
-	    return prop
-	  }
-	  var i = prefixes.length
-	  var prefixed
-	  while (i--) {
-	    prefixed = camelPrefixes[i] + upper
-	    if (prefixed in testEl.style) {
-	      return prefixes[i] + prop
-	    }
-	  }
-	}
-
-/***/ },
-/* 54 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var templateParser = __webpack_require__(34)
-	var vIf = __webpack_require__(59)
-
-	module.exports = {
-
-	  isLiteral: true,
-
-	  // same logic reuse from v-if
-	  compile: vIf.compile,
-	  teardown: vIf.teardown,
-
-	  bind: function () {
-	    var el = this.el
-	    this.start = document.createComment('v-partial-start')
-	    this.end = document.createComment('v-partial-end')
-	    if (el.nodeType !== 8) {
-	      el.innerHTML = ''
-	    }
-	    if (el.tagName === 'TEMPLATE' || el.nodeType === 8) {
-	      _.replace(el, this.end)
-	    } else {
-	      el.appendChild(this.end)
-	    }
-	    _.before(this.start, this.end)
-	    if (!this._isDynamicLiteral) {
-	      this.insert(this.expression)
-	    }
-	  },
-
-	  update: function (id) {
-	    this.teardown()
-	    this.insert(id)
-	  },
-
-	  insert: function (id) {
-	    var partial = this.vm.$options.partials[id]
-	    _.assertAsset(partial, 'partial', id)
-	    if (partial) {
-	      this.compile(templateParser.parse(partial))
-	    }
-	  }
-
-	}
-
-/***/ },
-/* 55 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = {
-
-	  priority: 1000,
-	  isLiteral: true,
-
-	  bind: function () {
-	    this.el.__v_trans = {
-	      id: this.expression,
-	      // resolve the custom transition functions now
-	      fns: this.vm.$options.transitions[this.expression]
-	    }
-	  }
-
-	}
-
-/***/ },
-/* 56 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-
-	module.exports = {
-
-	  acceptStatement: true,
-	  priority: 700,
-
-	  bind: function () {
-	    // deal with iframes
-	    if (
-	      this.el.tagName === 'IFRAME' &&
-	      this.arg !== 'load'
-	    ) {
-	      var self = this
-	      this.iframeBind = function () {
-	        _.on(self.el.contentWindow, self.arg, self.handler)
-	      }
-	      _.on(this.el, 'load', this.iframeBind)
-	    }
-	  },
-
-	  update: function (handler) {
-	    if (typeof handler !== 'function') {
-	      _.warn(
-	        'Directive "v-on:' + this.expression + '" ' +
-	        'expects a function value.'
-	      )
-	      return
-	    }
-	    this.reset()
-	    var vm = this.vm
-	    this.handler = function (e) {
-	      e.targetVM = vm
-	      vm.$event = e
-	      var res = handler(e)
-	      vm.$event = null
-	      return res
-	    }
-	    if (this.iframeBind) {
-	      this.iframeBind()
-	    } else {
-	      _.on(this.el, this.arg, this.handler)
-	    }
-	  },
-
-	  reset: function () {
-	    var el = this.iframeBind
-	      ? this.el.contentWindow
-	      : this.el
-	    if (this.handler) {
-	      _.off(el, this.arg, this.handler)
-	    }
-	  },
-
-	  unbind: function () {
-	    this.reset()
-	    _.off(this.el, 'load', this.iframeBind)
-	  }
-	}
-
-/***/ },
-/* 57 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var templateParser = __webpack_require__(34)
-
-	module.exports = {
-
-	  isLiteral: true,
-
-	  /**
-	   * Setup. Two possible usages:
-	   *
-	   * - static:
-	   *   v-component="comp"
-	   *
-	   * - dynamic:
-	   *   v-component="{{currentView}}"
-	   */
-
-	  bind: function () {
-	    if (!this.el.__vue__) {
-	      // create a ref anchor
-	      this.ref = document.createComment('v-component')
-	      _.replace(this.el, this.ref)
-	      // check keep-alive options.
-	      // If yes, instead of destroying the active vm when
-	      // hiding (v-if) or switching (dynamic literal) it,
-	      // we simply remove it from the DOM and save it in a
-	      // cache object, with its constructor id as the key.
-	      this.keepAlive = this._checkParam('keep-alive') != null
-	      // check ref
-	      this.refID = _.attr(this.el, 'ref')
-	      if (this.keepAlive) {
-	        this.cache = {}
-	      }
-	      // if static, build right now.
-	      if (!this._isDynamicLiteral) {
-	        this.resolveCtor(this.expression)
-	        var child = this.build()
-	        child.$before(this.ref)
-	        this.setCurrent(child)
-	      } else {
-	        // check dynamic component params
-	        this.readyEvent = this._checkParam('wait-for')
-	        this.transMode = this._checkParam('transition-mode')
-	      }
-	    } else {
-	      _.warn(
-	        'v-component="' + this.expression + '" cannot be ' +
-	        'used on an already mounted instance.'
-	      )
-	    }
-	  },
-
-	  /**
-	   * Resolve the component constructor to use when creating
-	   * the child vm.
-	   */
-
-	  resolveCtor: function (id) {
-	    this.ctorId = id
-	    this.Ctor = this.vm.$options.components[id]
-	    _.assertAsset(this.Ctor, 'component', id)
-	  },
-
-	  /**
-	   * Instantiate/insert a new child vm.
-	   * If keep alive and has cached instance, insert that
-	   * instance; otherwise build a new one and cache it.
-	   *
-	   * @return {Vue} - the created instance
-	   */
-
-	  build: function () {
-	    if (this.keepAlive) {
-	      var cached = this.cache[this.ctorId]
-	      if (cached) {
-	        return cached
-	      }
-	    }
-	    var vm = this.vm
-	    var el = templateParser.clone(this.el)
-	    if (this.Ctor) {
-	      var child = vm.$addChild({
-	        el: el,
-	        _asComponent: true
-	      }, this.Ctor)
-	      if (this.keepAlive) {
-	        this.cache[this.ctorId] = child
-	      }
-	      return child
-	    }
-	  },
-
-	  /**
-	   * Teardown the current child, but defers cleanup so
-	   * that we can separate the destroy and removal steps.
-	   */
-
-	  unbuild: function () {
-	    var child = this.childVM
-	    if (!child || this.keepAlive) {
-	      return
-	    }
-	    // the sole purpose of `deferCleanup` is so that we can
-	    // "deactivate" the vm right now and perform DOM removal
-	    // later.
-	    child.$destroy(false, true)
-	  },
-
-	  /**
-	   * Remove current destroyed child and manually do
-	   * the cleanup after removal.
-	   *
-	   * @param {Function} cb
-	   */
-
-	  remove: function (child, cb) {
-	    var keepAlive = this.keepAlive
-	    if (child) {
-	      child.$remove(function () {
-	        if (!keepAlive) child._cleanup()
-	        if (cb) cb()
-	      })
-	    } else if (cb) {
-	      cb()
-	    }
-	  },
-
-	  /**
-	   * Update callback for the dynamic literal scenario,
-	   * e.g. v-component="{{view}}"
-	   */
-
-	  update: function (value) {
-	    if (!value) {
-	      // just destroy and remove current
-	      this.unbuild()
-	      this.remove(this.childVM)
-	      this.unsetCurrent()
-	    } else {
-	      this.resolveCtor(value)
-	      this.unbuild()
-	      var newComponent = this.build()
-	      var self = this
-	      if (this.readyEvent) {
-	        newComponent.$once(this.readyEvent, function () {
-	          self.swapTo(newComponent)
-	        })
-	      } else {
-	        this.swapTo(newComponent)
-	      }
-	    }
-	  },
-
-	  /**
-	   * Actually swap the components, depending on the
-	   * transition mode. Defaults to simultaneous.
-	   *
-	   * @param {Vue} target
-	   */
-
-	  swapTo: function (target) {
-	    var self = this
-	    var current = this.childVM
-	    this.unsetCurrent()
-	    this.setCurrent(target)
-	    switch (self.transMode) {
-	      case 'in-out':
-	        target.$before(self.ref, function () {
-	          self.remove(current)
-	        })
-	        break
-	      case 'out-in':
-	        self.remove(current, function () {
-	          target.$before(self.ref)
-	        })
-	        break
-	      default:
-	        self.remove(current)
-	        target.$before(self.ref)
-	    }
-	  },
-
-	  /**
-	   * Set childVM and parent ref
-	   */
-	  
-	  setCurrent: function (child) {
-	    this.childVM = child
-	    var refID = child._refID || this.refID
-	    if (refID) {
-	      this.vm.$[refID] = child
-	    }
-	  },
-
-	  /**
-	   * Unset childVM and parent ref
-	   */
-
-	  unsetCurrent: function () {
-	    var child = this.childVM
-	    this.childVM = null
-	    var refID = (child && child._refID) || this.refID
-	    if (refID) {
-	      this.vm.$[refID] = null
-	    }
-	  },
-
-	  /**
-	   * Unbind.
-	   */
-
-	  unbind: function () {
-	    this.unbuild()
-	    // destroy all keep-alive cached instances
-	    if (this.cache) {
-	      for (var key in this.cache) {
-	        this.cache[key].$destroy()
-	      }
-	      this.cache = null
-	    }
-	  }
-
-	}
-
-/***/ },
-/* 58 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var isObject = _.isObject
-	var isPlainObject = _.isPlainObject
-	var textParser = __webpack_require__(33)
-	var expParser = __webpack_require__(36)
-	var templateParser = __webpack_require__(34)
-	var compile = __webpack_require__(30)
-	var transclude = __webpack_require__(31)
-	var mergeOptions = __webpack_require__(28)
-	var uid = 0
-
-	module.exports = {
-
-	  /**
-	   * Setup.
-	   */
-
-	  bind: function () {
-	    // uid as a cache identifier
-	    this.id = '__v_repeat_' + (++uid)
-	    // we need to insert the objToArray converter
-	    // as the first read filter, because it has to be invoked
-	    // before any user filters. (can't do it in `update`)
-	    if (!this.filters) {
-	      this.filters = {}
-	    }
-	    // add the object -> array convert filter
-	    var objectConverter = _.bind(objToArray, this)
-	    if (!this.filters.read) {
-	      this.filters.read = [objectConverter]
-	    } else {
-	      this.filters.read.unshift(objectConverter)
-	    }
-	    // setup ref node
-	    this.ref = document.createComment('v-repeat')
-	    _.replace(this.el, this.ref)
-	    // check if this is a block repeat
-	    this.template = this.el.tagName === 'TEMPLATE'
-	      ? templateParser.parse(this.el, true)
-	      : this.el
-	    // check other directives that need to be handled
-	    // at v-repeat level
-	    this.checkIf()
-	    this.checkRef()
-	    this.checkComponent()
-	    // check for trackby param
-	    this.idKey =
-	      this._checkParam('track-by') ||
-	      this._checkParam('trackby') // 0.11.0 compat
-	    // cache for primitive value instances
-	    this.cache = Object.create(null)
-	  },
-
-	  /**
-	   * Warn against v-if usage.
-	   */
-
-	  checkIf: function () {
-	    if (_.attr(this.el, 'if') !== null) {
-	      _.warn(
-	        'Don\'t use v-if with v-repeat. ' +
-	        'Use v-show or the "filterBy" filter instead.'
-	      )
-	    }
-	  },
-
-	  /**
-	   * Check if v-ref/ v-el is also present.
-	   */
-
-	  checkRef: function () {
-	    var refID = _.attr(this.el, 'ref')
-	    this.refID = refID
-	      ? this.vm.$interpolate(refID)
-	      : null
-	    var elId = _.attr(this.el, 'el')
-	    this.elId = elId
-	      ? this.vm.$interpolate(elId)
-	      : null
-	  },
-
-	  /**
-	   * Check the component constructor to use for repeated
-	   * instances. If static we resolve it now, otherwise it
-	   * needs to be resolved at build time with actual data.
-	   */
-
-	  checkComponent: function () {
-	    var id = _.attr(this.el, 'component')
-	    var options = this.vm.$options
-	    if (!id) {
-	      this.Ctor = _.Vue // default constructor
-	      this.inherit = true // inline repeats should inherit
-	      // important: transclude with no options, just
-	      // to ensure block start and block end
-	      this.template = transclude(this.template)
-	      this._linkFn = compile(this.template, options)
-	    } else {
-	      this._asComponent = true
-	      var tokens = textParser.parse(id)
-	      if (!tokens) { // static component
-	        var Ctor = this.Ctor = options.components[id]
-	        _.assertAsset(Ctor, 'component', id)
-	        // If there's no parent scope directives and no
-	        // content to be transcluded, we can optimize the
-	        // rendering by pre-transcluding + compiling here
-	        // and provide a link function to every instance.
-	        if (!this.el.hasChildNodes() &&
-	            !this.el.hasAttributes()) {
-	          // merge an empty object with owner vm as parent
-	          // so child vms can access parent assets.
-	          var merged = mergeOptions(Ctor.options, {}, {
-	            $parent: this.vm
-	          })
-	          this.template = transclude(this.template, merged)
-	          this._linkFn = compile(this.template, merged, false, true)
-	        }
-	      } else {
-	        // to be resolved later
-	        var ctorExp = textParser.tokensToExp(tokens)
-	        this.ctorGetter = expParser.parse(ctorExp).get
-	      }
-	    }
-	  },
-
-	  /**
-	   * Update.
-	   * This is called whenever the Array mutates.
-	   *
-	   * @param {Array} data
-	   */
-
-	  update: function (data) {
-	    if (typeof data === 'number') {
-	      data = range(data)
-	    }
-	    this.vms = this.diff(data || [], this.vms)
-	    // update v-ref
-	    if (this.refID) {
-	      this.vm.$[this.refID] = this.vms
-	    }
-	    if (this.elId) {
-	      this.vm.$$[this.elId] = this.vms.map(function (vm) {
-	        return vm.$el
-	      })
-	    }
-	  },
-
-	  /**
-	   * Diff, based on new data and old data, determine the
-	   * minimum amount of DOM manipulations needed to make the
-	   * DOM reflect the new data Array.
-	   *
-	   * The algorithm diffs the new data Array by storing a
-	   * hidden reference to an owner vm instance on previously
-	   * seen data. This allows us to achieve O(n) which is
-	   * better than a levenshtein distance based algorithm,
-	   * which is O(m * n).
-	   *
-	   * @param {Array} data
-	   * @param {Array} oldVms
-	   * @return {Array}
-	   */
-
-	  diff: function (data, oldVms) {
-	    var idKey = this.idKey
-	    var converted = this.converted
-	    var ref = this.ref
-	    var alias = this.arg
-	    var init = !oldVms
-	    var vms = new Array(data.length)
-	    var obj, raw, vm, i, l
-	    // First pass, go through the new Array and fill up
-	    // the new vms array. If a piece of data has a cached
-	    // instance for it, we reuse it. Otherwise build a new
-	    // instance.
-	    for (i = 0, l = data.length; i < l; i++) {
-	      obj = data[i]
-	      raw = converted ? obj.value : obj
-	      vm = !init && this.getVm(raw)
-	      if (vm) { // reusable instance
-	        vm._reused = true
-	        vm.$index = i // update $index
-	        if (converted) {
-	          vm.$key = obj.key // update $key
-	        }
-	        if (idKey) { // swap track by id data
-	          if (alias) {
-	            vm[alias] = raw
-	          } else {
-	            vm._setData(raw)
-	          }
-	        }
-	      } else { // new instance
-	        vm = this.build(obj, i)
-	        vm._new = true
-	      }
-	      vms[i] = vm
-	      // insert if this is first run
-	      if (init) {
-	        vm.$before(ref)
-	      }
-	    }
-	    // if this is the first run, we're done.
-	    if (init) {
-	      return vms
-	    }
-	    // Second pass, go through the old vm instances and
-	    // destroy those who are not reused (and remove them
-	    // from cache)
-	    for (i = 0, l = oldVms.length; i < l; i++) {
-	      vm = oldVms[i]
-	      if (!vm._reused) {
-	        this.uncacheVm(vm)
-	        vm.$destroy(true)
-	      }
-	    }
-	    // final pass, move/insert new instances into the
-	    // right place. We're going in reverse here because
-	    // insertBefore relies on the next sibling to be
-	    // resolved.
-	    var targetNext, currentNext
-	    i = vms.length
-	    while (i--) {
-	      vm = vms[i]
-	      // this is the vm that we should be in front of
-	      targetNext = vms[i + 1]
-	      if (!targetNext) {
-	        // This is the last item. If it's reused then
-	        // everything else will eventually be in the right
-	        // place, so no need to touch it. Otherwise, insert
-	        // it.
-	        if (!vm._reused) {
-	          vm.$before(ref)
-	        }
-	      } else {
-	        if (vm._reused) {
-	          // this is the vm we are actually in front of
-	          currentNext = findNextVm(vm, ref)
-	          // we only need to move if we are not in the right
-	          // place already.
-	          if (currentNext !== targetNext) {
-	            vm.$before(targetNext.$el, null, false)
-	          }
-	        } else {
-	          // new instance, insert to existing next
-	          vm.$before(targetNext.$el)
-	        }
-	      }
-	      vm._new = false
-	      vm._reused = false
-	    }
-	    return vms
-	  },
-
-	  /**
-	   * Build a new instance and cache it.
-	   *
-	   * @param {Object} data
-	   * @param {Number} index
-	   */
-
-	  build: function (data, index) {
-	    var original = data
-	    var meta = { $index: index }
-	    if (this.converted) {
-	      meta.$key = original.key
-	    }
-	    var raw = this.converted ? data.value : data
-	    var alias = this.arg
-	    var hasAlias = !isPlainObject(raw) || alias
-	    // wrap the raw data with alias
-	    data = hasAlias ? {} : raw
-	    if (alias) {
-	      data[alias] = raw
-	    } else if (hasAlias) {
-	      meta.$value = raw
-	    }
-	    // resolve constructor
-	    var Ctor = this.Ctor || this.resolveCtor(data, meta)
-	    var vm = this.vm.$addChild({
-	      el: templateParser.clone(this.template),
-	      _asComponent: this._asComponent,
-	      _linkFn: this._linkFn,
-	      _meta: meta,
-	      data: data,
-	      inherit: this.inherit
-	    }, Ctor)
-	    // cache instance
-	    this.cacheVm(raw, vm)
-	    return vm
-	  },
-
-	  /**
-	   * Resolve a contructor to use for an instance.
-	   * The tricky part here is that there could be dynamic
-	   * components depending on instance data.
-	   *
-	   * @param {Object} data
-	   * @param {Object} meta
-	   * @return {Function}
-	   */
-
-	  resolveCtor: function (data, meta) {
-	    // create a temporary context object and copy data
-	    // and meta properties onto it.
-	    // use _.define to avoid accidentally overwriting scope
-	    // properties.
-	    var context = Object.create(this.vm)
-	    var key
-	    for (key in data) {
-	      _.define(context, key, data[key])
-	    }
-	    for (key in meta) {
-	      _.define(context, key, meta[key])
-	    }
-	    var id = this.ctorGetter.call(context, context)
-	    var Ctor = this.vm.$options.components[id]
-	    _.assertAsset(Ctor, 'component', id)
-	    return Ctor
-	  },
-
-	  /**
-	   * Unbind, teardown everything
-	   */
-
-	  unbind: function () {
-	    if (this.refID) {
-	      this.vm.$[this.refID] = null
-	    }
-	    if (this.vms) {
-	      var i = this.vms.length
-	      var vm
-	      while (i--) {
-	        vm = this.vms[i]
-	        this.uncacheVm(vm)
-	        vm.$destroy()
-	      }
-	    }
-	  },
-
-	  /**
-	   * Cache a vm instance based on its data.
-	   *
-	   * If the data is an object, we save the vm's reference on
-	   * the data object as a hidden property. Otherwise we
-	   * cache them in an object and for each primitive value
-	   * there is an array in case there are duplicates.
-	   *
-	   * @param {Object} data
-	   * @param {Vue} vm
-	   */
-
-	  cacheVm: function (data, vm) {
-	    var idKey = this.idKey
-	    var cache = this.cache
-	    var id
-	    if (idKey) {
-	      id = data[idKey]
-	      if (!cache[id]) {
-	        cache[id] = vm
-	      } else {
-	        _.warn('Duplicate ID in v-repeat: ' + id)
-	      }
-	    } else if (isObject(data)) {
-	      id = this.id
-	      if (data.hasOwnProperty(id)) {
-	        if (data[id] === null) {
-	          data[id] = vm
-	        } else {
-	          _.warn(
-	            'Duplicate objects are not supported in v-repeat.'
-	          )
-	        }
-	      } else {
-	        _.define(data, this.id, vm)
-	      }
-	    } else {
-	      if (!cache[data]) {
-	        cache[data] = [vm]
-	      } else {
-	        cache[data].push(vm)
-	      }
-	    }
-	    vm._raw = data
-	  },
-
-	  /**
-	   * Try to get a cached instance from a piece of data.
-	   *
-	   * @param {Object} data
-	   * @return {Vue|undefined}
-	   */
-
-	  getVm: function (data) {
-	    if (this.idKey) {
-	      return this.cache[data[this.idKey]]
-	    } else if (isObject(data)) {
-	      return data[this.id]
-	    } else {
-	      var cached = this.cache[data]
-	      if (cached) {
-	        var i = 0
-	        var vm = cached[i]
-	        // since duplicated vm instances might be a reused
-	        // one OR a newly created one, we need to return the
-	        // first instance that is neither of these.
-	        while (vm && (vm._reused || vm._new)) {
-	          vm = cached[++i]
-	        }
-	        return vm
-	      }
-	    }
-	  },
-
-	  /**
-	   * Delete a cached vm instance.
-	   *
-	   * @param {Vue} vm
-	   */
-
-	  uncacheVm: function (vm) {
-	    var data = vm._raw
-	    if (this.idKey) {
-	      this.cache[data[this.idKey]] = null
-	    } else if (isObject(data)) {
-	      data[this.id] = null
-	      vm._raw = null
-	    } else {
-	      this.cache[data].pop()
-	    }
-	  }
-
-	}
-
-	/**
-	 * Helper to find the next element that is an instance
-	 * root node. This is necessary because a destroyed vm's
-	 * element could still be lingering in the DOM before its
-	 * leaving transition finishes, but its __vue__ reference
-	 * should have been removed so we can skip them.
-	 *
-	 * @param {Vue} vm
-	 * @param {CommentNode} ref
-	 * @return {Vue}
-	 */
-
-	function findNextVm (vm, ref) {
-	  var el = (vm._blockEnd || vm.$el).nextSibling
-	  while (!el.__vue__ && el !== ref) {
-	    el = el.nextSibling
-	  }
-	  return el.__vue__
-	}
-
-	/**
-	 * Attempt to convert non-Array objects to array.
-	 * This is the default filter installed to every v-repeat
-	 * directive.
-	 *
-	 * It will be called with **the directive** as `this`
-	 * context so that we can mark the repeat array as converted
-	 * from an object.
-	 *
-	 * @param {*} obj
-	 * @return {Array}
-	 * @private
-	 */
-
-	function objToArray (obj) {
-	  if (!isPlainObject(obj)) {
-	    return obj
-	  }
-	  var keys = Object.keys(obj)
-	  var i = keys.length
-	  var res = new Array(i)
-	  var key
-	  while (i--) {
-	    key = keys[i]
-	    res[i] = {
-	      key: key,
-	      value: obj[key]
-	    }
-	  }
-	  // `this` points to the repeat directive instance
-	  this.converted = true
-	  return res
-	}
-
-	/**
-	 * Create a range array from given number.
-	 *
-	 * @param {Number} n
-	 * @return {Array}
-	 */
-
-	function range (n) {
-	  var i = -1
-	  var ret = new Array(n)
-	  while (++i < n) {
-	    ret[i] = i
-	  }
-	  return ret
-	}
-
-/***/ },
-/* 59 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var compile = __webpack_require__(30)
-	var templateParser = __webpack_require__(34)
-	var transition = __webpack_require__(64)
-
-	module.exports = {
-
-	  bind: function () {
-	    var el = this.el
-	    if (!el.__vue__) {
-	      this.start = document.createComment('v-if-start')
-	      this.end = document.createComment('v-if-end')
-	      _.replace(el, this.end)
-	      _.before(this.start, this.end)
-	      if (el.tagName === 'TEMPLATE') {
-	        this.template = templateParser.parse(el, true)
-	      } else {
-	        this.template = document.createDocumentFragment()
-	        this.template.appendChild(el)
-	      }
-	      // compile the nested partial
-	      this.linker = compile(
-	        this.template,
-	        this.vm.$options,
-	        true
-	      )
-	    } else {
-	      this.invalid = true
-	      _.warn(
-	        'v-if="' + this.expression + '" cannot be ' +
-	        'used on an already mounted instance.'
-	      )
-	    }
-	  },
-
-	  update: function (value) {
-	    if (this.invalid) return
-	    if (value) {
-	      this.insert()
-	    } else {
-	      this.teardown()
-	    }
-	  },
-
-	  insert: function () {
-	    // avoid duplicate inserts, since update() can be
-	    // called with different truthy values
-	    if (!this.unlink) {
-	      this.compile(this.template) 
-	    }
-	  },
-
-	  compile: function (template) {
-	    var vm = this.vm
-	    var frag = templateParser.clone(template)
-	    var originalChildLength = vm._children.length
-	    this.unlink = this.linker
-	      ? this.linker(vm, frag)
-	      : vm.$compile(frag)
-	    transition.blockAppend(frag, this.end, vm)
-	    this.children = vm._children.slice(originalChildLength)
-	    if (this.children.length && _.inDoc(vm.$el)) {
-	      this.children.forEach(function (child) {
-	        child._callHook('attached')
-	      })
-	    }
-	  },
-
-	  teardown: function () {
-	    if (!this.unlink) return
-	    transition.blockRemove(this.start, this.end, this.vm)
-	    if (this.children && _.inDoc(this.vm.$el)) {
-	      this.children.forEach(function (child) {
-	        if (!child._isDestroyed) {
-	          child._callHook('detached')
-	        }
-	      })
-	    }
-	    this.unlink()
-	    this.unlink = null
-	  }
-
-	}
-
-/***/ },
-/* 60 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var Watcher = __webpack_require__(39)
-
-	module.exports = {
-
-	  priority: 900,
-
-	  bind: function () {
-
-	    var child = this.vm
-	    var parent = child.$parent
-	    var childKey = this.arg || '$data'
-	    var parentKey = this.expression
-
-	    if (this.el !== child.$el) {
-	      _.warn(
-	        'v-with can only be used on instance root elements.'
-	      )
-	    } else if (!parent) {
-	      _.warn(
-	        'v-with must be used on an instance with a parent.'
-	      )
-	    } else {
-
-	      // simple lock to avoid circular updates.
-	      // without this it would stabilize too, but this makes
-	      // sure it doesn't cause other watchers to re-evaluate.
-	      var locked = false
-	      var lock = function () {
-	        locked = true
-	        _.nextTick(unlock)
-	      }
-	      var unlock = function () {
-	        locked = false
-	      }
-
-	      this.parentWatcher = new Watcher(
-	        parent,
-	        parentKey,
-	        function (val) {
-	          if (!locked) {
-	            lock()
-	            child.$set(childKey, val)
-	          }
-	        }
-	      )
-	      
-	      // set the child initial value first, before setting
-	      // up the child watcher to avoid triggering it
-	      // immediately.
-	      child.$set(childKey, this.parentWatcher.value)
-
-	      this.childWatcher = new Watcher(
-	        child,
-	        childKey,
-	        function (val) {
-	          if (!locked) {
-	            lock()
-	            parent.$set(parentKey, val)
-	          }
-	        }
-	      )
-	    }
-	  },
-
-	  unbind: function () {
-	    if (this.parentWatcher) {
-	      this.parentWatcher.teardown()
-	      this.childWatcher.teardown()
-	    }
-	  }
-
-	}
-
-/***/ },
-/* 61 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-
-	module.exports = { 
-
-	  bind: function () {
-	    var child = this.el.__vue__
-	    if (!child || this.vm !== child.$parent) {
-	      _.warn(
-	        '`v-events` should only be used on a child component ' +
-	        'from the parent template.'
-	      )
-	      return
-	    }
-	    var method = this.vm[this.expression]
-	    if (!method) {
-	      _.warn(
-	        '`v-events` cannot find method "' + this.expression +
-	        '" on the parent instance.'
-	      )
-	    }
-	    child.$on(this.arg, method)
-	  }
-
-	  // when child is destroyed, all events are turned off,
-	  // so no need for unbind here.
-
-	}
-
-/***/ },
-/* 62 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var Path = __webpack_require__(32)
-
-	/**
-	 * Filter filter for v-repeat
-	 *
-	 * @param {String} searchKey
-	 * @param {String} [delimiter]
-	 * @param {String} dataKey
-	 */
-
-	exports.filterBy = function (arr, searchKey, delimiter, dataKey) {
-	  // allow optional `in` delimiter
-	  // because why not
-	  if (delimiter && delimiter !== 'in') {
-	    dataKey = delimiter
-	  }
-	  // get the search string
-	  var search =
-	    _.stripQuotes(searchKey) ||
-	    this.$get(searchKey)
-	  if (!search) {
-	    return arr
-	  }
-	  search = ('' + search).toLowerCase()
-	  // get the optional dataKey
-	  dataKey =
-	    dataKey &&
-	    (_.stripQuotes(dataKey) || this.$get(dataKey))
-	  return arr.filter(function (item) {
-	    return dataKey
-	      ? contains(Path.get(item, dataKey), search)
-	      : contains(item, search)
-	  })
-	}
-
-	/**
-	 * Filter filter for v-repeat
-	 *
-	 * @param {String} sortKey
-	 * @param {String} reverseKey
-	 */
-
-	exports.orderBy = function (arr, sortKey, reverseKey) {
-	  var key =
-	    _.stripQuotes(sortKey) ||
-	    this.$get(sortKey)
-	  if (!key) {
-	    return arr
-	  }
-	  var order = 1
-	  if (reverseKey) {
-	    if (reverseKey === '-1') {
-	      order = -1
-	    } else if (reverseKey.charCodeAt(0) === 0x21) { // !
-	      reverseKey = reverseKey.slice(1)
-	      order = this.$get(reverseKey) ? 1 : -1
-	    } else {
-	      order = this.$get(reverseKey) ? -1 : 1
-	    }
-	  }
-	  // sort on a copy to avoid mutating original array
-	  return arr.slice().sort(function (a, b) {
-	    a = Path.get(a, key)
-	    b = Path.get(b, key)
-	    return a === b ? 0 : a > b ? order : -order
-	  })
-	}
-
-	/**
-	 * String contain helper
-	 *
-	 * @param {*} val
-	 * @param {String} search
-	 */
-
-	function contains (val, search) {
-	  if (_.isObject(val)) {
-	    for (var key in val) {
-	      if (contains(val[key], search)) {
-	        return true
-	      }
-	    }
-	  } else if (val != null) {
-	    return val.toString().toLowerCase().indexOf(search) > -1
-	  }
-	}
-
-/***/ },
-/* 63 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var config = __webpack_require__(29)
-	var Dep = __webpack_require__(37)
-	var arrayMethods = __webpack_require__(121)
-	var arrayKeys = Object.getOwnPropertyNames(arrayMethods)
-	__webpack_require__(122)
-
-	var uid = 0
-
-	/**
-	 * Type enums
-	 */
-
-	var ARRAY  = 0
-	var OBJECT = 1
-
-	/**
-	 * Augment an target Object or Array by intercepting
-	 * the prototype chain using __proto__
-	 *
-	 * @param {Object|Array} target
-	 * @param {Object} proto
-	 */
-
-	function protoAugment (target, src) {
-	  target.__proto__ = src
-	}
-
-	/**
-	 * Augment an target Object or Array by defining
-	 * hidden properties.
-	 *
-	 * @param {Object|Array} target
-	 * @param {Object} proto
-	 */
-
-	function copyAugment (target, src, keys) {
-	  var i = keys.length
-	  var key
-	  while (i--) {
-	    key = keys[i]
-	    _.define(target, key, src[key])
-	  }
-	}
-
-	/**
-	 * Observer class that are attached to each observed
-	 * object. Once attached, the observer converts target
-	 * object's property keys into getter/setters that
-	 * collect dependencies and dispatches updates.
-	 *
-	 * @param {Array|Object} value
-	 * @param {Number} type
-	 * @constructor
-	 */
-
-	function Observer (value, type) {
-	  this.id = ++uid
-	  this.value = value
-	  this.active = true
-	  this.deps = []
-	  _.define(value, '__ob__', this)
-	  if (type === ARRAY) {
-	    var augment = config.proto && _.hasProto
-	      ? protoAugment
-	      : copyAugment
-	    augment(value, arrayMethods, arrayKeys)
-	    this.observeArray(value)
-	  } else if (type === OBJECT) {
-	    this.walk(value)
-	  }
-	}
-
-	Observer.target = null
-
-	var p = Observer.prototype
-
-	/**
-	 * Attempt to create an observer instance for a value,
-	 * returns the new observer if successfully observed,
-	 * or the existing observer if the value already has one.
-	 *
-	 * @param {*} value
-	 * @return {Observer|undefined}
-	 * @static
-	 */
-
-	Observer.create = function (value) {
-	  if (
-	    value &&
-	    value.hasOwnProperty('__ob__') &&
-	    value.__ob__ instanceof Observer
-	  ) {
-	    return value.__ob__
-	  } else if (_.isArray(value)) {
-	    return new Observer(value, ARRAY)
-	  } else if (
-	    _.isPlainObject(value) &&
-	    !value._isVue // avoid Vue instance
-	  ) {
-	    return new Observer(value, OBJECT)
-	  }
-	}
-
-	/**
-	 * Walk through each property and convert them into
-	 * getter/setters. This method should only be called when
-	 * value type is Object. Properties prefixed with `$` or `_`
-	 * and accessor properties are ignored.
-	 *
-	 * @param {Object} obj
-	 */
-
-	p.walk = function (obj) {
-	  var keys = Object.keys(obj)
-	  var i = keys.length
-	  var key, prefix
-	  while (i--) {
-	    key = keys[i]
-	    prefix = key.charCodeAt(0)
-	    if (prefix !== 0x24 && prefix !== 0x5F) { // skip $ or _
-	      this.convert(key, obj[key])
-	    }
-	  }
-	}
-
-	/**
-	 * Try to carete an observer for a child value,
-	 * and if value is array, link dep to the array.
-	 *
-	 * @param {*} val
-	 * @return {Dep|undefined}
-	 */
-
-	p.observe = function (val) {
-	  return Observer.create(val)
-	}
-
-	/**
-	 * Observe a list of Array items.
-	 *
-	 * @param {Array} items
-	 */
-
-	p.observeArray = function (items) {
-	  var i = items.length
-	  while (i--) {
-	    this.observe(items[i])
-	  }
-	}
-
-	/**
-	 * Convert a property into getter/setter so we can emit
-	 * the events when the property is accessed/changed.
-	 *
-	 * @param {String} key
-	 * @param {*} val
-	 */
-
-	p.convert = function (key, val) {
-	  var ob = this
-	  var childOb = ob.observe(val)
-	  var dep = new Dep()
-	  if (childOb) {
-	    childOb.deps.push(dep)
-	  }
-	  Object.defineProperty(ob.value, key, {
-	    enumerable: true,
-	    configurable: true,
-	    get: function () {
-	      // Observer.target is a watcher whose getter is
-	      // currently being evaluated.
-	      if (ob.active && Observer.target) {
-	        Observer.target.addDep(dep)
-	      }
-	      return val
-	    },
-	    set: function (newVal) {
-	      if (newVal === val) return
-	      // remove dep from old value
-	      var oldChildOb = val && val.__ob__
-	      if (oldChildOb) {
-	        var oldDeps = oldChildOb.deps
-	        oldDeps.splice(oldDeps.indexOf(dep), 1)
-	      }
-	      val = newVal
-	      // add dep to new value
-	      var newChildOb = ob.observe(newVal)
-	      if (newChildOb) {
-	        newChildOb.deps.push(dep)
-	      }
-	      dep.notify()
-	    }
-	  })
-	}
-
-	/**
-	 * Notify change on all self deps on an observer.
-	 * This is called when a mutable value mutates. e.g.
-	 * when an Array's mutating methods are called, or an
-	 * Object's $add/$delete are called.
-	 */
-
-	p.notify = function () {
-	  var deps = this.deps
-	  for (var i = 0, l = deps.length; i < l; i++) {
-	    deps[i].notify()
-	  }
-	}
-
-	/**
-	 * Add an owner vm, so that when $add/$delete mutations
-	 * happen we can notify owner vms to proxy the keys and
-	 * digest the watchers. This is only called when the object
-	 * is observed as an instance's root $data.
-	 *
-	 * @param {Vue} vm
-	 */
-
-	p.addVm = function (vm) {
-	  (this.vms = this.vms || []).push(vm)
-	}
-
-	/**
-	 * Remove an owner vm. This is called when the object is
-	 * swapped out as an instance's $data object.
-	 *
-	 * @param {Vue} vm
-	 */
-
-	p.removeVm = function (vm) {
-	  this.vms.splice(this.vms.indexOf(vm), 1)
-	}
-
-	module.exports = Observer
-
-
-/***/ },
-/* 64 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var applyCSSTransition = __webpack_require__(123)
-	var applyJSTransition = __webpack_require__(124)
-
-	/**
-	 * Append with transition.
-	 *
-	 * @oaram {Element} el
-	 * @param {Element} target
-	 * @param {Vue} vm
-	 * @param {Function} [cb]
-	 */
-
-	exports.append = function (el, target, vm, cb) {
-	  apply(el, 1, function () {
-	    target.appendChild(el)
-	  }, vm, cb)
-	}
-
-	/**
-	 * InsertBefore with transition.
-	 *
-	 * @oaram {Element} el
-	 * @param {Element} target
-	 * @param {Vue} vm
-	 * @param {Function} [cb]
-	 */
-
-	exports.before = function (el, target, vm, cb) {
-	  apply(el, 1, function () {
-	    _.before(el, target)
-	  }, vm, cb)
-	}
-
-	/**
-	 * Remove with transition.
-	 *
-	 * @oaram {Element} el
-	 * @param {Vue} vm
-	 * @param {Function} [cb]
-	 */
-
-	exports.remove = function (el, vm, cb) {
-	  apply(el, -1, function () {
-	    _.remove(el)
-	  }, vm, cb)
-	}
-
-	/**
-	 * Remove by appending to another parent with transition.
-	 * This is only used in block operations.
-	 *
-	 * @oaram {Element} el
-	 * @param {Element} target
-	 * @param {Vue} vm
-	 * @param {Function} [cb]
-	 */
-
-	exports.removeThenAppend = function (el, target, vm, cb) {
-	  apply(el, -1, function () {
-	    target.appendChild(el)
-	  }, vm, cb)
-	}
-
-	/**
-	 * Append the childNodes of a fragment to target.
-	 *
-	 * @param {DocumentFragment} block
-	 * @param {Node} target
-	 * @param {Vue} vm
-	 */
-
-	exports.blockAppend = function (block, target, vm) {
-	  var nodes = _.toArray(block.childNodes)
-	  for (var i = 0, l = nodes.length; i < l; i++) {
-	    exports.before(nodes[i], target, vm)
-	  }
-	}
-
-	/**
-	 * Remove a block of nodes between two edge nodes.
-	 *
-	 * @param {Node} start
-	 * @param {Node} end
-	 * @param {Vue} vm
-	 */
-
-	exports.blockRemove = function (start, end, vm) {
-	  var node = start.nextSibling
-	  var next
-	  while (node !== end) {
-	    next = node.nextSibling
-	    exports.remove(node, vm)
-	    node = next
-	  }
-	}
-
-	/**
-	 * Apply transitions with an operation callback.
-	 *
-	 * @oaram {Element} el
-	 * @param {Number} direction
-	 *                  1: enter
-	 *                 -1: leave
-	 * @param {Function} op - the actual DOM operation
-	 * @param {Vue} vm
-	 * @param {Function} [cb]
-	 */
-
-	var apply = exports.apply = function (el, direction, op, vm, cb) {
-	  var transData = el.__v_trans
-	  if (
-	    !transData ||
-	    !vm._isCompiled ||
-	    // if the vm is being manipulated by a parent directive
-	    // during the parent's compilation phase, skip the
-	    // animation.
-	    (vm.$parent && !vm.$parent._isCompiled)
-	  ) {
-	    op()
-	    if (cb) cb()
-	    return
-	  }
-	  // determine the transition type on the element
-	  var jsTransition = transData.fns
-	  if (jsTransition) {
-	    // js
-	    applyJSTransition(
-	      el,
-	      direction,
-	      op,
-	      transData,
-	      jsTransition,
-	      vm,
-	      cb
-	    )
-	  } else if (_.transitionEndEvent) {
-	    // css
-	    applyCSSTransition(
-	      el,
-	      direction,
-	      op,
-	      transData,
-	      cb
-	    )
-	  } else {
-	    // not applicable
-	    op()
-	    if (cb) cb()
-	  }
-	}
-
-/***/ },
-/* 65 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-
-	var handlers = {
-	  _default: __webpack_require__(125),
-	  radio: __webpack_require__(126),
-	  select: __webpack_require__(127),
-	  checkbox: __webpack_require__(128)
-	}
-
-	module.exports = {
-
-	  priority: 800,
-	  twoWay: true,
-	  handlers: handlers,
-
-	  /**
-	   * Possible elements:
-	   *   <select>
-	   *   <textarea>
-	   *   <input type="*">
-	   *     - text
-	   *     - checkbox
-	   *     - radio
-	   *     - number
-	   *     - TODO: more types may be supplied as a plugin
-	   */
-
-	  bind: function () {
-	    // friendly warning...
-	    var filters = this.filters
-	    if (filters && filters.read && !filters.write) {
-	      _.warn(
-	        'It seems you are using a read-only filter with ' +
-	        'v-model. You might want to use a two-way filter ' +
-	        'to ensure correct behavior.'
-	      )
-	    }
-	    var el = this.el
-	    var tag = el.tagName
-	    var handler
-	    if (tag === 'INPUT') {
-	      handler = handlers[el.type] || handlers._default
-	    } else if (tag === 'SELECT') {
-	      handler = handlers.select
-	    } else if (tag === 'TEXTAREA') {
-	      handler = handlers._default
-	    } else {
-	      _.warn("v-model doesn't support element type: " + tag)
-	      return
-	    }
-	    handler.bind.call(this)
-	    this.update = handler.update
-	    this.unbind = handler.unbind
-	  }
-
-	}
-
-/***/ },
-/* 66 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var inserted = {};
-
-	module.exports = function (css, options) {
-	    if (inserted[css]) return;
-	    inserted[css] = true;
-	    
-	    var elem = document.createElement('style');
-	    elem.setAttribute('type', 'text/css');
-
-	    if ('textContent' in elem) {
-	      elem.textContent = css;
-	    } else {
-	      elem.styleSheet.cssText = css;
-	    }
-	    
-	    var head = document.getElementsByTagName('head')[0];
-	    if (options && options.prepend) {
-	        head.insertBefore(elem, head.childNodes[0]);
-	    } else {
-	        head.appendChild(elem);
-	    }
-	};
-
-
-/***/ },
-/* 67 */,
-/* 68 */,
-/* 69 */,
-/* 70 */,
-/* 71 */,
-/* 72 */,
-/* 73 */,
-/* 74 */,
-/* 75 */,
-/* 76 */,
-/* 77 */,
-/* 78 */,
-/* 79 */,
-/* 80 */,
-/* 81 */,
-/* 82 */,
-/* 83 */,
-/* 84 */,
-/* 85 */,
-/* 86 */,
-/* 87 */,
-/* 88 */,
-/* 89 */,
-/* 90 */,
-/* 91 */,
-/* 92 */,
-/* 93 */,
-/* 94 */,
-/* 95 */,
-/* 96 */,
-/* 97 */,
-/* 98 */,
-/* 99 */,
-/* 100 */,
-/* 101 */,
-/* 102 */,
-/* 103 */,
-/* 104 */,
-/* 105 */,
-/* 106 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/*** IMPORTS FROM imports-loader ***/
-	var jQuery = __webpack_require__(158);
-
-	/* ========================================================================
-	 * Bootstrap: transition.js v3.3.4
-	 * http://getbootstrap.com/javascript/#transitions
-	 * ========================================================================
-	 * Copyright 2011-2015 Twitter, Inc.
-	 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
-	 * ======================================================================== */
-
-
-	+function ($) {
-	  'use strict';
-
-	  // CSS TRANSITION SUPPORT (Shoutout: http://www.modernizr.com/)
-	  // ============================================================
-
-	  function transitionEnd() {
-	    var el = document.createElement('bootstrap')
-
-	    var transEndEventNames = {
-	      WebkitTransition : 'webkitTransitionEnd',
-	      MozTransition    : 'transitionend',
-	      OTransition      : 'oTransitionEnd otransitionend',
-	      transition       : 'transitionend'
-	    }
-
-	    for (var name in transEndEventNames) {
-	      if (el.style[name] !== undefined) {
-	        return { end: transEndEventNames[name] }
-	      }
-	    }
-
-	    return false // explicit for ie8 (  ._.)
-	  }
-
-	  // http://blog.alexmaccaw.com/css-transitions
-	  $.fn.emulateTransitionEnd = function (duration) {
-	    var called = false
-	    var $el = this
-	    $(this).one('bsTransitionEnd', function () { called = true })
-	    var callback = function () { if (!called) $($el).trigger($.support.transition.end) }
-	    setTimeout(callback, duration)
-	    return this
-	  }
-
-	  $(function () {
-	    $.support.transition = transitionEnd()
-
-	    if (!$.support.transition) return
-
-	    $.event.special.bsTransitionEnd = {
-	      bindType: $.support.transition.end,
-	      delegateType: $.support.transition.end,
-	      handle: function (e) {
-	        if ($(e.target).is(this)) return e.handleObj.handler.apply(this, arguments)
-	      }
-	    }
-	  })
-
-	}(jQuery);
-
-
-/***/ },
-/* 107 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/*** IMPORTS FROM imports-loader ***/
-	var jQuery = __webpack_require__(158);
-
-	/* ========================================================================
-	 * Bootstrap: alert.js v3.3.4
-	 * http://getbootstrap.com/javascript/#alerts
-	 * ========================================================================
-	 * Copyright 2011-2015 Twitter, Inc.
-	 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
-	 * ======================================================================== */
-
-
-	+function ($) {
-	  'use strict';
-
-	  // ALERT CLASS DEFINITION
-	  // ======================
-
-	  var dismiss = '[data-dismiss="alert"]'
-	  var Alert   = function (el) {
-	    $(el).on('click', dismiss, this.close)
-	  }
-
-	  Alert.VERSION = '3.3.4'
-
-	  Alert.TRANSITION_DURATION = 150
-
-	  Alert.prototype.close = function (e) {
-	    var $this    = $(this)
-	    var selector = $this.attr('data-target')
-
-	    if (!selector) {
-	      selector = $this.attr('href')
-	      selector = selector && selector.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
-	    }
-
-	    var $parent = $(selector)
-
-	    if (e) e.preventDefault()
-
-	    if (!$parent.length) {
-	      $parent = $this.closest('.alert')
-	    }
-
-	    $parent.trigger(e = $.Event('close.bs.alert'))
-
-	    if (e.isDefaultPrevented()) return
-
-	    $parent.removeClass('in')
-
-	    function removeElement() {
-	      // detach from parent, fire event then clean up data
-	      $parent.detach().trigger('closed.bs.alert').remove()
-	    }
-
-	    $.support.transition && $parent.hasClass('fade') ?
-	      $parent
-	        .one('bsTransitionEnd', removeElement)
-	        .emulateTransitionEnd(Alert.TRANSITION_DURATION) :
-	      removeElement()
-	  }
-
-
-	  // ALERT PLUGIN DEFINITION
-	  // =======================
-
-	  function Plugin(option) {
-	    return this.each(function () {
-	      var $this = $(this)
-	      var data  = $this.data('bs.alert')
-
-	      if (!data) $this.data('bs.alert', (data = new Alert(this)))
-	      if (typeof option == 'string') data[option].call($this)
-	    })
-	  }
-
-	  var old = $.fn.alert
-
-	  $.fn.alert             = Plugin
-	  $.fn.alert.Constructor = Alert
-
-
-	  // ALERT NO CONFLICT
-	  // =================
-
-	  $.fn.alert.noConflict = function () {
-	    $.fn.alert = old
-	    return this
-	  }
-
-
-	  // ALERT DATA-API
-	  // ==============
-
-	  $(document).on('click.bs.alert.data-api', dismiss, Alert.prototype.close)
-
-	}(jQuery);
-
-
-/***/ },
-/* 108 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/*** IMPORTS FROM imports-loader ***/
-	var jQuery = __webpack_require__(158);
-
-	/* ========================================================================
-	 * Bootstrap: button.js v3.3.4
-	 * http://getbootstrap.com/javascript/#buttons
-	 * ========================================================================
-	 * Copyright 2011-2015 Twitter, Inc.
-	 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
-	 * ======================================================================== */
-
-
-	+function ($) {
-	  'use strict';
-
-	  // BUTTON PUBLIC CLASS DEFINITION
-	  // ==============================
-
-	  var Button = function (element, options) {
-	    this.$element  = $(element)
-	    this.options   = $.extend({}, Button.DEFAULTS, options)
-	    this.isLoading = false
-	  }
-
-	  Button.VERSION  = '3.3.4'
-
-	  Button.DEFAULTS = {
-	    loadingText: 'loading...'
-	  }
-
-	  Button.prototype.setState = function (state) {
-	    var d    = 'disabled'
-	    var $el  = this.$element
-	    var val  = $el.is('input') ? 'val' : 'html'
-	    var data = $el.data()
-
-	    state = state + 'Text'
-
-	    if (data.resetText == null) $el.data('resetText', $el[val]())
-
-	    // push to event loop to allow forms to submit
-	    setTimeout($.proxy(function () {
-	      $el[val](data[state] == null ? this.options[state] : data[state])
-
-	      if (state == 'loadingText') {
-	        this.isLoading = true
-	        $el.addClass(d).attr(d, d)
-	      } else if (this.isLoading) {
-	        this.isLoading = false
-	        $el.removeClass(d).removeAttr(d)
-	      }
-	    }, this), 0)
-	  }
-
-	  Button.prototype.toggle = function () {
-	    var changed = true
-	    var $parent = this.$element.closest('[data-toggle="buttons"]')
-
-	    if ($parent.length) {
-	      var $input = this.$element.find('input')
-	      if ($input.prop('type') == 'radio') {
-	        if ($input.prop('checked') && this.$element.hasClass('active')) changed = false
-	        else $parent.find('.active').removeClass('active')
-	      }
-	      if (changed) $input.prop('checked', !this.$element.hasClass('active')).trigger('change')
-	    } else {
-	      this.$element.attr('aria-pressed', !this.$element.hasClass('active'))
-	    }
-
-	    if (changed) this.$element.toggleClass('active')
-	  }
-
-
-	  // BUTTON PLUGIN DEFINITION
-	  // ========================
-
-	  function Plugin(option) {
-	    return this.each(function () {
-	      var $this   = $(this)
-	      var data    = $this.data('bs.button')
-	      var options = typeof option == 'object' && option
-
-	      if (!data) $this.data('bs.button', (data = new Button(this, options)))
-
-	      if (option == 'toggle') data.toggle()
-	      else if (option) data.setState(option)
-	    })
-	  }
-
-	  var old = $.fn.button
-
-	  $.fn.button             = Plugin
-	  $.fn.button.Constructor = Button
-
-
-	  // BUTTON NO CONFLICT
-	  // ==================
-
-	  $.fn.button.noConflict = function () {
-	    $.fn.button = old
-	    return this
-	  }
-
-
-	  // BUTTON DATA-API
-	  // ===============
-
-	  $(document)
-	    .on('click.bs.button.data-api', '[data-toggle^="button"]', function (e) {
-	      var $btn = $(e.target)
-	      if (!$btn.hasClass('btn')) $btn = $btn.closest('.btn')
-	      Plugin.call($btn, 'toggle')
-	      e.preventDefault()
-	    })
-	    .on('focus.bs.button.data-api blur.bs.button.data-api', '[data-toggle^="button"]', function (e) {
-	      $(e.target).closest('.btn').toggleClass('focus', /^focus(in)?$/.test(e.type))
-	    })
-
-	}(jQuery);
-
-
-/***/ },
-/* 109 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/*** IMPORTS FROM imports-loader ***/
-	var jQuery = __webpack_require__(158);
-
-	/* ========================================================================
-	 * Bootstrap: carousel.js v3.3.4
-	 * http://getbootstrap.com/javascript/#carousel
-	 * ========================================================================
-	 * Copyright 2011-2015 Twitter, Inc.
-	 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
-	 * ======================================================================== */
-
-
-	+function ($) {
-	  'use strict';
-
-	  // CAROUSEL CLASS DEFINITION
-	  // =========================
-
-	  var Carousel = function (element, options) {
-	    this.$element    = $(element)
-	    this.$indicators = this.$element.find('.carousel-indicators')
-	    this.options     = options
-	    this.paused      = null
-	    this.sliding     = null
-	    this.interval    = null
-	    this.$active     = null
-	    this.$items      = null
-
-	    this.options.keyboard && this.$element.on('keydown.bs.carousel', $.proxy(this.keydown, this))
-
-	    this.options.pause == 'hover' && !('ontouchstart' in document.documentElement) && this.$element
-	      .on('mouseenter.bs.carousel', $.proxy(this.pause, this))
-	      .on('mouseleave.bs.carousel', $.proxy(this.cycle, this))
-	  }
-
-	  Carousel.VERSION  = '3.3.4'
-
-	  Carousel.TRANSITION_DURATION = 600
-
-	  Carousel.DEFAULTS = {
-	    interval: 5000,
-	    pause: 'hover',
-	    wrap: true,
-	    keyboard: true
-	  }
-
-	  Carousel.prototype.keydown = function (e) {
-	    if (/input|textarea/i.test(e.target.tagName)) return
-	    switch (e.which) {
-	      case 37: this.prev(); break
-	      case 39: this.next(); break
-	      default: return
-	    }
-
-	    e.preventDefault()
-	  }
-
-	  Carousel.prototype.cycle = function (e) {
-	    e || (this.paused = false)
-
-	    this.interval && clearInterval(this.interval)
-
-	    this.options.interval
-	      && !this.paused
-	      && (this.interval = setInterval($.proxy(this.next, this), this.options.interval))
-
-	    return this
-	  }
-
-	  Carousel.prototype.getItemIndex = function (item) {
-	    this.$items = item.parent().children('.item')
-	    return this.$items.index(item || this.$active)
-	  }
-
-	  Carousel.prototype.getItemForDirection = function (direction, active) {
-	    var activeIndex = this.getItemIndex(active)
-	    var willWrap = (direction == 'prev' && activeIndex === 0)
-	                || (direction == 'next' && activeIndex == (this.$items.length - 1))
-	    if (willWrap && !this.options.wrap) return active
-	    var delta = direction == 'prev' ? -1 : 1
-	    var itemIndex = (activeIndex + delta) % this.$items.length
-	    return this.$items.eq(itemIndex)
-	  }
-
-	  Carousel.prototype.to = function (pos) {
-	    var that        = this
-	    var activeIndex = this.getItemIndex(this.$active = this.$element.find('.item.active'))
-
-	    if (pos > (this.$items.length - 1) || pos < 0) return
-
-	    if (this.sliding)       return this.$element.one('slid.bs.carousel', function () { that.to(pos) }) // yes, "slid"
-	    if (activeIndex == pos) return this.pause().cycle()
-
-	    return this.slide(pos > activeIndex ? 'next' : 'prev', this.$items.eq(pos))
-	  }
-
-	  Carousel.prototype.pause = function (e) {
-	    e || (this.paused = true)
-
-	    if (this.$element.find('.next, .prev').length && $.support.transition) {
-	      this.$element.trigger($.support.transition.end)
-	      this.cycle(true)
-	    }
-
-	    this.interval = clearInterval(this.interval)
-
-	    return this
-	  }
-
-	  Carousel.prototype.next = function () {
-	    if (this.sliding) return
-	    return this.slide('next')
-	  }
-
-	  Carousel.prototype.prev = function () {
-	    if (this.sliding) return
-	    return this.slide('prev')
-	  }
-
-	  Carousel.prototype.slide = function (type, next) {
-	    var $active   = this.$element.find('.item.active')
-	    var $next     = next || this.getItemForDirection(type, $active)
-	    var isCycling = this.interval
-	    var direction = type == 'next' ? 'left' : 'right'
-	    var that      = this
-
-	    if ($next.hasClass('active')) return (this.sliding = false)
-
-	    var relatedTarget = $next[0]
-	    var slideEvent = $.Event('slide.bs.carousel', {
-	      relatedTarget: relatedTarget,
-	      direction: direction
-	    })
-	    this.$element.trigger(slideEvent)
-	    if (slideEvent.isDefaultPrevented()) return
-
-	    this.sliding = true
-
-	    isCycling && this.pause()
-
-	    if (this.$indicators.length) {
-	      this.$indicators.find('.active').removeClass('active')
-	      var $nextIndicator = $(this.$indicators.children()[this.getItemIndex($next)])
-	      $nextIndicator && $nextIndicator.addClass('active')
-	    }
-
-	    var slidEvent = $.Event('slid.bs.carousel', { relatedTarget: relatedTarget, direction: direction }) // yes, "slid"
-	    if ($.support.transition && this.$element.hasClass('slide')) {
-	      $next.addClass(type)
-	      $next[0].offsetWidth // force reflow
-	      $active.addClass(direction)
-	      $next.addClass(direction)
-	      $active
-	        .one('bsTransitionEnd', function () {
-	          $next.removeClass([type, direction].join(' ')).addClass('active')
-	          $active.removeClass(['active', direction].join(' '))
-	          that.sliding = false
-	          setTimeout(function () {
-	            that.$element.trigger(slidEvent)
-	          }, 0)
-	        })
-	        .emulateTransitionEnd(Carousel.TRANSITION_DURATION)
-	    } else {
-	      $active.removeClass('active')
-	      $next.addClass('active')
-	      this.sliding = false
-	      this.$element.trigger(slidEvent)
-	    }
-
-	    isCycling && this.cycle()
-
-	    return this
-	  }
-
-
-	  // CAROUSEL PLUGIN DEFINITION
-	  // ==========================
-
-	  function Plugin(option) {
-	    return this.each(function () {
-	      var $this   = $(this)
-	      var data    = $this.data('bs.carousel')
-	      var options = $.extend({}, Carousel.DEFAULTS, $this.data(), typeof option == 'object' && option)
-	      var action  = typeof option == 'string' ? option : options.slide
-
-	      if (!data) $this.data('bs.carousel', (data = new Carousel(this, options)))
-	      if (typeof option == 'number') data.to(option)
-	      else if (action) data[action]()
-	      else if (options.interval) data.pause().cycle()
-	    })
-	  }
-
-	  var old = $.fn.carousel
-
-	  $.fn.carousel             = Plugin
-	  $.fn.carousel.Constructor = Carousel
-
-
-	  // CAROUSEL NO CONFLICT
-	  // ====================
-
-	  $.fn.carousel.noConflict = function () {
-	    $.fn.carousel = old
-	    return this
-	  }
-
-
-	  // CAROUSEL DATA-API
-	  // =================
-
-	  var clickHandler = function (e) {
-	    var href
-	    var $this   = $(this)
-	    var $target = $($this.attr('data-target') || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '')) // strip for ie7
-	    if (!$target.hasClass('carousel')) return
-	    var options = $.extend({}, $target.data(), $this.data())
-	    var slideIndex = $this.attr('data-slide-to')
-	    if (slideIndex) options.interval = false
-
-	    Plugin.call($target, options)
-
-	    if (slideIndex) {
-	      $target.data('bs.carousel').to(slideIndex)
-	    }
-
-	    e.preventDefault()
-	  }
-
-	  $(document)
-	    .on('click.bs.carousel.data-api', '[data-slide]', clickHandler)
-	    .on('click.bs.carousel.data-api', '[data-slide-to]', clickHandler)
-
-	  $(window).on('load', function () {
-	    $('[data-ride="carousel"]').each(function () {
-	      var $carousel = $(this)
-	      Plugin.call($carousel, $carousel.data())
-	    })
-	  })
-
-	}(jQuery);
-
-
-/***/ },
-/* 110 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/*** IMPORTS FROM imports-loader ***/
-	var jQuery = __webpack_require__(158);
-
-	/* ========================================================================
-	 * Bootstrap: collapse.js v3.3.4
-	 * http://getbootstrap.com/javascript/#collapse
-	 * ========================================================================
-	 * Copyright 2011-2015 Twitter, Inc.
-	 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
-	 * ======================================================================== */
-
-
-	+function ($) {
-	  'use strict';
-
-	  // COLLAPSE PUBLIC CLASS DEFINITION
-	  // ================================
-
-	  var Collapse = function (element, options) {
-	    this.$element      = $(element)
-	    this.options       = $.extend({}, Collapse.DEFAULTS, options)
-	    this.$trigger      = $('[data-toggle="collapse"][href="#' + element.id + '"],' +
-	                           '[data-toggle="collapse"][data-target="#' + element.id + '"]')
-	    this.transitioning = null
-
-	    if (this.options.parent) {
-	      this.$parent = this.getParent()
-	    } else {
-	      this.addAriaAndCollapsedClass(this.$element, this.$trigger)
-	    }
-
-	    if (this.options.toggle) this.toggle()
-	  }
-
-	  Collapse.VERSION  = '3.3.4'
-
-	  Collapse.TRANSITION_DURATION = 350
-
-	  Collapse.DEFAULTS = {
-	    toggle: true
-	  }
-
-	  Collapse.prototype.dimension = function () {
-	    var hasWidth = this.$element.hasClass('width')
-	    return hasWidth ? 'width' : 'height'
-	  }
-
-	  Collapse.prototype.show = function () {
-	    if (this.transitioning || this.$element.hasClass('in')) return
-
-	    var activesData
-	    var actives = this.$parent && this.$parent.children('.panel').children('.in, .collapsing')
-
-	    if (actives && actives.length) {
-	      activesData = actives.data('bs.collapse')
-	      if (activesData && activesData.transitioning) return
-	    }
-
-	    var startEvent = $.Event('show.bs.collapse')
-	    this.$element.trigger(startEvent)
-	    if (startEvent.isDefaultPrevented()) return
-
-	    if (actives && actives.length) {
-	      Plugin.call(actives, 'hide')
-	      activesData || actives.data('bs.collapse', null)
-	    }
-
-	    var dimension = this.dimension()
-
-	    this.$element
-	      .removeClass('collapse')
-	      .addClass('collapsing')[dimension](0)
-	      .attr('aria-expanded', true)
-
-	    this.$trigger
-	      .removeClass('collapsed')
-	      .attr('aria-expanded', true)
-
-	    this.transitioning = 1
-
-	    var complete = function () {
-	      this.$element
-	        .removeClass('collapsing')
-	        .addClass('collapse in')[dimension]('')
-	      this.transitioning = 0
-	      this.$element
-	        .trigger('shown.bs.collapse')
-	    }
-
-	    if (!$.support.transition) return complete.call(this)
-
-	    var scrollSize = $.camelCase(['scroll', dimension].join('-'))
-
-	    this.$element
-	      .one('bsTransitionEnd', $.proxy(complete, this))
-	      .emulateTransitionEnd(Collapse.TRANSITION_DURATION)[dimension](this.$element[0][scrollSize])
-	  }
-
-	  Collapse.prototype.hide = function () {
-	    if (this.transitioning || !this.$element.hasClass('in')) return
-
-	    var startEvent = $.Event('hide.bs.collapse')
-	    this.$element.trigger(startEvent)
-	    if (startEvent.isDefaultPrevented()) return
-
-	    var dimension = this.dimension()
-
-	    this.$element[dimension](this.$element[dimension]())[0].offsetHeight
-
-	    this.$element
-	      .addClass('collapsing')
-	      .removeClass('collapse in')
-	      .attr('aria-expanded', false)
-
-	    this.$trigger
-	      .addClass('collapsed')
-	      .attr('aria-expanded', false)
-
-	    this.transitioning = 1
-
-	    var complete = function () {
-	      this.transitioning = 0
-	      this.$element
-	        .removeClass('collapsing')
-	        .addClass('collapse')
-	        .trigger('hidden.bs.collapse')
-	    }
-
-	    if (!$.support.transition) return complete.call(this)
-
-	    this.$element
-	      [dimension](0)
-	      .one('bsTransitionEnd', $.proxy(complete, this))
-	      .emulateTransitionEnd(Collapse.TRANSITION_DURATION)
-	  }
-
-	  Collapse.prototype.toggle = function () {
-	    this[this.$element.hasClass('in') ? 'hide' : 'show']()
-	  }
-
-	  Collapse.prototype.getParent = function () {
-	    return $(this.options.parent)
-	      .find('[data-toggle="collapse"][data-parent="' + this.options.parent + '"]')
-	      .each($.proxy(function (i, element) {
-	        var $element = $(element)
-	        this.addAriaAndCollapsedClass(getTargetFromTrigger($element), $element)
-	      }, this))
-	      .end()
-	  }
-
-	  Collapse.prototype.addAriaAndCollapsedClass = function ($element, $trigger) {
-	    var isOpen = $element.hasClass('in')
-
-	    $element.attr('aria-expanded', isOpen)
-	    $trigger
-	      .toggleClass('collapsed', !isOpen)
-	      .attr('aria-expanded', isOpen)
-	  }
-
-	  function getTargetFromTrigger($trigger) {
-	    var href
-	    var target = $trigger.attr('data-target')
-	      || (href = $trigger.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '') // strip for ie7
-
-	    return $(target)
-	  }
-
-
-	  // COLLAPSE PLUGIN DEFINITION
-	  // ==========================
-
-	  function Plugin(option) {
-	    return this.each(function () {
-	      var $this   = $(this)
-	      var data    = $this.data('bs.collapse')
-	      var options = $.extend({}, Collapse.DEFAULTS, $this.data(), typeof option == 'object' && option)
-
-	      if (!data && options.toggle && /show|hide/.test(option)) options.toggle = false
-	      if (!data) $this.data('bs.collapse', (data = new Collapse(this, options)))
-	      if (typeof option == 'string') data[option]()
-	    })
-	  }
-
-	  var old = $.fn.collapse
-
-	  $.fn.collapse             = Plugin
-	  $.fn.collapse.Constructor = Collapse
-
-
-	  // COLLAPSE NO CONFLICT
-	  // ====================
-
-	  $.fn.collapse.noConflict = function () {
-	    $.fn.collapse = old
-	    return this
-	  }
-
-
-	  // COLLAPSE DATA-API
-	  // =================
-
-	  $(document).on('click.bs.collapse.data-api', '[data-toggle="collapse"]', function (e) {
-	    var $this   = $(this)
-
-	    if (!$this.attr('data-target')) e.preventDefault()
-
-	    var $target = getTargetFromTrigger($this)
-	    var data    = $target.data('bs.collapse')
-	    var option  = data ? 'toggle' : $this.data()
-
-	    Plugin.call($target, option)
-	  })
-
-	}(jQuery);
-
-
-/***/ },
-/* 111 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/*** IMPORTS FROM imports-loader ***/
-	var jQuery = __webpack_require__(158);
-
-	/* ========================================================================
-	 * Bootstrap: dropdown.js v3.3.4
-	 * http://getbootstrap.com/javascript/#dropdowns
-	 * ========================================================================
-	 * Copyright 2011-2015 Twitter, Inc.
-	 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
-	 * ======================================================================== */
-
-
-	+function ($) {
-	  'use strict';
-
-	  // DROPDOWN CLASS DEFINITION
-	  // =========================
-
-	  var backdrop = '.dropdown-backdrop'
-	  var toggle   = '[data-toggle="dropdown"]'
-	  var Dropdown = function (element) {
-	    $(element).on('click.bs.dropdown', this.toggle)
-	  }
-
-	  Dropdown.VERSION = '3.3.4'
-
-	  Dropdown.prototype.toggle = function (e) {
-	    var $this = $(this)
-
-	    if ($this.is('.disabled, :disabled')) return
-
-	    var $parent  = getParent($this)
-	    var isActive = $parent.hasClass('open')
-
-	    clearMenus()
-
-	    if (!isActive) {
-	      if ('ontouchstart' in document.documentElement && !$parent.closest('.navbar-nav').length) {
-	        // if mobile we use a backdrop because click events don't delegate
-	        $('<div class="dropdown-backdrop"/>').insertAfter($(this)).on('click', clearMenus)
-	      }
-
-	      var relatedTarget = { relatedTarget: this }
-	      $parent.trigger(e = $.Event('show.bs.dropdown', relatedTarget))
-
-	      if (e.isDefaultPrevented()) return
-
-	      $this
-	        .trigger('focus')
-	        .attr('aria-expanded', 'true')
-
-	      $parent
-	        .toggleClass('open')
-	        .trigger('shown.bs.dropdown', relatedTarget)
-	    }
-
-	    return false
-	  }
-
-	  Dropdown.prototype.keydown = function (e) {
-	    if (!/(38|40|27|32)/.test(e.which) || /input|textarea/i.test(e.target.tagName)) return
-
-	    var $this = $(this)
-
-	    e.preventDefault()
-	    e.stopPropagation()
-
-	    if ($this.is('.disabled, :disabled')) return
-
-	    var $parent  = getParent($this)
-	    var isActive = $parent.hasClass('open')
-
-	    if ((!isActive && e.which != 27) || (isActive && e.which == 27)) {
-	      if (e.which == 27) $parent.find(toggle).trigger('focus')
-	      return $this.trigger('click')
-	    }
-
-	    var desc = ' li:not(.disabled):visible a'
-	    var $items = $parent.find('[role="menu"]' + desc + ', [role="listbox"]' + desc)
-
-	    if (!$items.length) return
-
-	    var index = $items.index(e.target)
-
-	    if (e.which == 38 && index > 0)                 index--                        // up
-	    if (e.which == 40 && index < $items.length - 1) index++                        // down
-	    if (!~index)                                      index = 0
-
-	    $items.eq(index).trigger('focus')
-	  }
-
-	  function clearMenus(e) {
-	    if (e && e.which === 3) return
-	    $(backdrop).remove()
-	    $(toggle).each(function () {
-	      var $this         = $(this)
-	      var $parent       = getParent($this)
-	      var relatedTarget = { relatedTarget: this }
-
-	      if (!$parent.hasClass('open')) return
-
-	      $parent.trigger(e = $.Event('hide.bs.dropdown', relatedTarget))
-
-	      if (e.isDefaultPrevented()) return
-
-	      $this.attr('aria-expanded', 'false')
-	      $parent.removeClass('open').trigger('hidden.bs.dropdown', relatedTarget)
-	    })
-	  }
-
-	  function getParent($this) {
-	    var selector = $this.attr('data-target')
-
-	    if (!selector) {
-	      selector = $this.attr('href')
-	      selector = selector && /#[A-Za-z]/.test(selector) && selector.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
-	    }
-
-	    var $parent = selector && $(selector)
-
-	    return $parent && $parent.length ? $parent : $this.parent()
-	  }
-
-
-	  // DROPDOWN PLUGIN DEFINITION
-	  // ==========================
-
-	  function Plugin(option) {
-	    return this.each(function () {
-	      var $this = $(this)
-	      var data  = $this.data('bs.dropdown')
-
-	      if (!data) $this.data('bs.dropdown', (data = new Dropdown(this)))
-	      if (typeof option == 'string') data[option].call($this)
-	    })
-	  }
-
-	  var old = $.fn.dropdown
-
-	  $.fn.dropdown             = Plugin
-	  $.fn.dropdown.Constructor = Dropdown
-
-
-	  // DROPDOWN NO CONFLICT
-	  // ====================
-
-	  $.fn.dropdown.noConflict = function () {
-	    $.fn.dropdown = old
-	    return this
-	  }
-
-
-	  // APPLY TO STANDARD DROPDOWN ELEMENTS
-	  // ===================================
-
-	  $(document)
-	    .on('click.bs.dropdown.data-api', clearMenus)
-	    .on('click.bs.dropdown.data-api', '.dropdown form', function (e) { e.stopPropagation() })
-	    .on('click.bs.dropdown.data-api', toggle, Dropdown.prototype.toggle)
-	    .on('keydown.bs.dropdown.data-api', toggle, Dropdown.prototype.keydown)
-	    .on('keydown.bs.dropdown.data-api', '[role="menu"]', Dropdown.prototype.keydown)
-	    .on('keydown.bs.dropdown.data-api', '[role="listbox"]', Dropdown.prototype.keydown)
-
-	}(jQuery);
-
-
-/***/ },
-/* 112 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/*** IMPORTS FROM imports-loader ***/
-	var jQuery = __webpack_require__(158);
-
-	/* ========================================================================
-	 * Bootstrap: modal.js v3.3.4
-	 * http://getbootstrap.com/javascript/#modals
-	 * ========================================================================
-	 * Copyright 2011-2015 Twitter, Inc.
-	 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
-	 * ======================================================================== */
-
-
-	+function ($) {
-	  'use strict';
-
-	  // MODAL CLASS DEFINITION
-	  // ======================
-
-	  var Modal = function (element, options) {
-	    this.options             = options
-	    this.$body               = $(document.body)
-	    this.$element            = $(element)
-	    this.$dialog             = this.$element.find('.modal-dialog')
-	    this.$backdrop           = null
-	    this.isShown             = null
-	    this.originalBodyPad     = null
-	    this.scrollbarWidth      = 0
-	    this.ignoreBackdropClick = false
-
-	    if (this.options.remote) {
-	      this.$element
-	        .find('.modal-content')
-	        .load(this.options.remote, $.proxy(function () {
-	          this.$element.trigger('loaded.bs.modal')
-	        }, this))
-	    }
-	  }
-
-	  Modal.VERSION  = '3.3.4'
-
-	  Modal.TRANSITION_DURATION = 300
-	  Modal.BACKDROP_TRANSITION_DURATION = 150
-
-	  Modal.DEFAULTS = {
-	    backdrop: true,
-	    keyboard: true,
-	    show: true
-	  }
-
-	  Modal.prototype.toggle = function (_relatedTarget) {
-	    return this.isShown ? this.hide() : this.show(_relatedTarget)
-	  }
-
-	  Modal.prototype.show = function (_relatedTarget) {
-	    var that = this
-	    var e    = $.Event('show.bs.modal', { relatedTarget: _relatedTarget })
-
-	    this.$element.trigger(e)
-
-	    if (this.isShown || e.isDefaultPrevented()) return
-
-	    this.isShown = true
-
-	    this.checkScrollbar()
-	    this.setScrollbar()
-	    this.$body.addClass('modal-open')
-
-	    this.escape()
-	    this.resize()
-
-	    this.$element.on('click.dismiss.bs.modal', '[data-dismiss="modal"]', $.proxy(this.hide, this))
-
-	    this.$dialog.on('mousedown.dismiss.bs.modal', function () {
-	      that.$element.one('mouseup.dismiss.bs.modal', function (e) {
-	        if ($(e.target).is(that.$element)) that.ignoreBackdropClick = true
-	      })
-	    })
-
-	    this.backdrop(function () {
-	      var transition = $.support.transition && that.$element.hasClass('fade')
-
-	      if (!that.$element.parent().length) {
-	        that.$element.appendTo(that.$body) // don't move modals dom position
-	      }
-
-	      that.$element
-	        .show()
-	        .scrollTop(0)
-
-	      that.adjustDialog()
-
-	      if (transition) {
-	        that.$element[0].offsetWidth // force reflow
-	      }
-
-	      that.$element
-	        .addClass('in')
-	        .attr('aria-hidden', false)
-
-	      that.enforceFocus()
-
-	      var e = $.Event('shown.bs.modal', { relatedTarget: _relatedTarget })
-
-	      transition ?
-	        that.$dialog // wait for modal to slide in
-	          .one('bsTransitionEnd', function () {
-	            that.$element.trigger('focus').trigger(e)
-	          })
-	          .emulateTransitionEnd(Modal.TRANSITION_DURATION) :
-	        that.$element.trigger('focus').trigger(e)
-	    })
-	  }
-
-	  Modal.prototype.hide = function (e) {
-	    if (e) e.preventDefault()
-
-	    e = $.Event('hide.bs.modal')
-
-	    this.$element.trigger(e)
-
-	    if (!this.isShown || e.isDefaultPrevented()) return
-
-	    this.isShown = false
-
-	    this.escape()
-	    this.resize()
-
-	    $(document).off('focusin.bs.modal')
-
-	    this.$element
-	      .removeClass('in')
-	      .attr('aria-hidden', true)
-	      .off('click.dismiss.bs.modal')
-	      .off('mouseup.dismiss.bs.modal')
-
-	    this.$dialog.off('mousedown.dismiss.bs.modal')
-
-	    $.support.transition && this.$element.hasClass('fade') ?
-	      this.$element
-	        .one('bsTransitionEnd', $.proxy(this.hideModal, this))
-	        .emulateTransitionEnd(Modal.TRANSITION_DURATION) :
-	      this.hideModal()
-	  }
-
-	  Modal.prototype.enforceFocus = function () {
-	    $(document)
-	      .off('focusin.bs.modal') // guard against infinite focus loop
-	      .on('focusin.bs.modal', $.proxy(function (e) {
-	        if (this.$element[0] !== e.target && !this.$element.has(e.target).length) {
-	          this.$element.trigger('focus')
-	        }
-	      }, this))
-	  }
-
-	  Modal.prototype.escape = function () {
-	    if (this.isShown && this.options.keyboard) {
-	      this.$element.on('keydown.dismiss.bs.modal', $.proxy(function (e) {
-	        e.which == 27 && this.hide()
-	      }, this))
-	    } else if (!this.isShown) {
-	      this.$element.off('keydown.dismiss.bs.modal')
-	    }
-	  }
-
-	  Modal.prototype.resize = function () {
-	    if (this.isShown) {
-	      $(window).on('resize.bs.modal', $.proxy(this.handleUpdate, this))
-	    } else {
-	      $(window).off('resize.bs.modal')
-	    }
-	  }
-
-	  Modal.prototype.hideModal = function () {
-	    var that = this
-	    this.$element.hide()
-	    this.backdrop(function () {
-	      that.$body.removeClass('modal-open')
-	      that.resetAdjustments()
-	      that.resetScrollbar()
-	      that.$element.trigger('hidden.bs.modal')
-	    })
-	  }
-
-	  Modal.prototype.removeBackdrop = function () {
-	    this.$backdrop && this.$backdrop.remove()
-	    this.$backdrop = null
-	  }
-
-	  Modal.prototype.backdrop = function (callback) {
-	    var that = this
-	    var animate = this.$element.hasClass('fade') ? 'fade' : ''
-
-	    if (this.isShown && this.options.backdrop) {
-	      var doAnimate = $.support.transition && animate
-
-	      this.$backdrop = $('<div class="modal-backdrop ' + animate + '" />')
-	        .appendTo(this.$body)
-
-	      this.$element.on('click.dismiss.bs.modal', $.proxy(function (e) {
-	        if (this.ignoreBackdropClick) {
-	          this.ignoreBackdropClick = false
-	          return
-	        }
-	        if (e.target !== e.currentTarget) return
-	        this.options.backdrop == 'static'
-	          ? this.$element[0].focus()
-	          : this.hide()
-	      }, this))
-
-	      if (doAnimate) this.$backdrop[0].offsetWidth // force reflow
-
-	      this.$backdrop.addClass('in')
-
-	      if (!callback) return
-
-	      doAnimate ?
-	        this.$backdrop
-	          .one('bsTransitionEnd', callback)
-	          .emulateTransitionEnd(Modal.BACKDROP_TRANSITION_DURATION) :
-	        callback()
-
-	    } else if (!this.isShown && this.$backdrop) {
-	      this.$backdrop.removeClass('in')
-
-	      var callbackRemove = function () {
-	        that.removeBackdrop()
-	        callback && callback()
-	      }
-	      $.support.transition && this.$element.hasClass('fade') ?
-	        this.$backdrop
-	          .one('bsTransitionEnd', callbackRemove)
-	          .emulateTransitionEnd(Modal.BACKDROP_TRANSITION_DURATION) :
-	        callbackRemove()
-
-	    } else if (callback) {
-	      callback()
-	    }
-	  }
-
-	  // these following methods are used to handle overflowing modals
-
-	  Modal.prototype.handleUpdate = function () {
-	    this.adjustDialog()
-	  }
-
-	  Modal.prototype.adjustDialog = function () {
-	    var modalIsOverflowing = this.$element[0].scrollHeight > document.documentElement.clientHeight
-
-	    this.$element.css({
-	      paddingLeft:  !this.bodyIsOverflowing && modalIsOverflowing ? this.scrollbarWidth : '',
-	      paddingRight: this.bodyIsOverflowing && !modalIsOverflowing ? this.scrollbarWidth : ''
-	    })
-	  }
-
-	  Modal.prototype.resetAdjustments = function () {
-	    this.$element.css({
-	      paddingLeft: '',
-	      paddingRight: ''
-	    })
-	  }
-
-	  Modal.prototype.checkScrollbar = function () {
-	    var fullWindowWidth = window.innerWidth
-	    if (!fullWindowWidth) { // workaround for missing window.innerWidth in IE8
-	      var documentElementRect = document.documentElement.getBoundingClientRect()
-	      fullWindowWidth = documentElementRect.right - Math.abs(documentElementRect.left)
-	    }
-	    this.bodyIsOverflowing = document.body.clientWidth < fullWindowWidth
-	    this.scrollbarWidth = this.measureScrollbar()
-	  }
-
-	  Modal.prototype.setScrollbar = function () {
-	    var bodyPad = parseInt((this.$body.css('padding-right') || 0), 10)
-	    this.originalBodyPad = document.body.style.paddingRight || ''
-	    if (this.bodyIsOverflowing) this.$body.css('padding-right', bodyPad + this.scrollbarWidth)
-	  }
-
-	  Modal.prototype.resetScrollbar = function () {
-	    this.$body.css('padding-right', this.originalBodyPad)
-	  }
-
-	  Modal.prototype.measureScrollbar = function () { // thx walsh
-	    var scrollDiv = document.createElement('div')
-	    scrollDiv.className = 'modal-scrollbar-measure'
-	    this.$body.append(scrollDiv)
-	    var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth
-	    this.$body[0].removeChild(scrollDiv)
-	    return scrollbarWidth
-	  }
-
-
-	  // MODAL PLUGIN DEFINITION
-	  // =======================
-
-	  function Plugin(option, _relatedTarget) {
-	    return this.each(function () {
-	      var $this   = $(this)
-	      var data    = $this.data('bs.modal')
-	      var options = $.extend({}, Modal.DEFAULTS, $this.data(), typeof option == 'object' && option)
-
-	      if (!data) $this.data('bs.modal', (data = new Modal(this, options)))
-	      if (typeof option == 'string') data[option](_relatedTarget)
-	      else if (options.show) data.show(_relatedTarget)
-	    })
-	  }
-
-	  var old = $.fn.modal
-
-	  $.fn.modal             = Plugin
-	  $.fn.modal.Constructor = Modal
-
-
-	  // MODAL NO CONFLICT
-	  // =================
-
-	  $.fn.modal.noConflict = function () {
-	    $.fn.modal = old
-	    return this
-	  }
-
-
-	  // MODAL DATA-API
-	  // ==============
-
-	  $(document).on('click.bs.modal.data-api', '[data-toggle="modal"]', function (e) {
-	    var $this   = $(this)
-	    var href    = $this.attr('href')
-	    var $target = $($this.attr('data-target') || (href && href.replace(/.*(?=#[^\s]+$)/, ''))) // strip for ie7
-	    var option  = $target.data('bs.modal') ? 'toggle' : $.extend({ remote: !/#/.test(href) && href }, $target.data(), $this.data())
-
-	    if ($this.is('a')) e.preventDefault()
-
-	    $target.one('show.bs.modal', function (showEvent) {
-	      if (showEvent.isDefaultPrevented()) return // only register focus restorer if modal will actually get shown
-	      $target.one('hidden.bs.modal', function () {
-	        $this.is(':visible') && $this.trigger('focus')
-	      })
-	    })
-	    Plugin.call($target, option, this)
-	  })
-
-	}(jQuery);
-
-
-/***/ },
-/* 113 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/*** IMPORTS FROM imports-loader ***/
-	var jQuery = __webpack_require__(158);
-
-	/* ========================================================================
-	 * Bootstrap: tooltip.js v3.3.4
-	 * http://getbootstrap.com/javascript/#tooltip
-	 * Inspired by the original jQuery.tipsy by Jason Frame
-	 * ========================================================================
-	 * Copyright 2011-2015 Twitter, Inc.
-	 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
-	 * ======================================================================== */
-
-
-	+function ($) {
-	  'use strict';
-
-	  // TOOLTIP PUBLIC CLASS DEFINITION
-	  // ===============================
-
-	  var Tooltip = function (element, options) {
-	    this.type       = null
-	    this.options    = null
-	    this.enabled    = null
-	    this.timeout    = null
-	    this.hoverState = null
-	    this.$element   = null
-
-	    this.init('tooltip', element, options)
-	  }
-
-	  Tooltip.VERSION  = '3.3.4'
-
-	  Tooltip.TRANSITION_DURATION = 150
-
-	  Tooltip.DEFAULTS = {
-	    animation: true,
-	    placement: 'top',
-	    selector: false,
-	    template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',
-	    trigger: 'hover focus',
-	    title: '',
-	    delay: 0,
-	    html: false,
-	    container: false,
-	    viewport: {
-	      selector: 'body',
-	      padding: 0
-	    }
-	  }
-
-	  Tooltip.prototype.init = function (type, element, options) {
-	    this.enabled   = true
-	    this.type      = type
-	    this.$element  = $(element)
-	    this.options   = this.getOptions(options)
-	    this.$viewport = this.options.viewport && $(this.options.viewport.selector || this.options.viewport)
-
-	    if (this.$element[0] instanceof document.constructor && !this.options.selector) {
-	      throw new Error('`selector` option must be specified when initializing ' + this.type + ' on the window.document object!')
-	    }
-
-	    var triggers = this.options.trigger.split(' ')
-
-	    for (var i = triggers.length; i--;) {
-	      var trigger = triggers[i]
-
-	      if (trigger == 'click') {
-	        this.$element.on('click.' + this.type, this.options.selector, $.proxy(this.toggle, this))
-	      } else if (trigger != 'manual') {
-	        var eventIn  = trigger == 'hover' ? 'mouseenter' : 'focusin'
-	        var eventOut = trigger == 'hover' ? 'mouseleave' : 'focusout'
-
-	        this.$element.on(eventIn  + '.' + this.type, this.options.selector, $.proxy(this.enter, this))
-	        this.$element.on(eventOut + '.' + this.type, this.options.selector, $.proxy(this.leave, this))
-	      }
-	    }
-
-	    this.options.selector ?
-	      (this._options = $.extend({}, this.options, { trigger: 'manual', selector: '' })) :
-	      this.fixTitle()
-	  }
-
-	  Tooltip.prototype.getDefaults = function () {
-	    return Tooltip.DEFAULTS
-	  }
-
-	  Tooltip.prototype.getOptions = function (options) {
-	    options = $.extend({}, this.getDefaults(), this.$element.data(), options)
-
-	    if (options.delay && typeof options.delay == 'number') {
-	      options.delay = {
-	        show: options.delay,
-	        hide: options.delay
-	      }
-	    }
-
-	    return options
-	  }
-
-	  Tooltip.prototype.getDelegateOptions = function () {
-	    var options  = {}
-	    var defaults = this.getDefaults()
-
-	    this._options && $.each(this._options, function (key, value) {
-	      if (defaults[key] != value) options[key] = value
-	    })
-
-	    return options
-	  }
-
-	  Tooltip.prototype.enter = function (obj) {
-	    var self = obj instanceof this.constructor ?
-	      obj : $(obj.currentTarget).data('bs.' + this.type)
-
-	    if (self && self.$tip && self.$tip.is(':visible')) {
-	      self.hoverState = 'in'
-	      return
-	    }
-
-	    if (!self) {
-	      self = new this.constructor(obj.currentTarget, this.getDelegateOptions())
-	      $(obj.currentTarget).data('bs.' + this.type, self)
-	    }
-
-	    clearTimeout(self.timeout)
-
-	    self.hoverState = 'in'
-
-	    if (!self.options.delay || !self.options.delay.show) return self.show()
-
-	    self.timeout = setTimeout(function () {
-	      if (self.hoverState == 'in') self.show()
-	    }, self.options.delay.show)
-	  }
-
-	  Tooltip.prototype.leave = function (obj) {
-	    var self = obj instanceof this.constructor ?
-	      obj : $(obj.currentTarget).data('bs.' + this.type)
-
-	    if (!self) {
-	      self = new this.constructor(obj.currentTarget, this.getDelegateOptions())
-	      $(obj.currentTarget).data('bs.' + this.type, self)
-	    }
-
-	    clearTimeout(self.timeout)
-
-	    self.hoverState = 'out'
-
-	    if (!self.options.delay || !self.options.delay.hide) return self.hide()
-
-	    self.timeout = setTimeout(function () {
-	      if (self.hoverState == 'out') self.hide()
-	    }, self.options.delay.hide)
-	  }
-
-	  Tooltip.prototype.show = function () {
-	    var e = $.Event('show.bs.' + this.type)
-
-	    if (this.hasContent() && this.enabled) {
-	      this.$element.trigger(e)
-
-	      var inDom = $.contains(this.$element[0].ownerDocument.documentElement, this.$element[0])
-	      if (e.isDefaultPrevented() || !inDom) return
-	      var that = this
-
-	      var $tip = this.tip()
-
-	      var tipId = this.getUID(this.type)
-
-	      this.setContent()
-	      $tip.attr('id', tipId)
-	      this.$element.attr('aria-describedby', tipId)
-
-	      if (this.options.animation) $tip.addClass('fade')
-
-	      var placement = typeof this.options.placement == 'function' ?
-	        this.options.placement.call(this, $tip[0], this.$element[0]) :
-	        this.options.placement
-
-	      var autoToken = /\s?auto?\s?/i
-	      var autoPlace = autoToken.test(placement)
-	      if (autoPlace) placement = placement.replace(autoToken, '') || 'top'
-
-	      $tip
-	        .detach()
-	        .css({ top: 0, left: 0, display: 'block' })
-	        .addClass(placement)
-	        .data('bs.' + this.type, this)
-
-	      this.options.container ? $tip.appendTo(this.options.container) : $tip.insertAfter(this.$element)
-
-	      var pos          = this.getPosition()
-	      var actualWidth  = $tip[0].offsetWidth
-	      var actualHeight = $tip[0].offsetHeight
-
-	      if (autoPlace) {
-	        var orgPlacement = placement
-	        var $container   = this.options.container ? $(this.options.container) : this.$element.parent()
-	        var containerDim = this.getPosition($container)
-
-	        placement = placement == 'bottom' && pos.bottom + actualHeight > containerDim.bottom ? 'top'    :
-	                    placement == 'top'    && pos.top    - actualHeight < containerDim.top    ? 'bottom' :
-	                    placement == 'right'  && pos.right  + actualWidth  > containerDim.width  ? 'left'   :
-	                    placement == 'left'   && pos.left   - actualWidth  < containerDim.left   ? 'right'  :
-	                    placement
-
-	        $tip
-	          .removeClass(orgPlacement)
-	          .addClass(placement)
-	      }
-
-	      var calculatedOffset = this.getCalculatedOffset(placement, pos, actualWidth, actualHeight)
-
-	      this.applyPlacement(calculatedOffset, placement)
-
-	      var complete = function () {
-	        var prevHoverState = that.hoverState
-	        that.$element.trigger('shown.bs.' + that.type)
-	        that.hoverState = null
-
-	        if (prevHoverState == 'out') that.leave(that)
-	      }
-
-	      $.support.transition && this.$tip.hasClass('fade') ?
-	        $tip
-	          .one('bsTransitionEnd', complete)
-	          .emulateTransitionEnd(Tooltip.TRANSITION_DURATION) :
-	        complete()
-	    }
-	  }
-
-	  Tooltip.prototype.applyPlacement = function (offset, placement) {
-	    var $tip   = this.tip()
-	    var width  = $tip[0].offsetWidth
-	    var height = $tip[0].offsetHeight
-
-	    // manually read margins because getBoundingClientRect includes difference
-	    var marginTop = parseInt($tip.css('margin-top'), 10)
-	    var marginLeft = parseInt($tip.css('margin-left'), 10)
-
-	    // we must check for NaN for ie 8/9
-	    if (isNaN(marginTop))  marginTop  = 0
-	    if (isNaN(marginLeft)) marginLeft = 0
-
-	    offset.top  = offset.top  + marginTop
-	    offset.left = offset.left + marginLeft
-
-	    // $.fn.offset doesn't round pixel values
-	    // so we use setOffset directly with our own function B-0
-	    $.offset.setOffset($tip[0], $.extend({
-	      using: function (props) {
-	        $tip.css({
-	          top: Math.round(props.top),
-	          left: Math.round(props.left)
-	        })
-	      }
-	    }, offset), 0)
-
-	    $tip.addClass('in')
-
-	    // check to see if placing tip in new offset caused the tip to resize itself
-	    var actualWidth  = $tip[0].offsetWidth
-	    var actualHeight = $tip[0].offsetHeight
-
-	    if (placement == 'top' && actualHeight != height) {
-	      offset.top = offset.top + height - actualHeight
-	    }
-
-	    var delta = this.getViewportAdjustedDelta(placement, offset, actualWidth, actualHeight)
-
-	    if (delta.left) offset.left += delta.left
-	    else offset.top += delta.top
-
-	    var isVertical          = /top|bottom/.test(placement)
-	    var arrowDelta          = isVertical ? delta.left * 2 - width + actualWidth : delta.top * 2 - height + actualHeight
-	    var arrowOffsetPosition = isVertical ? 'offsetWidth' : 'offsetHeight'
-
-	    $tip.offset(offset)
-	    this.replaceArrow(arrowDelta, $tip[0][arrowOffsetPosition], isVertical)
-	  }
-
-	  Tooltip.prototype.replaceArrow = function (delta, dimension, isVertical) {
-	    this.arrow()
-	      .css(isVertical ? 'left' : 'top', 50 * (1 - delta / dimension) + '%')
-	      .css(isVertical ? 'top' : 'left', '')
-	  }
-
-	  Tooltip.prototype.setContent = function () {
-	    var $tip  = this.tip()
-	    var title = this.getTitle()
-
-	    $tip.find('.tooltip-inner')[this.options.html ? 'html' : 'text'](title)
-	    $tip.removeClass('fade in top bottom left right')
-	  }
-
-	  Tooltip.prototype.hide = function (callback) {
-	    var that = this
-	    var $tip = $(this.$tip)
-	    var e    = $.Event('hide.bs.' + this.type)
-
-	    function complete() {
-	      if (that.hoverState != 'in') $tip.detach()
-	      that.$element
-	        .removeAttr('aria-describedby')
-	        .trigger('hidden.bs.' + that.type)
-	      callback && callback()
-	    }
-
-	    this.$element.trigger(e)
-
-	    if (e.isDefaultPrevented()) return
-
-	    $tip.removeClass('in')
-
-	    $.support.transition && $tip.hasClass('fade') ?
-	      $tip
-	        .one('bsTransitionEnd', complete)
-	        .emulateTransitionEnd(Tooltip.TRANSITION_DURATION) :
-	      complete()
-
-	    this.hoverState = null
-
-	    return this
-	  }
-
-	  Tooltip.prototype.fixTitle = function () {
-	    var $e = this.$element
-	    if ($e.attr('title') || typeof ($e.attr('data-original-title')) != 'string') {
-	      $e.attr('data-original-title', $e.attr('title') || '').attr('title', '')
-	    }
-	  }
-
-	  Tooltip.prototype.hasContent = function () {
-	    return this.getTitle()
-	  }
-
-	  Tooltip.prototype.getPosition = function ($element) {
-	    $element   = $element || this.$element
-
-	    var el     = $element[0]
-	    var isBody = el.tagName == 'BODY'
-
-	    var elRect    = el.getBoundingClientRect()
-	    if (elRect.width == null) {
-	      // width and height are missing in IE8, so compute them manually; see https://github.com/twbs/bootstrap/issues/14093
-	      elRect = $.extend({}, elRect, { width: elRect.right - elRect.left, height: elRect.bottom - elRect.top })
-	    }
-	    var elOffset  = isBody ? { top: 0, left: 0 } : $element.offset()
-	    var scroll    = { scroll: isBody ? document.documentElement.scrollTop || document.body.scrollTop : $element.scrollTop() }
-	    var outerDims = isBody ? { width: $(window).width(), height: $(window).height() } : null
-
-	    return $.extend({}, elRect, scroll, outerDims, elOffset)
-	  }
-
-	  Tooltip.prototype.getCalculatedOffset = function (placement, pos, actualWidth, actualHeight) {
-	    return placement == 'bottom' ? { top: pos.top + pos.height,   left: pos.left + pos.width / 2 - actualWidth / 2 } :
-	           placement == 'top'    ? { top: pos.top - actualHeight, left: pos.left + pos.width / 2 - actualWidth / 2 } :
-	           placement == 'left'   ? { top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left - actualWidth } :
-	        /* placement == 'right' */ { top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left + pos.width }
-
-	  }
-
-	  Tooltip.prototype.getViewportAdjustedDelta = function (placement, pos, actualWidth, actualHeight) {
-	    var delta = { top: 0, left: 0 }
-	    if (!this.$viewport) return delta
-
-	    var viewportPadding = this.options.viewport && this.options.viewport.padding || 0
-	    var viewportDimensions = this.getPosition(this.$viewport)
-
-	    if (/right|left/.test(placement)) {
-	      var topEdgeOffset    = pos.top - viewportPadding - viewportDimensions.scroll
-	      var bottomEdgeOffset = pos.top + viewportPadding - viewportDimensions.scroll + actualHeight
-	      if (topEdgeOffset < viewportDimensions.top) { // top overflow
-	        delta.top = viewportDimensions.top - topEdgeOffset
-	      } else if (bottomEdgeOffset > viewportDimensions.top + viewportDimensions.height) { // bottom overflow
-	        delta.top = viewportDimensions.top + viewportDimensions.height - bottomEdgeOffset
-	      }
-	    } else {
-	      var leftEdgeOffset  = pos.left - viewportPadding
-	      var rightEdgeOffset = pos.left + viewportPadding + actualWidth
-	      if (leftEdgeOffset < viewportDimensions.left) { // left overflow
-	        delta.left = viewportDimensions.left - leftEdgeOffset
-	      } else if (rightEdgeOffset > viewportDimensions.width) { // right overflow
-	        delta.left = viewportDimensions.left + viewportDimensions.width - rightEdgeOffset
-	      }
-	    }
-
-	    return delta
-	  }
-
-	  Tooltip.prototype.getTitle = function () {
-	    var title
-	    var $e = this.$element
-	    var o  = this.options
-
-	    title = $e.attr('data-original-title')
-	      || (typeof o.title == 'function' ? o.title.call($e[0]) :  o.title)
-
-	    return title
-	  }
-
-	  Tooltip.prototype.getUID = function (prefix) {
-	    do prefix += ~~(Math.random() * 1000000)
-	    while (document.getElementById(prefix))
-	    return prefix
-	  }
-
-	  Tooltip.prototype.tip = function () {
-	    return (this.$tip = this.$tip || $(this.options.template))
-	  }
-
-	  Tooltip.prototype.arrow = function () {
-	    return (this.$arrow = this.$arrow || this.tip().find('.tooltip-arrow'))
-	  }
-
-	  Tooltip.prototype.enable = function () {
-	    this.enabled = true
-	  }
-
-	  Tooltip.prototype.disable = function () {
-	    this.enabled = false
-	  }
-
-	  Tooltip.prototype.toggleEnabled = function () {
-	    this.enabled = !this.enabled
-	  }
-
-	  Tooltip.prototype.toggle = function (e) {
-	    var self = this
-	    if (e) {
-	      self = $(e.currentTarget).data('bs.' + this.type)
-	      if (!self) {
-	        self = new this.constructor(e.currentTarget, this.getDelegateOptions())
-	        $(e.currentTarget).data('bs.' + this.type, self)
-	      }
-	    }
-
-	    self.tip().hasClass('in') ? self.leave(self) : self.enter(self)
-	  }
-
-	  Tooltip.prototype.destroy = function () {
-	    var that = this
-	    clearTimeout(this.timeout)
-	    this.hide(function () {
-	      that.$element.off('.' + that.type).removeData('bs.' + that.type)
-	    })
-	  }
-
-
-	  // TOOLTIP PLUGIN DEFINITION
-	  // =========================
-
-	  function Plugin(option) {
-	    return this.each(function () {
-	      var $this   = $(this)
-	      var data    = $this.data('bs.tooltip')
-	      var options = typeof option == 'object' && option
-
-	      if (!data && /destroy|hide/.test(option)) return
-	      if (!data) $this.data('bs.tooltip', (data = new Tooltip(this, options)))
-	      if (typeof option == 'string') data[option]()
-	    })
-	  }
-
-	  var old = $.fn.tooltip
-
-	  $.fn.tooltip             = Plugin
-	  $.fn.tooltip.Constructor = Tooltip
-
-
-	  // TOOLTIP NO CONFLICT
-	  // ===================
-
-	  $.fn.tooltip.noConflict = function () {
-	    $.fn.tooltip = old
-	    return this
-	  }
-
-	}(jQuery);
-
-
-/***/ },
-/* 114 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/*** IMPORTS FROM imports-loader ***/
-	var jQuery = __webpack_require__(158);
-
-	/* ========================================================================
-	 * Bootstrap: popover.js v3.3.4
-	 * http://getbootstrap.com/javascript/#popovers
-	 * ========================================================================
-	 * Copyright 2011-2015 Twitter, Inc.
-	 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
-	 * ======================================================================== */
-
-
-	+function ($) {
-	  'use strict';
-
-	  // POPOVER PUBLIC CLASS DEFINITION
-	  // ===============================
-
-	  var Popover = function (element, options) {
-	    this.init('popover', element, options)
-	  }
-
-	  if (!$.fn.tooltip) throw new Error('Popover requires tooltip.js')
-
-	  Popover.VERSION  = '3.3.4'
-
-	  Popover.DEFAULTS = $.extend({}, $.fn.tooltip.Constructor.DEFAULTS, {
-	    placement: 'right',
-	    trigger: 'click',
-	    content: '',
-	    template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
-	  })
-
-
-	  // NOTE: POPOVER EXTENDS tooltip.js
-	  // ================================
-
-	  Popover.prototype = $.extend({}, $.fn.tooltip.Constructor.prototype)
-
-	  Popover.prototype.constructor = Popover
-
-	  Popover.prototype.getDefaults = function () {
-	    return Popover.DEFAULTS
-	  }
-
-	  Popover.prototype.setContent = function () {
-	    var $tip    = this.tip()
-	    var title   = this.getTitle()
-	    var content = this.getContent()
-
-	    $tip.find('.popover-title')[this.options.html ? 'html' : 'text'](title)
-	    $tip.find('.popover-content').children().detach().end()[ // we use append for html objects to maintain js events
-	      this.options.html ? (typeof content == 'string' ? 'html' : 'append') : 'text'
-	    ](content)
-
-	    $tip.removeClass('fade top bottom left right in')
-
-	    // IE8 doesn't accept hiding via the `:empty` pseudo selector, we have to do
-	    // this manually by checking the contents.
-	    if (!$tip.find('.popover-title').html()) $tip.find('.popover-title').hide()
-	  }
-
-	  Popover.prototype.hasContent = function () {
-	    return this.getTitle() || this.getContent()
-	  }
-
-	  Popover.prototype.getContent = function () {
-	    var $e = this.$element
-	    var o  = this.options
-
-	    return $e.attr('data-content')
-	      || (typeof o.content == 'function' ?
-	            o.content.call($e[0]) :
-	            o.content)
-	  }
-
-	  Popover.prototype.arrow = function () {
-	    return (this.$arrow = this.$arrow || this.tip().find('.arrow'))
-	  }
-
-
-	  // POPOVER PLUGIN DEFINITION
-	  // =========================
-
-	  function Plugin(option) {
-	    return this.each(function () {
-	      var $this   = $(this)
-	      var data    = $this.data('bs.popover')
-	      var options = typeof option == 'object' && option
-
-	      if (!data && /destroy|hide/.test(option)) return
-	      if (!data) $this.data('bs.popover', (data = new Popover(this, options)))
-	      if (typeof option == 'string') data[option]()
-	    })
-	  }
-
-	  var old = $.fn.popover
-
-	  $.fn.popover             = Plugin
-	  $.fn.popover.Constructor = Popover
-
-
-	  // POPOVER NO CONFLICT
-	  // ===================
-
-	  $.fn.popover.noConflict = function () {
-	    $.fn.popover = old
-	    return this
-	  }
-
-	}(jQuery);
-
-
-/***/ },
-/* 115 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/*** IMPORTS FROM imports-loader ***/
-	var jQuery = __webpack_require__(158);
-
-	/* ========================================================================
-	 * Bootstrap: scrollspy.js v3.3.4
-	 * http://getbootstrap.com/javascript/#scrollspy
-	 * ========================================================================
-	 * Copyright 2011-2015 Twitter, Inc.
-	 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
-	 * ======================================================================== */
-
-
-	+function ($) {
-	  'use strict';
-
-	  // SCROLLSPY CLASS DEFINITION
-	  // ==========================
-
-	  function ScrollSpy(element, options) {
-	    this.$body          = $(document.body)
-	    this.$scrollElement = $(element).is(document.body) ? $(window) : $(element)
-	    this.options        = $.extend({}, ScrollSpy.DEFAULTS, options)
-	    this.selector       = (this.options.target || '') + ' .nav li > a'
-	    this.offsets        = []
-	    this.targets        = []
-	    this.activeTarget   = null
-	    this.scrollHeight   = 0
-
-	    this.$scrollElement.on('scroll.bs.scrollspy', $.proxy(this.process, this))
-	    this.refresh()
-	    this.process()
-	  }
-
-	  ScrollSpy.VERSION  = '3.3.4'
-
-	  ScrollSpy.DEFAULTS = {
-	    offset: 10
-	  }
-
-	  ScrollSpy.prototype.getScrollHeight = function () {
-	    return this.$scrollElement[0].scrollHeight || Math.max(this.$body[0].scrollHeight, document.documentElement.scrollHeight)
-	  }
-
-	  ScrollSpy.prototype.refresh = function () {
-	    var that          = this
-	    var offsetMethod  = 'offset'
-	    var offsetBase    = 0
-
-	    this.offsets      = []
-	    this.targets      = []
-	    this.scrollHeight = this.getScrollHeight()
-
-	    if (!$.isWindow(this.$scrollElement[0])) {
-	      offsetMethod = 'position'
-	      offsetBase   = this.$scrollElement.scrollTop()
-	    }
-
-	    this.$body
-	      .find(this.selector)
-	      .map(function () {
-	        var $el   = $(this)
-	        var href  = $el.data('target') || $el.attr('href')
-	        var $href = /^#./.test(href) && $(href)
-
-	        return ($href
-	          && $href.length
-	          && $href.is(':visible')
-	          && [[$href[offsetMethod]().top + offsetBase, href]]) || null
-	      })
-	      .sort(function (a, b) { return a[0] - b[0] })
-	      .each(function () {
-	        that.offsets.push(this[0])
-	        that.targets.push(this[1])
-	      })
-	  }
-
-	  ScrollSpy.prototype.process = function () {
-	    var scrollTop    = this.$scrollElement.scrollTop() + this.options.offset
-	    var scrollHeight = this.getScrollHeight()
-	    var maxScroll    = this.options.offset + scrollHeight - this.$scrollElement.height()
-	    var offsets      = this.offsets
-	    var targets      = this.targets
-	    var activeTarget = this.activeTarget
-	    var i
-
-	    if (this.scrollHeight != scrollHeight) {
-	      this.refresh()
-	    }
-
-	    if (scrollTop >= maxScroll) {
-	      return activeTarget != (i = targets[targets.length - 1]) && this.activate(i)
-	    }
-
-	    if (activeTarget && scrollTop < offsets[0]) {
-	      this.activeTarget = null
-	      return this.clear()
-	    }
-
-	    for (i = offsets.length; i--;) {
-	      activeTarget != targets[i]
-	        && scrollTop >= offsets[i]
-	        && (offsets[i + 1] === undefined || scrollTop < offsets[i + 1])
-	        && this.activate(targets[i])
-	    }
-	  }
-
-	  ScrollSpy.prototype.activate = function (target) {
-	    this.activeTarget = target
-
-	    this.clear()
-
-	    var selector = this.selector +
-	      '[data-target="' + target + '"],' +
-	      this.selector + '[href="' + target + '"]'
-
-	    var active = $(selector)
-	      .parents('li')
-	      .addClass('active')
-
-	    if (active.parent('.dropdown-menu').length) {
-	      active = active
-	        .closest('li.dropdown')
-	        .addClass('active')
-	    }
-
-	    active.trigger('activate.bs.scrollspy')
-	  }
-
-	  ScrollSpy.prototype.clear = function () {
-	    $(this.selector)
-	      .parentsUntil(this.options.target, '.active')
-	      .removeClass('active')
-	  }
-
-
-	  // SCROLLSPY PLUGIN DEFINITION
-	  // ===========================
-
-	  function Plugin(option) {
-	    return this.each(function () {
-	      var $this   = $(this)
-	      var data    = $this.data('bs.scrollspy')
-	      var options = typeof option == 'object' && option
-
-	      if (!data) $this.data('bs.scrollspy', (data = new ScrollSpy(this, options)))
-	      if (typeof option == 'string') data[option]()
-	    })
-	  }
-
-	  var old = $.fn.scrollspy
-
-	  $.fn.scrollspy             = Plugin
-	  $.fn.scrollspy.Constructor = ScrollSpy
-
-
-	  // SCROLLSPY NO CONFLICT
-	  // =====================
-
-	  $.fn.scrollspy.noConflict = function () {
-	    $.fn.scrollspy = old
-	    return this
-	  }
-
-
-	  // SCROLLSPY DATA-API
-	  // ==================
-
-	  $(window).on('load.bs.scrollspy.data-api', function () {
-	    $('[data-spy="scroll"]').each(function () {
-	      var $spy = $(this)
-	      Plugin.call($spy, $spy.data())
-	    })
-	  })
-
-	}(jQuery);
-
-
-/***/ },
-/* 116 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/*** IMPORTS FROM imports-loader ***/
-	var jQuery = __webpack_require__(158);
-
-	/* ========================================================================
-	 * Bootstrap: tab.js v3.3.4
-	 * http://getbootstrap.com/javascript/#tabs
-	 * ========================================================================
-	 * Copyright 2011-2015 Twitter, Inc.
-	 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
-	 * ======================================================================== */
-
-
-	+function ($) {
-	  'use strict';
-
-	  // TAB CLASS DEFINITION
-	  // ====================
-
-	  var Tab = function (element) {
-	    this.element = $(element)
-	  }
-
-	  Tab.VERSION = '3.3.4'
-
-	  Tab.TRANSITION_DURATION = 150
-
-	  Tab.prototype.show = function () {
-	    var $this    = this.element
-	    var $ul      = $this.closest('ul:not(.dropdown-menu)')
-	    var selector = $this.data('target')
-
-	    if (!selector) {
-	      selector = $this.attr('href')
-	      selector = selector && selector.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
-	    }
-
-	    if ($this.parent('li').hasClass('active')) return
-
-	    var $previous = $ul.find('.active:last a')
-	    var hideEvent = $.Event('hide.bs.tab', {
-	      relatedTarget: $this[0]
-	    })
-	    var showEvent = $.Event('show.bs.tab', {
-	      relatedTarget: $previous[0]
-	    })
-
-	    $previous.trigger(hideEvent)
-	    $this.trigger(showEvent)
-
-	    if (showEvent.isDefaultPrevented() || hideEvent.isDefaultPrevented()) return
-
-	    var $target = $(selector)
-
-	    this.activate($this.closest('li'), $ul)
-	    this.activate($target, $target.parent(), function () {
-	      $previous.trigger({
-	        type: 'hidden.bs.tab',
-	        relatedTarget: $this[0]
-	      })
-	      $this.trigger({
-	        type: 'shown.bs.tab',
-	        relatedTarget: $previous[0]
-	      })
-	    })
-	  }
-
-	  Tab.prototype.activate = function (element, container, callback) {
-	    var $active    = container.find('> .active')
-	    var transition = callback
-	      && $.support.transition
-	      && (($active.length && $active.hasClass('fade')) || !!container.find('> .fade').length)
-
-	    function next() {
-	      $active
-	        .removeClass('active')
-	        .find('> .dropdown-menu > .active')
-	          .removeClass('active')
-	        .end()
-	        .find('[data-toggle="tab"]')
-	          .attr('aria-expanded', false)
-
-	      element
-	        .addClass('active')
-	        .find('[data-toggle="tab"]')
-	          .attr('aria-expanded', true)
-
-	      if (transition) {
-	        element[0].offsetWidth // reflow for transition
-	        element.addClass('in')
-	      } else {
-	        element.removeClass('fade')
-	      }
-
-	      if (element.parent('.dropdown-menu').length) {
-	        element
-	          .closest('li.dropdown')
-	            .addClass('active')
-	          .end()
-	          .find('[data-toggle="tab"]')
-	            .attr('aria-expanded', true)
-	      }
-
-	      callback && callback()
-	    }
-
-	    $active.length && transition ?
-	      $active
-	        .one('bsTransitionEnd', next)
-	        .emulateTransitionEnd(Tab.TRANSITION_DURATION) :
-	      next()
-
-	    $active.removeClass('in')
-	  }
-
-
-	  // TAB PLUGIN DEFINITION
-	  // =====================
-
-	  function Plugin(option) {
-	    return this.each(function () {
-	      var $this = $(this)
-	      var data  = $this.data('bs.tab')
-
-	      if (!data) $this.data('bs.tab', (data = new Tab(this)))
-	      if (typeof option == 'string') data[option]()
-	    })
-	  }
-
-	  var old = $.fn.tab
-
-	  $.fn.tab             = Plugin
-	  $.fn.tab.Constructor = Tab
-
-
-	  // TAB NO CONFLICT
-	  // ===============
-
-	  $.fn.tab.noConflict = function () {
-	    $.fn.tab = old
-	    return this
-	  }
-
-
-	  // TAB DATA-API
-	  // ============
-
-	  var clickHandler = function (e) {
-	    e.preventDefault()
-	    Plugin.call($(this), 'show')
-	  }
-
-	  $(document)
-	    .on('click.bs.tab.data-api', '[data-toggle="tab"]', clickHandler)
-	    .on('click.bs.tab.data-api', '[data-toggle="pill"]', clickHandler)
-
-	}(jQuery);
-
-
-/***/ },
-/* 117 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/*** IMPORTS FROM imports-loader ***/
-	var jQuery = __webpack_require__(158);
-
-	/* ========================================================================
-	 * Bootstrap: affix.js v3.3.4
-	 * http://getbootstrap.com/javascript/#affix
-	 * ========================================================================
-	 * Copyright 2011-2015 Twitter, Inc.
-	 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
-	 * ======================================================================== */
-
-
-	+function ($) {
-	  'use strict';
-
-	  // AFFIX CLASS DEFINITION
-	  // ======================
-
-	  var Affix = function (element, options) {
-	    this.options = $.extend({}, Affix.DEFAULTS, options)
-
-	    this.$target = $(this.options.target)
-	      .on('scroll.bs.affix.data-api', $.proxy(this.checkPosition, this))
-	      .on('click.bs.affix.data-api',  $.proxy(this.checkPositionWithEventLoop, this))
-
-	    this.$element     = $(element)
-	    this.affixed      = null
-	    this.unpin        = null
-	    this.pinnedOffset = null
-
-	    this.checkPosition()
-	  }
-
-	  Affix.VERSION  = '3.3.4'
-
-	  Affix.RESET    = 'affix affix-top affix-bottom'
-
-	  Affix.DEFAULTS = {
-	    offset: 0,
-	    target: window
-	  }
-
-	  Affix.prototype.getState = function (scrollHeight, height, offsetTop, offsetBottom) {
-	    var scrollTop    = this.$target.scrollTop()
-	    var position     = this.$element.offset()
-	    var targetHeight = this.$target.height()
-
-	    if (offsetTop != null && this.affixed == 'top') return scrollTop < offsetTop ? 'top' : false
-
-	    if (this.affixed == 'bottom') {
-	      if (offsetTop != null) return (scrollTop + this.unpin <= position.top) ? false : 'bottom'
-	      return (scrollTop + targetHeight <= scrollHeight - offsetBottom) ? false : 'bottom'
-	    }
-
-	    var initializing   = this.affixed == null
-	    var colliderTop    = initializing ? scrollTop : position.top
-	    var colliderHeight = initializing ? targetHeight : height
-
-	    if (offsetTop != null && scrollTop <= offsetTop) return 'top'
-	    if (offsetBottom != null && (colliderTop + colliderHeight >= scrollHeight - offsetBottom)) return 'bottom'
-
-	    return false
-	  }
-
-	  Affix.prototype.getPinnedOffset = function () {
-	    if (this.pinnedOffset) return this.pinnedOffset
-	    this.$element.removeClass(Affix.RESET).addClass('affix')
-	    var scrollTop = this.$target.scrollTop()
-	    var position  = this.$element.offset()
-	    return (this.pinnedOffset = position.top - scrollTop)
-	  }
-
-	  Affix.prototype.checkPositionWithEventLoop = function () {
-	    setTimeout($.proxy(this.checkPosition, this), 1)
-	  }
-
-	  Affix.prototype.checkPosition = function () {
-	    if (!this.$element.is(':visible')) return
-
-	    var height       = this.$element.height()
-	    var offset       = this.options.offset
-	    var offsetTop    = offset.top
-	    var offsetBottom = offset.bottom
-	    var scrollHeight = $(document.body).height()
-
-	    if (typeof offset != 'object')         offsetBottom = offsetTop = offset
-	    if (typeof offsetTop == 'function')    offsetTop    = offset.top(this.$element)
-	    if (typeof offsetBottom == 'function') offsetBottom = offset.bottom(this.$element)
-
-	    var affix = this.getState(scrollHeight, height, offsetTop, offsetBottom)
-
-	    if (this.affixed != affix) {
-	      if (this.unpin != null) this.$element.css('top', '')
-
-	      var affixType = 'affix' + (affix ? '-' + affix : '')
-	      var e         = $.Event(affixType + '.bs.affix')
-
-	      this.$element.trigger(e)
-
-	      if (e.isDefaultPrevented()) return
-
-	      this.affixed = affix
-	      this.unpin = affix == 'bottom' ? this.getPinnedOffset() : null
-
-	      this.$element
-	        .removeClass(Affix.RESET)
-	        .addClass(affixType)
-	        .trigger(affixType.replace('affix', 'affixed') + '.bs.affix')
-	    }
-
-	    if (affix == 'bottom') {
-	      this.$element.offset({
-	        top: scrollHeight - height - offsetBottom
-	      })
-	    }
-	  }
-
-
-	  // AFFIX PLUGIN DEFINITION
-	  // =======================
-
-	  function Plugin(option) {
-	    return this.each(function () {
-	      var $this   = $(this)
-	      var data    = $this.data('bs.affix')
-	      var options = typeof option == 'object' && option
-
-	      if (!data) $this.data('bs.affix', (data = new Affix(this, options)))
-	      if (typeof option == 'string') data[option]()
-	    })
-	  }
-
-	  var old = $.fn.affix
-
-	  $.fn.affix             = Plugin
-	  $.fn.affix.Constructor = Affix
-
-
-	  // AFFIX NO CONFLICT
-	  // =================
-
-	  $.fn.affix.noConflict = function () {
-	    $.fn.affix = old
-	    return this
-	  }
-
-
-	  // AFFIX DATA-API
-	  // ==============
-
-	  $(window).on('load', function () {
-	    $('[data-spy="affix"]').each(function () {
-	      var $spy = $(this)
-	      var data = $spy.data()
-
-	      data.offset = data.offset || {}
-
-	      if (data.offsetBottom != null) data.offset.bottom = data.offsetBottom
-	      if (data.offsetTop    != null) data.offset.top    = data.offsetTop
-
-	      Plugin.call($spy, data)
-	    })
-	  })
-
-	}(jQuery);
-
-
-/***/ },
-/* 118 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * A doubly linked list-based Least Recently Used (LRU)
-	 * cache. Will keep most recently used items while
-	 * discarding least recently used items when its limit is
-	 * reached. This is a bare-bone version of
-	 * Rasmus Andersson's js-lru:
-	 *
-	 *   https://github.com/rsms/js-lru
-	 *
-	 * @param {Number} limit
-	 * @constructor
-	 */
-
-	function Cache (limit) {
-	  this.size = 0
-	  this.limit = limit
-	  this.head = this.tail = undefined
-	  this._keymap = {}
-	}
-
-	var p = Cache.prototype
-
-	/**
-	 * Put <value> into the cache associated with <key>.
-	 * Returns the entry which was removed to make room for
-	 * the new entry. Otherwise undefined is returned.
-	 * (i.e. if there was enough room already).
-	 *
-	 * @param {String} key
-	 * @param {*} value
-	 * @return {Entry|undefined}
-	 */
-
-	p.put = function (key, value) {
-	  var entry = {
-	    key:key,
-	    value:value
-	  }
-	  this._keymap[key] = entry
-	  if (this.tail) {
-	    this.tail.newer = entry
-	    entry.older = this.tail
-	  } else {
-	    this.head = entry
-	  }
-	  this.tail = entry
-	  if (this.size === this.limit) {
-	    return this.shift()
-	  } else {
-	    this.size++
-	  }
-	}
-
-	/**
-	 * Purge the least recently used (oldest) entry from the
-	 * cache. Returns the removed entry or undefined if the
-	 * cache was empty.
-	 */
-
-	p.shift = function () {
-	  var entry = this.head
-	  if (entry) {
-	    this.head = this.head.newer
-	    this.head.older = undefined
-	    entry.newer = entry.older = undefined
-	    this._keymap[entry.key] = undefined
-	  }
-	  return entry
-	}
-
-	/**
-	 * Get and register recent use of <key>. Returns the value
-	 * associated with <key> or undefined if not in cache.
-	 *
-	 * @param {String} key
-	 * @param {Boolean} returnEntry
-	 * @return {Entry|*}
-	 */
-
-	p.get = function (key, returnEntry) {
-	  var entry = this._keymap[key]
-	  if (entry === undefined) return
-	  if (entry === this.tail) {
-	    return returnEntry
-	      ? entry
-	      : entry.value
-	  }
-	  // HEAD--------------TAIL
-	  //   <.older   .newer>
-	  //  <--- add direction --
-	  //   A  B  C  <D>  E
-	  if (entry.newer) {
-	    if (entry === this.head) {
-	      this.head = entry.newer
-	    }
-	    entry.newer.older = entry.older // C <-- E.
-	  }
-	  if (entry.older) {
-	    entry.older.newer = entry.newer // C. --> E
-	  }
-	  entry.newer = undefined // D --x
-	  entry.older = this.tail // D. --> E
-	  if (this.tail) {
-	    this.tail.newer = entry // E. <-- D
-	  }
-	  this.tail = entry
-	  return returnEntry
-	    ? entry
-	    : entry.value
-	}
-
-	module.exports = Cache
-
-/***/ },
-/* 119 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var MAX_UPDATE_COUNT = 10
-
-	// we have two separate queues: one for directive updates
-	// and one for user watcher registered via $watch().
-	// we want to guarantee directive updates to be called
-	// before user watchers so that when user watchers are
-	// triggered, the DOM would have already been in updated
-	// state.
-	var queue = []
-	var userQueue = []
-	var has = {}
-	var waiting = false
-	var flushing = false
-
-	/**
-	 * Reset the batcher's state.
-	 */
-
-	function reset () {
-	  queue = []
-	  userQueue = []
-	  has = {}
-	  waiting = false
-	  flushing = false
-	}
-
-	/**
-	 * Flush both queues and run the jobs.
-	 */
-
-	function flush () {
-	  flushing = true
-	  run(queue)
-	  run(userQueue)
-	  reset()
-	}
-
-	/**
-	 * Run the jobs in a single queue.
-	 *
-	 * @param {Array} queue
-	 */
-
-	function run (queue) {
-	  // do not cache length because more jobs might be pushed
-	  // as we run existing jobs
-	  for (var i = 0; i < queue.length; i++) {
-	    queue[i].run()
-	  }
-	}
-
-	/**
-	 * Push a job into the job queue.
-	 * Jobs with duplicate IDs will be skipped unless it's
-	 * pushed when the queue is being flushed.
-	 *
-	 * @param {Object} job
-	 *   properties:
-	 *   - {String|Number} id
-	 *   - {Function}      run
-	 */
-
-	exports.push = function (job) {
-	  var id = job.id
-	  if (!id || !has[id] || flushing) {
-	    if (!has[id]) {
-	      has[id] = 1
-	    } else {
-	      has[id]++
-	      // detect possible infinite update loops
-	      if (has[id] > MAX_UPDATE_COUNT) {
-	        _.warn(
-	          'You may have an infinite update loop for the ' +
-	          'watcher with expression: "' + job.expression + '".'
-	        )
-	        return
-	      }
-	    }
-	    // A user watcher callback could trigger another
-	    // directive update during the flushing; at that time
-	    // the directive queue would already have been run, so
-	    // we call that update immediately as it is pushed.
-	    if (flushing && !job.user) {
-	      job.run()
-	      return
-	    }
-	    ;(job.user ? userQueue : queue).push(job)
-	    if (!waiting) {
-	      waiting = true
-	      _.nextTick(flush)
-	    }
-	  }
-	}
-
-/***/ },
-/* 120 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = Array.isArray || function (arr) {
-	  return Object.prototype.toString.call(arr) == '[object Array]';
-	};
-
-
-/***/ },
-/* 121 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var arrayProto = Array.prototype
-	var arrayMethods = Object.create(arrayProto)
-
-	/**
-	 * Intercept mutating methods and emit events
-	 */
-
-	;[
-	  'push',
-	  'pop',
-	  'shift',
-	  'unshift',
-	  'splice',
-	  'sort',
-	  'reverse'
-	]
-	.forEach(function (method) {
-	  // cache original method
-	  var original = arrayProto[method]
-	  _.define(arrayMethods, method, function mutator () {
-	    // avoid leaking arguments:
-	    // http://jsperf.com/closure-with-arguments
-	    var i = arguments.length
-	    var args = new Array(i)
-	    while (i--) {
-	      args[i] = arguments[i]
-	    }
-	    var result = original.apply(this, args)
-	    var ob = this.__ob__
-	    var inserted
-	    switch (method) {
-	      case 'push':
-	        inserted = args
-	        break
-	      case 'unshift':
-	        inserted = args
-	        break
-	      case 'splice':
-	        inserted = args.slice(2)
-	        break
-	    }
-	    if (inserted) ob.observeArray(inserted)
-	    // notify change
-	    ob.notify()
-	    return result
-	  })
-	})
-
-	/**
-	 * Swap the element at the given index with a new value
-	 * and emits corresponding event.
-	 *
-	 * @param {Number} index
-	 * @param {*} val
-	 * @return {*} - replaced element
-	 */
-
-	_.define(
-	  arrayProto,
-	  '$set',
-	  function $set (index, val) {
-	    if (index >= this.length) {
-	      this.length = index + 1
-	    }
-	    return this.splice(index, 1, val)[0]
-	  }
-	)
-
-	/**
-	 * Convenience method to remove the element at given index.
-	 *
-	 * @param {Number} index
-	 * @param {*} val
-	 */
-
-	_.define(
-	  arrayProto,
-	  '$remove',
-	  function $remove (index) {
-	    if (typeof index !== 'number') {
-	      index = this.indexOf(index)
-	    }
-	    if (index > -1) {
-	      return this.splice(index, 1)[0]
-	    }
-	  }
-	)
-
-	module.exports = arrayMethods
-
-/***/ },
-/* 122 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var objProto = Object.prototype
-
-	/**
-	 * Add a new property to an observed object
-	 * and emits corresponding event
-	 *
-	 * @param {String} key
-	 * @param {*} val
-	 * @public
-	 */
-
-	_.define(
-	  objProto,
-	  '$add',
-	  function $add (key, val) {
-	    if (this.hasOwnProperty(key)) return
-	    var ob = this.__ob__
-	    if (!ob || _.isReserved(key)) {
-	      this[key] = val
-	      return
-	    }
-	    ob.convert(key, val)
-	    if (ob.vms) {
-	      var i = ob.vms.length
-	      while (i--) {
-	        var vm = ob.vms[i]
-	        vm._proxy(key)
-	        vm._digest()
-	      }
-	    } else {
-	      ob.notify()
-	    }
-	  }
-	)
-
-	/**
-	 * Deletes a property from an observed object
-	 * and emits corresponding event
-	 *
-	 * @param {String} key
-	 * @public
-	 */
-
-	_.define(
-	  objProto,
-	  '$delete',
-	  function $delete (key) {
-	    if (!this.hasOwnProperty(key)) return
-	    delete this[key]
-	    var ob = this.__ob__
-	    if (!ob || _.isReserved(key)) {
-	      return
-	    }
-	    if (ob.vms) {
-	      var i = ob.vms.length
-	      while (i--) {
-	        var vm = ob.vms[i]
-	        vm._unproxy(key)
-	        vm._digest()
-	      }
-	    } else {
-	      ob.notify()
-	    }
-	  }
-	)
-
-/***/ },
-/* 123 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var addClass = _.addClass
-	var removeClass = _.removeClass
-	var transDurationProp = _.transitionProp + 'Duration'
-	var animDurationProp = _.animationProp + 'Duration'
-
-	var queue = []
-	var queued = false
-
-	/**
-	 * Push a job into the transition queue, which is to be
-	 * executed on next frame.
-	 *
-	 * @param {Element} el    - target element
-	 * @param {Number} dir    - 1: enter, -1: leave
-	 * @param {Function} op   - the actual dom operation
-	 * @param {String} cls    - the className to remove when the
-	 *                          transition is done.
-	 * @param {Function} [cb] - user supplied callback.
-	 */
-
-	function push (el, dir, op, cls, cb) {
-	  queue.push({
-	    el  : el,
-	    dir : dir,
-	    cb  : cb,
-	    cls : cls,
-	    op  : op
-	  })
-	  if (!queued) {
-	    queued = true
-	    _.nextTick(flush)
-	  }
-	}
-
-	/**
-	 * Flush the queue, and do one forced reflow before
-	 * triggering transitions.
-	 */
-
-	function flush () {
-	  /* jshint unused: false */
-	  var f = document.documentElement.offsetHeight
-	  queue.forEach(run)
-	  queue = []
-	  queued = false
-	}
-
-	/**
-	 * Run a transition job.
-	 *
-	 * @param {Object} job
-	 */
-
-	function run (job) {
-
-	  var el = job.el
-	  var data = el.__v_trans
-	  var cls = job.cls
-	  var cb = job.cb
-	  var op = job.op
-	  var transitionType = getTransitionType(el, data, cls)
-
-	  if (job.dir > 0) { // ENTER
-	    if (transitionType === 1) {
-	      // trigger transition by removing enter class
-	      removeClass(el, cls)
-	      // only need to listen for transitionend if there's
-	      // a user callback
-	      if (cb) setupTransitionCb(_.transitionEndEvent)
-	    } else if (transitionType === 2) {
-	      // animations are triggered when class is added
-	      // so we just listen for animationend to remove it.
-	      setupTransitionCb(_.animationEndEvent, function () {
-	        removeClass(el, cls)
-	      })
-	    } else {
-	      // no transition applicable
-	      removeClass(el, cls)
-	      if (cb) cb()
-	    }
-	  } else { // LEAVE
-	    if (transitionType) {
-	      // leave transitions/animations are both triggered
-	      // by adding the class, just remove it on end event.
-	      var event = transitionType === 1
-	        ? _.transitionEndEvent
-	        : _.animationEndEvent
-	      setupTransitionCb(event, function () {
-	        op()
-	        removeClass(el, cls)
-	      })
-	    } else {
-	      op()
-	      removeClass(el, cls)
-	      if (cb) cb()
-	    }
-	  }
-
-	  /**
-	   * Set up a transition end callback, store the callback
-	   * on the element's __v_trans data object, so we can
-	   * clean it up if another transition is triggered before
-	   * the callback is fired.
-	   *
-	   * @param {String} event
-	   * @param {Function} [cleanupFn]
-	   */
-
-	  function setupTransitionCb (event, cleanupFn) {
-	    data.event = event
-	    var onEnd = data.callback = function transitionCb (e) {
-	      if (e.target === el) {
-	        _.off(el, event, onEnd)
-	        data.event = data.callback = null
-	        if (cleanupFn) cleanupFn()
-	        if (cb) cb()
-	      }
-	    }
-	    _.on(el, event, onEnd)
-	  }
-	}
-
-	/**
-	 * Get an element's transition type based on the
-	 * calculated styles
-	 *
-	 * @param {Element} el
-	 * @param {Object} data
-	 * @param {String} className
-	 * @return {Number}
-	 *         1 - transition
-	 *         2 - animation
-	 */
-
-	function getTransitionType (el, data, className) {
-	  var type = data.cache && data.cache[className]
-	  if (type) return type
-	  var inlineStyles = el.style
-	  var computedStyles = window.getComputedStyle(el)
-	  var transDuration =
-	    inlineStyles[transDurationProp] ||
-	    computedStyles[transDurationProp]
-	  if (transDuration && transDuration !== '0s') {
-	    type = 1
-	  } else {
-	    var animDuration =
-	      inlineStyles[animDurationProp] ||
-	      computedStyles[animDurationProp]
-	    if (animDuration && animDuration !== '0s') {
-	      type = 2
-	    }
-	  }
-	  if (type) {
-	    if (!data.cache) data.cache = {}
-	    data.cache[className] = type
-	  }
-	  return type
-	}
-
-	/**
-	 * Apply CSS transition to an element.
-	 *
-	 * @param {Element} el
-	 * @param {Number} direction - 1: enter, -1: leave
-	 * @param {Function} op - the actual DOM operation
-	 * @param {Object} data - target element's transition data
-	 */
-
-	module.exports = function (el, direction, op, data, cb) {
-	  var prefix = data.id || 'v'
-	  var enterClass = prefix + '-enter'
-	  var leaveClass = prefix + '-leave'
-	  // clean up potential previous unfinished transition
-	  if (data.callback) {
-	    _.off(el, data.event, data.callback)
-	    removeClass(el, enterClass)
-	    removeClass(el, leaveClass)
-	    data.event = data.callback = null
-	  }
-	  if (direction > 0) { // enter
-	    addClass(el, enterClass)
-	    op()
-	    push(el, direction, null, enterClass, cb)
-	  } else { // leave
-	    addClass(el, leaveClass)
-	    push(el, direction, op, leaveClass, cb)
-	  }
-	}
-
-/***/ },
-/* 124 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Apply JavaScript enter/leave functions.
-	 *
-	 * @param {Element} el
-	 * @param {Number} direction - 1: enter, -1: leave
-	 * @param {Function} op - the actual DOM operation
-	 * @param {Object} data - target element's transition data
-	 * @param {Object} def - transition definition object
-	 * @param {Vue} vm - the owner vm of the element
-	 * @param {Function} [cb]
-	 */
-
-	module.exports = function (el, direction, op, data, def, vm, cb) {
-	  if (data.cancel) {
-	    data.cancel()
-	    data.cancel = null
-	  }
-	  if (direction > 0) { // enter
-	    if (def.beforeEnter) {
-	      def.beforeEnter.call(vm, el)
-	    }
-	    op()
-	    if (def.enter) {
-	      data.cancel = def.enter.call(vm, el, function () {
-	        data.cancel = null
-	        if (cb) cb()
-	      })
-	    } else if (cb) {
-	      cb()
-	    }
-	  } else { // leave
-	    if (def.leave) {
-	      data.cancel = def.leave.call(vm, el, function () {
-	        data.cancel = null
-	        op()
-	        if (cb) cb()
-	      })
-	    } else {
-	      op()
-	      if (cb) cb()
-	    }
-	  }
-	}
-
-/***/ },
-/* 125 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-
-	module.exports = {
-
-	  bind: function () {
-	    var self = this
-	    var el = this.el
-
-	    // check params
-	    // - lazy: update model on "change" instead of "input"
-	    var lazy = this._checkParam('lazy') != null
-	    // - number: cast value into number when updating model.
-	    var number = this._checkParam('number') != null
-
-	    // handle composition events.
-	    // http://blog.evanyou.me/2014/01/03/composition-event/
-	    var cpLocked = false
-	    this.cpLock = function () {
-	      cpLocked = true
-	    }
-	    this.cpUnlock = function () {
-	      cpLocked = false
-	      // in IE11 the "compositionend" event fires AFTER
-	      // the "input" event, so the input handler is blocked
-	      // at the end... have to call it here.
-	      set()
-	    }
-	    _.on(el,'compositionstart', this.cpLock)
-	    _.on(el,'compositionend', this.cpUnlock)
-
-	    // shared setter
-	    function set () {
-	      self.set(
-	        number ? _.toNumber(el.value) : el.value,
-	        true
-	      )
-	    }
-
-	    // if the directive has filters, we need to
-	    // record cursor position and restore it after updating
-	    // the input with the filtered value.
-	    // also force update for type="range" inputs to enable
-	    // "lock in range" (see #506)
-	    this.listener = this.filters || el.type === 'range'
-	      ? function textInputListener () {
-	          if (cpLocked) return
-	          var charsOffset
-	          // some HTML5 input types throw error here
-	          try {
-	            // record how many chars from the end of input
-	            // the cursor was at
-	            charsOffset = el.value.length - el.selectionStart
-	          } catch (e) {}
-	          // Fix IE10/11 infinite update cycle
-	          // https://github.com/yyx990803/vue/issues/592
-	          /* istanbul ignore if */
-	          if (charsOffset < 0) {
-	            return
-	          }
-	          set()
-	          _.nextTick(function () {
-	            // force a value update, because in
-	            // certain cases the write filters output the
-	            // same result for different input values, and
-	            // the Observer set events won't be triggered.
-	            var newVal = self._watcher.value
-	            self.update(newVal)
-	            if (charsOffset != null) {
-	              var cursorPos =
-	                _.toString(newVal).length - charsOffset
-	              el.setSelectionRange(cursorPos, cursorPos)
-	            }
-	          })
-	        }
-	      : function textInputListener () {
-	          if (cpLocked) return
-	          set()
-	        }
-
-	    this.event = lazy ? 'change' : 'input'
-	    _.on(el, this.event, this.listener)
-
-	    // IE9 doesn't fire input event on backspace/del/cut
-	    if (!lazy && _.isIE9) {
-	      this.onCut = function () {
-	        _.nextTick(self.listener)
-	      }
-	      this.onDel = function (e) {
-	        if (e.keyCode === 46 || e.keyCode === 8) {
-	          self.listener()
-	        }
-	      }
-	      _.on(el, 'cut', this.onCut)
-	      _.on(el, 'keyup', this.onDel)
-	    }
-
-	    // set initial value if present
-	    if (
-	      el.hasAttribute('value') ||
-	      (el.tagName === 'TEXTAREA' && el.value.trim())
-	    ) {
-	      this._initValue = number
-	        ? _.toNumber(el.value)
-	        : el.value
-	    }
-	  },
-
-	  update: function (value) {
-	    this.el.value = _.toString(value)
-	  },
-
-	  unbind: function () {
-	    var el = this.el
-	    _.off(el, this.event, this.listener)
-	    _.off(el,'compositionstart', this.cpLock)
-	    _.off(el,'compositionend', this.cpUnlock)
-	    if (this.onCut) {
-	      _.off(el,'cut', this.onCut)
-	      _.off(el,'keyup', this.onDel)
-	    }
-	  }
-
-	}
-
-/***/ },
-/* 126 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-
-	module.exports = {
-
-	  bind: function () {
-	    var self = this
-	    var el = this.el
-	    this.listener = function () {
-	      self.set(el.value, true)
-	    }
-	    _.on(el, 'change', this.listener)
-	    if (el.checked) {
-	      this._initValue = el.value
-	    }
-	  },
-
-	  update: function (value) {
-	    /* jshint eqeqeq: false */
-	    this.el.checked = value == this.el.value
-	  },
-
-	  unbind: function () {
-	    _.off(this.el, 'change', this.listener)
-	  }
-
-	}
-
-/***/ },
-/* 127 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-	var Watcher = __webpack_require__(39)
-
-	module.exports = {
-
-	  bind: function () {
-	    var self = this
-	    var el = this.el
-	    // check options param
-	    var optionsParam = this._checkParam('options')
-	    if (optionsParam) {
-	      initOptions.call(this, optionsParam)
-	    }
-	    this.number = this._checkParam('number') != null
-	    this.multiple = el.hasAttribute('multiple')
-	    this.listener = function () {
-	      var value = self.multiple
-	        ? getMultiValue(el)
-	        : el.value
-	      value = self.number
-	        ? _.toNumber(value)
-	        : value
-	      self.set(value, true)
-	    }
-	    _.on(el, 'change', this.listener)
-	    checkInitialValue.call(this)
-	  },
-
-	  update: function (value) {
-	    /* jshint eqeqeq: false */
-	    var el = this.el
-	    el.selectedIndex = -1
-	    var multi = this.multiple && _.isArray(value)
-	    var options = el.options
-	    var i = options.length
-	    var option
-	    while (i--) {
-	      option = options[i]
-	      option.selected = multi
-	        ? indexOf(value, option.value) > -1
-	        : value == option.value
-	    }
-	  },
-
-	  unbind: function () {
-	    _.off(this.el, 'change', this.listener)
-	    if (this.optionWatcher) {
-	      this.optionWatcher.teardown()
-	    }
-	  }
-
-	}
-
-	/**
-	 * Initialize the option list from the param.
-	 *
-	 * @param {String} expression
-	 */
-
-	function initOptions (expression) {
-	  var self = this
-	  function optionUpdateWatcher (value) {
-	    if (_.isArray(value)) {
-	      self.el.innerHTML = ''
-	      buildOptions(self.el, value)
-	      if (self._watcher) {
-	        self.update(self._watcher.value)
-	      }
-	    } else {
-	      _.warn('Invalid options value for v-model: ' + value)
-	    }
-	  }
-	  this.optionWatcher = new Watcher(
-	    this.vm,
-	    expression,
-	    optionUpdateWatcher,
-	    { deep: true }
-	  )
-	  // update with initial value
-	  optionUpdateWatcher(this.optionWatcher.value)
-	}
-
-	/**
-	 * Build up option elements. IE9 doesn't create options
-	 * when setting innerHTML on <select> elements, so we have
-	 * to use DOM API here.
-	 *
-	 * @param {Element} parent - a <select> or an <optgroup>
-	 * @param {Array} options
-	 */
-
-	function buildOptions (parent, options) {
-	  var op, el
-	  for (var i = 0, l = options.length; i < l; i++) {
-	    op = options[i]
-	    if (!op.options) {
-	      el = document.createElement('option')
-	      if (typeof op === 'string') {
-	        el.text = el.value = op
-	      } else {
-	        el.text = op.text
-	        el.value = op.value
-	      }
-	    } else {
-	      el = document.createElement('optgroup')
-	      el.label = op.label
-	      buildOptions(el, op.options)
-	    }
-	    parent.appendChild(el)
-	  }
-	}
-
-	/**
-	 * Check the initial value for selected options.
-	 */
-
-	function checkInitialValue () {
-	  var initValue
-	  var options = this.el.options
-	  for (var i = 0, l = options.length; i < l; i++) {
-	    if (options[i].hasAttribute('selected')) {
-	      if (this.multiple) {
-	        (initValue || (initValue = []))
-	          .push(options[i].value)
-	      } else {
-	        initValue = options[i].value
-	      }
-	    }
-	  }
-	  if (initValue) {
-	    this._initValue = this.number
-	      ? _.toNumber(initValue)
-	      : initValue
-	  }
-	}
-
-	/**
-	 * Helper to extract a value array for select[multiple]
-	 *
-	 * @param {SelectElement} el
-	 * @return {Array}
-	 */
-
-	function getMultiValue (el) {
-	  return Array.prototype.filter
-	    .call(el.options, filterSelected)
-	    .map(getOptionValue)
-	}
-
-	function filterSelected (op) {
-	  return op.selected
-	}
-
-	function getOptionValue (op) {
-	  return op.value || op.text
-	}
-
-	/**
-	 * Native Array.indexOf uses strict equal, but in this
-	 * case we need to match string/numbers with soft equal.
-	 *
-	 * @param {Array} arr
-	 * @param {*} val
-	 */
-
-	function indexOf (arr, val) {
-	  /* jshint eqeqeq: false */
-	  var i = arr.length
-	  while (i--) {
-	    if (arr[i] == val) return i
-	  }
-	  return -1
-	}
-
-/***/ },
-/* 128 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(18)
-
-	module.exports = {
-
-	  bind: function () {
-	    var self = this
-	    var el = this.el
-	    this.listener = function () {
-	      self.set(el.checked, true)
-	    }
-	    _.on(el, 'change', this.listener)
-	    if (el.checked) {
-	      this._initValue = el.checked
-	    }
-	  },
-
-	  update: function (value) {
-	    this.el.checked = !!value
-	  },
-
-	  unbind: function () {
-	    _.off(this.el, 'change', this.listener)
-	  }
-
-	}
-
-/***/ },
-/* 129 */,
-/* 130 */,
-/* 131 */,
-/* 132 */,
-/* 133 */,
-/* 134 */,
-/* 135 */,
-/* 136 */,
-/* 137 */,
-/* 138 */,
-/* 139 */,
-/* 140 */,
-/* 141 */,
-/* 142 */,
-/* 143 */,
-/* 144 */,
-/* 145 */,
-/* 146 */,
-/* 147 */,
-/* 148 */,
-/* 149 */,
-/* 150 */,
-/* 151 */,
-/* 152 */,
-/* 153 */,
-/* 154 */,
-/* 155 */,
-/* 156 */,
-/* 157 */,
-/* 158 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -20966,34 +9958,11586 @@
 
 
 /***/ },
-/* 159 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "f4769f9bdb7466be65088239c12046d1.eot"
+	var _ = __webpack_require__(22)
+	var extend = _.extend
+
+	/**
+	 * The exposed Vue constructor.
+	 *
+	 * API conventions:
+	 * - public API methods/properties are prefiexed with `$`
+	 * - internal methods/properties are prefixed with `_`
+	 * - non-prefixed properties are assumed to be proxied user
+	 *   data.
+	 *
+	 * @constructor
+	 * @param {Object} [options]
+	 * @public
+	 */
+
+	function Vue (options) {
+	  this._init(options)
+	}
+
+	/**
+	 * Mixin global API
+	 */
+
+	extend(Vue, __webpack_require__(12))
+
+	/**
+	 * Vue and every constructor that extends Vue has an
+	 * associated options object, which can be accessed during
+	 * compilation steps as `this.constructor.options`.
+	 *
+	 * These can be seen as the default options of every
+	 * Vue instance.
+	 */
+
+	Vue.options = {
+	  directives  : __webpack_require__(23),
+	  filters     : __webpack_require__(24),
+	  partials    : {},
+	  transitions : {},
+	  components  : {}
+	}
+
+	/**
+	 * Build up the prototype
+	 */
+
+	var p = Vue.prototype
+
+	/**
+	 * $data has a setter which does a bunch of
+	 * teardown/setup work
+	 */
+
+	Object.defineProperty(p, '$data', {
+	  get: function () {
+	    return this._data
+	  },
+	  set: function (newData) {
+	    this._setData(newData)
+	  }
+	})
+
+	/**
+	 * Mixin internal instance methods
+	 */
+
+	extend(p, __webpack_require__(13))
+	extend(p, __webpack_require__(14))
+	extend(p, __webpack_require__(15))
+	extend(p, __webpack_require__(16))
+
+	/**
+	 * Mixin public API methods
+	 */
+
+	extend(p, __webpack_require__(17))
+	extend(p, __webpack_require__(18))
+	extend(p, __webpack_require__(19))
+	extend(p, __webpack_require__(20))
+	extend(p, __webpack_require__(21))
+
+	module.exports = _.Vue = Vue
 
 /***/ },
-/* 160 */
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* ========================================================================
+	 * Bootstrap: drawer.js v1.0
+	 # Heavily based on collapse, but had to change the name to "fold" to 
+	 # avoid transition conflicts.
+	 * ========================================================================
+	*/
+
+
+	+function ($) {
+	  'use strict';
+
+	  // OFF CANVAS PUBLIC CLASS DEFINITION
+	  // ================================
+
+	  var Drawer = function (element, options) {
+	    this.$element      = $(element)
+	    this.options       = $.extend({}, Drawer.DEFAULTS, options)
+	    this.$trigger      = $(this.options.trigger).filter('[href="#' + element.id + '"], [data-target="#' + element.id + '"]')
+	    this.transitioning = null
+
+	    if (this.options.parent) {
+	      this.$parent = this.getParent()
+	    } else {
+	      this.addAriaAndDrawerdClass(this.$element, this.$trigger)
+	    }
+
+	    if (this.options.toggle) this.toggle()
+	  }
+
+	  Drawer.VERSION  = '3.3.2'
+
+	  Drawer.TRANSITION_DURATION = 350
+
+	  Drawer.DEFAULTS = {
+	    toggle: true,
+	    trigger: '[data-toggle="drawer"]'
+	  }
+
+	  Drawer.prototype.dimension = function () {
+	    var isRight = this.$element.hasClass('drawer-right')
+	    return isRight ? 'margin-right' : 'margin-left'
+	  }
+
+	  Drawer.prototype.show = function () {
+	    if (this.transitioning || this.$element.hasClass('open')) return
+
+	    var activesData
+	    var actives = this.$parent && this.$parent.children('.panel').children('.in, .collapsing')
+
+	    if (actives && actives.length) {
+	      activesData = actives.data('bs.drawer')
+	      if (activesData && activesData.transitioning) return
+	    }
+
+	    var startEvent = $.Event('show.bs.drawer')
+	    this.$element.trigger(startEvent)
+	    if (startEvent.isDefaultPrevented()) return
+
+	    if (actives && actives.length) {
+	      Plugin.call(actives, 'hide')
+	      activesData || actives.data('bs.drawer', null)
+	    }
+
+	    var dimension = this.dimension()
+
+	    this.$element
+	      .addClass('folding').css(dimension, 0)
+	      .attr('aria-expanded', true)
+
+	    this.$trigger
+	      .removeClass('folded')
+	      .attr('aria-expanded', true)
+
+	    this.transitioning = 1
+
+	    var complete = function () {
+	      this.$element
+	        .removeClass('folding')
+	        .addClass('fold open').css(dimension, '')
+	      this.transitioning = 0
+	      this.$element
+	        .trigger('shown.bs.drawer')
+	    }
+
+	    if (!$.support.transition) return complete.call(this)
+
+	    this.$element
+	      .one('bsTransitionEnd', $.proxy(complete, this))
+	      .emulateTransitionEnd(Drawer.TRANSITION_DURATION).css(dimension, 0)
+	  }
+
+	  Drawer.prototype.hide = function () {
+	    if (this.transitioning || !this.$element.hasClass('open')) return
+
+	    var startEvent = $.Event('hide.bs.drawer')
+	    this.$element.trigger(startEvent)
+	    if (startEvent.isDefaultPrevented()) return
+
+	    var dimension = this.dimension()
+
+	    this.$element
+	      .addClass('folding')
+	      .removeClass('open')
+	      .attr('aria-expanded', false)
+
+	    this.$trigger
+	      .addClass('folded')
+	      .attr('aria-expanded', false)
+
+	    this.transitioning = 1
+
+	    var complete = function () {
+	      this.transitioning = 0
+	      this.$element
+	        .removeClass('folding')
+	        .addClass('fold')
+	        .trigger('hidden.bs.drawer')
+	    }
+
+	    if (!$.support.transition) return complete.call(this)
+
+	    this.$element
+	      .css(dimension, '')
+	      .one('bsTransitionEnd', $.proxy(complete, this))
+	      .emulateTransitionEnd(Drawer.TRANSITION_DURATION)
+	  }
+
+	  Drawer.prototype.toggle = function () {
+	    this[this.$element.hasClass('open') ? 'hide' : 'show']()
+	  }
+
+	  Drawer.prototype.getParent = function () {
+	    return $(this.options.parent)
+	      .find('[data-toggle="drawer"][data-parent="' + this.options.parent + '"]')
+	      .each($.proxy(function (i, element) {
+	        var $element = $(element)
+	        this.addAriaAndDrawerdClass(getTargetFromTrigger($element), $element)
+	      }, this))
+	      .end()
+	  }
+
+	  Drawer.prototype.addAriaAndDrawerdClass = function ($element, $trigger) {
+	    var isOpen = $element.hasClass('open')
+
+	    $element.attr('aria-expanded', isOpen)
+	    $trigger
+	      .toggleClass('folded', !isOpen)
+	      .attr('aria-expanded', isOpen)
+	  }
+
+	  function getTargetFromTrigger($trigger) {
+	    var href
+	    var target = $trigger.attr('data-target')
+	      || (href = $trigger.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '') // strip for ie7
+
+	    return $(target)
+	  }
+
+
+	  // OFFCANVAS PLUGIN DEFINITION
+	  // ==========================
+
+	  function Plugin(option) {
+	    return this.each(function () {
+	      var $this   = $(this)
+	      var data    = $this.data('bs.drawer')
+	      var options = $.extend({}, Drawer.DEFAULTS, $this.data(), typeof option == 'object' && option)
+
+	      if (!data && options.toggle && option == 'show') options.toggle = false
+	      if (!data) $this.data('bs.drawer', (data = new Drawer(this, options)))
+	      if (typeof option == 'string') data[option]()
+	    })
+	  }
+
+	  var old = $.fn.fold
+
+	  $.fn.drawer             = Plugin
+	  $.fn.drawer.Constructor = Drawer
+
+
+	  // OFFCANVAS NO CONFLICT
+	  // ====================
+
+	  $.fn.drawer.noConflict = function () {
+	    $.fn.fold = old
+	    return this
+	  }
+
+
+	  // OFFCANVAS DATA-API
+	  // =================
+
+	  $(document).on('click.bs.drawer.data-api', '[data-toggle="drawer"]', function (e) {
+	    var $this   = $(this)
+
+	    if (!$this.attr('data-target')) e.preventDefault()
+
+	    var $target = getTargetFromTrigger($this)
+	    var data    = $target.data('bs.drawer')
+	    var option  = data ? 'toggle' : $.extend({}, $this.data(), { trigger: this })
+
+	    Plugin.call($target, option)
+	  })
+
+	}(jQuery);
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(112);
+	__webpack_require__(113);
+	__webpack_require__(114);
+	__webpack_require__(115);
+	__webpack_require__(116);
+	__webpack_require__(117);
+	__webpack_require__(118);
+	__webpack_require__(119);
+	__webpack_require__(120);
+	__webpack_require__(121);
+	__webpack_require__(122);
+	__webpack_require__(123);
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_template__ = "<div class=\"jumbotron\">\n   <h1>日文・中文<br>単語練習帳</h1>\n   <p class=\"text-center\">...</p>\n   <p class=\"text-center\"><a href=\"/card\" class=\"btn btn-primary btn-lg\" role=\"button\">単語帳を開く</a></p>\n </div>";
+	module.exports = {
+	  data : function () {
+	    return {}
+	  }
+
+	}
+	module.exports.template = __vue_template__;
+
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(72)("a.cwc-button,span.cwc-word{font-size:xx-large}");
+	var __vue_template__ = "<nav class=\"navbar navbar-inverse\">\n    <div class=\"container-fluid text-center\">\n      <a href=\"/\" class=\"btn navbar-btn btn-primary\" role=\"button\"><span class=\"glyphicon glyphicon-home\" aria-hidden=\"true\"></span></a>\n    </div>\n  </nav>\n  <div class=\"container\">\n    <div class=\"progress\" v-cloak=\"\">\n      <div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"{{ currentCardNumber }}\" aria-valuemin=\"0\" aria-valuemax=\"{{ numOfCards }}\" style=\"width: {{ progress }}%\">\n        <span class=\"sr-only\">{{ currentCardNumber }} of {{ numOfCards }}</span>\n      </div>\n   </div>\n\n    <!-- 日本語 -->\n    <div class=\"text-center\">\n      <span class=\"cwc-word\">{{ currentCard.jp }}</span>\n    </div>\n    <div class=\"text-center\">\n      <a href=\"\" class=\"btn btn-default\" v-on=\"click : openCh()\" v-show=\"openChineseWord == false\">\n        <span class=\"glyphicon glyphicon-chevron-down\" aria-hidden=\"true\"></span>\n      </a>\n    </div>\n\n    <!-- 繁体中国語, 注音 -->\n    <div class=\"text-center\" v-show=\"openChineseWord == true\">\n      <span class=\"cwc-word\">{{ currentCard.ch_t   }}</span><br>\n      <span class=\"cwc-word\">{{ currentCard.zhuyin }}</span><br>\n      <span v-show=\"isNotEndOfCards\">\n        <a href=\"#\" class=\"btn btn-default\" v-on=\"click : nextCard()\">\n          <span class=\"glyphicon glyphicon-chevron-down\" aria-hidden=\"true\"></span>\n        </a>\n      </span>\n      <span v-show=\"isEndOfCards\">\n        <a href=\"#\" class=\"btn btn-default\" v-on=\"click: reset()\"><span class=\"glyphicon glyphicon-repeat\" aria-hidden=\"true\"></span></a>\n      </span>\n    </div>\n\n    <!-- 簡体中国語 - 拼音 -->\n    <!--\n    <div>\n      {{currentCard.ch_s}}\n      {{currentCard.pinyin}}\n    </div>\n    <div>\n      <a href=\"\" v-on=\"click\">↓</a>\n    </div>\n    -->\n  </div><!-- /.container -->";
+	api    = __webpack_require__(31)
+	config = __webpack_require__(32)
+
+
+	module.exports = {
+	  data : function () {
+	    return {
+	      cards : [{
+	        jp     : '',
+	        ch_t   : '',
+	        ch_s   : '',
+	        zhuyin : '',
+	        pinyin : ''
+	      }],
+	      index : 0,
+	      openChineseWord  : false, 
+	    }
+	  },
+
+	  created : function () {
+	    var option = {}
+	    var _this = this
+	    api.getCards(option).then(function(response) {
+	      _this.cards = response
+	      console.log(response)
+	    })
+	  },
+
+	  computed : {
+	    progress : function () {
+	      return parseInt((this.index / (this.cards.length - 1)) * 100.0)
+	    },
+	    numOfCards : function () {
+	      return this.cards.length 
+	    },
+	    currentCardNumber : function () {
+	      return (this.index + 1)
+	    },
+	    currentCard : function () {
+	      return this.cards[ this.index ]
+	    },
+	    isNotEndOfCards : function () { return (this.index <  (this.cards.length - 1)) },
+	    isEndOfCards    : function () { return (this.index >= (this.cards.length - 1)) },
+	  },
+
+	  methods : {
+	    openCh : function () {
+	      this.openChineseWord = true
+	    },
+	    nextCard : function () {
+	      this.openChineseWord = false
+	      this.index++
+	    },
+	    reset : function () {
+	      this.openChineseWord = false
+	      this.index = 0
+	    }
+	  }
+	}
+	module.exports.template = __vue_template__;
+
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(11);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(28)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../css-loader/index.js!./bootstrap-drawer.css", function() {
+				var newContent = require("!!./../../../css-loader/index.js!./bootstrap-drawer.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(33)();
+	exports.push([module.id, "html {\n  min-height: 100%;\n  height: 100%;\n}\nbody.has-drawer {\n  min-height: 100%;\n  height: 100%;\n}\n.has-inner-drawer {\n  position: relative;\n  overflow: hidden;\n}\n.drawer {\n  display: block;\n  background-color: #f8f8f8;\n  color: #333333;\n  border-right: 1px solid #dfdfdf;\n  height: 100%;\n  top: 0;\n  left: 0;\n  position: fixed;\n  z-index: 1035;\n  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);\n  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);\n}\n.drawer-contents,\n.drawer-heading,\n.drawer-body,\n.drawer-nav,\n.drawer-footer {\n  display: inherit;\n  margin: 0;\n  width: 100%;\n  position: relative;\n}\n.drawer.drawer-right {\n  left: auto;\n  right: 0;\n  border-right: none;\n  border-left: 1px solid #dfdfdf;\n  -webkit-box-shadow: 0 -1px 1px rgba(0, 0, 0, 0.05);\n  box-shadow: 0 -1px 1px rgba(0, 0, 0, 0.05);\n}\n.drawer.drawer-inverse {\n  background-color: #333333;\n  color: #eeeeee;\n  border-right: 1px solid #1a1a1a;\n}\n.drawer.drawer-inverse.drawer-right {\n  border-right: 1px solid #dfdfdf;\n}\n.drawer.drawer-inside {\n  position: absolute;\n}\n.drawer-controls {\n  float: right;\n  margin-right: -16.66666667%;\n  padding: 10px;\n  height: 100%;\n  position: relative;\n  width: 16.66666667%;\n  z-index: 500;\n}\n.drawer-contents {\n  background-color: #f8f8f8;\n  height: 100%;\n  width: 100%;\n  overflow: auto;\n}\n.drawer-right .drawer-controls {\n  float: left;\n  margin-left: -16.66666667%;\n  margin-right: 0;\n}\n.drawer-heading {\n  border-bottom: 1px solid #dfdfdf;\n  padding: 10px 15px;\n  color: inherit;\n}\n.drawer-heading .drawer-title {\n  margin-top: 0;\n  margin-bottom: 0;\n}\n.drawer-inner-toggle {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n}\n.drawer-body,\n.drawer-nav {\n  padding: 10px 15px;\n}\n.drawer-nav,\n.drawer-fullnav {\n  padding: 10px 15px;\n  margin-bottom: 0;\n  list-style: none;\n}\n.drawer-nav > li,\n.drawer-fullnav > li {\n  position: relative;\n  display: block;\n  width: 100%;\n  margin-bottom: 5px;\n}\n.drawer-nav > li a,\n.drawer-fullnav > li a {\n  color: #777777;\n  border-radius: 4px;\n  position: relative;\n  display: block;\n  padding: 10px 15px;\n}\n.drawer-nav > li a:hover,\n.drawer-fullnav > li a:hover,\n.drawer-nav > li a:focus,\n.drawer-fullnav > li a:focus {\n  color: #515151;\n  text-decoration: none;\n  background-color: #ffffff;\n}\n.drawer-nav > li.active a,\n.drawer-fullnav > li.active a {\n  color: #515151;\n  background-color: #ffffff;\n}\n.drawer-fullnav {\n  color: #ffffff;\n  padding: 0;\n}\n.drawer-fullnav > li {\n  margin-bottom: 0;\n}\n.drawer-fullnav > li a {\n  border-radius: 0;\n}\n.drawer.drawer-inverse .drawer-contents {\n  background-color: #333333;\n}\n.drawer.drawer-inverse .drawer-fullnav > li a,\n.drawer.drawer-inverse .drawer-nav > li a {\n  color: #ffffff;\n  padding: 10px 15px;\n}\n.drawer.drawer-inverse .drawer-fullnav > li a:hover,\n.drawer.drawer-inverse .drawer-nav > li a:hover,\n.drawer.drawer-inverse .drawer-fullnav > li a:focus,\n.drawer.drawer-inverse .drawer-nav > li a:focus {\n  color: #eeeeee;\n  background-color: #1a1a1a;\n}\n.drawer.drawer-inverse .drawer-fullnav > li.active a,\n.drawer.drawer-inverse .drawer-nav > li.active a {\n  color: #eeeeee;\n  background-color: #1a1a1a;\n}\n.drawer.drawer-inverse .drawer-fullnav > li.active a:hover,\n.drawer.drawer-inverse .drawer-nav > li.active a:hover,\n.drawer.drawer-inverse .drawer-fullnav > li.active a:focus,\n.drawer.drawer-inverse .drawer-nav > li.active a:focus {\n  color: #eeeeee;\n  background-color: #1a1a1a;\n}\n.drawer-footer {\n  padding: 10px 15px;\n}\n.drawer-footer.locked {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n}\n.dw-xs-1, .dw-sm-1, .dw-md-1, .dw-lg-1, .dw-xs-2, .dw-sm-2, .dw-md-2, .dw-lg-2, .dw-xs-3, .dw-sm-3, .dw-md-3, .dw-lg-3, .dw-xs-4, .dw-sm-4, .dw-md-4, .dw-lg-4, .dw-xs-5, .dw-sm-5, .dw-md-5, .dw-lg-5, .dw-xs-6, .dw-sm-6, .dw-md-6, .dw-lg-6, .dw-xs-7, .dw-sm-7, .dw-md-7, .dw-lg-7, .dw-xs-8, .dw-sm-8, .dw-md-8, .dw-lg-8, .dw-xs-9, .dw-sm-9, .dw-md-9, .dw-lg-9, .dw-xs-10, .dw-sm-10, .dw-md-10, .dw-lg-10, .dw-xs-11, .dw-sm-11, .dw-md-11, .dw-lg-11, .dw-xs-12, .dw-sm-12, .dw-md-12, .dw-lg-12 {\n  min-height: 1px;\n  height: 100%;\n}\n.dw-xs-12 {\n  width: 100%;\n}\n.drawer.fold.dw-xs-12 {\n  margin-left: -100%;\n  margin-right: 0;\n}\n.drawer.folding.dw-xs-12 {\n  height: 100%;\n  -webkit-transition-property: margin-left;\n  transition-property: margin-left;\n  -webkit-transition-duration: 0.35s;\n  transition-duration: 0.35s;\n  -webkit-transition-timing-function: ease;\n  transition-timing-function: ease;\n}\n.drawer.drawer-right.fold.dw-xs-12 {\n  margin-left: 0;\n  margin-right: -100%;\n}\n.drawer.drawer-right.fold.dw-xs-12 {\n  -webkit-transition-property: margin-right;\n  transition-property: margin-right;\n}\n.drawer.fold.open.dw-xs-12,\n.drawer.drawer-right.fold.open.dw-xs-12 {\n  margin-right: 0;\n  margin-left: 0;\n}\n.dw-xs-11 {\n  width: 91.66666667%;\n}\n.drawer.fold.dw-xs-11 {\n  margin-left: -91.66666667%;\n  margin-right: 0;\n}\n.drawer.folding.dw-xs-11 {\n  height: 100%;\n  -webkit-transition-property: margin-left;\n  transition-property: margin-left;\n  -webkit-transition-duration: 0.35s;\n  transition-duration: 0.35s;\n  -webkit-transition-timing-function: ease;\n  transition-timing-function: ease;\n}\n.drawer.drawer-right.fold.dw-xs-11 {\n  margin-left: 0;\n  margin-right: -91.66666667%;\n}\n.drawer.drawer-right.fold.dw-xs-11 {\n  -webkit-transition-property: margin-right;\n  transition-property: margin-right;\n}\n.drawer.fold.open.dw-xs-11,\n.drawer.drawer-right.fold.open.dw-xs-11 {\n  margin-right: 0;\n  margin-left: 0;\n}\n.dw-xs-10 {\n  width: 83.33333333%;\n}\n.drawer.fold.dw-xs-10 {\n  margin-left: -83.33333333%;\n  margin-right: 0;\n}\n.drawer.folding.dw-xs-10 {\n  height: 100%;\n  -webkit-transition-property: margin-left;\n  transition-property: margin-left;\n  -webkit-transition-duration: 0.35s;\n  transition-duration: 0.35s;\n  -webkit-transition-timing-function: ease;\n  transition-timing-function: ease;\n}\n.drawer.drawer-right.fold.dw-xs-10 {\n  margin-left: 0;\n  margin-right: -83.33333333%;\n}\n.drawer.drawer-right.fold.dw-xs-10 {\n  -webkit-transition-property: margin-right;\n  transition-property: margin-right;\n}\n.drawer.fold.open.dw-xs-10,\n.drawer.drawer-right.fold.open.dw-xs-10 {\n  margin-right: 0;\n  margin-left: 0;\n}\n.dw-xs-9 {\n  width: 75%;\n}\n.drawer.fold.dw-xs-9 {\n  margin-left: -75%;\n  margin-right: 0;\n}\n.drawer.folding.dw-xs-9 {\n  height: 100%;\n  -webkit-transition-property: margin-left;\n  transition-property: margin-left;\n  -webkit-transition-duration: 0.35s;\n  transition-duration: 0.35s;\n  -webkit-transition-timing-function: ease;\n  transition-timing-function: ease;\n}\n.drawer.drawer-right.fold.dw-xs-9 {\n  margin-left: 0;\n  margin-right: -75%;\n}\n.drawer.drawer-right.fold.dw-xs-9 {\n  -webkit-transition-property: margin-right;\n  transition-property: margin-right;\n}\n.drawer.fold.open.dw-xs-9,\n.drawer.drawer-right.fold.open.dw-xs-9 {\n  margin-right: 0;\n  margin-left: 0;\n}\n.dw-xs-8 {\n  width: 66.66666667%;\n}\n.drawer.fold.dw-xs-8 {\n  margin-left: -66.66666667%;\n  margin-right: 0;\n}\n.drawer.folding.dw-xs-8 {\n  height: 100%;\n  -webkit-transition-property: margin-left;\n  transition-property: margin-left;\n  -webkit-transition-duration: 0.35s;\n  transition-duration: 0.35s;\n  -webkit-transition-timing-function: ease;\n  transition-timing-function: ease;\n}\n.drawer.drawer-right.fold.dw-xs-8 {\n  margin-left: 0;\n  margin-right: -66.66666667%;\n}\n.drawer.drawer-right.fold.dw-xs-8 {\n  -webkit-transition-property: margin-right;\n  transition-property: margin-right;\n}\n.drawer.fold.open.dw-xs-8,\n.drawer.drawer-right.fold.open.dw-xs-8 {\n  margin-right: 0;\n  margin-left: 0;\n}\n.dw-xs-7 {\n  width: 58.33333333%;\n}\n.drawer.fold.dw-xs-7 {\n  margin-left: -58.33333333%;\n  margin-right: 0;\n}\n.drawer.folding.dw-xs-7 {\n  height: 100%;\n  -webkit-transition-property: margin-left;\n  transition-property: margin-left;\n  -webkit-transition-duration: 0.35s;\n  transition-duration: 0.35s;\n  -webkit-transition-timing-function: ease;\n  transition-timing-function: ease;\n}\n.drawer.drawer-right.fold.dw-xs-7 {\n  margin-left: 0;\n  margin-right: -58.33333333%;\n}\n.drawer.drawer-right.fold.dw-xs-7 {\n  -webkit-transition-property: margin-right;\n  transition-property: margin-right;\n}\n.drawer.fold.open.dw-xs-7,\n.drawer.drawer-right.fold.open.dw-xs-7 {\n  margin-right: 0;\n  margin-left: 0;\n}\n.dw-xs-6 {\n  width: 50%;\n}\n.drawer.fold.dw-xs-6 {\n  margin-left: -50%;\n  margin-right: 0;\n}\n.drawer.folding.dw-xs-6 {\n  height: 100%;\n  -webkit-transition-property: margin-left;\n  transition-property: margin-left;\n  -webkit-transition-duration: 0.35s;\n  transition-duration: 0.35s;\n  -webkit-transition-timing-function: ease;\n  transition-timing-function: ease;\n}\n.drawer.drawer-right.fold.dw-xs-6 {\n  margin-left: 0;\n  margin-right: -50%;\n}\n.drawer.drawer-right.fold.dw-xs-6 {\n  -webkit-transition-property: margin-right;\n  transition-property: margin-right;\n}\n.drawer.fold.open.dw-xs-6,\n.drawer.drawer-right.fold.open.dw-xs-6 {\n  margin-right: 0;\n  margin-left: 0;\n}\n.dw-xs-5 {\n  width: 41.66666667%;\n}\n.drawer.fold.dw-xs-5 {\n  margin-left: -41.66666667%;\n  margin-right: 0;\n}\n.drawer.folding.dw-xs-5 {\n  height: 100%;\n  -webkit-transition-property: margin-left;\n  transition-property: margin-left;\n  -webkit-transition-duration: 0.35s;\n  transition-duration: 0.35s;\n  -webkit-transition-timing-function: ease;\n  transition-timing-function: ease;\n}\n.drawer.drawer-right.fold.dw-xs-5 {\n  margin-left: 0;\n  margin-right: -41.66666667%;\n}\n.drawer.drawer-right.fold.dw-xs-5 {\n  -webkit-transition-property: margin-right;\n  transition-property: margin-right;\n}\n.drawer.fold.open.dw-xs-5,\n.drawer.drawer-right.fold.open.dw-xs-5 {\n  margin-right: 0;\n  margin-left: 0;\n}\n.dw-xs-4 {\n  width: 33.33333333%;\n}\n.drawer.fold.dw-xs-4 {\n  margin-left: -33.33333333%;\n  margin-right: 0;\n}\n.drawer.folding.dw-xs-4 {\n  height: 100%;\n  -webkit-transition-property: margin-left;\n  transition-property: margin-left;\n  -webkit-transition-duration: 0.35s;\n  transition-duration: 0.35s;\n  -webkit-transition-timing-function: ease;\n  transition-timing-function: ease;\n}\n.drawer.drawer-right.fold.dw-xs-4 {\n  margin-left: 0;\n  margin-right: -33.33333333%;\n}\n.drawer.drawer-right.fold.dw-xs-4 {\n  -webkit-transition-property: margin-right;\n  transition-property: margin-right;\n}\n.drawer.fold.open.dw-xs-4,\n.drawer.drawer-right.fold.open.dw-xs-4 {\n  margin-right: 0;\n  margin-left: 0;\n}\n.dw-xs-3 {\n  width: 25%;\n}\n.drawer.fold.dw-xs-3 {\n  margin-left: -25%;\n  margin-right: 0;\n}\n.drawer.folding.dw-xs-3 {\n  height: 100%;\n  -webkit-transition-property: margin-left;\n  transition-property: margin-left;\n  -webkit-transition-duration: 0.35s;\n  transition-duration: 0.35s;\n  -webkit-transition-timing-function: ease;\n  transition-timing-function: ease;\n}\n.drawer.drawer-right.fold.dw-xs-3 {\n  margin-left: 0;\n  margin-right: -25%;\n}\n.drawer.drawer-right.fold.dw-xs-3 {\n  -webkit-transition-property: margin-right;\n  transition-property: margin-right;\n}\n.drawer.fold.open.dw-xs-3,\n.drawer.drawer-right.fold.open.dw-xs-3 {\n  margin-right: 0;\n  margin-left: 0;\n}\n.dw-xs-2 {\n  width: 16.66666667%;\n}\n.drawer.fold.dw-xs-2 {\n  margin-left: -16.66666667%;\n  margin-right: 0;\n}\n.drawer.folding.dw-xs-2 {\n  height: 100%;\n  -webkit-transition-property: margin-left;\n  transition-property: margin-left;\n  -webkit-transition-duration: 0.35s;\n  transition-duration: 0.35s;\n  -webkit-transition-timing-function: ease;\n  transition-timing-function: ease;\n}\n.drawer.drawer-right.fold.dw-xs-2 {\n  margin-left: 0;\n  margin-right: -16.66666667%;\n}\n.drawer.drawer-right.fold.dw-xs-2 {\n  -webkit-transition-property: margin-right;\n  transition-property: margin-right;\n}\n.drawer.fold.open.dw-xs-2,\n.drawer.drawer-right.fold.open.dw-xs-2 {\n  margin-right: 0;\n  margin-left: 0;\n}\n.dw-xs-1 {\n  width: 8.33333333%;\n}\n.drawer.fold.dw-xs-1 {\n  margin-left: -8.33333333%;\n  margin-right: 0;\n}\n.drawer.folding.dw-xs-1 {\n  height: 100%;\n  -webkit-transition-property: margin-left;\n  transition-property: margin-left;\n  -webkit-transition-duration: 0.35s;\n  transition-duration: 0.35s;\n  -webkit-transition-timing-function: ease;\n  transition-timing-function: ease;\n}\n.drawer.drawer-right.fold.dw-xs-1 {\n  margin-left: 0;\n  margin-right: -8.33333333%;\n}\n.drawer.drawer-right.fold.dw-xs-1 {\n  -webkit-transition-property: margin-right;\n  transition-property: margin-right;\n}\n.drawer.fold.open.dw-xs-1,\n.drawer.drawer-right.fold.open.dw-xs-1 {\n  margin-right: 0;\n  margin-left: 0;\n}\n@media (min-width: 768px) {\n  .dw-sm-12 {\n    width: 100%;\n  }\n  .drawer.fold.dw-sm-12 {\n    margin-left: -100%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-sm-12 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-sm-12 {\n    margin-left: 0;\n    margin-right: -100%;\n  }\n  .drawer.drawer-right.fold.dw-sm-12 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-sm-12,\n  .drawer.drawer-right.fold.open.dw-sm-12 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-sm-11 {\n    width: 91.66666667%;\n  }\n  .drawer.fold.dw-sm-11 {\n    margin-left: -91.66666667%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-sm-11 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-sm-11 {\n    margin-left: 0;\n    margin-right: -91.66666667%;\n  }\n  .drawer.drawer-right.fold.dw-sm-11 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-sm-11,\n  .drawer.drawer-right.fold.open.dw-sm-11 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-sm-10 {\n    width: 83.33333333%;\n  }\n  .drawer.fold.dw-sm-10 {\n    margin-left: -83.33333333%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-sm-10 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-sm-10 {\n    margin-left: 0;\n    margin-right: -83.33333333%;\n  }\n  .drawer.drawer-right.fold.dw-sm-10 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-sm-10,\n  .drawer.drawer-right.fold.open.dw-sm-10 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-sm-9 {\n    width: 75%;\n  }\n  .drawer.fold.dw-sm-9 {\n    margin-left: -75%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-sm-9 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-sm-9 {\n    margin-left: 0;\n    margin-right: -75%;\n  }\n  .drawer.drawer-right.fold.dw-sm-9 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-sm-9,\n  .drawer.drawer-right.fold.open.dw-sm-9 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-sm-8 {\n    width: 66.66666667%;\n  }\n  .drawer.fold.dw-sm-8 {\n    margin-left: -66.66666667%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-sm-8 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-sm-8 {\n    margin-left: 0;\n    margin-right: -66.66666667%;\n  }\n  .drawer.drawer-right.fold.dw-sm-8 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-sm-8,\n  .drawer.drawer-right.fold.open.dw-sm-8 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-sm-7 {\n    width: 58.33333333%;\n  }\n  .drawer.fold.dw-sm-7 {\n    margin-left: -58.33333333%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-sm-7 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-sm-7 {\n    margin-left: 0;\n    margin-right: -58.33333333%;\n  }\n  .drawer.drawer-right.fold.dw-sm-7 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-sm-7,\n  .drawer.drawer-right.fold.open.dw-sm-7 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-sm-6 {\n    width: 50%;\n  }\n  .drawer.fold.dw-sm-6 {\n    margin-left: -50%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-sm-6 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-sm-6 {\n    margin-left: 0;\n    margin-right: -50%;\n  }\n  .drawer.drawer-right.fold.dw-sm-6 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-sm-6,\n  .drawer.drawer-right.fold.open.dw-sm-6 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-sm-5 {\n    width: 41.66666667%;\n  }\n  .drawer.fold.dw-sm-5 {\n    margin-left: -41.66666667%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-sm-5 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-sm-5 {\n    margin-left: 0;\n    margin-right: -41.66666667%;\n  }\n  .drawer.drawer-right.fold.dw-sm-5 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-sm-5,\n  .drawer.drawer-right.fold.open.dw-sm-5 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-sm-4 {\n    width: 33.33333333%;\n  }\n  .drawer.fold.dw-sm-4 {\n    margin-left: -33.33333333%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-sm-4 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-sm-4 {\n    margin-left: 0;\n    margin-right: -33.33333333%;\n  }\n  .drawer.drawer-right.fold.dw-sm-4 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-sm-4,\n  .drawer.drawer-right.fold.open.dw-sm-4 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-sm-3 {\n    width: 25%;\n  }\n  .drawer.fold.dw-sm-3 {\n    margin-left: -25%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-sm-3 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-sm-3 {\n    margin-left: 0;\n    margin-right: -25%;\n  }\n  .drawer.drawer-right.fold.dw-sm-3 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-sm-3,\n  .drawer.drawer-right.fold.open.dw-sm-3 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-sm-2 {\n    width: 16.66666667%;\n  }\n  .drawer.fold.dw-sm-2 {\n    margin-left: -16.66666667%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-sm-2 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-sm-2 {\n    margin-left: 0;\n    margin-right: -16.66666667%;\n  }\n  .drawer.drawer-right.fold.dw-sm-2 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-sm-2,\n  .drawer.drawer-right.fold.open.dw-sm-2 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-sm-1 {\n    width: 8.33333333%;\n  }\n  .drawer.fold.dw-sm-1 {\n    margin-left: -8.33333333%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-sm-1 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-sm-1 {\n    margin-left: 0;\n    margin-right: -8.33333333%;\n  }\n  .drawer.drawer-right.fold.dw-sm-1 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-sm-1,\n  .drawer.drawer-right.fold.open.dw-sm-1 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n}\n@media (min-width: 992px) {\n  .dw-md-12 {\n    width: 100%;\n  }\n  .drawer.fold.dw-md-12 {\n    margin-left: -100%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-md-12 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-md-12 {\n    margin-left: 0;\n    margin-right: -100%;\n  }\n  .drawer.drawer-right.fold.dw-md-12 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-md-12,\n  .drawer.drawer-right.fold.open.dw-md-12 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-md-11 {\n    width: 91.66666667%;\n  }\n  .drawer.fold.dw-md-11 {\n    margin-left: -91.66666667%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-md-11 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-md-11 {\n    margin-left: 0;\n    margin-right: -91.66666667%;\n  }\n  .drawer.drawer-right.fold.dw-md-11 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-md-11,\n  .drawer.drawer-right.fold.open.dw-md-11 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-md-10 {\n    width: 83.33333333%;\n  }\n  .drawer.fold.dw-md-10 {\n    margin-left: -83.33333333%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-md-10 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-md-10 {\n    margin-left: 0;\n    margin-right: -83.33333333%;\n  }\n  .drawer.drawer-right.fold.dw-md-10 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-md-10,\n  .drawer.drawer-right.fold.open.dw-md-10 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-md-9 {\n    width: 75%;\n  }\n  .drawer.fold.dw-md-9 {\n    margin-left: -75%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-md-9 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-md-9 {\n    margin-left: 0;\n    margin-right: -75%;\n  }\n  .drawer.drawer-right.fold.dw-md-9 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-md-9,\n  .drawer.drawer-right.fold.open.dw-md-9 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-md-8 {\n    width: 66.66666667%;\n  }\n  .drawer.fold.dw-md-8 {\n    margin-left: -66.66666667%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-md-8 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-md-8 {\n    margin-left: 0;\n    margin-right: -66.66666667%;\n  }\n  .drawer.drawer-right.fold.dw-md-8 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-md-8,\n  .drawer.drawer-right.fold.open.dw-md-8 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-md-7 {\n    width: 58.33333333%;\n  }\n  .drawer.fold.dw-md-7 {\n    margin-left: -58.33333333%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-md-7 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-md-7 {\n    margin-left: 0;\n    margin-right: -58.33333333%;\n  }\n  .drawer.drawer-right.fold.dw-md-7 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-md-7,\n  .drawer.drawer-right.fold.open.dw-md-7 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-md-6 {\n    width: 50%;\n  }\n  .drawer.fold.dw-md-6 {\n    margin-left: -50%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-md-6 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-md-6 {\n    margin-left: 0;\n    margin-right: -50%;\n  }\n  .drawer.drawer-right.fold.dw-md-6 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-md-6,\n  .drawer.drawer-right.fold.open.dw-md-6 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-md-5 {\n    width: 41.66666667%;\n  }\n  .drawer.fold.dw-md-5 {\n    margin-left: -41.66666667%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-md-5 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-md-5 {\n    margin-left: 0;\n    margin-right: -41.66666667%;\n  }\n  .drawer.drawer-right.fold.dw-md-5 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-md-5,\n  .drawer.drawer-right.fold.open.dw-md-5 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-md-4 {\n    width: 33.33333333%;\n  }\n  .drawer.fold.dw-md-4 {\n    margin-left: -33.33333333%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-md-4 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-md-4 {\n    margin-left: 0;\n    margin-right: -33.33333333%;\n  }\n  .drawer.drawer-right.fold.dw-md-4 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-md-4,\n  .drawer.drawer-right.fold.open.dw-md-4 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-md-3 {\n    width: 25%;\n  }\n  .drawer.fold.dw-md-3 {\n    margin-left: -25%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-md-3 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-md-3 {\n    margin-left: 0;\n    margin-right: -25%;\n  }\n  .drawer.drawer-right.fold.dw-md-3 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-md-3,\n  .drawer.drawer-right.fold.open.dw-md-3 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-md-2 {\n    width: 16.66666667%;\n  }\n  .drawer.fold.dw-md-2 {\n    margin-left: -16.66666667%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-md-2 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-md-2 {\n    margin-left: 0;\n    margin-right: -16.66666667%;\n  }\n  .drawer.drawer-right.fold.dw-md-2 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-md-2,\n  .drawer.drawer-right.fold.open.dw-md-2 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-md-1 {\n    width: 8.33333333%;\n  }\n  .drawer.fold.dw-md-1 {\n    margin-left: -8.33333333%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-md-1 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-md-1 {\n    margin-left: 0;\n    margin-right: -8.33333333%;\n  }\n  .drawer.drawer-right.fold.dw-md-1 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-md-1,\n  .drawer.drawer-right.fold.open.dw-md-1 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n}\n@media (min-width: 1200px) {\n  .dw-lg-12 {\n    width: 100%;\n  }\n  .drawer.fold.dw-lg-12 {\n    margin-left: -100%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-lg-12 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-lg-12 {\n    margin-left: 0;\n    margin-right: -100%;\n  }\n  .drawer.drawer-right.fold.dw-lg-12 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-lg-12,\n  .drawer.drawer-right.fold.open.dw-lg-12 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-lg-11 {\n    width: 91.66666667%;\n  }\n  .drawer.fold.dw-lg-11 {\n    margin-left: -91.66666667%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-lg-11 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-lg-11 {\n    margin-left: 0;\n    margin-right: -91.66666667%;\n  }\n  .drawer.drawer-right.fold.dw-lg-11 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-lg-11,\n  .drawer.drawer-right.fold.open.dw-lg-11 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-lg-10 {\n    width: 83.33333333%;\n  }\n  .drawer.fold.dw-lg-10 {\n    margin-left: -83.33333333%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-lg-10 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-lg-10 {\n    margin-left: 0;\n    margin-right: -83.33333333%;\n  }\n  .drawer.drawer-right.fold.dw-lg-10 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-lg-10,\n  .drawer.drawer-right.fold.open.dw-lg-10 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-lg-9 {\n    width: 75%;\n  }\n  .drawer.fold.dw-lg-9 {\n    margin-left: -75%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-lg-9 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-lg-9 {\n    margin-left: 0;\n    margin-right: -75%;\n  }\n  .drawer.drawer-right.fold.dw-lg-9 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-lg-9,\n  .drawer.drawer-right.fold.open.dw-lg-9 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-lg-8 {\n    width: 66.66666667%;\n  }\n  .drawer.fold.dw-lg-8 {\n    margin-left: -66.66666667%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-lg-8 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-lg-8 {\n    margin-left: 0;\n    margin-right: -66.66666667%;\n  }\n  .drawer.drawer-right.fold.dw-lg-8 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-lg-8,\n  .drawer.drawer-right.fold.open.dw-lg-8 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-lg-7 {\n    width: 58.33333333%;\n  }\n  .drawer.fold.dw-lg-7 {\n    margin-left: -58.33333333%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-lg-7 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-lg-7 {\n    margin-left: 0;\n    margin-right: -58.33333333%;\n  }\n  .drawer.drawer-right.fold.dw-lg-7 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-lg-7,\n  .drawer.drawer-right.fold.open.dw-lg-7 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-lg-6 {\n    width: 50%;\n  }\n  .drawer.fold.dw-lg-6 {\n    margin-left: -50%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-lg-6 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-lg-6 {\n    margin-left: 0;\n    margin-right: -50%;\n  }\n  .drawer.drawer-right.fold.dw-lg-6 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-lg-6,\n  .drawer.drawer-right.fold.open.dw-lg-6 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-lg-5 {\n    width: 41.66666667%;\n  }\n  .drawer.fold.dw-lg-5 {\n    margin-left: -41.66666667%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-lg-5 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-lg-5 {\n    margin-left: 0;\n    margin-right: -41.66666667%;\n  }\n  .drawer.drawer-right.fold.dw-lg-5 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-lg-5,\n  .drawer.drawer-right.fold.open.dw-lg-5 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-lg-4 {\n    width: 33.33333333%;\n  }\n  .drawer.fold.dw-lg-4 {\n    margin-left: -33.33333333%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-lg-4 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-lg-4 {\n    margin-left: 0;\n    margin-right: -33.33333333%;\n  }\n  .drawer.drawer-right.fold.dw-lg-4 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-lg-4,\n  .drawer.drawer-right.fold.open.dw-lg-4 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-lg-3 {\n    width: 25%;\n  }\n  .drawer.fold.dw-lg-3 {\n    margin-left: -25%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-lg-3 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-lg-3 {\n    margin-left: 0;\n    margin-right: -25%;\n  }\n  .drawer.drawer-right.fold.dw-lg-3 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-lg-3,\n  .drawer.drawer-right.fold.open.dw-lg-3 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-lg-2 {\n    width: 16.66666667%;\n  }\n  .drawer.fold.dw-lg-2 {\n    margin-left: -16.66666667%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-lg-2 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-lg-2 {\n    margin-left: 0;\n    margin-right: -16.66666667%;\n  }\n  .drawer.drawer-right.fold.dw-lg-2 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-lg-2,\n  .drawer.drawer-right.fold.open.dw-lg-2 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n  .dw-lg-1 {\n    width: 8.33333333%;\n  }\n  .drawer.fold.dw-lg-1 {\n    margin-left: -8.33333333%;\n    margin-right: 0;\n  }\n  .drawer.folding.dw-lg-1 {\n    height: 100%;\n    -webkit-transition-property: margin-left;\n    transition-property: margin-left;\n    -webkit-transition-duration: 0.35s;\n    transition-duration: 0.35s;\n    -webkit-transition-timing-function: ease;\n    transition-timing-function: ease;\n  }\n  .drawer.drawer-right.fold.dw-lg-1 {\n    margin-left: 0;\n    margin-right: -8.33333333%;\n  }\n  .drawer.drawer-right.fold.dw-lg-1 {\n    -webkit-transition-property: margin-right;\n    transition-property: margin-right;\n  }\n  .drawer.fold.open.dw-lg-1,\n  .drawer.drawer-right.fold.open.dw-lg-1 {\n    margin-right: 0;\n    margin-left: 0;\n  }\n}\n", ""]);
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var mergeOptions = __webpack_require__(34)
+
+	/**
+	 * Expose useful internals
+	 */
+
+	exports.util = _
+	exports.nextTick = _.nextTick
+	exports.config = __webpack_require__(35)
+
+	exports.compiler = {
+	  compile: __webpack_require__(36),
+	  transclude: __webpack_require__(37)
+	}
+
+	exports.parsers = {
+	  path: __webpack_require__(38),
+	  text: __webpack_require__(39),
+	  template: __webpack_require__(40),
+	  directive: __webpack_require__(41),
+	  expression: __webpack_require__(42)
+	}
+
+	/**
+	 * Each instance constructor, including Vue, has a unique
+	 * cid. This enables us to create wrapped "child
+	 * constructors" for prototypal inheritance and cache them.
+	 */
+
+	exports.cid = 0
+	var cid = 1
+
+	/**
+	 * Class inehritance
+	 *
+	 * @param {Object} extendOptions
+	 */
+
+	exports.extend = function (extendOptions) {
+	  extendOptions = extendOptions || {}
+	  var Super = this
+	  var Sub = createClass(extendOptions.name || 'VueComponent')
+	  Sub.prototype = Object.create(Super.prototype)
+	  Sub.prototype.constructor = Sub
+	  Sub.cid = cid++
+	  Sub.options = mergeOptions(
+	    Super.options,
+	    extendOptions
+	  )
+	  Sub['super'] = Super
+	  // allow further extension
+	  Sub.extend = Super.extend
+	  // create asset registers, so extended classes
+	  // can have their private assets too.
+	  createAssetRegisters(Sub)
+	  return Sub
+	}
+
+	/**
+	 * A function that returns a sub-class constructor with the
+	 * given name. This gives us much nicer output when
+	 * logging instances in the console.
+	 *
+	 * @param {String} name
+	 * @return {Function}
+	 */
+
+	function createClass (name) {
+	  return new Function(
+	    'return function ' + _.camelize(name, true) +
+	    ' (options) { this._init(options) }'
+	  )()
+	}
+
+	/**
+	 * Plugin system
+	 *
+	 * @param {Object} plugin
+	 */
+
+	exports.use = function (plugin) {
+	  // additional parameters
+	  var args = _.toArray(arguments, 1)
+	  args.unshift(this)
+	  if (typeof plugin.install === 'function') {
+	    plugin.install.apply(plugin, args)
+	  } else {
+	    plugin.apply(null, args)
+	  }
+	  return this
+	}
+
+	/**
+	 * Define asset registration methods on a constructor.
+	 *
+	 * @param {Function} Constructor
+	 */
+
+	var assetTypes = [
+	  'directive',
+	  'filter',
+	  'partial',
+	  'transition'
+	]
+
+	function createAssetRegisters (Constructor) {
+
+	  /* Asset registration methods share the same signature:
+	   *
+	   * @param {String} id
+	   * @param {*} definition
+	   */
+
+	  assetTypes.forEach(function (type) {
+	    Constructor[type] = function (id, definition) {
+	      if (!definition) {
+	        return this.options[type + 's'][id]
+	      } else {
+	        this.options[type + 's'][id] = definition
+	      }
+	    }
+	  })
+
+	  /**
+	   * Component registration needs to automatically invoke
+	   * Vue.extend on object values.
+	   *
+	   * @param {String} id
+	   * @param {Object|Function} definition
+	   */
+
+	  Constructor.component = function (id, definition) {
+	    if (!definition) {
+	      return this.options.components[id]
+	    } else {
+	      if (_.isPlainObject(definition)) {
+	        definition.name = id
+	        definition = _.Vue.extend(definition)
+	      }
+	      this.options.components[id] = definition
+	    }
+	  }
+	}
+
+	createAssetRegisters(exports)
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var mergeOptions = __webpack_require__(34)
+
+	/**
+	 * The main init sequence. This is called for every
+	 * instance, including ones that are created from extended
+	 * constructors.
+	 *
+	 * @param {Object} options - this options object should be
+	 *                           the result of merging class
+	 *                           options and the options passed
+	 *                           in to the constructor.
+	 */
+
+	exports._init = function (options) {
+
+	  options = options || {}
+
+	  this.$el           = null
+	  this.$parent       = options._parent
+	  this.$root         = options._root || this
+	  this.$             = {} // child vm references
+	  this.$$            = {} // element references
+	  this._watcherList  = [] // all watchers as an array
+	  this._watchers     = {} // internal watchers as a hash
+	  this._userWatchers = {} // user watchers as a hash
+	  this._directives   = [] // all directives
+
+	  // a flag to avoid this being observed
+	  this._isVue = true
+
+	  // events bookkeeping
+	  this._events         = {}    // registered callbacks
+	  this._eventsCount    = {}    // for $broadcast optimization
+	  this._eventCancelled = false // for event cancellation
+
+	  // block instance properties
+	  this._isBlock     = false
+	  this._blockStart  =          // @type {CommentNode}
+	  this._blockEnd    = null     // @type {CommentNode}
+
+	  // lifecycle state
+	  this._isCompiled  =
+	  this._isDestroyed =
+	  this._isReady     =
+	  this._isAttached  =
+	  this._isBeingDestroyed = false
+
+	  // children
+	  this._children = []
+	  this._childCtors = {}
+	  // transcluded components that belong to the parent
+	  this._transCpnts = null
+
+	  // merge options.
+	  options = this.$options = mergeOptions(
+	    this.constructor.options,
+	    options,
+	    this
+	  )
+
+	  // set data after merge.
+	  this._data = options.data || {}
+
+	  // initialize data observation and scope inheritance.
+	  this._initScope()
+
+	  // setup event system and option events.
+	  this._initEvents()
+
+	  // call created hook
+	  this._callHook('created')
+
+	  // if `el` option is passed, start compilation.
+	  if (options.el) {
+	    this.$mount(options.el)
+	  }
+	}
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var inDoc = _.inDoc
+
+	/**
+	 * Setup the instance's option events & watchers.
+	 * If the value is a string, we pull it from the
+	 * instance's methods by name.
+	 */
+
+	exports._initEvents = function () {
+	  var options = this.$options
+	  registerCallbacks(this, '$on', options.events)
+	  registerCallbacks(this, '$watch', options.watch)
+	}
+
+	/**
+	 * Register callbacks for option events and watchers.
+	 *
+	 * @param {Vue} vm
+	 * @param {String} action
+	 * @param {Object} hash
+	 */
+
+	function registerCallbacks (vm, action, hash) {
+	  if (!hash) return
+	  var handlers, key, i, j
+	  for (key in hash) {
+	    handlers = hash[key]
+	    if (_.isArray(handlers)) {
+	      for (i = 0, j = handlers.length; i < j; i++) {
+	        register(vm, action, key, handlers[i])
+	      }
+	    } else {
+	      register(vm, action, key, handlers)
+	    }
+	  }
+	}
+
+	/**
+	 * Helper to register an event/watch callback.
+	 *
+	 * @param {Vue} vm
+	 * @param {String} action
+	 * @param {String} key
+	 * @param {*} handler
+	 */
+
+	function register (vm, action, key, handler) {
+	  var type = typeof handler
+	  if (type === 'function') {
+	    vm[action](key, handler)
+	  } else if (type === 'string') {
+	    var methods = vm.$options.methods
+	    var method = methods && methods[handler]
+	    if (method) {
+	      vm[action](key, method)
+	    } else {
+	      _.warn(
+	        'Unknown method: "' + handler + '" when ' +
+	        'registering callback for ' + action +
+	        ': "' + key + '".'
+	      )
+	    }
+	  }
+	}
+
+	/**
+	 * Setup recursive attached/detached calls
+	 */
+
+	exports._initDOMHooks = function () {
+	  this.$on('hook:attached', onAttached)
+	  this.$on('hook:detached', onDetached)
+	}
+
+	/**
+	 * Callback to recursively call attached hook on children
+	 */
+
+	function onAttached () {
+	  this._isAttached = true
+	  this._children.forEach(callAttach)
+	  if (this._transCpnts) {
+	    this._transCpnts.forEach(callAttach)
+	  }
+	}
+
+	/**
+	 * Iterator to call attached hook
+	 * 
+	 * @param {Vue} child
+	 */
+
+	function callAttach (child) {
+	  if (!child._isAttached && inDoc(child.$el)) {
+	    child._callHook('attached')
+	  }
+	}
+
+	/**
+	 * Callback to recursively call detached hook on children
+	 */
+
+	function onDetached () {
+	  this._isAttached = false
+	  this._children.forEach(callDetach)
+	  if (this._transCpnts) {
+	    this._transCpnts.forEach(callDetach)
+	  }
+	}
+
+	/**
+	 * Iterator to call detached hook
+	 * 
+	 * @param {Vue} child
+	 */
+
+	function callDetach (child) {
+	  if (child._isAttached && !inDoc(child.$el)) {
+	    child._callHook('detached')
+	  }
+	}
+
+	/**
+	 * Trigger all handlers for a hook
+	 *
+	 * @param {String} hook
+	 */
+
+	exports._callHook = function (hook) {
+	  var handlers = this.$options[hook]
+	  if (handlers) {
+	    for (var i = 0, j = handlers.length; i < j; i++) {
+	      handlers[i].call(this)
+	    }
+	  }
+	  this.$emit('hook:' + hook)
+	}
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var Observer = __webpack_require__(69)
+	var Dep = __webpack_require__(43)
+
+	/**
+	 * Setup the scope of an instance, which contains:
+	 * - observed data
+	 * - computed properties
+	 * - user methods
+	 * - meta properties
+	 */
+
+	exports._initScope = function () {
+	  this._initData()
+	  this._initComputed()
+	  this._initMethods()
+	  this._initMeta()
+	}
+
+	/**
+	 * Initialize the data. 
+	 */
+
+	exports._initData = function () {
+	  // proxy data on instance
+	  var data = this._data
+	  var keys = Object.keys(data)
+	  var i = keys.length
+	  var key
+	  while (i--) {
+	    key = keys[i]
+	    if (!_.isReserved(key)) {
+	      this._proxy(key)
+	    }
+	  }
+	  // observe data
+	  Observer.create(data).addVm(this)
+	}
+
+	/**
+	 * Swap the isntance's $data. Called in $data's setter.
+	 *
+	 * @param {Object} newData
+	 */
+
+	exports._setData = function (newData) {
+	  newData = newData || {}
+	  var oldData = this._data
+	  this._data = newData
+	  var keys, key, i
+	  // unproxy keys not present in new data
+	  keys = Object.keys(oldData)
+	  i = keys.length
+	  while (i--) {
+	    key = keys[i]
+	    if (!_.isReserved(key) && !(key in newData)) {
+	      this._unproxy(key)
+	    }
+	  }
+	  // proxy keys not already proxied,
+	  // and trigger change for changed values
+	  keys = Object.keys(newData)
+	  i = keys.length
+	  while (i--) {
+	    key = keys[i]
+	    if (!this.hasOwnProperty(key) && !_.isReserved(key)) {
+	      // new property
+	      this._proxy(key)
+	    }
+	  }
+	  oldData.__ob__.removeVm(this)
+	  Observer.create(newData).addVm(this)
+	  this._digest()
+	}
+
+	/**
+	 * Proxy a property, so that
+	 * vm.prop === vm._data.prop
+	 *
+	 * @param {String} key
+	 */
+
+	exports._proxy = function (key) {
+	  // need to store ref to self here
+	  // because these getter/setters might
+	  // be called by child instances!
+	  var self = this
+	  Object.defineProperty(self, key, {
+	    configurable: true,
+	    enumerable: true,
+	    get: function proxyGetter () {
+	      return self._data[key]
+	    },
+	    set: function proxySetter (val) {
+	      self._data[key] = val
+	    }
+	  })
+	}
+
+	/**
+	 * Unproxy a property.
+	 *
+	 * @param {String} key
+	 */
+
+	exports._unproxy = function (key) {
+	  delete this[key]
+	}
+
+	/**
+	 * Force update on every watcher in scope.
+	 */
+
+	exports._digest = function () {
+	  var i = this._watcherList.length
+	  while (i--) {
+	    this._watcherList[i].update()
+	  }
+	  var children = this._children
+	  i = children.length
+	  while (i--) {
+	    var child = children[i]
+	    if (child.$options.inherit) {
+	      child._digest()
+	    }
+	  }
+	}
+
+	/**
+	 * Setup computed properties. They are essentially
+	 * special getter/setters
+	 */
+
+	function noop () {}
+	exports._initComputed = function () {
+	  var computed = this.$options.computed
+	  if (computed) {
+	    for (var key in computed) {
+	      var userDef = computed[key]
+	      var def = {
+	        enumerable: true,
+	        configurable: true
+	      }
+	      if (typeof userDef === 'function') {
+	        def.get = _.bind(userDef, this)
+	        def.set = noop
+	      } else {
+	        def.get = userDef.get
+	          ? _.bind(userDef.get, this)
+	          : noop
+	        def.set = userDef.set
+	          ? _.bind(userDef.set, this)
+	          : noop
+	      }
+	      Object.defineProperty(this, key, def)
+	    }
+	  }
+	}
+
+	/**
+	 * Setup instance methods. Methods must be bound to the
+	 * instance since they might be called by children
+	 * inheriting them.
+	 */
+
+	exports._initMethods = function () {
+	  var methods = this.$options.methods
+	  if (methods) {
+	    for (var key in methods) {
+	      this[key] = _.bind(methods[key], this)
+	    }
+	  }
+	}
+
+	/**
+	 * Initialize meta information like $index, $key & $value.
+	 */
+
+	exports._initMeta = function () {
+	  var metas = this.$options._meta
+	  if (metas) {
+	    for (var key in metas) {
+	      this._defineMeta(key, metas[key])
+	    }
+	  }
+	}
+
+	/**
+	 * Define a meta property, e.g $index, $key, $value
+	 * which only exists on the vm instance but not in $data.
+	 *
+	 * @param {String} key
+	 * @param {*} value
+	 */
+
+	exports._defineMeta = function (key, value) {
+	  var dep = new Dep()
+	  Object.defineProperty(this, key, {
+	    enumerable: true,
+	    configurable: true,
+	    get: function metaGetter () {
+	      if (Observer.target) {
+	        Observer.target.addDep(dep)
+	      }
+	      return value
+	    },
+	    set: function metaSetter (val) {
+	      if (val !== value) {
+	        value = val
+	        dep.notify()
+	      }
+	    }
+	  })
+	}
+
+/***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var Directive = __webpack_require__(44)
+	var compile = __webpack_require__(36)
+	var transclude = __webpack_require__(37)
+
+	/**
+	 * Transclude, compile and link element.
+	 *
+	 * If a pre-compiled linker is available, that means the
+	 * passed in element will be pre-transcluded and compiled
+	 * as well - all we need to do is to call the linker.
+	 *
+	 * Otherwise we need to call transclude/compile/link here.
+	 *
+	 * @param {Element} el
+	 * @return {Element}
+	 */
+
+	exports._compile = function (el) {
+	  var options = this.$options
+	  var parent = options._parent
+	  if (options._linkFn) {
+	    this._initElement(el)
+	    options._linkFn(this, el)
+	  } else {
+	    var raw = el
+	    if (options._asComponent) {
+	      // separate container element and content
+	      var content = options._content = _.extractContent(raw)
+	      // create two separate linekrs for container and content
+	      var parentOptions = parent.$options
+	      
+	      // hack: we need to skip the paramAttributes for this
+	      // child instance when compiling its parent container
+	      // linker. there could be a better way to do this.
+	      parentOptions._skipAttrs = options.paramAttributes
+	      var containerLinkFn =
+	        compile(raw, parentOptions, true, true)
+	      parentOptions._skipAttrs = null
+
+	      if (content) {
+	        var ol = parent._children.length
+	        var contentLinkFn =
+	          compile(content, parentOptions, true)
+	        // call content linker now, before transclusion
+	        this._contentUnlinkFn = contentLinkFn(parent, content)
+	        this._transCpnts = parent._children.slice(ol)
+	      }
+	      // tranclude, this possibly replaces original
+	      el = transclude(el, options)
+	      this._initElement(el)
+	      // now call the container linker on the resolved el
+	      this._containerUnlinkFn = containerLinkFn(parent, el)
+	    } else {
+	      // simply transclude
+	      el = transclude(el, options)
+	      this._initElement(el)
+	    }
+	    var linkFn = compile(el, options)
+	    linkFn(this, el)
+	    if (options.replace) {
+	      _.replace(raw, el)
+	    }
+	  }
+	  return el
+	}
+
+	/**
+	 * Initialize instance element. Called in the public
+	 * $mount() method.
+	 *
+	 * @param {Element} el
+	 */
+
+	exports._initElement = function (el) {
+	  if (el instanceof DocumentFragment) {
+	    this._isBlock = true
+	    this.$el = this._blockStart = el.firstChild
+	    this._blockEnd = el.lastChild
+	    this._blockFragment = el
+	  } else {
+	    this.$el = el
+	  }
+	  this.$el.__vue__ = this
+	  this._callHook('beforeCompile')
+	}
+
+	/**
+	 * Create and bind a directive to an element.
+	 *
+	 * @param {String} name - directive name
+	 * @param {Node} node   - target node
+	 * @param {Object} desc - parsed directive descriptor
+	 * @param {Object} def  - directive definition object
+	 */
+
+	exports._bindDir = function (name, node, desc, def) {
+	  this._directives.push(
+	    new Directive(name, node, this, desc, def)
+	  )
+	}
+
+	/**
+	 * Teardown an instance, unobserves the data, unbind all the
+	 * directives, turn off all the event listeners, etc.
+	 *
+	 * @param {Boolean} remove - whether to remove the DOM node.
+	 * @param {Boolean} deferCleanup - if true, defer cleanup to
+	 *                                 be called later
+	 */
+
+	exports._destroy = function (remove, deferCleanup) {
+	  if (this._isBeingDestroyed) {
+	    return
+	  }
+	  this._callHook('beforeDestroy')
+	  this._isBeingDestroyed = true
+	  var i
+	  // remove self from parent. only necessary
+	  // if parent is not being destroyed as well.
+	  var parent = this.$parent
+	  if (parent && !parent._isBeingDestroyed) {
+	    i = parent._children.indexOf(this)
+	    parent._children.splice(i, 1)
+	  }
+	  // destroy all children.
+	  i = this._children.length
+	  while (i--) {
+	    this._children[i].$destroy()
+	  }
+	  // teardown parent linkers
+	  if (this._containerUnlinkFn) {
+	    this._containerUnlinkFn()
+	  }
+	  if (this._contentUnlinkFn) {
+	    this._contentUnlinkFn()
+	  }
+	  // teardown all directives. this also tearsdown all
+	  // directive-owned watchers. intentionally check for
+	  // directives array length on every loop since directives
+	  // that manages partial compilation can splice ones out
+	  for (i = 0; i < this._directives.length; i++) {
+	    this._directives[i]._teardown()
+	  }
+	  // teardown all user watchers.
+	  for (i in this._userWatchers) {
+	    this._userWatchers[i].teardown()
+	  }
+	  // remove reference to self on $el
+	  if (this.$el) {
+	    this.$el.__vue__ = null
+	  }
+	  // remove DOM element
+	  var self = this
+	  if (remove && this.$el) {
+	    this.$remove(function () {
+	      self._cleanup()
+	    })
+	  } else if (!deferCleanup) {
+	    this._cleanup()
+	  }
+	}
+
+	/**
+	 * Clean up to ensure garbage collection.
+	 * This is called after the leave transition if there
+	 * is any.
+	 */
+
+	exports._cleanup = function () {
+	  // remove reference from data ob
+	  this._data.__ob__.removeVm(this)
+	  this._data =
+	  this._watchers =
+	  this._userWatchers =
+	  this._watcherList =
+	  this.$el =
+	  this.$parent =
+	  this.$root =
+	  this._children =
+	  this._transCpnts =
+	  this._directives = null
+	  // call the last hook...
+	  this._isDestroyed = true
+	  this._callHook('destroyed')
+	  // turn off all instance listeners.
+	  this.$off()
+	}
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var Watcher = __webpack_require__(45)
+	var Path = __webpack_require__(38)
+	var textParser = __webpack_require__(39)
+	var dirParser = __webpack_require__(41)
+	var expParser = __webpack_require__(42)
+	var filterRE = /[^|]\|[^|]/
+
+	/**
+	 * Get the value from an expression on this vm.
+	 *
+	 * @param {String} exp
+	 * @return {*}
+	 */
+
+	exports.$get = function (exp) {
+	  var res = expParser.parse(exp)
+	  if (res) {
+	    return res.get.call(this, this)
+	  }
+	}
+
+	/**
+	 * Set the value from an expression on this vm.
+	 * The expression must be a valid left-hand
+	 * expression in an assignment.
+	 *
+	 * @param {String} exp
+	 * @param {*} val
+	 */
+
+	exports.$set = function (exp, val) {
+	  var res = expParser.parse(exp, true)
+	  if (res && res.set) {
+	    res.set.call(this, this, val)
+	  }
+	}
+
+	/**
+	 * Add a property on the VM
+	 *
+	 * @param {String} key
+	 * @param {*} val
+	 */
+
+	exports.$add = function (key, val) {
+	  this._data.$add(key, val)
+	}
+
+	/**
+	 * Delete a property on the VM
+	 *
+	 * @param {String} key
+	 */
+
+	exports.$delete = function (key) {
+	  this._data.$delete(key)
+	}
+
+	/**
+	 * Watch an expression, trigger callback when its
+	 * value changes.
+	 *
+	 * @param {String} exp
+	 * @param {Function} cb
+	 * @param {Boolean} [deep]
+	 * @param {Boolean} [immediate]
+	 * @return {Function} - unwatchFn
+	 */
+
+	exports.$watch = function (exp, cb, deep, immediate) {
+	  var vm = this
+	  var key = deep ? exp + '**deep**' : exp
+	  var watcher = vm._userWatchers[key]
+	  var wrappedCb = function (val, oldVal) {
+	    cb.call(vm, val, oldVal)
+	  }
+	  if (!watcher) {
+	    watcher = vm._userWatchers[key] =
+	      new Watcher(vm, exp, wrappedCb, {
+	        deep: deep,
+	        user: true
+	      })
+	  } else {
+	    watcher.addCb(wrappedCb)
+	  }
+	  if (immediate) {
+	    wrappedCb(watcher.value)
+	  }
+	  return function unwatchFn () {
+	    watcher.removeCb(wrappedCb)
+	    if (!watcher.active) {
+	      vm._userWatchers[key] = null
+	    }
+	  }
+	}
+
+	/**
+	 * Evaluate a text directive, including filters.
+	 *
+	 * @param {String} text
+	 * @return {String}
+	 */
+
+	exports.$eval = function (text) {
+	  // check for filters.
+	  if (filterRE.test(text)) {
+	    var dir = dirParser.parse(text)[0]
+	    // the filter regex check might give false positive
+	    // for pipes inside strings, so it's possible that
+	    // we don't get any filters here
+	    return dir.filters
+	      ? _.applyFilters(
+	          this.$get(dir.expression),
+	          _.resolveFilters(this, dir.filters).read,
+	          this
+	        )
+	      : this.$get(dir.expression)
+	  } else {
+	    // no filter
+	    return this.$get(text)
+	  }
+	}
+
+	/**
+	 * Interpolate a piece of template text.
+	 *
+	 * @param {String} text
+	 * @return {String}
+	 */
+
+	exports.$interpolate = function (text) {
+	  var tokens = textParser.parse(text)
+	  var vm = this
+	  if (tokens) {
+	    return tokens.length === 1
+	      ? vm.$eval(tokens[0].value)
+	      : tokens.map(function (token) {
+	          return token.tag
+	            ? vm.$eval(token.value)
+	            : token.value
+	        }).join('')
+	  } else {
+	    return text
+	  }
+	}
+
+	/**
+	 * Log instance data as a plain JS object
+	 * so that it is easier to inspect in console.
+	 * This method assumes console is available.
+	 *
+	 * @param {String} [path]
+	 */
+
+	exports.$log = function (path) {
+	  var data = path
+	    ? Path.get(this._data, path)
+	    : this._data
+	  if (data) {
+	    data = JSON.parse(JSON.stringify(data))
+	  }
+	  console.log(data)
+	}
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var transition = __webpack_require__(70)
+
+	/**
+	 * Append instance to target
+	 *
+	 * @param {Node} target
+	 * @param {Function} [cb]
+	 * @param {Boolean} [withTransition] - defaults to true
+	 */
+
+	exports.$appendTo = function (target, cb, withTransition) {
+	  return insert(
+	    this, target, cb, withTransition,
+	    append, transition.append
+	  )
+	}
+
+	/**
+	 * Prepend instance to target
+	 *
+	 * @param {Node} target
+	 * @param {Function} [cb]
+	 * @param {Boolean} [withTransition] - defaults to true
+	 */
+
+	exports.$prependTo = function (target, cb, withTransition) {
+	  target = query(target)
+	  if (target.hasChildNodes()) {
+	    this.$before(target.firstChild, cb, withTransition)
+	  } else {
+	    this.$appendTo(target, cb, withTransition)
+	  }
+	  return this
+	}
+
+	/**
+	 * Insert instance before target
+	 *
+	 * @param {Node} target
+	 * @param {Function} [cb]
+	 * @param {Boolean} [withTransition] - defaults to true
+	 */
+
+	exports.$before = function (target, cb, withTransition) {
+	  return insert(
+	    this, target, cb, withTransition,
+	    before, transition.before
+	  )
+	}
+
+	/**
+	 * Insert instance after target
+	 *
+	 * @param {Node} target
+	 * @param {Function} [cb]
+	 * @param {Boolean} [withTransition] - defaults to true
+	 */
+
+	exports.$after = function (target, cb, withTransition) {
+	  target = query(target)
+	  if (target.nextSibling) {
+	    this.$before(target.nextSibling, cb, withTransition)
+	  } else {
+	    this.$appendTo(target.parentNode, cb, withTransition)
+	  }
+	  return this
+	}
+
+	/**
+	 * Remove instance from DOM
+	 *
+	 * @param {Function} [cb]
+	 * @param {Boolean} [withTransition] - defaults to true
+	 */
+
+	exports.$remove = function (cb, withTransition) {
+	  var inDoc = this._isAttached && _.inDoc(this.$el)
+	  // if we are not in document, no need to check
+	  // for transitions
+	  if (!inDoc) withTransition = false
+	  var op
+	  var self = this
+	  var realCb = function () {
+	    if (inDoc) self._callHook('detached')
+	    if (cb) cb()
+	  }
+	  if (
+	    this._isBlock &&
+	    !this._blockFragment.hasChildNodes()
+	  ) {
+	    op = withTransition === false
+	      ? append
+	      : transition.removeThenAppend
+	    blockOp(this, this._blockFragment, op, realCb)
+	  } else {
+	    op = withTransition === false
+	      ? remove
+	      : transition.remove
+	    op(this.$el, this, realCb)
+	  }
+	  return this
+	}
+
+	/**
+	 * Shared DOM insertion function.
+	 *
+	 * @param {Vue} vm
+	 * @param {Element} target
+	 * @param {Function} [cb]
+	 * @param {Boolean} [withTransition]
+	 * @param {Function} op1 - op for non-transition insert
+	 * @param {Function} op2 - op for transition insert
+	 * @return vm
+	 */
+
+	function insert (vm, target, cb, withTransition, op1, op2) {
+	  target = query(target)
+	  var targetIsDetached = !_.inDoc(target)
+	  var op = withTransition === false || targetIsDetached
+	    ? op1
+	    : op2
+	  var shouldCallHook =
+	    !targetIsDetached &&
+	    !vm._isAttached &&
+	    !_.inDoc(vm.$el)
+	  if (vm._isBlock) {
+	    blockOp(vm, target, op, cb)
+	  } else {
+	    op(vm.$el, target, vm, cb)
+	  }
+	  if (shouldCallHook) {
+	    vm._callHook('attached')
+	  }
+	  return vm
+	}
+
+	/**
+	 * Execute a transition operation on a block instance,
+	 * iterating through all its block nodes.
+	 *
+	 * @param {Vue} vm
+	 * @param {Node} target
+	 * @param {Function} op
+	 * @param {Function} cb
+	 */
+
+	function blockOp (vm, target, op, cb) {
+	  var current = vm._blockStart
+	  var end = vm._blockEnd
+	  var next
+	  while (next !== end) {
+	    next = current.nextSibling
+	    op(current, target, vm)
+	    current = next
+	  }
+	  op(end, target, vm, cb)
+	}
+
+	/**
+	 * Check for selectors
+	 *
+	 * @param {String|Element} el
+	 */
+
+	function query (el) {
+	  return typeof el === 'string'
+	    ? document.querySelector(el)
+	    : el
+	}
+
+	/**
+	 * Append operation that takes a callback.
+	 *
+	 * @param {Node} el
+	 * @param {Node} target
+	 * @param {Vue} vm - unused
+	 * @param {Function} [cb]
+	 */
+
+	function append (el, target, vm, cb) {
+	  target.appendChild(el)
+	  if (cb) cb()
+	}
+
+	/**
+	 * InsertBefore operation that takes a callback.
+	 *
+	 * @param {Node} el
+	 * @param {Node} target
+	 * @param {Vue} vm - unused
+	 * @param {Function} [cb]
+	 */
+
+	function before (el, target, vm, cb) {
+	  _.before(el, target)
+	  if (cb) cb()
+	}
+
+	/**
+	 * Remove operation that takes a callback.
+	 *
+	 * @param {Node} el
+	 * @param {Vue} vm - unused
+	 * @param {Function} [cb]
+	 */
+
+	function remove (el, vm, cb) {
+	  _.remove(el)
+	  if (cb) cb()
+	}
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+
+	/**
+	 * Listen on the given `event` with `fn`.
+	 *
+	 * @param {String} event
+	 * @param {Function} fn
+	 */
+
+	exports.$on = function (event, fn) {
+	  (this._events[event] || (this._events[event] = []))
+	    .push(fn)
+	  modifyListenerCount(this, event, 1)
+	  return this
+	}
+
+	/**
+	 * Adds an `event` listener that will be invoked a single
+	 * time then automatically removed.
+	 *
+	 * @param {String} event
+	 * @param {Function} fn
+	 */
+
+	exports.$once = function (event, fn) {
+	  var self = this
+	  function on () {
+	    self.$off(event, on)
+	    fn.apply(this, arguments)
+	  }
+	  on.fn = fn
+	  this.$on(event, on)
+	  return this
+	}
+
+	/**
+	 * Remove the given callback for `event` or all
+	 * registered callbacks.
+	 *
+	 * @param {String} event
+	 * @param {Function} fn
+	 */
+
+	exports.$off = function (event, fn) {
+	  var cbs
+	  // all
+	  if (!arguments.length) {
+	    if (this.$parent) {
+	      for (event in this._events) {
+	        cbs = this._events[event]
+	        if (cbs) {
+	          modifyListenerCount(this, event, -cbs.length)
+	        }
+	      }
+	    }
+	    this._events = {}
+	    return this
+	  }
+	  // specific event
+	  cbs = this._events[event]
+	  if (!cbs) {
+	    return this
+	  }
+	  if (arguments.length === 1) {
+	    modifyListenerCount(this, event, -cbs.length)
+	    this._events[event] = null
+	    return this
+	  }
+	  // specific handler
+	  var cb
+	  var i = cbs.length
+	  while (i--) {
+	    cb = cbs[i]
+	    if (cb === fn || cb.fn === fn) {
+	      modifyListenerCount(this, event, -1)
+	      cbs.splice(i, 1)
+	      break
+	    }
+	  }
+	  return this
+	}
+
+	/**
+	 * Trigger an event on self.
+	 *
+	 * @param {String} event
+	 */
+
+	exports.$emit = function (event) {
+	  this._eventCancelled = false
+	  var cbs = this._events[event]
+	  if (cbs) {
+	    // avoid leaking arguments:
+	    // http://jsperf.com/closure-with-arguments
+	    var i = arguments.length - 1
+	    var args = new Array(i)
+	    while (i--) {
+	      args[i] = arguments[i + 1]
+	    }
+	    i = 0
+	    cbs = cbs.length > 1
+	      ? _.toArray(cbs)
+	      : cbs
+	    for (var l = cbs.length; i < l; i++) {
+	      if (cbs[i].apply(this, args) === false) {
+	        this._eventCancelled = true
+	      }
+	    }
+	  }
+	  return this
+	}
+
+	/**
+	 * Recursively broadcast an event to all children instances.
+	 *
+	 * @param {String} event
+	 * @param {...*} additional arguments
+	 */
+
+	exports.$broadcast = function (event) {
+	  // if no child has registered for this event,
+	  // then there's no need to broadcast.
+	  if (!this._eventsCount[event]) return
+	  var children = this._children
+	  for (var i = 0, l = children.length; i < l; i++) {
+	    var child = children[i]
+	    child.$emit.apply(child, arguments)
+	    if (!child._eventCancelled) {
+	      child.$broadcast.apply(child, arguments)
+	    }
+	  }
+	  return this
+	}
+
+	/**
+	 * Recursively propagate an event up the parent chain.
+	 *
+	 * @param {String} event
+	 * @param {...*} additional arguments
+	 */
+
+	exports.$dispatch = function () {
+	  var parent = this.$parent
+	  while (parent) {
+	    parent.$emit.apply(parent, arguments)
+	    parent = parent._eventCancelled
+	      ? null
+	      : parent.$parent
+	  }
+	  return this
+	}
+
+	/**
+	 * Modify the listener counts on all parents.
+	 * This bookkeeping allows $broadcast to return early when
+	 * no child has listened to a certain event.
+	 *
+	 * @param {Vue} vm
+	 * @param {String} event
+	 * @param {Number} count
+	 */
+
+	var hookRE = /^hook:/
+	function modifyListenerCount (vm, event, count) {
+	  var parent = vm.$parent
+	  // hooks do not get broadcasted so no need
+	  // to do bookkeeping for them
+	  if (!parent || !count || hookRE.test(event)) return
+	  while (parent) {
+	    parent._eventsCount[event] =
+	      (parent._eventsCount[event] || 0) + count
+	    parent = parent.$parent
+	  }
+	}
+
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+
+	/**
+	 * Create a child instance that prototypally inehrits
+	 * data on parent. To achieve that we create an intermediate
+	 * constructor with its prototype pointing to parent.
+	 *
+	 * @param {Object} opts
+	 * @param {Function} [BaseCtor]
+	 * @return {Vue}
+	 * @public
+	 */
+
+	exports.$addChild = function (opts, BaseCtor) {
+	  BaseCtor = BaseCtor || _.Vue
+	  opts = opts || {}
+	  var parent = this
+	  var ChildVue
+	  var inherit = opts.inherit !== undefined
+	    ? opts.inherit
+	    : BaseCtor.options.inherit
+	  if (inherit) {
+	    var ctors = parent._childCtors
+	    ChildVue = ctors[BaseCtor.cid]
+	    if (!ChildVue) {
+	      var optionName = BaseCtor.options.name
+	      var className = optionName
+	        ? _.camelize(optionName, true)
+	        : 'VueComponent'
+	      ChildVue = new Function(
+	        'return function ' + className + ' (options) {' +
+	        'this.constructor = ' + className + ';' +
+	        'this._init(options) }'
+	      )()
+	      ChildVue.options = BaseCtor.options
+	      ChildVue.prototype = this
+	      ctors[BaseCtor.cid] = ChildVue
+	    }
+	  } else {
+	    ChildVue = BaseCtor
+	  }
+	  opts._parent = parent
+	  opts._root = parent.$root
+	  var child = new ChildVue(opts)
+	  this._children.push(child)
+	  return child
+	}
+
+/***/ },
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var compile = __webpack_require__(36)
+
+	/**
+	 * Set instance target element and kick off the compilation
+	 * process. The passed in `el` can be a selector string, an
+	 * existing Element, or a DocumentFragment (for block
+	 * instances).
+	 *
+	 * @param {Element|DocumentFragment|string} el
+	 * @public
+	 */
+
+	exports.$mount = function (el) {
+	  if (this._isCompiled) {
+	    _.warn('$mount() should be called only once.')
+	    return
+	  }
+	  if (!el) {
+	    el = document.createElement('div')
+	  } else if (typeof el === 'string') {
+	    var selector = el
+	    el = document.querySelector(el)
+	    if (!el) {
+	      _.warn('Cannot find element: ' + selector)
+	      return
+	    }
+	  }
+	  this._compile(el)
+	  this._isCompiled = true
+	  this._callHook('compiled')
+	  if (_.inDoc(this.$el)) {
+	    this._callHook('attached')
+	    this._initDOMHooks()
+	    ready.call(this)
+	  } else {
+	    this._initDOMHooks()
+	    this.$once('hook:attached', ready)
+	  }
+	  return this
+	}
+
+	/**
+	 * Mark an instance as ready.
+	 */
+
+	function ready () {
+	  this._isAttached = true
+	  this._isReady = true
+	  this._callHook('ready')
+	}
+
+	/**
+	 * Teardown the instance, simply delegate to the internal
+	 * _destroy.
+	 */
+
+	exports.$destroy = function (remove, deferCleanup) {
+	  this._destroy(remove, deferCleanup)
+	}
+
+	/**
+	 * Partially compile a piece of DOM and return a
+	 * decompile function.
+	 *
+	 * @param {Element|DocumentFragment} el
+	 * @return {Function}
+	 */
+
+	exports.$compile = function (el) {
+	  return compile(el, this.$options, true)(this, el)
+	}
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var lang   = __webpack_require__(46)
+	var extend = lang.extend
+
+	extend(exports, lang)
+	extend(exports, __webpack_require__(47))
+	extend(exports, __webpack_require__(48))
+	extend(exports, __webpack_require__(49))
+	extend(exports, __webpack_require__(50))
+
+/***/ },
+/* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// manipulation directives
+	exports.text       = __webpack_require__(51)
+	exports.html       = __webpack_require__(52)
+	exports.attr       = __webpack_require__(53)
+	exports.show       = __webpack_require__(54)
+	exports['class']   = __webpack_require__(55)
+	exports.el         = __webpack_require__(56)
+	exports.ref        = __webpack_require__(57)
+	exports.cloak      = __webpack_require__(58)
+	exports.style      = __webpack_require__(59)
+	exports.partial    = __webpack_require__(60)
+	exports.transition = __webpack_require__(61)
+
+	// event listener directives
+	exports.on         = __webpack_require__(62)
+	exports.model      = __webpack_require__(71)
+
+	// child vm directives
+	exports.component  = __webpack_require__(63)
+	exports.repeat     = __webpack_require__(64)
+	exports['if']      = __webpack_require__(65)
+
+	// child vm communication directives
+	exports['with']    = __webpack_require__(66)
+	exports.events     = __webpack_require__(67)
+
+/***/ },
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+
+	/**
+	 * Stringify value.
+	 *
+	 * @param {Number} indent
+	 */
+
+	exports.json = {
+	  read: function (value, indent) {
+	    return typeof value === 'string'
+	      ? value
+	      : JSON.stringify(value, null, Number(indent) || 2)
+	  },
+	  write: function (value) {
+	    try {
+	      return JSON.parse(value)
+	    } catch (e) {
+	      return value
+	    }
+	  }
+	}
+
+	/**
+	 * 'abc' => 'Abc'
+	 */
+
+	exports.capitalize = function (value) {
+	  if (!value && value !== 0) return ''
+	  value = value.toString()
+	  return value.charAt(0).toUpperCase() + value.slice(1)
+	}
+
+	/**
+	 * 'abc' => 'ABC'
+	 */
+
+	exports.uppercase = function (value) {
+	  return (value || value === 0)
+	    ? value.toString().toUpperCase()
+	    : ''
+	}
+
+	/**
+	 * 'AbC' => 'abc'
+	 */
+
+	exports.lowercase = function (value) {
+	  return (value || value === 0)
+	    ? value.toString().toLowerCase()
+	    : ''
+	}
+
+	/**
+	 * 12345 => $12,345.00
+	 *
+	 * @param {String} sign
+	 */
+
+	var digitsRE = /(\d{3})(?=\d)/g
+
+	exports.currency = function (value, sign) {
+	  value = parseFloat(value)
+	  if (!value && value !== 0) return ''
+	  sign = sign || '$'
+	  var s = Math.floor(Math.abs(value)).toString(),
+	    i = s.length % 3,
+	    h = i > 0
+	      ? (s.slice(0, i) + (s.length > 3 ? ',' : ''))
+	      : '',
+	    f = '.' + value.toFixed(2).slice(-2)
+	  return (value < 0 ? '-' : '') +
+	    sign + h + s.slice(i).replace(digitsRE, '$1,') + f
+	}
+
+	/**
+	 * 'item' => 'items'
+	 *
+	 * @params
+	 *  an array of strings corresponding to
+	 *  the single, double, triple ... forms of the word to
+	 *  be pluralized. When the number to be pluralized
+	 *  exceeds the length of the args, it will use the last
+	 *  entry in the array.
+	 *
+	 *  e.g. ['single', 'double', 'triple', 'multiple']
+	 */
+
+	exports.pluralize = function (value) {
+	  var args = _.toArray(arguments, 1)
+	  return args.length > 1
+	    ? (args[value % 10 - 1] || args[args.length - 1])
+	    : (args[0] + (value === 1 ? '' : 's'))
+	}
+
+	/**
+	 * A special filter that takes a handler function,
+	 * wraps it so it only gets triggered on specific
+	 * keypresses. v-on only.
+	 *
+	 * @param {String} key
+	 */
+
+	var keyCodes = {
+	  enter    : 13,
+	  tab      : 9,
+	  'delete' : 46,
+	  up       : 38,
+	  left     : 37,
+	  right    : 39,
+	  down     : 40,
+	  esc      : 27
+	}
+
+	exports.key = function (handler, key) {
+	  if (!handler) return
+	  var code = keyCodes[key]
+	  if (!code) {
+	    code = parseInt(key, 10)
+	  }
+	  return function (e) {
+	    if (e.keyCode === code) {
+	      return handler.call(this, e)
+	    }
+	  }
+	}
+
+	// expose keycode hash
+	exports.key.keyCodes = keyCodes
+
+	/**
+	 * Install special array filters
+	 */
+
+	_.extend(exports, __webpack_require__(68))
+
+/***/ },
+/* 25 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// shim for using process in browser
+
+	var process = module.exports = {};
+	var queue = [];
+	var draining = false;
+
+	function drainQueue() {
+	    if (draining) {
+	        return;
+	    }
+	    draining = true;
+	    var currentQueue;
+	    var len = queue.length;
+	    while(len) {
+	        currentQueue = queue;
+	        queue = [];
+	        var i = -1;
+	        while (++i < len) {
+	            currentQueue[i]();
+	        }
+	        len = queue.length;
+	    }
+	    draining = false;
+	}
+	process.nextTick = function (fun) {
+	    queue.push(fun);
+	    if (!draining) {
+	        setTimeout(drainQueue, 0);
+	    }
+	};
+
+	process.title = 'browser';
+	process.browser = true;
+	process.env = {};
+	process.argv = [];
+	process.version = ''; // empty string to avoid regexp issues
+	process.versions = {};
+
+	function noop() {}
+
+	process.on = noop;
+	process.addListener = noop;
+	process.once = noop;
+	process.off = noop;
+	process.removeListener = noop;
+	process.removeAllListeners = noop;
+	process.emit = noop;
+
+	process.binding = function (name) {
+	    throw new Error('process.binding is not supported');
+	};
+
+	// TODO(shtylman)
+	process.cwd = function () { return '/' };
+	process.chdir = function (dir) {
+	    throw new Error('process.chdir is not supported');
+	};
+	process.umask = function() { return 0; };
+
+
+/***/ },
+/* 26 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	var dispose = __webpack_require__(30)
+		// The css code:
+		(__webpack_require__(27));
+	// Hot Module Replacement
+	if(false) {
+		module.hot.accept();
+		module.hot.dispose(dispose);
+	}
+
+/***/ },
+/* 27 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports =
+		"/*! normalize.css v3.0.2 | MIT License | git.io/normalize */\nhtml {\n  font-family: sans-serif;\n  -ms-text-size-adjust: 100%;\n  -webkit-text-size-adjust: 100%;\n}\nbody {\n  margin: 0;\n}\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nmain,\nmenu,\nnav,\nsection,\nsummary {\n  display: block;\n}\naudio,\ncanvas,\nprogress,\nvideo {\n  display: inline-block;\n  vertical-align: baseline;\n}\naudio:not([controls]) {\n  display: none;\n  height: 0;\n}\n[hidden],\ntemplate {\n  display: none;\n}\na {\n  background-color: transparent;\n}\na:active,\na:hover {\n  outline: 0;\n}\nabbr[title] {\n  border-bottom: 1px dotted;\n}\nb,\nstrong {\n  font-weight: bold;\n}\ndfn {\n  font-style: italic;\n}\nh1 {\n  font-size: 2em;\n  margin: 0.67em 0;\n}\nmark {\n  background: #ff0;\n  color: #000;\n}\nsmall {\n  font-size: 80%;\n}\nsub,\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline;\n}\nsup {\n  top: -0.5em;\n}\nsub {\n  bottom: -0.25em;\n}\nimg {\n  border: 0;\n}\nsvg:not(:root) {\n  overflow: hidden;\n}\nfigure {\n  margin: 1em 40px;\n}\nhr {\n  -moz-box-sizing: content-box;\n  box-sizing: content-box;\n  height: 0;\n}\npre {\n  overflow: auto;\n}\ncode,\nkbd,\npre,\nsamp {\n  font-family: monospace, monospace;\n  font-size: 1em;\n}\nbutton,\ninput,\noptgroup,\nselect,\ntextarea {\n  color: inherit;\n  font: inherit;\n  margin: 0;\n}\nbutton {\n  overflow: visible;\n}\nbutton,\nselect {\n  text-transform: none;\n}\nbutton,\nhtml input[type=\"button\"],\ninput[type=\"reset\"],\ninput[type=\"submit\"] {\n  -webkit-appearance: button;\n  cursor: pointer;\n}\nbutton[disabled],\nhtml input[disabled] {\n  cursor: default;\n}\nbutton::-moz-focus-inner,\ninput::-moz-focus-inner {\n  border: 0;\n  padding: 0;\n}\ninput {\n  line-height: normal;\n}\ninput[type=\"checkbox\"],\ninput[type=\"radio\"] {\n  box-sizing: border-box;\n  padding: 0;\n}\ninput[type=\"number\"]::-webkit-inner-spin-button,\ninput[type=\"number\"]::-webkit-outer-spin-button {\n  height: auto;\n}\ninput[type=\"search\"] {\n  -webkit-appearance: textfield;\n  -moz-box-sizing: content-box;\n  -webkit-box-sizing: content-box;\n  box-sizing: content-box;\n}\ninput[type=\"search\"]::-webkit-search-cancel-button,\ninput[type=\"search\"]::-webkit-search-decoration {\n  -webkit-appearance: none;\n}\nfieldset {\n  border: 1px solid #c0c0c0;\n  margin: 0 2px;\n  padding: 0.35em 0.625em 0.75em;\n}\nlegend {\n  border: 0;\n  padding: 0;\n}\ntextarea {\n  overflow: auto;\n}\noptgroup {\n  font-weight: bold;\n}\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\ntd,\nth {\n  padding: 0;\n}\n/*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */\n@media print {\n  *,\n  *:before,\n  *:after {\n    background: transparent !important;\n    color: #000 !important;\n    box-shadow: none !important;\n    text-shadow: none !important;\n  }\n  a,\n  a:visited {\n    text-decoration: underline;\n  }\n  a[href]:after {\n    content: \" (\" attr(href) \")\";\n  }\n  abbr[title]:after {\n    content: \" (\" attr(title) \")\";\n  }\n  a[href^=\"#\"]:after,\n  a[href^=\"javascript:\"]:after {\n    content: \"\";\n  }\n  pre,\n  blockquote {\n    border: 1px solid #999;\n    page-break-inside: avoid;\n  }\n  thead {\n    display: table-header-group;\n  }\n  tr,\n  img {\n    page-break-inside: avoid;\n  }\n  img {\n    max-width: 100% !important;\n  }\n  p,\n  h2,\n  h3 {\n    orphans: 3;\n    widows: 3;\n  }\n  h2,\n  h3 {\n    page-break-after: avoid;\n  }\n  select {\n    background: #fff !important;\n  }\n  .navbar {\n    display: none;\n  }\n  .btn > .caret,\n  .dropup > .btn > .caret {\n    border-top-color: #000 !important;\n  }\n  .label {\n    border: 1px solid #000;\n  }\n  .table {\n    border-collapse: collapse !important;\n  }\n  .table td,\n  .table th {\n    background-color: #fff !important;\n  }\n  .table-bordered th,\n  .table-bordered td {\n    border: 1px solid #ddd !important;\n  }\n}\n* {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n}\n*:before,\n*:after {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n}\nhtml {\n  font-size: 10px;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n}\nbody {\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  font-size: 14px;\n  line-height: 1.428571429;\n  color: #333333;\n  background-color: #ffffff;\n}\ninput,\nbutton,\nselect,\ntextarea {\n  font-family: inherit;\n  font-size: inherit;\n  line-height: inherit;\n}\na {\n  color: #337ab7;\n  text-decoration: none;\n}\na:hover,\na:focus {\n  color: #23527c;\n  text-decoration: underline;\n}\na:focus {\n  outline: thin dotted;\n  outline: 5px auto -webkit-focus-ring-color;\n  outline-offset: -2px;\n}\nfigure {\n  margin: 0;\n}\nimg {\n  vertical-align: middle;\n}\n.img-responsive,\n.thumbnail > img,\n.thumbnail a > img,\n.carousel-inner > .item > img,\n.carousel-inner > .item > a > img {\n  display: block;\n  max-width: 100%;\n  height: auto;\n}\n.img-rounded {\n  border-radius: 6px;\n}\n.img-thumbnail {\n  padding: 4px;\n  line-height: 1.428571429;\n  background-color: #ffffff;\n  border: 1px solid #dddddd;\n  border-radius: 4px;\n  -webkit-transition: all 0.2s ease-in-out;\n  -o-transition: all 0.2s ease-in-out;\n  transition: all 0.2s ease-in-out;\n  display: inline-block;\n  max-width: 100%;\n  height: auto;\n}\n.img-circle {\n  border-radius: 50%;\n}\nhr {\n  margin-top: 20px;\n  margin-bottom: 20px;\n  border: 0;\n  border-top: 1px solid #eeeeee;\n}\n.sr-only {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  margin: -1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n}\n.sr-only-focusable:active,\n.sr-only-focusable:focus {\n  position: static;\n  width: auto;\n  height: auto;\n  margin: 0;\n  overflow: visible;\n  clip: auto;\n}\n[role=\"button\"] {\n  cursor: pointer;\n}\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\n.h1,\n.h2,\n.h3,\n.h4,\n.h5,\n.h6 {\n  font-family: inherit;\n  font-weight: 500;\n  line-height: 1.1;\n  color: inherit;\n}\nh1 small,\nh2 small,\nh3 small,\nh4 small,\nh5 small,\nh6 small,\n.h1 small,\n.h2 small,\n.h3 small,\n.h4 small,\n.h5 small,\n.h6 small,\nh1 .small,\nh2 .small,\nh3 .small,\nh4 .small,\nh5 .small,\nh6 .small,\n.h1 .small,\n.h2 .small,\n.h3 .small,\n.h4 .small,\n.h5 .small,\n.h6 .small {\n  font-weight: normal;\n  line-height: 1;\n  color: #777777;\n}\nh1,\n.h1,\nh2,\n.h2,\nh3,\n.h3 {\n  margin-top: 20px;\n  margin-bottom: 10px;\n}\nh1 small,\n.h1 small,\nh2 small,\n.h2 small,\nh3 small,\n.h3 small,\nh1 .small,\n.h1 .small,\nh2 .small,\n.h2 .small,\nh3 .small,\n.h3 .small {\n  font-size: 65%;\n}\nh4,\n.h4,\nh5,\n.h5,\nh6,\n.h6 {\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\nh4 small,\n.h4 small,\nh5 small,\n.h5 small,\nh6 small,\n.h6 small,\nh4 .small,\n.h4 .small,\nh5 .small,\n.h5 .small,\nh6 .small,\n.h6 .small {\n  font-size: 75%;\n}\nh1,\n.h1 {\n  font-size: 36px;\n}\nh2,\n.h2 {\n  font-size: 30px;\n}\nh3,\n.h3 {\n  font-size: 24px;\n}\nh4,\n.h4 {\n  font-size: 18px;\n}\nh5,\n.h5 {\n  font-size: 14px;\n}\nh6,\n.h6 {\n  font-size: 12px;\n}\np {\n  margin: 0 0 10px;\n}\n.lead {\n  margin-bottom: 20px;\n  font-size: 16px;\n  font-weight: 300;\n  line-height: 1.4;\n}\n@media (min-width: 768px) {\n  .lead {\n    font-size: 21px;\n  }\n}\nsmall,\n.small {\n  font-size: 85%;\n}\nmark,\n.mark {\n  background-color: #fcf8e3;\n  padding: .2em;\n}\n.text-left {\n  text-align: left;\n}\n.text-right {\n  text-align: right;\n}\n.text-center {\n  text-align: center;\n}\n.text-justify {\n  text-align: justify;\n}\n.text-nowrap {\n  white-space: nowrap;\n}\n.text-lowercase {\n  text-transform: lowercase;\n}\n.text-uppercase {\n  text-transform: uppercase;\n}\n.text-capitalize {\n  text-transform: capitalize;\n}\n.text-muted {\n  color: #777777;\n}\n.text-primary {\n  color: #337ab7;\n}\na.text-primary:hover {\n  color: #286090;\n}\n.text-success {\n  color: #3c763d;\n}\na.text-success:hover {\n  color: #2b542c;\n}\n.text-info {\n  color: #31708f;\n}\na.text-info:hover {\n  color: #245269;\n}\n.text-warning {\n  color: #8a6d3b;\n}\na.text-warning:hover {\n  color: #66512c;\n}\n.text-danger {\n  color: #a94442;\n}\na.text-danger:hover {\n  color: #843534;\n}\n.bg-primary {\n  color: #fff;\n  background-color: #337ab7;\n}\na.bg-primary:hover {\n  background-color: #286090;\n}\n.bg-success {\n  background-color: #dff0d8;\n}\na.bg-success:hover {\n  background-color: #c1e2b3;\n}\n.bg-info {\n  background-color: #d9edf7;\n}\na.bg-info:hover {\n  background-color: #afd9ee;\n}\n.bg-warning {\n  background-color: #fcf8e3;\n}\na.bg-warning:hover {\n  background-color: #f7ecb5;\n}\n.bg-danger {\n  background-color: #f2dede;\n}\na.bg-danger:hover {\n  background-color: #e4b9b9;\n}\n.page-header {\n  padding-bottom: 9px;\n  margin: 40px 0 20px;\n  border-bottom: 1px solid #eeeeee;\n}\nul,\nol {\n  margin-top: 0;\n  margin-bottom: 10px;\n}\nul ul,\nol ul,\nul ol,\nol ol {\n  margin-bottom: 0;\n}\n.list-unstyled {\n  padding-left: 0;\n  list-style: none;\n}\n.list-inline {\n  padding-left: 0;\n  list-style: none;\n  margin-left: -5px;\n}\n.list-inline > li {\n  display: inline-block;\n  padding-left: 5px;\n  padding-right: 5px;\n}\ndl {\n  margin-top: 0;\n  margin-bottom: 20px;\n}\ndt,\ndd {\n  line-height: 1.428571429;\n}\ndt {\n  font-weight: bold;\n}\ndd {\n  margin-left: 0;\n}\n@media (min-width: 768px) {\n  .dl-horizontal dt {\n    float: left;\n    width: 160px;\n    clear: left;\n    text-align: right;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n  }\n  .dl-horizontal dd {\n    margin-left: 180px;\n  }\n}\nabbr[title],\nabbr[data-original-title] {\n  cursor: help;\n  border-bottom: 1px dotted #777777;\n}\n.initialism {\n  font-size: 90%;\n  text-transform: uppercase;\n}\nblockquote {\n  padding: 10px 20px;\n  margin: 0 0 20px;\n  font-size: 17.5px;\n  border-left: 5px solid #eeeeee;\n}\nblockquote p:last-child,\nblockquote ul:last-child,\nblockquote ol:last-child {\n  margin-bottom: 0;\n}\nblockquote footer,\nblockquote small,\nblockquote .small {\n  display: block;\n  font-size: 80%;\n  line-height: 1.428571429;\n  color: #777777;\n}\nblockquote footer:before,\nblockquote small:before,\nblockquote .small:before {\n  content: '\\2014 \\00A0';\n}\n.blockquote-reverse,\nblockquote.pull-right {\n  padding-right: 15px;\n  padding-left: 0;\n  border-right: 5px solid #eeeeee;\n  border-left: 0;\n  text-align: right;\n}\n.blockquote-reverse footer:before,\nblockquote.pull-right footer:before,\n.blockquote-reverse small:before,\nblockquote.pull-right small:before,\n.blockquote-reverse .small:before,\nblockquote.pull-right .small:before {\n  content: '';\n}\n.blockquote-reverse footer:after,\nblockquote.pull-right footer:after,\n.blockquote-reverse small:after,\nblockquote.pull-right small:after,\n.blockquote-reverse .small:after,\nblockquote.pull-right .small:after {\n  content: '\\00A0 \\2014';\n}\naddress {\n  margin-bottom: 20px;\n  font-style: normal;\n  line-height: 1.428571429;\n}\ncode,\nkbd,\npre,\nsamp {\n  font-family: Menlo, Monaco, Consolas, \"Courier New\", monospace;\n}\ncode {\n  padding: 2px 4px;\n  font-size: 90%;\n  color: #c7254e;\n  background-color: #f9f2f4;\n  border-radius: 4px;\n}\nkbd {\n  padding: 2px 4px;\n  font-size: 90%;\n  color: #ffffff;\n  background-color: #333333;\n  border-radius: 3px;\n  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.25);\n}\nkbd kbd {\n  padding: 0;\n  font-size: 100%;\n  font-weight: bold;\n  box-shadow: none;\n}\npre {\n  display: block;\n  padding: 9.5px;\n  margin: 0 0 10px;\n  font-size: 13px;\n  line-height: 1.428571429;\n  word-break: break-all;\n  word-wrap: break-word;\n  color: #333333;\n  background-color: #f5f5f5;\n  border: 1px solid #cccccc;\n  border-radius: 4px;\n}\npre code {\n  padding: 0;\n  font-size: inherit;\n  color: inherit;\n  white-space: pre-wrap;\n  background-color: transparent;\n  border-radius: 0;\n}\n.pre-scrollable {\n  max-height: 340px;\n  overflow-y: scroll;\n}\n.container {\n  margin-right: auto;\n  margin-left: auto;\n  padding-left: 15px;\n  padding-right: 15px;\n}\n@media (min-width: 768px) {\n  .container {\n    width: 750px;\n  }\n}\n@media (min-width: 992px) {\n  .container {\n    width: 970px;\n  }\n}\n@media (min-width: 1200px) {\n  .container {\n    width: 1170px;\n  }\n}\n.container-fluid {\n  margin-right: auto;\n  margin-left: auto;\n  padding-left: 15px;\n  padding-right: 15px;\n}\n.row {\n  margin-left: -15px;\n  margin-right: -15px;\n}\n.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {\n  position: relative;\n  min-height: 1px;\n  padding-left: 15px;\n  padding-right: 15px;\n}\n.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12 {\n  float: left;\n}\n.col-xs-12 {\n  width: 100%;\n}\n.col-xs-11 {\n  width: 91.66666666666666%;\n}\n.col-xs-10 {\n  width: 83.33333333333334%;\n}\n.col-xs-9 {\n  width: 75%;\n}\n.col-xs-8 {\n  width: 66.66666666666666%;\n}\n.col-xs-7 {\n  width: 58.333333333333336%;\n}\n.col-xs-6 {\n  width: 50%;\n}\n.col-xs-5 {\n  width: 41.66666666666667%;\n}\n.col-xs-4 {\n  width: 33.33333333333333%;\n}\n.col-xs-3 {\n  width: 25%;\n}\n.col-xs-2 {\n  width: 16.666666666666664%;\n}\n.col-xs-1 {\n  width: 8.333333333333332%;\n}\n.col-xs-pull-12 {\n  right: 100%;\n}\n.col-xs-pull-11 {\n  right: 91.66666666666666%;\n}\n.col-xs-pull-10 {\n  right: 83.33333333333334%;\n}\n.col-xs-pull-9 {\n  right: 75%;\n}\n.col-xs-pull-8 {\n  right: 66.66666666666666%;\n}\n.col-xs-pull-7 {\n  right: 58.333333333333336%;\n}\n.col-xs-pull-6 {\n  right: 50%;\n}\n.col-xs-pull-5 {\n  right: 41.66666666666667%;\n}\n.col-xs-pull-4 {\n  right: 33.33333333333333%;\n}\n.col-xs-pull-3 {\n  right: 25%;\n}\n.col-xs-pull-2 {\n  right: 16.666666666666664%;\n}\n.col-xs-pull-1 {\n  right: 8.333333333333332%;\n}\n.col-xs-pull-0 {\n  right: auto;\n}\n.col-xs-push-12 {\n  left: 100%;\n}\n.col-xs-push-11 {\n  left: 91.66666666666666%;\n}\n.col-xs-push-10 {\n  left: 83.33333333333334%;\n}\n.col-xs-push-9 {\n  left: 75%;\n}\n.col-xs-push-8 {\n  left: 66.66666666666666%;\n}\n.col-xs-push-7 {\n  left: 58.333333333333336%;\n}\n.col-xs-push-6 {\n  left: 50%;\n}\n.col-xs-push-5 {\n  left: 41.66666666666667%;\n}\n.col-xs-push-4 {\n  left: 33.33333333333333%;\n}\n.col-xs-push-3 {\n  left: 25%;\n}\n.col-xs-push-2 {\n  left: 16.666666666666664%;\n}\n.col-xs-push-1 {\n  left: 8.333333333333332%;\n}\n.col-xs-push-0 {\n  left: auto;\n}\n.col-xs-offset-12 {\n  margin-left: 100%;\n}\n.col-xs-offset-11 {\n  margin-left: 91.66666666666666%;\n}\n.col-xs-offset-10 {\n  margin-left: 83.33333333333334%;\n}\n.col-xs-offset-9 {\n  margin-left: 75%;\n}\n.col-xs-offset-8 {\n  margin-left: 66.66666666666666%;\n}\n.col-xs-offset-7 {\n  margin-left: 58.333333333333336%;\n}\n.col-xs-offset-6 {\n  margin-left: 50%;\n}\n.col-xs-offset-5 {\n  margin-left: 41.66666666666667%;\n}\n.col-xs-offset-4 {\n  margin-left: 33.33333333333333%;\n}\n.col-xs-offset-3 {\n  margin-left: 25%;\n}\n.col-xs-offset-2 {\n  margin-left: 16.666666666666664%;\n}\n.col-xs-offset-1 {\n  margin-left: 8.333333333333332%;\n}\n.col-xs-offset-0 {\n  margin-left: 0%;\n}\n@media (min-width: 768px) {\n  .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {\n    float: left;\n  }\n  .col-sm-12 {\n    width: 100%;\n  }\n  .col-sm-11 {\n    width: 91.66666666666666%;\n  }\n  .col-sm-10 {\n    width: 83.33333333333334%;\n  }\n  .col-sm-9 {\n    width: 75%;\n  }\n  .col-sm-8 {\n    width: 66.66666666666666%;\n  }\n  .col-sm-7 {\n    width: 58.333333333333336%;\n  }\n  .col-sm-6 {\n    width: 50%;\n  }\n  .col-sm-5 {\n    width: 41.66666666666667%;\n  }\n  .col-sm-4 {\n    width: 33.33333333333333%;\n  }\n  .col-sm-3 {\n    width: 25%;\n  }\n  .col-sm-2 {\n    width: 16.666666666666664%;\n  }\n  .col-sm-1 {\n    width: 8.333333333333332%;\n  }\n  .col-sm-pull-12 {\n    right: 100%;\n  }\n  .col-sm-pull-11 {\n    right: 91.66666666666666%;\n  }\n  .col-sm-pull-10 {\n    right: 83.33333333333334%;\n  }\n  .col-sm-pull-9 {\n    right: 75%;\n  }\n  .col-sm-pull-8 {\n    right: 66.66666666666666%;\n  }\n  .col-sm-pull-7 {\n    right: 58.333333333333336%;\n  }\n  .col-sm-pull-6 {\n    right: 50%;\n  }\n  .col-sm-pull-5 {\n    right: 41.66666666666667%;\n  }\n  .col-sm-pull-4 {\n    right: 33.33333333333333%;\n  }\n  .col-sm-pull-3 {\n    right: 25%;\n  }\n  .col-sm-pull-2 {\n    right: 16.666666666666664%;\n  }\n  .col-sm-pull-1 {\n    right: 8.333333333333332%;\n  }\n  .col-sm-pull-0 {\n    right: auto;\n  }\n  .col-sm-push-12 {\n    left: 100%;\n  }\n  .col-sm-push-11 {\n    left: 91.66666666666666%;\n  }\n  .col-sm-push-10 {\n    left: 83.33333333333334%;\n  }\n  .col-sm-push-9 {\n    left: 75%;\n  }\n  .col-sm-push-8 {\n    left: 66.66666666666666%;\n  }\n  .col-sm-push-7 {\n    left: 58.333333333333336%;\n  }\n  .col-sm-push-6 {\n    left: 50%;\n  }\n  .col-sm-push-5 {\n    left: 41.66666666666667%;\n  }\n  .col-sm-push-4 {\n    left: 33.33333333333333%;\n  }\n  .col-sm-push-3 {\n    left: 25%;\n  }\n  .col-sm-push-2 {\n    left: 16.666666666666664%;\n  }\n  .col-sm-push-1 {\n    left: 8.333333333333332%;\n  }\n  .col-sm-push-0 {\n    left: auto;\n  }\n  .col-sm-offset-12 {\n    margin-left: 100%;\n  }\n  .col-sm-offset-11 {\n    margin-left: 91.66666666666666%;\n  }\n  .col-sm-offset-10 {\n    margin-left: 83.33333333333334%;\n  }\n  .col-sm-offset-9 {\n    margin-left: 75%;\n  }\n  .col-sm-offset-8 {\n    margin-left: 66.66666666666666%;\n  }\n  .col-sm-offset-7 {\n    margin-left: 58.333333333333336%;\n  }\n  .col-sm-offset-6 {\n    margin-left: 50%;\n  }\n  .col-sm-offset-5 {\n    margin-left: 41.66666666666667%;\n  }\n  .col-sm-offset-4 {\n    margin-left: 33.33333333333333%;\n  }\n  .col-sm-offset-3 {\n    margin-left: 25%;\n  }\n  .col-sm-offset-2 {\n    margin-left: 16.666666666666664%;\n  }\n  .col-sm-offset-1 {\n    margin-left: 8.333333333333332%;\n  }\n  .col-sm-offset-0 {\n    margin-left: 0%;\n  }\n}\n@media (min-width: 992px) {\n  .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {\n    float: left;\n  }\n  .col-md-12 {\n    width: 100%;\n  }\n  .col-md-11 {\n    width: 91.66666666666666%;\n  }\n  .col-md-10 {\n    width: 83.33333333333334%;\n  }\n  .col-md-9 {\n    width: 75%;\n  }\n  .col-md-8 {\n    width: 66.66666666666666%;\n  }\n  .col-md-7 {\n    width: 58.333333333333336%;\n  }\n  .col-md-6 {\n    width: 50%;\n  }\n  .col-md-5 {\n    width: 41.66666666666667%;\n  }\n  .col-md-4 {\n    width: 33.33333333333333%;\n  }\n  .col-md-3 {\n    width: 25%;\n  }\n  .col-md-2 {\n    width: 16.666666666666664%;\n  }\n  .col-md-1 {\n    width: 8.333333333333332%;\n  }\n  .col-md-pull-12 {\n    right: 100%;\n  }\n  .col-md-pull-11 {\n    right: 91.66666666666666%;\n  }\n  .col-md-pull-10 {\n    right: 83.33333333333334%;\n  }\n  .col-md-pull-9 {\n    right: 75%;\n  }\n  .col-md-pull-8 {\n    right: 66.66666666666666%;\n  }\n  .col-md-pull-7 {\n    right: 58.333333333333336%;\n  }\n  .col-md-pull-6 {\n    right: 50%;\n  }\n  .col-md-pull-5 {\n    right: 41.66666666666667%;\n  }\n  .col-md-pull-4 {\n    right: 33.33333333333333%;\n  }\n  .col-md-pull-3 {\n    right: 25%;\n  }\n  .col-md-pull-2 {\n    right: 16.666666666666664%;\n  }\n  .col-md-pull-1 {\n    right: 8.333333333333332%;\n  }\n  .col-md-pull-0 {\n    right: auto;\n  }\n  .col-md-push-12 {\n    left: 100%;\n  }\n  .col-md-push-11 {\n    left: 91.66666666666666%;\n  }\n  .col-md-push-10 {\n    left: 83.33333333333334%;\n  }\n  .col-md-push-9 {\n    left: 75%;\n  }\n  .col-md-push-8 {\n    left: 66.66666666666666%;\n  }\n  .col-md-push-7 {\n    left: 58.333333333333336%;\n  }\n  .col-md-push-6 {\n    left: 50%;\n  }\n  .col-md-push-5 {\n    left: 41.66666666666667%;\n  }\n  .col-md-push-4 {\n    left: 33.33333333333333%;\n  }\n  .col-md-push-3 {\n    left: 25%;\n  }\n  .col-md-push-2 {\n    left: 16.666666666666664%;\n  }\n  .col-md-push-1 {\n    left: 8.333333333333332%;\n  }\n  .col-md-push-0 {\n    left: auto;\n  }\n  .col-md-offset-12 {\n    margin-left: 100%;\n  }\n  .col-md-offset-11 {\n    margin-left: 91.66666666666666%;\n  }\n  .col-md-offset-10 {\n    margin-left: 83.33333333333334%;\n  }\n  .col-md-offset-9 {\n    margin-left: 75%;\n  }\n  .col-md-offset-8 {\n    margin-left: 66.66666666666666%;\n  }\n  .col-md-offset-7 {\n    margin-left: 58.333333333333336%;\n  }\n  .col-md-offset-6 {\n    margin-left: 50%;\n  }\n  .col-md-offset-5 {\n    margin-left: 41.66666666666667%;\n  }\n  .col-md-offset-4 {\n    margin-left: 33.33333333333333%;\n  }\n  .col-md-offset-3 {\n    margin-left: 25%;\n  }\n  .col-md-offset-2 {\n    margin-left: 16.666666666666664%;\n  }\n  .col-md-offset-1 {\n    margin-left: 8.333333333333332%;\n  }\n  .col-md-offset-0 {\n    margin-left: 0%;\n  }\n}\n@media (min-width: 1200px) {\n  .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12 {\n    float: left;\n  }\n  .col-lg-12 {\n    width: 100%;\n  }\n  .col-lg-11 {\n    width: 91.66666666666666%;\n  }\n  .col-lg-10 {\n    width: 83.33333333333334%;\n  }\n  .col-lg-9 {\n    width: 75%;\n  }\n  .col-lg-8 {\n    width: 66.66666666666666%;\n  }\n  .col-lg-7 {\n    width: 58.333333333333336%;\n  }\n  .col-lg-6 {\n    width: 50%;\n  }\n  .col-lg-5 {\n    width: 41.66666666666667%;\n  }\n  .col-lg-4 {\n    width: 33.33333333333333%;\n  }\n  .col-lg-3 {\n    width: 25%;\n  }\n  .col-lg-2 {\n    width: 16.666666666666664%;\n  }\n  .col-lg-1 {\n    width: 8.333333333333332%;\n  }\n  .col-lg-pull-12 {\n    right: 100%;\n  }\n  .col-lg-pull-11 {\n    right: 91.66666666666666%;\n  }\n  .col-lg-pull-10 {\n    right: 83.33333333333334%;\n  }\n  .col-lg-pull-9 {\n    right: 75%;\n  }\n  .col-lg-pull-8 {\n    right: 66.66666666666666%;\n  }\n  .col-lg-pull-7 {\n    right: 58.333333333333336%;\n  }\n  .col-lg-pull-6 {\n    right: 50%;\n  }\n  .col-lg-pull-5 {\n    right: 41.66666666666667%;\n  }\n  .col-lg-pull-4 {\n    right: 33.33333333333333%;\n  }\n  .col-lg-pull-3 {\n    right: 25%;\n  }\n  .col-lg-pull-2 {\n    right: 16.666666666666664%;\n  }\n  .col-lg-pull-1 {\n    right: 8.333333333333332%;\n  }\n  .col-lg-pull-0 {\n    right: auto;\n  }\n  .col-lg-push-12 {\n    left: 100%;\n  }\n  .col-lg-push-11 {\n    left: 91.66666666666666%;\n  }\n  .col-lg-push-10 {\n    left: 83.33333333333334%;\n  }\n  .col-lg-push-9 {\n    left: 75%;\n  }\n  .col-lg-push-8 {\n    left: 66.66666666666666%;\n  }\n  .col-lg-push-7 {\n    left: 58.333333333333336%;\n  }\n  .col-lg-push-6 {\n    left: 50%;\n  }\n  .col-lg-push-5 {\n    left: 41.66666666666667%;\n  }\n  .col-lg-push-4 {\n    left: 33.33333333333333%;\n  }\n  .col-lg-push-3 {\n    left: 25%;\n  }\n  .col-lg-push-2 {\n    left: 16.666666666666664%;\n  }\n  .col-lg-push-1 {\n    left: 8.333333333333332%;\n  }\n  .col-lg-push-0 {\n    left: auto;\n  }\n  .col-lg-offset-12 {\n    margin-left: 100%;\n  }\n  .col-lg-offset-11 {\n    margin-left: 91.66666666666666%;\n  }\n  .col-lg-offset-10 {\n    margin-left: 83.33333333333334%;\n  }\n  .col-lg-offset-9 {\n    margin-left: 75%;\n  }\n  .col-lg-offset-8 {\n    margin-left: 66.66666666666666%;\n  }\n  .col-lg-offset-7 {\n    margin-left: 58.333333333333336%;\n  }\n  .col-lg-offset-6 {\n    margin-left: 50%;\n  }\n  .col-lg-offset-5 {\n    margin-left: 41.66666666666667%;\n  }\n  .col-lg-offset-4 {\n    margin-left: 33.33333333333333%;\n  }\n  .col-lg-offset-3 {\n    margin-left: 25%;\n  }\n  .col-lg-offset-2 {\n    margin-left: 16.666666666666664%;\n  }\n  .col-lg-offset-1 {\n    margin-left: 8.333333333333332%;\n  }\n  .col-lg-offset-0 {\n    margin-left: 0%;\n  }\n}\ntable {\n  background-color: transparent;\n}\ncaption {\n  padding-top: 8px;\n  padding-bottom: 8px;\n  color: #777777;\n  text-align: left;\n}\nth {\n  text-align: left;\n}\n.table {\n  width: 100%;\n  max-width: 100%;\n  margin-bottom: 20px;\n}\n.table > thead > tr > th,\n.table > tbody > tr > th,\n.table > tfoot > tr > th,\n.table > thead > tr > td,\n.table > tbody > tr > td,\n.table > tfoot > tr > td {\n  padding: 8px;\n  line-height: 1.428571429;\n  vertical-align: top;\n  border-top: 1px solid #dddddd;\n}\n.table > thead > tr > th {\n  vertical-align: bottom;\n  border-bottom: 2px solid #dddddd;\n}\n.table > caption + thead > tr:first-child > th,\n.table > colgroup + thead > tr:first-child > th,\n.table > thead:first-child > tr:first-child > th,\n.table > caption + thead > tr:first-child > td,\n.table > colgroup + thead > tr:first-child > td,\n.table > thead:first-child > tr:first-child > td {\n  border-top: 0;\n}\n.table > tbody + tbody {\n  border-top: 2px solid #dddddd;\n}\n.table .table {\n  background-color: #ffffff;\n}\n.table-condensed > thead > tr > th,\n.table-condensed > tbody > tr > th,\n.table-condensed > tfoot > tr > th,\n.table-condensed > thead > tr > td,\n.table-condensed > tbody > tr > td,\n.table-condensed > tfoot > tr > td {\n  padding: 5px;\n}\n.table-bordered {\n  border: 1px solid #dddddd;\n}\n.table-bordered > thead > tr > th,\n.table-bordered > tbody > tr > th,\n.table-bordered > tfoot > tr > th,\n.table-bordered > thead > tr > td,\n.table-bordered > tbody > tr > td,\n.table-bordered > tfoot > tr > td {\n  border: 1px solid #dddddd;\n}\n.table-bordered > thead > tr > th,\n.table-bordered > thead > tr > td {\n  border-bottom-width: 2px;\n}\n.table-striped > tbody > tr:nth-of-type(odd) {\n  background-color: #f9f9f9;\n}\n.table-hover > tbody > tr:hover {\n  background-color: #f5f5f5;\n}\ntable col[class*=\"col-\"] {\n  position: static;\n  float: none;\n  display: table-column;\n}\ntable td[class*=\"col-\"],\ntable th[class*=\"col-\"] {\n  position: static;\n  float: none;\n  display: table-cell;\n}\n.table > thead > tr > td.active,\n.table > tbody > tr > td.active,\n.table > tfoot > tr > td.active,\n.table > thead > tr > th.active,\n.table > tbody > tr > th.active,\n.table > tfoot > tr > th.active,\n.table > thead > tr.active > td,\n.table > tbody > tr.active > td,\n.table > tfoot > tr.active > td,\n.table > thead > tr.active > th,\n.table > tbody > tr.active > th,\n.table > tfoot > tr.active > th {\n  background-color: #f5f5f5;\n}\n.table-hover > tbody > tr > td.active:hover,\n.table-hover > tbody > tr > th.active:hover,\n.table-hover > tbody > tr.active:hover > td,\n.table-hover > tbody > tr:hover > .active,\n.table-hover > tbody > tr.active:hover > th {\n  background-color: #e8e8e8;\n}\n.table > thead > tr > td.success,\n.table > tbody > tr > td.success,\n.table > tfoot > tr > td.success,\n.table > thead > tr > th.success,\n.table > tbody > tr > th.success,\n.table > tfoot > tr > th.success,\n.table > thead > tr.success > td,\n.table > tbody > tr.success > td,\n.table > tfoot > tr.success > td,\n.table > thead > tr.success > th,\n.table > tbody > tr.success > th,\n.table > tfoot > tr.success > th {\n  background-color: #dff0d8;\n}\n.table-hover > tbody > tr > td.success:hover,\n.table-hover > tbody > tr > th.success:hover,\n.table-hover > tbody > tr.success:hover > td,\n.table-hover > tbody > tr:hover > .success,\n.table-hover > tbody > tr.success:hover > th {\n  background-color: #d0e9c6;\n}\n.table > thead > tr > td.info,\n.table > tbody > tr > td.info,\n.table > tfoot > tr > td.info,\n.table > thead > tr > th.info,\n.table > tbody > tr > th.info,\n.table > tfoot > tr > th.info,\n.table > thead > tr.info > td,\n.table > tbody > tr.info > td,\n.table > tfoot > tr.info > td,\n.table > thead > tr.info > th,\n.table > tbody > tr.info > th,\n.table > tfoot > tr.info > th {\n  background-color: #d9edf7;\n}\n.table-hover > tbody > tr > td.info:hover,\n.table-hover > tbody > tr > th.info:hover,\n.table-hover > tbody > tr.info:hover > td,\n.table-hover > tbody > tr:hover > .info,\n.table-hover > tbody > tr.info:hover > th {\n  background-color: #c4e3f3;\n}\n.table > thead > tr > td.warning,\n.table > tbody > tr > td.warning,\n.table > tfoot > tr > td.warning,\n.table > thead > tr > th.warning,\n.table > tbody > tr > th.warning,\n.table > tfoot > tr > th.warning,\n.table > thead > tr.warning > td,\n.table > tbody > tr.warning > td,\n.table > tfoot > tr.warning > td,\n.table > thead > tr.warning > th,\n.table > tbody > tr.warning > th,\n.table > tfoot > tr.warning > th {\n  background-color: #fcf8e3;\n}\n.table-hover > tbody > tr > td.warning:hover,\n.table-hover > tbody > tr > th.warning:hover,\n.table-hover > tbody > tr.warning:hover > td,\n.table-hover > tbody > tr:hover > .warning,\n.table-hover > tbody > tr.warning:hover > th {\n  background-color: #faf2cc;\n}\n.table > thead > tr > td.danger,\n.table > tbody > tr > td.danger,\n.table > tfoot > tr > td.danger,\n.table > thead > tr > th.danger,\n.table > tbody > tr > th.danger,\n.table > tfoot > tr > th.danger,\n.table > thead > tr.danger > td,\n.table > tbody > tr.danger > td,\n.table > tfoot > tr.danger > td,\n.table > thead > tr.danger > th,\n.table > tbody > tr.danger > th,\n.table > tfoot > tr.danger > th {\n  background-color: #f2dede;\n}\n.table-hover > tbody > tr > td.danger:hover,\n.table-hover > tbody > tr > th.danger:hover,\n.table-hover > tbody > tr.danger:hover > td,\n.table-hover > tbody > tr:hover > .danger,\n.table-hover > tbody > tr.danger:hover > th {\n  background-color: #ebcccc;\n}\n.table-responsive {\n  overflow-x: auto;\n  min-height: 0.01%;\n}\n@media screen and (max-width: 767px) {\n  .table-responsive {\n    width: 100%;\n    margin-bottom: 15px;\n    overflow-y: hidden;\n    -ms-overflow-style: -ms-autohiding-scrollbar;\n    border: 1px solid #dddddd;\n  }\n  .table-responsive > .table {\n    margin-bottom: 0;\n  }\n  .table-responsive > .table > thead > tr > th,\n  .table-responsive > .table > tbody > tr > th,\n  .table-responsive > .table > tfoot > tr > th,\n  .table-responsive > .table > thead > tr > td,\n  .table-responsive > .table > tbody > tr > td,\n  .table-responsive > .table > tfoot > tr > td {\n    white-space: nowrap;\n  }\n  .table-responsive > .table-bordered {\n    border: 0;\n  }\n  .table-responsive > .table-bordered > thead > tr > th:first-child,\n  .table-responsive > .table-bordered > tbody > tr > th:first-child,\n  .table-responsive > .table-bordered > tfoot > tr > th:first-child,\n  .table-responsive > .table-bordered > thead > tr > td:first-child,\n  .table-responsive > .table-bordered > tbody > tr > td:first-child,\n  .table-responsive > .table-bordered > tfoot > tr > td:first-child {\n    border-left: 0;\n  }\n  .table-responsive > .table-bordered > thead > tr > th:last-child,\n  .table-responsive > .table-bordered > tbody > tr > th:last-child,\n  .table-responsive > .table-bordered > tfoot > tr > th:last-child,\n  .table-responsive > .table-bordered > thead > tr > td:last-child,\n  .table-responsive > .table-bordered > tbody > tr > td:last-child,\n  .table-responsive > .table-bordered > tfoot > tr > td:last-child {\n    border-right: 0;\n  }\n  .table-responsive > .table-bordered > tbody > tr:last-child > th,\n  .table-responsive > .table-bordered > tfoot > tr:last-child > th,\n  .table-responsive > .table-bordered > tbody > tr:last-child > td,\n  .table-responsive > .table-bordered > tfoot > tr:last-child > td {\n    border-bottom: 0;\n  }\n}\nfieldset {\n  padding: 0;\n  margin: 0;\n  border: 0;\n  min-width: 0;\n}\nlegend {\n  display: block;\n  width: 100%;\n  padding: 0;\n  margin-bottom: 20px;\n  font-size: 21px;\n  line-height: inherit;\n  color: #333333;\n  border: 0;\n  border-bottom: 1px solid #e5e5e5;\n}\nlabel {\n  display: inline-block;\n  max-width: 100%;\n  margin-bottom: 5px;\n  font-weight: bold;\n}\ninput[type=\"search\"] {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n}\ninput[type=\"radio\"],\ninput[type=\"checkbox\"] {\n  margin: 4px 0 0;\n  margin-top: 1px \\9;\n  line-height: normal;\n}\ninput[type=\"file\"] {\n  display: block;\n}\ninput[type=\"range\"] {\n  display: block;\n  width: 100%;\n}\nselect[multiple],\nselect[size] {\n  height: auto;\n}\ninput[type=\"file\"]:focus,\ninput[type=\"radio\"]:focus,\ninput[type=\"checkbox\"]:focus {\n  outline: thin dotted;\n  outline: 5px auto -webkit-focus-ring-color;\n  outline-offset: -2px;\n}\noutput {\n  display: block;\n  padding-top: 7px;\n  font-size: 14px;\n  line-height: 1.428571429;\n  color: #555555;\n}\n.form-control {\n  display: block;\n  width: 100%;\n  height: 34px;\n  padding: 6px 12px;\n  font-size: 14px;\n  line-height: 1.428571429;\n  color: #555555;\n  background-color: #ffffff;\n  background-image: none;\n  border: 1px solid #cccccc;\n  border-radius: 4px;\n  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);\n  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);\n  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;\n  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;\n  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;\n}\n.form-control:focus {\n  border-color: #66afe9;\n  outline: 0;\n  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);\n  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);\n}\n.form-control::-moz-placeholder {\n  color: #999999;\n  opacity: 1;\n}\n.form-control:-ms-input-placeholder {\n  color: #999999;\n}\n.form-control::-webkit-input-placeholder {\n  color: #999999;\n}\n.form-control[disabled],\n.form-control[readonly],\nfieldset[disabled] .form-control {\n  background-color: #eeeeee;\n  opacity: 1;\n}\n.form-control[disabled],\nfieldset[disabled] .form-control {\n  cursor: not-allowed;\n}\ntextarea.form-control {\n  height: auto;\n}\ninput[type=\"search\"] {\n  -webkit-appearance: none;\n}\n@media screen and (-webkit-min-device-pixel-ratio: 0) {\n  input[type=\"date\"],\n  input[type=\"time\"],\n  input[type=\"datetime-local\"],\n  input[type=\"month\"] {\n    line-height: 34px;\n  }\n  input[type=\"date\"].input-sm,\n  input[type=\"time\"].input-sm,\n  input[type=\"datetime-local\"].input-sm,\n  input[type=\"month\"].input-sm,\n  .input-group-sm input[type=\"date\"],\n  .input-group-sm input[type=\"time\"],\n  .input-group-sm input[type=\"datetime-local\"],\n  .input-group-sm input[type=\"month\"] {\n    line-height: 30px;\n  }\n  input[type=\"date\"].input-lg,\n  input[type=\"time\"].input-lg,\n  input[type=\"datetime-local\"].input-lg,\n  input[type=\"month\"].input-lg,\n  .input-group-lg input[type=\"date\"],\n  .input-group-lg input[type=\"time\"],\n  .input-group-lg input[type=\"datetime-local\"],\n  .input-group-lg input[type=\"month\"] {\n    line-height: 46px;\n  }\n}\n.form-group {\n  margin-bottom: 15px;\n}\n.radio,\n.checkbox {\n  position: relative;\n  display: block;\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n.radio label,\n.checkbox label {\n  min-height: 20px;\n  padding-left: 20px;\n  margin-bottom: 0;\n  font-weight: normal;\n  cursor: pointer;\n}\n.radio input[type=\"radio\"],\n.radio-inline input[type=\"radio\"],\n.checkbox input[type=\"checkbox\"],\n.checkbox-inline input[type=\"checkbox\"] {\n  position: absolute;\n  margin-left: -20px;\n  margin-top: 4px \\9;\n}\n.radio + .radio,\n.checkbox + .checkbox {\n  margin-top: -5px;\n}\n.radio-inline,\n.checkbox-inline {\n  position: relative;\n  display: inline-block;\n  padding-left: 20px;\n  margin-bottom: 0;\n  vertical-align: middle;\n  font-weight: normal;\n  cursor: pointer;\n}\n.radio-inline + .radio-inline,\n.checkbox-inline + .checkbox-inline {\n  margin-top: 0;\n  margin-left: 10px;\n}\ninput[type=\"radio\"][disabled],\ninput[type=\"checkbox\"][disabled],\ninput[type=\"radio\"].disabled,\ninput[type=\"checkbox\"].disabled,\nfieldset[disabled] input[type=\"radio\"],\nfieldset[disabled] input[type=\"checkbox\"] {\n  cursor: not-allowed;\n}\n.radio-inline.disabled,\n.checkbox-inline.disabled,\nfieldset[disabled] .radio-inline,\nfieldset[disabled] .checkbox-inline {\n  cursor: not-allowed;\n}\n.radio.disabled label,\n.checkbox.disabled label,\nfieldset[disabled] .radio label,\nfieldset[disabled] .checkbox label {\n  cursor: not-allowed;\n}\n.form-control-static {\n  padding-top: 7px;\n  padding-bottom: 7px;\n  margin-bottom: 0;\n  min-height: 34px;\n}\n.form-control-static.input-lg,\n.form-control-static.input-sm {\n  padding-left: 0;\n  padding-right: 0;\n}\n.input-sm {\n  height: 30px;\n  padding: 5px 10px;\n  font-size: 12px;\n  line-height: 1.5;\n  border-radius: 3px;\n}\nselect.input-sm {\n  height: 30px;\n  line-height: 30px;\n}\ntextarea.input-sm,\nselect[multiple].input-sm {\n  height: auto;\n}\n.form-group-sm .form-control {\n  height: 30px;\n  padding: 5px 10px;\n  font-size: 12px;\n  line-height: 1.5;\n  border-radius: 3px;\n}\nselect.form-group-sm .form-control {\n  height: 30px;\n  line-height: 30px;\n}\ntextarea.form-group-sm .form-control,\nselect[multiple].form-group-sm .form-control {\n  height: auto;\n}\n.form-group-sm .form-control-static {\n  height: 30px;\n  padding: 5px 10px;\n  font-size: 12px;\n  line-height: 1.5;\n  min-height: 32px;\n}\n.input-lg {\n  height: 46px;\n  padding: 10px 16px;\n  font-size: 18px;\n  line-height: 1.3333333;\n  border-radius: 6px;\n}\nselect.input-lg {\n  height: 46px;\n  line-height: 46px;\n}\ntextarea.input-lg,\nselect[multiple].input-lg {\n  height: auto;\n}\n.form-group-lg .form-control {\n  height: 46px;\n  padding: 10px 16px;\n  font-size: 18px;\n  line-height: 1.3333333;\n  border-radius: 6px;\n}\nselect.form-group-lg .form-control {\n  height: 46px;\n  line-height: 46px;\n}\ntextarea.form-group-lg .form-control,\nselect[multiple].form-group-lg .form-control {\n  height: auto;\n}\n.form-group-lg .form-control-static {\n  height: 46px;\n  padding: 10px 16px;\n  font-size: 18px;\n  line-height: 1.3333333;\n  min-height: 38px;\n}\n.has-feedback {\n  position: relative;\n}\n.has-feedback .form-control {\n  padding-right: 42.5px;\n}\n.form-control-feedback {\n  position: absolute;\n  top: 0;\n  right: 0;\n  z-index: 2;\n  display: block;\n  width: 34px;\n  height: 34px;\n  line-height: 34px;\n  text-align: center;\n  pointer-events: none;\n}\n.input-lg + .form-control-feedback {\n  width: 46px;\n  height: 46px;\n  line-height: 46px;\n}\n.input-sm + .form-control-feedback {\n  width: 30px;\n  height: 30px;\n  line-height: 30px;\n}\n.has-success .help-block,\n.has-success .control-label,\n.has-success .radio,\n.has-success .checkbox,\n.has-success .radio-inline,\n.has-success .checkbox-inline,\n.has-success.radio label,\n.has-success.checkbox label,\n.has-success.radio-inline label,\n.has-success.checkbox-inline label {\n  color: #3c763d;\n}\n.has-success .form-control {\n  border-color: #3c763d;\n  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);\n  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);\n}\n.has-success .form-control:focus {\n  border-color: #2b542c;\n  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168;\n  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168;\n}\n.has-success .input-group-addon {\n  color: #3c763d;\n  border-color: #3c763d;\n  background-color: #dff0d8;\n}\n.has-success .form-control-feedback {\n  color: #3c763d;\n}\n.has-warning .help-block,\n.has-warning .control-label,\n.has-warning .radio,\n.has-warning .checkbox,\n.has-warning .radio-inline,\n.has-warning .checkbox-inline,\n.has-warning.radio label,\n.has-warning.checkbox label,\n.has-warning.radio-inline label,\n.has-warning.checkbox-inline label {\n  color: #8a6d3b;\n}\n.has-warning .form-control {\n  border-color: #8a6d3b;\n  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);\n  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);\n}\n.has-warning .form-control:focus {\n  border-color: #66512c;\n  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c0a16b;\n  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c0a16b;\n}\n.has-warning .input-group-addon {\n  color: #8a6d3b;\n  border-color: #8a6d3b;\n  background-color: #fcf8e3;\n}\n.has-warning .form-control-feedback {\n  color: #8a6d3b;\n}\n.has-error .help-block,\n.has-error .control-label,\n.has-error .radio,\n.has-error .checkbox,\n.has-error .radio-inline,\n.has-error .checkbox-inline,\n.has-error.radio label,\n.has-error.checkbox label,\n.has-error.radio-inline label,\n.has-error.checkbox-inline label {\n  color: #a94442;\n}\n.has-error .form-control {\n  border-color: #a94442;\n  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);\n  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);\n}\n.has-error .form-control:focus {\n  border-color: #843534;\n  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;\n  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;\n}\n.has-error .input-group-addon {\n  color: #a94442;\n  border-color: #a94442;\n  background-color: #f2dede;\n}\n.has-error .form-control-feedback {\n  color: #a94442;\n}\n.has-feedback label ~ .form-control-feedback {\n  top: 25px;\n}\n.has-feedback label.sr-only ~ .form-control-feedback {\n  top: 0;\n}\n.help-block {\n  display: block;\n  margin-top: 5px;\n  margin-bottom: 10px;\n  color: #737373;\n}\n@media (min-width: 768px) {\n  .form-inline .form-group {\n    display: inline-block;\n    margin-bottom: 0;\n    vertical-align: middle;\n  }\n  .form-inline .form-control {\n    display: inline-block;\n    width: auto;\n    vertical-align: middle;\n  }\n  .form-inline .form-control-static {\n    display: inline-block;\n  }\n  .form-inline .input-group {\n    display: inline-table;\n    vertical-align: middle;\n  }\n  .form-inline .input-group .input-group-addon,\n  .form-inline .input-group .input-group-btn,\n  .form-inline .input-group .form-control {\n    width: auto;\n  }\n  .form-inline .input-group > .form-control {\n    width: 100%;\n  }\n  .form-inline .control-label {\n    margin-bottom: 0;\n    vertical-align: middle;\n  }\n  .form-inline .radio,\n  .form-inline .checkbox {\n    display: inline-block;\n    margin-top: 0;\n    margin-bottom: 0;\n    vertical-align: middle;\n  }\n  .form-inline .radio label,\n  .form-inline .checkbox label {\n    padding-left: 0;\n  }\n  .form-inline .radio input[type=\"radio\"],\n  .form-inline .checkbox input[type=\"checkbox\"] {\n    position: relative;\n    margin-left: 0;\n  }\n  .form-inline .has-feedback .form-control-feedback {\n    top: 0;\n  }\n}\n.form-horizontal .radio,\n.form-horizontal .checkbox,\n.form-horizontal .radio-inline,\n.form-horizontal .checkbox-inline {\n  margin-top: 0;\n  margin-bottom: 0;\n  padding-top: 7px;\n}\n.form-horizontal .radio,\n.form-horizontal .checkbox {\n  min-height: 27px;\n}\n.form-horizontal .form-group {\n  margin-left: -15px;\n  margin-right: -15px;\n}\n@media (min-width: 768px) {\n  .form-horizontal .control-label {\n    text-align: right;\n    margin-bottom: 0;\n    padding-top: 7px;\n  }\n}\n.form-horizontal .has-feedback .form-control-feedback {\n  right: 15px;\n}\n@media (min-width: 768px) {\n  .form-horizontal .form-group-lg .control-label {\n    padding-top: 14.333333px;\n  }\n}\n@media (min-width: 768px) {\n  .form-horizontal .form-group-sm .control-label {\n    padding-top: 6px;\n  }\n}\n.btn {\n  display: inline-block;\n  margin-bottom: 0;\n  font-weight: normal;\n  text-align: center;\n  vertical-align: middle;\n  touch-action: manipulation;\n  cursor: pointer;\n  background-image: none;\n  border: 1px solid transparent;\n  white-space: nowrap;\n  padding: 6px 12px;\n  font-size: 14px;\n  line-height: 1.428571429;\n  border-radius: 4px;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n}\n.btn:focus,\n.btn:active:focus,\n.btn.active:focus,\n.btn.focus,\n.btn:active.focus,\n.btn.active.focus {\n  outline: thin dotted;\n  outline: 5px auto -webkit-focus-ring-color;\n  outline-offset: -2px;\n}\n.btn:hover,\n.btn:focus,\n.btn.focus {\n  color: #333333;\n  text-decoration: none;\n}\n.btn:active,\n.btn.active {\n  outline: 0;\n  background-image: none;\n  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);\n  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);\n}\n.btn.disabled,\n.btn[disabled],\nfieldset[disabled] .btn {\n  cursor: not-allowed;\n  pointer-events: none;\n  opacity: 0.65;\n  filter: alpha(opacity=65);\n  -webkit-box-shadow: none;\n  box-shadow: none;\n}\n.btn-default {\n  color: #333333;\n  background-color: #ffffff;\n  border-color: #cccccc;\n}\n.btn-default:hover,\n.btn-default:focus,\n.btn-default.focus,\n.btn-default:active,\n.btn-default.active,\n.open > .dropdown-toggle.btn-default {\n  color: #333333;\n  background-color: #e6e6e6;\n  border-color: #adadad;\n}\n.btn-default:active,\n.btn-default.active,\n.open > .dropdown-toggle.btn-default {\n  background-image: none;\n}\n.btn-default.disabled,\n.btn-default[disabled],\nfieldset[disabled] .btn-default,\n.btn-default.disabled:hover,\n.btn-default[disabled]:hover,\nfieldset[disabled] .btn-default:hover,\n.btn-default.disabled:focus,\n.btn-default[disabled]:focus,\nfieldset[disabled] .btn-default:focus,\n.btn-default.disabled.focus,\n.btn-default[disabled].focus,\nfieldset[disabled] .btn-default.focus,\n.btn-default.disabled:active,\n.btn-default[disabled]:active,\nfieldset[disabled] .btn-default:active,\n.btn-default.disabled.active,\n.btn-default[disabled].active,\nfieldset[disabled] .btn-default.active {\n  background-color: #ffffff;\n  border-color: #cccccc;\n}\n.btn-default .badge {\n  color: #ffffff;\n  background-color: #333333;\n}\n.btn-primary {\n  color: #ffffff;\n  background-color: #337ab7;\n  border-color: #2e6da4;\n}\n.btn-primary:hover,\n.btn-primary:focus,\n.btn-primary.focus,\n.btn-primary:active,\n.btn-primary.active,\n.open > .dropdown-toggle.btn-primary {\n  color: #ffffff;\n  background-color: #286090;\n  border-color: #204d74;\n}\n.btn-primary:active,\n.btn-primary.active,\n.open > .dropdown-toggle.btn-primary {\n  background-image: none;\n}\n.btn-primary.disabled,\n.btn-primary[disabled],\nfieldset[disabled] .btn-primary,\n.btn-primary.disabled:hover,\n.btn-primary[disabled]:hover,\nfieldset[disabled] .btn-primary:hover,\n.btn-primary.disabled:focus,\n.btn-primary[disabled]:focus,\nfieldset[disabled] .btn-primary:focus,\n.btn-primary.disabled.focus,\n.btn-primary[disabled].focus,\nfieldset[disabled] .btn-primary.focus,\n.btn-primary.disabled:active,\n.btn-primary[disabled]:active,\nfieldset[disabled] .btn-primary:active,\n.btn-primary.disabled.active,\n.btn-primary[disabled].active,\nfieldset[disabled] .btn-primary.active {\n  background-color: #337ab7;\n  border-color: #2e6da4;\n}\n.btn-primary .badge {\n  color: #337ab7;\n  background-color: #ffffff;\n}\n.btn-success {\n  color: #ffffff;\n  background-color: #5cb85c;\n  border-color: #4cae4c;\n}\n.btn-success:hover,\n.btn-success:focus,\n.btn-success.focus,\n.btn-success:active,\n.btn-success.active,\n.open > .dropdown-toggle.btn-success {\n  color: #ffffff;\n  background-color: #449d44;\n  border-color: #398439;\n}\n.btn-success:active,\n.btn-success.active,\n.open > .dropdown-toggle.btn-success {\n  background-image: none;\n}\n.btn-success.disabled,\n.btn-success[disabled],\nfieldset[disabled] .btn-success,\n.btn-success.disabled:hover,\n.btn-success[disabled]:hover,\nfieldset[disabled] .btn-success:hover,\n.btn-success.disabled:focus,\n.btn-success[disabled]:focus,\nfieldset[disabled] .btn-success:focus,\n.btn-success.disabled.focus,\n.btn-success[disabled].focus,\nfieldset[disabled] .btn-success.focus,\n.btn-success.disabled:active,\n.btn-success[disabled]:active,\nfieldset[disabled] .btn-success:active,\n.btn-success.disabled.active,\n.btn-success[disabled].active,\nfieldset[disabled] .btn-success.active {\n  background-color: #5cb85c;\n  border-color: #4cae4c;\n}\n.btn-success .badge {\n  color: #5cb85c;\n  background-color: #ffffff;\n}\n.btn-info {\n  color: #ffffff;\n  background-color: #5bc0de;\n  border-color: #46b8da;\n}\n.btn-info:hover,\n.btn-info:focus,\n.btn-info.focus,\n.btn-info:active,\n.btn-info.active,\n.open > .dropdown-toggle.btn-info {\n  color: #ffffff;\n  background-color: #31b0d5;\n  border-color: #269abc;\n}\n.btn-info:active,\n.btn-info.active,\n.open > .dropdown-toggle.btn-info {\n  background-image: none;\n}\n.btn-info.disabled,\n.btn-info[disabled],\nfieldset[disabled] .btn-info,\n.btn-info.disabled:hover,\n.btn-info[disabled]:hover,\nfieldset[disabled] .btn-info:hover,\n.btn-info.disabled:focus,\n.btn-info[disabled]:focus,\nfieldset[disabled] .btn-info:focus,\n.btn-info.disabled.focus,\n.btn-info[disabled].focus,\nfieldset[disabled] .btn-info.focus,\n.btn-info.disabled:active,\n.btn-info[disabled]:active,\nfieldset[disabled] .btn-info:active,\n.btn-info.disabled.active,\n.btn-info[disabled].active,\nfieldset[disabled] .btn-info.active {\n  background-color: #5bc0de;\n  border-color: #46b8da;\n}\n.btn-info .badge {\n  color: #5bc0de;\n  background-color: #ffffff;\n}\n.btn-warning {\n  color: #ffffff;\n  background-color: #f0ad4e;\n  border-color: #eea236;\n}\n.btn-warning:hover,\n.btn-warning:focus,\n.btn-warning.focus,\n.btn-warning:active,\n.btn-warning.active,\n.open > .dropdown-toggle.btn-warning {\n  color: #ffffff;\n  background-color: #ec971f;\n  border-color: #d58512;\n}\n.btn-warning:active,\n.btn-warning.active,\n.open > .dropdown-toggle.btn-warning {\n  background-image: none;\n}\n.btn-warning.disabled,\n.btn-warning[disabled],\nfieldset[disabled] .btn-warning,\n.btn-warning.disabled:hover,\n.btn-warning[disabled]:hover,\nfieldset[disabled] .btn-warning:hover,\n.btn-warning.disabled:focus,\n.btn-warning[disabled]:focus,\nfieldset[disabled] .btn-warning:focus,\n.btn-warning.disabled.focus,\n.btn-warning[disabled].focus,\nfieldset[disabled] .btn-warning.focus,\n.btn-warning.disabled:active,\n.btn-warning[disabled]:active,\nfieldset[disabled] .btn-warning:active,\n.btn-warning.disabled.active,\n.btn-warning[disabled].active,\nfieldset[disabled] .btn-warning.active {\n  background-color: #f0ad4e;\n  border-color: #eea236;\n}\n.btn-warning .badge {\n  color: #f0ad4e;\n  background-color: #ffffff;\n}\n.btn-danger {\n  color: #ffffff;\n  background-color: #d9534f;\n  border-color: #d43f3a;\n}\n.btn-danger:hover,\n.btn-danger:focus,\n.btn-danger.focus,\n.btn-danger:active,\n.btn-danger.active,\n.open > .dropdown-toggle.btn-danger {\n  color: #ffffff;\n  background-color: #c9302c;\n  border-color: #ac2925;\n}\n.btn-danger:active,\n.btn-danger.active,\n.open > .dropdown-toggle.btn-danger {\n  background-image: none;\n}\n.btn-danger.disabled,\n.btn-danger[disabled],\nfieldset[disabled] .btn-danger,\n.btn-danger.disabled:hover,\n.btn-danger[disabled]:hover,\nfieldset[disabled] .btn-danger:hover,\n.btn-danger.disabled:focus,\n.btn-danger[disabled]:focus,\nfieldset[disabled] .btn-danger:focus,\n.btn-danger.disabled.focus,\n.btn-danger[disabled].focus,\nfieldset[disabled] .btn-danger.focus,\n.btn-danger.disabled:active,\n.btn-danger[disabled]:active,\nfieldset[disabled] .btn-danger:active,\n.btn-danger.disabled.active,\n.btn-danger[disabled].active,\nfieldset[disabled] .btn-danger.active {\n  background-color: #d9534f;\n  border-color: #d43f3a;\n}\n.btn-danger .badge {\n  color: #d9534f;\n  background-color: #ffffff;\n}\n.btn-link {\n  color: #337ab7;\n  font-weight: normal;\n  border-radius: 0;\n}\n.btn-link,\n.btn-link:active,\n.btn-link.active,\n.btn-link[disabled],\nfieldset[disabled] .btn-link {\n  background-color: transparent;\n  -webkit-box-shadow: none;\n  box-shadow: none;\n}\n.btn-link,\n.btn-link:hover,\n.btn-link:focus,\n.btn-link:active {\n  border-color: transparent;\n}\n.btn-link:hover,\n.btn-link:focus {\n  color: #23527c;\n  text-decoration: underline;\n  background-color: transparent;\n}\n.btn-link[disabled]:hover,\nfieldset[disabled] .btn-link:hover,\n.btn-link[disabled]:focus,\nfieldset[disabled] .btn-link:focus {\n  color: #777777;\n  text-decoration: none;\n}\n.btn-lg,\n.btn-group-lg > .btn {\n  padding: 10px 16px;\n  font-size: 18px;\n  line-height: 1.3333333;\n  border-radius: 6px;\n}\n.btn-sm,\n.btn-group-sm > .btn {\n  padding: 5px 10px;\n  font-size: 12px;\n  line-height: 1.5;\n  border-radius: 3px;\n}\n.btn-xs,\n.btn-group-xs > .btn {\n  padding: 1px 5px;\n  font-size: 12px;\n  line-height: 1.5;\n  border-radius: 3px;\n}\n.btn-block {\n  display: block;\n  width: 100%;\n}\n.btn-block + .btn-block {\n  margin-top: 5px;\n}\ninput[type=\"submit\"].btn-block,\ninput[type=\"reset\"].btn-block,\ninput[type=\"button\"].btn-block {\n  width: 100%;\n}\n.fade {\n  opacity: 0;\n  -webkit-transition: opacity 0.15s linear;\n  -o-transition: opacity 0.15s linear;\n  transition: opacity 0.15s linear;\n}\n.fade.in {\n  opacity: 1;\n}\n.collapse {\n  display: none;\n}\n.collapse.in {\n  display: block;\n}\ntr.collapse.in {\n  display: table-row;\n}\ntbody.collapse.in {\n  display: table-row-group;\n}\n.collapsing {\n  position: relative;\n  height: 0;\n  overflow: hidden;\n  -webkit-transition-property: height, visibility;\n  transition-property: height, visibility;\n  -webkit-transition-duration: 0.35s;\n  transition-duration: 0.35s;\n  -webkit-transition-timing-function: ease;\n  transition-timing-function: ease;\n}\n@font-face {\n  font-family: 'Glyphicons Halflings';\n  src: url("+__webpack_require__(168)+");\n  src: url("+__webpack_require__(168)+"?#iefix) format('embedded-opentype'), url("+__webpack_require__(164)+") format('woff2'), url("+__webpack_require__(165)+") format('woff'), url("+__webpack_require__(166)+") format('truetype'), url("+__webpack_require__(167)+"#glyphicons_halflingsregular) format('svg');\n}\n.glyphicon {\n  position: relative;\n  top: 1px;\n  display: inline-block;\n  font-family: 'Glyphicons Halflings';\n  font-style: normal;\n  font-weight: normal;\n  line-height: 1;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n.glyphicon-asterisk:before {\n  content: \"\\2a\";\n}\n.glyphicon-plus:before {\n  content: \"\\2b\";\n}\n.glyphicon-euro:before,\n.glyphicon-eur:before {\n  content: \"\\20ac\";\n}\n.glyphicon-minus:before {\n  content: \"\\2212\";\n}\n.glyphicon-cloud:before {\n  content: \"\\2601\";\n}\n.glyphicon-envelope:before {\n  content: \"\\2709\";\n}\n.glyphicon-pencil:before {\n  content: \"\\270f\";\n}\n.glyphicon-glass:before {\n  content: \"\\e001\";\n}\n.glyphicon-music:before {\n  content: \"\\e002\";\n}\n.glyphicon-search:before {\n  content: \"\\e003\";\n}\n.glyphicon-heart:before {\n  content: \"\\e005\";\n}\n.glyphicon-star:before {\n  content: \"\\e006\";\n}\n.glyphicon-star-empty:before {\n  content: \"\\e007\";\n}\n.glyphicon-user:before {\n  content: \"\\e008\";\n}\n.glyphicon-film:before {\n  content: \"\\e009\";\n}\n.glyphicon-th-large:before {\n  content: \"\\e010\";\n}\n.glyphicon-th:before {\n  content: \"\\e011\";\n}\n.glyphicon-th-list:before {\n  content: \"\\e012\";\n}\n.glyphicon-ok:before {\n  content: \"\\e013\";\n}\n.glyphicon-remove:before {\n  content: \"\\e014\";\n}\n.glyphicon-zoom-in:before {\n  content: \"\\e015\";\n}\n.glyphicon-zoom-out:before {\n  content: \"\\e016\";\n}\n.glyphicon-off:before {\n  content: \"\\e017\";\n}\n.glyphicon-signal:before {\n  content: \"\\e018\";\n}\n.glyphicon-cog:before {\n  content: \"\\e019\";\n}\n.glyphicon-trash:before {\n  content: \"\\e020\";\n}\n.glyphicon-home:before {\n  content: \"\\e021\";\n}\n.glyphicon-file:before {\n  content: \"\\e022\";\n}\n.glyphicon-time:before {\n  content: \"\\e023\";\n}\n.glyphicon-road:before {\n  content: \"\\e024\";\n}\n.glyphicon-download-alt:before {\n  content: \"\\e025\";\n}\n.glyphicon-download:before {\n  content: \"\\e026\";\n}\n.glyphicon-upload:before {\n  content: \"\\e027\";\n}\n.glyphicon-inbox:before {\n  content: \"\\e028\";\n}\n.glyphicon-play-circle:before {\n  content: \"\\e029\";\n}\n.glyphicon-repeat:before {\n  content: \"\\e030\";\n}\n.glyphicon-refresh:before {\n  content: \"\\e031\";\n}\n.glyphicon-list-alt:before {\n  content: \"\\e032\";\n}\n.glyphicon-lock:before {\n  content: \"\\e033\";\n}\n.glyphicon-flag:before {\n  content: \"\\e034\";\n}\n.glyphicon-headphones:before {\n  content: \"\\e035\";\n}\n.glyphicon-volume-off:before {\n  content: \"\\e036\";\n}\n.glyphicon-volume-down:before {\n  content: \"\\e037\";\n}\n.glyphicon-volume-up:before {\n  content: \"\\e038\";\n}\n.glyphicon-qrcode:before {\n  content: \"\\e039\";\n}\n.glyphicon-barcode:before {\n  content: \"\\e040\";\n}\n.glyphicon-tag:before {\n  content: \"\\e041\";\n}\n.glyphicon-tags:before {\n  content: \"\\e042\";\n}\n.glyphicon-book:before {\n  content: \"\\e043\";\n}\n.glyphicon-bookmark:before {\n  content: \"\\e044\";\n}\n.glyphicon-print:before {\n  content: \"\\e045\";\n}\n.glyphicon-camera:before {\n  content: \"\\e046\";\n}\n.glyphicon-font:before {\n  content: \"\\e047\";\n}\n.glyphicon-bold:before {\n  content: \"\\e048\";\n}\n.glyphicon-italic:before {\n  content: \"\\e049\";\n}\n.glyphicon-text-height:before {\n  content: \"\\e050\";\n}\n.glyphicon-text-width:before {\n  content: \"\\e051\";\n}\n.glyphicon-align-left:before {\n  content: \"\\e052\";\n}\n.glyphicon-align-center:before {\n  content: \"\\e053\";\n}\n.glyphicon-align-right:before {\n  content: \"\\e054\";\n}\n.glyphicon-align-justify:before {\n  content: \"\\e055\";\n}\n.glyphicon-list:before {\n  content: \"\\e056\";\n}\n.glyphicon-indent-left:before {\n  content: \"\\e057\";\n}\n.glyphicon-indent-right:before {\n  content: \"\\e058\";\n}\n.glyphicon-facetime-video:before {\n  content: \"\\e059\";\n}\n.glyphicon-picture:before {\n  content: \"\\e060\";\n}\n.glyphicon-map-marker:before {\n  content: \"\\e062\";\n}\n.glyphicon-adjust:before {\n  content: \"\\e063\";\n}\n.glyphicon-tint:before {\n  content: \"\\e064\";\n}\n.glyphicon-edit:before {\n  content: \"\\e065\";\n}\n.glyphicon-share:before {\n  content: \"\\e066\";\n}\n.glyphicon-check:before {\n  content: \"\\e067\";\n}\n.glyphicon-move:before {\n  content: \"\\e068\";\n}\n.glyphicon-step-backward:before {\n  content: \"\\e069\";\n}\n.glyphicon-fast-backward:before {\n  content: \"\\e070\";\n}\n.glyphicon-backward:before {\n  content: \"\\e071\";\n}\n.glyphicon-play:before {\n  content: \"\\e072\";\n}\n.glyphicon-pause:before {\n  content: \"\\e073\";\n}\n.glyphicon-stop:before {\n  content: \"\\e074\";\n}\n.glyphicon-forward:before {\n  content: \"\\e075\";\n}\n.glyphicon-fast-forward:before {\n  content: \"\\e076\";\n}\n.glyphicon-step-forward:before {\n  content: \"\\e077\";\n}\n.glyphicon-eject:before {\n  content: \"\\e078\";\n}\n.glyphicon-chevron-left:before {\n  content: \"\\e079\";\n}\n.glyphicon-chevron-right:before {\n  content: \"\\e080\";\n}\n.glyphicon-plus-sign:before {\n  content: \"\\e081\";\n}\n.glyphicon-minus-sign:before {\n  content: \"\\e082\";\n}\n.glyphicon-remove-sign:before {\n  content: \"\\e083\";\n}\n.glyphicon-ok-sign:before {\n  content: \"\\e084\";\n}\n.glyphicon-question-sign:before {\n  content: \"\\e085\";\n}\n.glyphicon-info-sign:before {\n  content: \"\\e086\";\n}\n.glyphicon-screenshot:before {\n  content: \"\\e087\";\n}\n.glyphicon-remove-circle:before {\n  content: \"\\e088\";\n}\n.glyphicon-ok-circle:before {\n  content: \"\\e089\";\n}\n.glyphicon-ban-circle:before {\n  content: \"\\e090\";\n}\n.glyphicon-arrow-left:before {\n  content: \"\\e091\";\n}\n.glyphicon-arrow-right:before {\n  content: \"\\e092\";\n}\n.glyphicon-arrow-up:before {\n  content: \"\\e093\";\n}\n.glyphicon-arrow-down:before {\n  content: \"\\e094\";\n}\n.glyphicon-share-alt:before {\n  content: \"\\e095\";\n}\n.glyphicon-resize-full:before {\n  content: \"\\e096\";\n}\n.glyphicon-resize-small:before {\n  content: \"\\e097\";\n}\n.glyphicon-exclamation-sign:before {\n  content: \"\\e101\";\n}\n.glyphicon-gift:before {\n  content: \"\\e102\";\n}\n.glyphicon-leaf:before {\n  content: \"\\e103\";\n}\n.glyphicon-fire:before {\n  content: \"\\e104\";\n}\n.glyphicon-eye-open:before {\n  content: \"\\e105\";\n}\n.glyphicon-eye-close:before {\n  content: \"\\e106\";\n}\n.glyphicon-warning-sign:before {\n  content: \"\\e107\";\n}\n.glyphicon-plane:before {\n  content: \"\\e108\";\n}\n.glyphicon-calendar:before {\n  content: \"\\e109\";\n}\n.glyphicon-random:before {\n  content: \"\\e110\";\n}\n.glyphicon-comment:before {\n  content: \"\\e111\";\n}\n.glyphicon-magnet:before {\n  content: \"\\e112\";\n}\n.glyphicon-chevron-up:before {\n  content: \"\\e113\";\n}\n.glyphicon-chevron-down:before {\n  content: \"\\e114\";\n}\n.glyphicon-retweet:before {\n  content: \"\\e115\";\n}\n.glyphicon-shopping-cart:before {\n  content: \"\\e116\";\n}\n.glyphicon-folder-close:before {\n  content: \"\\e117\";\n}\n.glyphicon-folder-open:before {\n  content: \"\\e118\";\n}\n.glyphicon-resize-vertical:before {\n  content: \"\\e119\";\n}\n.glyphicon-resize-horizontal:before {\n  content: \"\\e120\";\n}\n.glyphicon-hdd:before {\n  content: \"\\e121\";\n}\n.glyphicon-bullhorn:before {\n  content: \"\\e122\";\n}\n.glyphicon-bell:before {\n  content: \"\\e123\";\n}\n.glyphicon-certificate:before {\n  content: \"\\e124\";\n}\n.glyphicon-thumbs-up:before {\n  content: \"\\e125\";\n}\n.glyphicon-thumbs-down:before {\n  content: \"\\e126\";\n}\n.glyphicon-hand-right:before {\n  content: \"\\e127\";\n}\n.glyphicon-hand-left:before {\n  content: \"\\e128\";\n}\n.glyphicon-hand-up:before {\n  content: \"\\e129\";\n}\n.glyphicon-hand-down:before {\n  content: \"\\e130\";\n}\n.glyphicon-circle-arrow-right:before {\n  content: \"\\e131\";\n}\n.glyphicon-circle-arrow-left:before {\n  content: \"\\e132\";\n}\n.glyphicon-circle-arrow-up:before {\n  content: \"\\e133\";\n}\n.glyphicon-circle-arrow-down:before {\n  content: \"\\e134\";\n}\n.glyphicon-globe:before {\n  content: \"\\e135\";\n}\n.glyphicon-wrench:before {\n  content: \"\\e136\";\n}\n.glyphicon-tasks:before {\n  content: \"\\e137\";\n}\n.glyphicon-filter:before {\n  content: \"\\e138\";\n}\n.glyphicon-briefcase:before {\n  content: \"\\e139\";\n}\n.glyphicon-fullscreen:before {\n  content: \"\\e140\";\n}\n.glyphicon-dashboard:before {\n  content: \"\\e141\";\n}\n.glyphicon-paperclip:before {\n  content: \"\\e142\";\n}\n.glyphicon-heart-empty:before {\n  content: \"\\e143\";\n}\n.glyphicon-link:before {\n  content: \"\\e144\";\n}\n.glyphicon-phone:before {\n  content: \"\\e145\";\n}\n.glyphicon-pushpin:before {\n  content: \"\\e146\";\n}\n.glyphicon-usd:before {\n  content: \"\\e148\";\n}\n.glyphicon-gbp:before {\n  content: \"\\e149\";\n}\n.glyphicon-sort:before {\n  content: \"\\e150\";\n}\n.glyphicon-sort-by-alphabet:before {\n  content: \"\\e151\";\n}\n.glyphicon-sort-by-alphabet-alt:before {\n  content: \"\\e152\";\n}\n.glyphicon-sort-by-order:before {\n  content: \"\\e153\";\n}\n.glyphicon-sort-by-order-alt:before {\n  content: \"\\e154\";\n}\n.glyphicon-sort-by-attributes:before {\n  content: \"\\e155\";\n}\n.glyphicon-sort-by-attributes-alt:before {\n  content: \"\\e156\";\n}\n.glyphicon-unchecked:before {\n  content: \"\\e157\";\n}\n.glyphicon-expand:before {\n  content: \"\\e158\";\n}\n.glyphicon-collapse-down:before {\n  content: \"\\e159\";\n}\n.glyphicon-collapse-up:before {\n  content: \"\\e160\";\n}\n.glyphicon-log-in:before {\n  content: \"\\e161\";\n}\n.glyphicon-flash:before {\n  content: \"\\e162\";\n}\n.glyphicon-log-out:before {\n  content: \"\\e163\";\n}\n.glyphicon-new-window:before {\n  content: \"\\e164\";\n}\n.glyphicon-record:before {\n  content: \"\\e165\";\n}\n.glyphicon-save:before {\n  content: \"\\e166\";\n}\n.glyphicon-open:before {\n  content: \"\\e167\";\n}\n.glyphicon-saved:before {\n  content: \"\\e168\";\n}\n.glyphicon-import:before {\n  content: \"\\e169\";\n}\n.glyphicon-export:before {\n  content: \"\\e170\";\n}\n.glyphicon-send:before {\n  content: \"\\e171\";\n}\n.glyphicon-floppy-disk:before {\n  content: \"\\e172\";\n}\n.glyphicon-floppy-saved:before {\n  content: \"\\e173\";\n}\n.glyphicon-floppy-remove:before {\n  content: \"\\e174\";\n}\n.glyphicon-floppy-save:before {\n  content: \"\\e175\";\n}\n.glyphicon-floppy-open:before {\n  content: \"\\e176\";\n}\n.glyphicon-credit-card:before {\n  content: \"\\e177\";\n}\n.glyphicon-transfer:before {\n  content: \"\\e178\";\n}\n.glyphicon-cutlery:before {\n  content: \"\\e179\";\n}\n.glyphicon-header:before {\n  content: \"\\e180\";\n}\n.glyphicon-compressed:before {\n  content: \"\\e181\";\n}\n.glyphicon-earphone:before {\n  content: \"\\e182\";\n}\n.glyphicon-phone-alt:before {\n  content: \"\\e183\";\n}\n.glyphicon-tower:before {\n  content: \"\\e184\";\n}\n.glyphicon-stats:before {\n  content: \"\\e185\";\n}\n.glyphicon-sd-video:before {\n  content: \"\\e186\";\n}\n.glyphicon-hd-video:before {\n  content: \"\\e187\";\n}\n.glyphicon-subtitles:before {\n  content: \"\\e188\";\n}\n.glyphicon-sound-stereo:before {\n  content: \"\\e189\";\n}\n.glyphicon-sound-dolby:before {\n  content: \"\\e190\";\n}\n.glyphicon-sound-5-1:before {\n  content: \"\\e191\";\n}\n.glyphicon-sound-6-1:before {\n  content: \"\\e192\";\n}\n.glyphicon-sound-7-1:before {\n  content: \"\\e193\";\n}\n.glyphicon-copyright-mark:before {\n  content: \"\\e194\";\n}\n.glyphicon-registration-mark:before {\n  content: \"\\e195\";\n}\n.glyphicon-cloud-download:before {\n  content: \"\\e197\";\n}\n.glyphicon-cloud-upload:before {\n  content: \"\\e198\";\n}\n.glyphicon-tree-conifer:before {\n  content: \"\\e199\";\n}\n.glyphicon-tree-deciduous:before {\n  content: \"\\e200\";\n}\n.glyphicon-cd:before {\n  content: \"\\e201\";\n}\n.glyphicon-save-file:before {\n  content: \"\\e202\";\n}\n.glyphicon-open-file:before {\n  content: \"\\e203\";\n}\n.glyphicon-level-up:before {\n  content: \"\\e204\";\n}\n.glyphicon-copy:before {\n  content: \"\\e205\";\n}\n.glyphicon-paste:before {\n  content: \"\\e206\";\n}\n.glyphicon-alert:before {\n  content: \"\\e209\";\n}\n.glyphicon-equalizer:before {\n  content: \"\\e210\";\n}\n.glyphicon-king:before {\n  content: \"\\e211\";\n}\n.glyphicon-queen:before {\n  content: \"\\e212\";\n}\n.glyphicon-pawn:before {\n  content: \"\\e213\";\n}\n.glyphicon-bishop:before {\n  content: \"\\e214\";\n}\n.glyphicon-knight:before {\n  content: \"\\e215\";\n}\n.glyphicon-baby-formula:before {\n  content: \"\\e216\";\n}\n.glyphicon-tent:before {\n  content: \"\\26fa\";\n}\n.glyphicon-blackboard:before {\n  content: \"\\e218\";\n}\n.glyphicon-bed:before {\n  content: \"\\e219\";\n}\n.glyphicon-apple:before {\n  content: \"\\f8ff\";\n}\n.glyphicon-erase:before {\n  content: \"\\e221\";\n}\n.glyphicon-hourglass:before {\n  content: \"\\231b\";\n}\n.glyphicon-lamp:before {\n  content: \"\\e223\";\n}\n.glyphicon-duplicate:before {\n  content: \"\\e224\";\n}\n.glyphicon-piggy-bank:before {\n  content: \"\\e225\";\n}\n.glyphicon-scissors:before {\n  content: \"\\e226\";\n}\n.glyphicon-bitcoin:before {\n  content: \"\\e227\";\n}\n.glyphicon-btc:before {\n  content: \"\\e227\";\n}\n.glyphicon-xbt:before {\n  content: \"\\e227\";\n}\n.glyphicon-yen:before {\n  content: \"\\00a5\";\n}\n.glyphicon-jpy:before {\n  content: \"\\00a5\";\n}\n.glyphicon-ruble:before {\n  content: \"\\20bd\";\n}\n.glyphicon-rub:before {\n  content: \"\\20bd\";\n}\n.glyphicon-scale:before {\n  content: \"\\e230\";\n}\n.glyphicon-ice-lolly:before {\n  content: \"\\e231\";\n}\n.glyphicon-ice-lolly-tasted:before {\n  content: \"\\e232\";\n}\n.glyphicon-education:before {\n  content: \"\\e233\";\n}\n.glyphicon-option-horizontal:before {\n  content: \"\\e234\";\n}\n.glyphicon-option-vertical:before {\n  content: \"\\e235\";\n}\n.glyphicon-menu-hamburger:before {\n  content: \"\\e236\";\n}\n.glyphicon-modal-window:before {\n  content: \"\\e237\";\n}\n.glyphicon-oil:before {\n  content: \"\\e238\";\n}\n.glyphicon-grain:before {\n  content: \"\\e239\";\n}\n.glyphicon-sunglasses:before {\n  content: \"\\e240\";\n}\n.glyphicon-text-size:before {\n  content: \"\\e241\";\n}\n.glyphicon-text-color:before {\n  content: \"\\e242\";\n}\n.glyphicon-text-background:before {\n  content: \"\\e243\";\n}\n.glyphicon-object-align-top:before {\n  content: \"\\e244\";\n}\n.glyphicon-object-align-bottom:before {\n  content: \"\\e245\";\n}\n.glyphicon-object-align-horizontal:before {\n  content: \"\\e246\";\n}\n.glyphicon-object-align-left:before {\n  content: \"\\e247\";\n}\n.glyphicon-object-align-vertical:before {\n  content: \"\\e248\";\n}\n.glyphicon-object-align-right:before {\n  content: \"\\e249\";\n}\n.glyphicon-triangle-right:before {\n  content: \"\\e250\";\n}\n.glyphicon-triangle-left:before {\n  content: \"\\e251\";\n}\n.glyphicon-triangle-bottom:before {\n  content: \"\\e252\";\n}\n.glyphicon-triangle-top:before {\n  content: \"\\e253\";\n}\n.glyphicon-console:before {\n  content: \"\\e254\";\n}\n.glyphicon-superscript:before {\n  content: \"\\e255\";\n}\n.glyphicon-subscript:before {\n  content: \"\\e256\";\n}\n.glyphicon-menu-left:before {\n  content: \"\\e257\";\n}\n.glyphicon-menu-right:before {\n  content: \"\\e258\";\n}\n.glyphicon-menu-down:before {\n  content: \"\\e259\";\n}\n.glyphicon-menu-up:before {\n  content: \"\\e260\";\n}\n.caret {\n  display: inline-block;\n  width: 0;\n  height: 0;\n  margin-left: 2px;\n  vertical-align: middle;\n  border-top: 4px dashed;\n  border-right: 4px solid transparent;\n  border-left: 4px solid transparent;\n}\n.dropup,\n.dropdown {\n  position: relative;\n}\n.dropdown-toggle:focus {\n  outline: 0;\n}\n.dropdown-menu {\n  position: absolute;\n  top: 100%;\n  left: 0;\n  z-index: 1000;\n  display: none;\n  float: left;\n  min-width: 160px;\n  padding: 5px 0;\n  margin: 2px 0 0;\n  list-style: none;\n  font-size: 14px;\n  text-align: left;\n  background-color: #ffffff;\n  border: 1px solid #cccccc;\n  border: 1px solid rgba(0, 0, 0, 0.15);\n  border-radius: 4px;\n  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);\n  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);\n  background-clip: padding-box;\n}\n.dropdown-menu.pull-right {\n  right: 0;\n  left: auto;\n}\n.dropdown-menu .divider {\n  height: 1px;\n  margin: 9px 0;\n  overflow: hidden;\n  background-color: #e5e5e5;\n}\n.dropdown-menu > li > a {\n  display: block;\n  padding: 3px 20px;\n  clear: both;\n  font-weight: normal;\n  line-height: 1.428571429;\n  color: #333333;\n  white-space: nowrap;\n}\n.dropdown-menu > li > a:hover,\n.dropdown-menu > li > a:focus {\n  text-decoration: none;\n  color: #262626;\n  background-color: #f5f5f5;\n}\n.dropdown-menu > .active > a,\n.dropdown-menu > .active > a:hover,\n.dropdown-menu > .active > a:focus {\n  color: #ffffff;\n  text-decoration: none;\n  outline: 0;\n  background-color: #337ab7;\n}\n.dropdown-menu > .disabled > a,\n.dropdown-menu > .disabled > a:hover,\n.dropdown-menu > .disabled > a:focus {\n  color: #777777;\n}\n.dropdown-menu > .disabled > a:hover,\n.dropdown-menu > .disabled > a:focus {\n  text-decoration: none;\n  background-color: transparent;\n  background-image: none;\n  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);\n  cursor: not-allowed;\n}\n.open > .dropdown-menu {\n  display: block;\n}\n.open > a {\n  outline: 0;\n}\n.dropdown-menu-right {\n  left: auto;\n  right: 0;\n}\n.dropdown-menu-left {\n  left: 0;\n  right: auto;\n}\n.dropdown-header {\n  display: block;\n  padding: 3px 20px;\n  font-size: 12px;\n  line-height: 1.428571429;\n  color: #777777;\n  white-space: nowrap;\n}\n.dropdown-backdrop {\n  position: fixed;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  top: 0;\n  z-index: 990;\n}\n.pull-right > .dropdown-menu {\n  right: 0;\n  left: auto;\n}\n.dropup .caret,\n.navbar-fixed-bottom .dropdown .caret {\n  border-top: 0;\n  border-bottom: 4px solid;\n  content: \"\";\n}\n.dropup .dropdown-menu,\n.navbar-fixed-bottom .dropdown .dropdown-menu {\n  top: auto;\n  bottom: 100%;\n  margin-bottom: 2px;\n}\n@media (min-width: 768px) {\n  .navbar-right .dropdown-menu {\n    left: auto;\n    right: 0;\n  }\n  .navbar-right .dropdown-menu-left {\n    left: 0;\n    right: auto;\n  }\n}\n.btn-group,\n.btn-group-vertical {\n  position: relative;\n  display: inline-block;\n  vertical-align: middle;\n}\n.btn-group > .btn,\n.btn-group-vertical > .btn {\n  position: relative;\n  float: left;\n}\n.btn-group > .btn:hover,\n.btn-group-vertical > .btn:hover,\n.btn-group > .btn:focus,\n.btn-group-vertical > .btn:focus,\n.btn-group > .btn:active,\n.btn-group-vertical > .btn:active,\n.btn-group > .btn.active,\n.btn-group-vertical > .btn.active {\n  z-index: 2;\n}\n.btn-group .btn + .btn,\n.btn-group .btn + .btn-group,\n.btn-group .btn-group + .btn,\n.btn-group .btn-group + .btn-group {\n  margin-left: -1px;\n}\n.btn-toolbar {\n  margin-left: -5px;\n}\n.btn-toolbar .btn-group,\n.btn-toolbar .input-group {\n  float: left;\n}\n.btn-toolbar > .btn,\n.btn-toolbar > .btn-group,\n.btn-toolbar > .input-group {\n  margin-left: 5px;\n}\n.btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle) {\n  border-radius: 0;\n}\n.btn-group > .btn:first-child {\n  margin-left: 0;\n}\n.btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle) {\n  border-bottom-right-radius: 0;\n  border-top-right-radius: 0;\n}\n.btn-group > .btn:last-child:not(:first-child),\n.btn-group > .dropdown-toggle:not(:first-child) {\n  border-bottom-left-radius: 0;\n  border-top-left-radius: 0;\n}\n.btn-group > .btn-group {\n  float: left;\n}\n.btn-group > .btn-group:not(:first-child):not(:last-child) > .btn {\n  border-radius: 0;\n}\n.btn-group > .btn-group:first-child:not(:last-child) > .btn:last-child,\n.btn-group > .btn-group:first-child:not(:last-child) > .dropdown-toggle {\n  border-bottom-right-radius: 0;\n  border-top-right-radius: 0;\n}\n.btn-group > .btn-group:last-child:not(:first-child) > .btn:first-child {\n  border-bottom-left-radius: 0;\n  border-top-left-radius: 0;\n}\n.btn-group .dropdown-toggle:active,\n.btn-group.open .dropdown-toggle {\n  outline: 0;\n}\n.btn-group > .btn + .dropdown-toggle {\n  padding-left: 8px;\n  padding-right: 8px;\n}\n.btn-group > .btn-lg + .dropdown-toggle {\n  padding-left: 12px;\n  padding-right: 12px;\n}\n.btn-group.open .dropdown-toggle {\n  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);\n  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);\n}\n.btn-group.open .dropdown-toggle.btn-link {\n  -webkit-box-shadow: none;\n  box-shadow: none;\n}\n.btn .caret {\n  margin-left: 0;\n}\n.btn-lg .caret {\n  border-width: 5px 5px 0;\n  border-bottom-width: 0;\n}\n.dropup .btn-lg .caret {\n  border-width: 0 5px 5px;\n}\n.btn-group-vertical > .btn,\n.btn-group-vertical > .btn-group,\n.btn-group-vertical > .btn-group > .btn {\n  display: block;\n  float: none;\n  width: 100%;\n  max-width: 100%;\n}\n.btn-group-vertical > .btn-group > .btn {\n  float: none;\n}\n.btn-group-vertical > .btn + .btn,\n.btn-group-vertical > .btn + .btn-group,\n.btn-group-vertical > .btn-group + .btn,\n.btn-group-vertical > .btn-group + .btn-group {\n  margin-top: -1px;\n  margin-left: 0;\n}\n.btn-group-vertical > .btn:not(:first-child):not(:last-child) {\n  border-radius: 0;\n}\n.btn-group-vertical > .btn:first-child:not(:last-child) {\n  border-top-right-radius: 4px;\n  border-bottom-right-radius: 0;\n  border-bottom-left-radius: 0;\n}\n.btn-group-vertical > .btn:last-child:not(:first-child) {\n  border-bottom-left-radius: 4px;\n  border-top-right-radius: 0;\n  border-top-left-radius: 0;\n}\n.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .btn {\n  border-radius: 0;\n}\n.btn-group-vertical > .btn-group:first-child:not(:last-child) > .btn:last-child,\n.btn-group-vertical > .btn-group:first-child:not(:last-child) > .dropdown-toggle {\n  border-bottom-right-radius: 0;\n  border-bottom-left-radius: 0;\n}\n.btn-group-vertical > .btn-group:last-child:not(:first-child) > .btn:first-child {\n  border-top-right-radius: 0;\n  border-top-left-radius: 0;\n}\n.btn-group-justified {\n  display: table;\n  width: 100%;\n  table-layout: fixed;\n  border-collapse: separate;\n}\n.btn-group-justified > .btn,\n.btn-group-justified > .btn-group {\n  float: none;\n  display: table-cell;\n  width: 1%;\n}\n.btn-group-justified > .btn-group .btn {\n  width: 100%;\n}\n.btn-group-justified > .btn-group .dropdown-menu {\n  left: auto;\n}\n[data-toggle=\"buttons\"] > .btn input[type=\"radio\"],\n[data-toggle=\"buttons\"] > .btn-group > .btn input[type=\"radio\"],\n[data-toggle=\"buttons\"] > .btn input[type=\"checkbox\"],\n[data-toggle=\"buttons\"] > .btn-group > .btn input[type=\"checkbox\"] {\n  position: absolute;\n  clip: rect(0, 0, 0, 0);\n  pointer-events: none;\n}\n.input-group {\n  position: relative;\n  display: table;\n  border-collapse: separate;\n}\n.input-group[class*=\"col-\"] {\n  float: none;\n  padding-left: 0;\n  padding-right: 0;\n}\n.input-group .form-control {\n  position: relative;\n  z-index: 2;\n  float: left;\n  width: 100%;\n  margin-bottom: 0;\n}\n.input-group-lg > .form-control,\n.input-group-lg > .input-group-addon,\n.input-group-lg > .input-group-btn > .btn {\n  height: 46px;\n  padding: 10px 16px;\n  font-size: 18px;\n  line-height: 1.3333333;\n  border-radius: 6px;\n}\nselect.input-group-lg > .form-control,\nselect.input-group-lg > .input-group-addon,\nselect.input-group-lg > .input-group-btn > .btn {\n  height: 46px;\n  line-height: 46px;\n}\ntextarea.input-group-lg > .form-control,\ntextarea.input-group-lg > .input-group-addon,\ntextarea.input-group-lg > .input-group-btn > .btn,\nselect[multiple].input-group-lg > .form-control,\nselect[multiple].input-group-lg > .input-group-addon,\nselect[multiple].input-group-lg > .input-group-btn > .btn {\n  height: auto;\n}\n.input-group-sm > .form-control,\n.input-group-sm > .input-group-addon,\n.input-group-sm > .input-group-btn > .btn {\n  height: 30px;\n  padding: 5px 10px;\n  font-size: 12px;\n  line-height: 1.5;\n  border-radius: 3px;\n}\nselect.input-group-sm > .form-control,\nselect.input-group-sm > .input-group-addon,\nselect.input-group-sm > .input-group-btn > .btn {\n  height: 30px;\n  line-height: 30px;\n}\ntextarea.input-group-sm > .form-control,\ntextarea.input-group-sm > .input-group-addon,\ntextarea.input-group-sm > .input-group-btn > .btn,\nselect[multiple].input-group-sm > .form-control,\nselect[multiple].input-group-sm > .input-group-addon,\nselect[multiple].input-group-sm > .input-group-btn > .btn {\n  height: auto;\n}\n.input-group-addon,\n.input-group-btn,\n.input-group .form-control {\n  display: table-cell;\n}\n.input-group-addon:not(:first-child):not(:last-child),\n.input-group-btn:not(:first-child):not(:last-child),\n.input-group .form-control:not(:first-child):not(:last-child) {\n  border-radius: 0;\n}\n.input-group-addon,\n.input-group-btn {\n  width: 1%;\n  white-space: nowrap;\n  vertical-align: middle;\n}\n.input-group-addon {\n  padding: 6px 12px;\n  font-size: 14px;\n  font-weight: normal;\n  line-height: 1;\n  color: #555555;\n  text-align: center;\n  background-color: #eeeeee;\n  border: 1px solid #cccccc;\n  border-radius: 4px;\n}\n.input-group-addon.input-sm {\n  padding: 5px 10px;\n  font-size: 12px;\n  border-radius: 3px;\n}\n.input-group-addon.input-lg {\n  padding: 10px 16px;\n  font-size: 18px;\n  border-radius: 6px;\n}\n.input-group-addon input[type=\"radio\"],\n.input-group-addon input[type=\"checkbox\"] {\n  margin-top: 0;\n}\n.input-group .form-control:first-child,\n.input-group-addon:first-child,\n.input-group-btn:first-child > .btn,\n.input-group-btn:first-child > .btn-group > .btn,\n.input-group-btn:first-child > .dropdown-toggle,\n.input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle),\n.input-group-btn:last-child > .btn-group:not(:last-child) > .btn {\n  border-bottom-right-radius: 0;\n  border-top-right-radius: 0;\n}\n.input-group-addon:first-child {\n  border-right: 0;\n}\n.input-group .form-control:last-child,\n.input-group-addon:last-child,\n.input-group-btn:last-child > .btn,\n.input-group-btn:last-child > .btn-group > .btn,\n.input-group-btn:last-child > .dropdown-toggle,\n.input-group-btn:first-child > .btn:not(:first-child),\n.input-group-btn:first-child > .btn-group:not(:first-child) > .btn {\n  border-bottom-left-radius: 0;\n  border-top-left-radius: 0;\n}\n.input-group-addon:last-child {\n  border-left: 0;\n}\n.input-group-btn {\n  position: relative;\n  font-size: 0;\n  white-space: nowrap;\n}\n.input-group-btn > .btn {\n  position: relative;\n}\n.input-group-btn > .btn + .btn {\n  margin-left: -1px;\n}\n.input-group-btn > .btn:hover,\n.input-group-btn > .btn:focus,\n.input-group-btn > .btn:active {\n  z-index: 2;\n}\n.input-group-btn:first-child > .btn,\n.input-group-btn:first-child > .btn-group {\n  margin-right: -1px;\n}\n.input-group-btn:last-child > .btn,\n.input-group-btn:last-child > .btn-group {\n  margin-left: -1px;\n}\n.nav {\n  margin-bottom: 0;\n  padding-left: 0;\n  list-style: none;\n}\n.nav > li {\n  position: relative;\n  display: block;\n}\n.nav > li > a {\n  position: relative;\n  display: block;\n  padding: 10px 15px;\n}\n.nav > li > a:hover,\n.nav > li > a:focus {\n  text-decoration: none;\n  background-color: #eeeeee;\n}\n.nav > li.disabled > a {\n  color: #777777;\n}\n.nav > li.disabled > a:hover,\n.nav > li.disabled > a:focus {\n  color: #777777;\n  text-decoration: none;\n  background-color: transparent;\n  cursor: not-allowed;\n}\n.nav .open > a,\n.nav .open > a:hover,\n.nav .open > a:focus {\n  background-color: #eeeeee;\n  border-color: #337ab7;\n}\n.nav .nav-divider {\n  height: 1px;\n  margin: 9px 0;\n  overflow: hidden;\n  background-color: #e5e5e5;\n}\n.nav > li > a > img {\n  max-width: none;\n}\n.nav-tabs {\n  border-bottom: 1px solid #dddddd;\n}\n.nav-tabs > li {\n  float: left;\n  margin-bottom: -1px;\n}\n.nav-tabs > li > a {\n  margin-right: 2px;\n  line-height: 1.428571429;\n  border: 1px solid transparent;\n  border-radius: 4px 4px 0 0;\n}\n.nav-tabs > li > a:hover {\n  border-color: #eeeeee #eeeeee #dddddd;\n}\n.nav-tabs > li.active > a,\n.nav-tabs > li.active > a:hover,\n.nav-tabs > li.active > a:focus {\n  color: #555555;\n  background-color: #ffffff;\n  border: 1px solid #dddddd;\n  border-bottom-color: transparent;\n  cursor: default;\n}\n.nav-tabs.nav-justified {\n  width: 100%;\n  border-bottom: 0;\n}\n.nav-tabs.nav-justified > li {\n  float: none;\n}\n.nav-tabs.nav-justified > li > a {\n  text-align: center;\n  margin-bottom: 5px;\n}\n.nav-tabs.nav-justified > .dropdown .dropdown-menu {\n  top: auto;\n  left: auto;\n}\n@media (min-width: 768px) {\n  .nav-tabs.nav-justified > li {\n    display: table-cell;\n    width: 1%;\n  }\n  .nav-tabs.nav-justified > li > a {\n    margin-bottom: 0;\n  }\n}\n.nav-tabs.nav-justified > li > a {\n  margin-right: 0;\n  border-radius: 4px;\n}\n.nav-tabs.nav-justified > .active > a,\n.nav-tabs.nav-justified > .active > a:hover,\n.nav-tabs.nav-justified > .active > a:focus {\n  border: 1px solid #dddddd;\n}\n@media (min-width: 768px) {\n  .nav-tabs.nav-justified > li > a {\n    border-bottom: 1px solid #dddddd;\n    border-radius: 4px 4px 0 0;\n  }\n  .nav-tabs.nav-justified > .active > a,\n  .nav-tabs.nav-justified > .active > a:hover,\n  .nav-tabs.nav-justified > .active > a:focus {\n    border-bottom-color: #ffffff;\n  }\n}\n.nav-pills > li {\n  float: left;\n}\n.nav-pills > li > a {\n  border-radius: 4px;\n}\n.nav-pills > li + li {\n  margin-left: 2px;\n}\n.nav-pills > li.active > a,\n.nav-pills > li.active > a:hover,\n.nav-pills > li.active > a:focus {\n  color: #ffffff;\n  background-color: #337ab7;\n}\n.nav-stacked > li {\n  float: none;\n}\n.nav-stacked > li + li {\n  margin-top: 2px;\n  margin-left: 0;\n}\n.nav-justified {\n  width: 100%;\n}\n.nav-justified > li {\n  float: none;\n}\n.nav-justified > li > a {\n  text-align: center;\n  margin-bottom: 5px;\n}\n.nav-justified > .dropdown .dropdown-menu {\n  top: auto;\n  left: auto;\n}\n@media (min-width: 768px) {\n  .nav-justified > li {\n    display: table-cell;\n    width: 1%;\n  }\n  .nav-justified > li > a {\n    margin-bottom: 0;\n  }\n}\n.nav-tabs-justified {\n  border-bottom: 0;\n}\n.nav-tabs-justified > li > a {\n  margin-right: 0;\n  border-radius: 4px;\n}\n.nav-tabs-justified > .active > a,\n.nav-tabs-justified > .active > a:hover,\n.nav-tabs-justified > .active > a:focus {\n  border: 1px solid #dddddd;\n}\n@media (min-width: 768px) {\n  .nav-tabs-justified > li > a {\n    border-bottom: 1px solid #dddddd;\n    border-radius: 4px 4px 0 0;\n  }\n  .nav-tabs-justified > .active > a,\n  .nav-tabs-justified > .active > a:hover,\n  .nav-tabs-justified > .active > a:focus {\n    border-bottom-color: #ffffff;\n  }\n}\n.tab-content > .tab-pane {\n  display: none;\n}\n.tab-content > .active {\n  display: block;\n}\n.nav-tabs .dropdown-menu {\n  margin-top: -1px;\n  border-top-right-radius: 0;\n  border-top-left-radius: 0;\n}\n.navbar {\n  position: relative;\n  min-height: 50px;\n  margin-bottom: 20px;\n  border: 1px solid transparent;\n}\n@media (min-width: 768px) {\n  .navbar {\n    border-radius: 4px;\n  }\n}\n@media (min-width: 768px) {\n  .navbar-header {\n    float: left;\n  }\n}\n.navbar-collapse {\n  overflow-x: visible;\n  padding-right: 15px;\n  padding-left: 15px;\n  border-top: 1px solid transparent;\n  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);\n  -webkit-overflow-scrolling: touch;\n}\n.navbar-collapse.in {\n  overflow-y: auto;\n}\n@media (min-width: 768px) {\n  .navbar-collapse {\n    width: auto;\n    border-top: 0;\n    box-shadow: none;\n  }\n  .navbar-collapse.collapse {\n    display: block !important;\n    height: auto !important;\n    padding-bottom: 0;\n    overflow: visible !important;\n  }\n  .navbar-collapse.in {\n    overflow-y: visible;\n  }\n  .navbar-fixed-top .navbar-collapse,\n  .navbar-static-top .navbar-collapse,\n  .navbar-fixed-bottom .navbar-collapse {\n    padding-left: 0;\n    padding-right: 0;\n  }\n}\n.navbar-fixed-top .navbar-collapse,\n.navbar-fixed-bottom .navbar-collapse {\n  max-height: 340px;\n}\n@media (max-device-width: 480px) and (orientation: landscape) {\n  .navbar-fixed-top .navbar-collapse,\n  .navbar-fixed-bottom .navbar-collapse {\n    max-height: 200px;\n  }\n}\n.container > .navbar-header,\n.container-fluid > .navbar-header,\n.container > .navbar-collapse,\n.container-fluid > .navbar-collapse {\n  margin-right: -15px;\n  margin-left: -15px;\n}\n@media (min-width: 768px) {\n  .container > .navbar-header,\n  .container-fluid > .navbar-header,\n  .container > .navbar-collapse,\n  .container-fluid > .navbar-collapse {\n    margin-right: 0;\n    margin-left: 0;\n  }\n}\n.navbar-static-top {\n  z-index: 1000;\n  border-width: 0 0 1px;\n}\n@media (min-width: 768px) {\n  .navbar-static-top {\n    border-radius: 0;\n  }\n}\n.navbar-fixed-top,\n.navbar-fixed-bottom {\n  position: fixed;\n  right: 0;\n  left: 0;\n  z-index: 1030;\n}\n@media (min-width: 768px) {\n  .navbar-fixed-top,\n  .navbar-fixed-bottom {\n    border-radius: 0;\n  }\n}\n.navbar-fixed-top {\n  top: 0;\n  border-width: 0 0 1px;\n}\n.navbar-fixed-bottom {\n  bottom: 0;\n  margin-bottom: 0;\n  border-width: 1px 0 0;\n}\n.navbar-brand {\n  float: left;\n  padding: 15px 15px;\n  font-size: 18px;\n  line-height: 20px;\n  height: 50px;\n}\n.navbar-brand:hover,\n.navbar-brand:focus {\n  text-decoration: none;\n}\n.navbar-brand > img {\n  display: block;\n}\n@media (min-width: 768px) {\n  .navbar > .container .navbar-brand,\n  .navbar > .container-fluid .navbar-brand {\n    margin-left: -15px;\n  }\n}\n.navbar-toggle {\n  position: relative;\n  float: right;\n  margin-right: 15px;\n  padding: 9px 10px;\n  margin-top: 8px;\n  margin-bottom: 8px;\n  background-color: transparent;\n  background-image: none;\n  border: 1px solid transparent;\n  border-radius: 4px;\n}\n.navbar-toggle:focus {\n  outline: 0;\n}\n.navbar-toggle .icon-bar {\n  display: block;\n  width: 22px;\n  height: 2px;\n  border-radius: 1px;\n}\n.navbar-toggle .icon-bar + .icon-bar {\n  margin-top: 4px;\n}\n@media (min-width: 768px) {\n  .navbar-toggle {\n    display: none;\n  }\n}\n.navbar-nav {\n  margin: 7.5px -15px;\n}\n.navbar-nav > li > a {\n  padding-top: 10px;\n  padding-bottom: 10px;\n  line-height: 20px;\n}\n@media (max-width: 767px) {\n  .navbar-nav .open .dropdown-menu {\n    position: static;\n    float: none;\n    width: auto;\n    margin-top: 0;\n    background-color: transparent;\n    border: 0;\n    box-shadow: none;\n  }\n  .navbar-nav .open .dropdown-menu > li > a,\n  .navbar-nav .open .dropdown-menu .dropdown-header {\n    padding: 5px 15px 5px 25px;\n  }\n  .navbar-nav .open .dropdown-menu > li > a {\n    line-height: 20px;\n  }\n  .navbar-nav .open .dropdown-menu > li > a:hover,\n  .navbar-nav .open .dropdown-menu > li > a:focus {\n    background-image: none;\n  }\n}\n@media (min-width: 768px) {\n  .navbar-nav {\n    float: left;\n    margin: 0;\n  }\n  .navbar-nav > li {\n    float: left;\n  }\n  .navbar-nav > li > a {\n    padding-top: 15px;\n    padding-bottom: 15px;\n  }\n}\n.navbar-form {\n  margin-left: -15px;\n  margin-right: -15px;\n  padding: 10px 15px;\n  border-top: 1px solid transparent;\n  border-bottom: 1px solid transparent;\n  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);\n  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);\n  margin-top: 8px;\n  margin-bottom: 8px;\n}\n@media (min-width: 768px) {\n  .navbar-form .form-group {\n    display: inline-block;\n    margin-bottom: 0;\n    vertical-align: middle;\n  }\n  .navbar-form .form-control {\n    display: inline-block;\n    width: auto;\n    vertical-align: middle;\n  }\n  .navbar-form .form-control-static {\n    display: inline-block;\n  }\n  .navbar-form .input-group {\n    display: inline-table;\n    vertical-align: middle;\n  }\n  .navbar-form .input-group .input-group-addon,\n  .navbar-form .input-group .input-group-btn,\n  .navbar-form .input-group .form-control {\n    width: auto;\n  }\n  .navbar-form .input-group > .form-control {\n    width: 100%;\n  }\n  .navbar-form .control-label {\n    margin-bottom: 0;\n    vertical-align: middle;\n  }\n  .navbar-form .radio,\n  .navbar-form .checkbox {\n    display: inline-block;\n    margin-top: 0;\n    margin-bottom: 0;\n    vertical-align: middle;\n  }\n  .navbar-form .radio label,\n  .navbar-form .checkbox label {\n    padding-left: 0;\n  }\n  .navbar-form .radio input[type=\"radio\"],\n  .navbar-form .checkbox input[type=\"checkbox\"] {\n    position: relative;\n    margin-left: 0;\n  }\n  .navbar-form .has-feedback .form-control-feedback {\n    top: 0;\n  }\n}\n@media (max-width: 767px) {\n  .navbar-form .form-group {\n    margin-bottom: 5px;\n  }\n  .navbar-form .form-group:last-child {\n    margin-bottom: 0;\n  }\n}\n@media (min-width: 768px) {\n  .navbar-form {\n    width: auto;\n    border: 0;\n    margin-left: 0;\n    margin-right: 0;\n    padding-top: 0;\n    padding-bottom: 0;\n    -webkit-box-shadow: none;\n    box-shadow: none;\n  }\n}\n.navbar-nav > li > .dropdown-menu {\n  margin-top: 0;\n  border-top-right-radius: 0;\n  border-top-left-radius: 0;\n}\n.navbar-fixed-bottom .navbar-nav > li > .dropdown-menu {\n  margin-bottom: 0;\n  border-top-right-radius: 4px;\n  border-top-left-radius: 4px;\n  border-bottom-right-radius: 0;\n  border-bottom-left-radius: 0;\n}\n.navbar-btn {\n  margin-top: 8px;\n  margin-bottom: 8px;\n}\n.navbar-btn.btn-sm {\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n.navbar-btn.btn-xs {\n  margin-top: 14px;\n  margin-bottom: 14px;\n}\n.navbar-text {\n  margin-top: 15px;\n  margin-bottom: 15px;\n}\n@media (min-width: 768px) {\n  .navbar-text {\n    float: left;\n    margin-left: 15px;\n    margin-right: 15px;\n  }\n}\n@media (min-width: 768px) {\n  .navbar-left {\n    float: left !important;\n  }\n  .navbar-right {\n    float: right !important;\n    margin-right: -15px;\n  }\n  .navbar-right ~ .navbar-right {\n    margin-right: 0;\n  }\n}\n.navbar-default {\n  background-color: #f8f8f8;\n  border-color: #e7e7e7;\n}\n.navbar-default .navbar-brand {\n  color: #777777;\n}\n.navbar-default .navbar-brand:hover,\n.navbar-default .navbar-brand:focus {\n  color: #5e5e5e;\n  background-color: transparent;\n}\n.navbar-default .navbar-text {\n  color: #777777;\n}\n.navbar-default .navbar-nav > li > a {\n  color: #777777;\n}\n.navbar-default .navbar-nav > li > a:hover,\n.navbar-default .navbar-nav > li > a:focus {\n  color: #333333;\n  background-color: transparent;\n}\n.navbar-default .navbar-nav > .active > a,\n.navbar-default .navbar-nav > .active > a:hover,\n.navbar-default .navbar-nav > .active > a:focus {\n  color: #555555;\n  background-color: #e7e7e7;\n}\n.navbar-default .navbar-nav > .disabled > a,\n.navbar-default .navbar-nav > .disabled > a:hover,\n.navbar-default .navbar-nav > .disabled > a:focus {\n  color: #cccccc;\n  background-color: transparent;\n}\n.navbar-default .navbar-toggle {\n  border-color: #dddddd;\n}\n.navbar-default .navbar-toggle:hover,\n.navbar-default .navbar-toggle:focus {\n  background-color: #dddddd;\n}\n.navbar-default .navbar-toggle .icon-bar {\n  background-color: #888888;\n}\n.navbar-default .navbar-collapse,\n.navbar-default .navbar-form {\n  border-color: #e7e7e7;\n}\n.navbar-default .navbar-nav > .open > a,\n.navbar-default .navbar-nav > .open > a:hover,\n.navbar-default .navbar-nav > .open > a:focus {\n  background-color: #e7e7e7;\n  color: #555555;\n}\n@media (max-width: 767px) {\n  .navbar-default .navbar-nav .open .dropdown-menu > li > a {\n    color: #777777;\n  }\n  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,\n  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {\n    color: #333333;\n    background-color: transparent;\n  }\n  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,\n  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,\n  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {\n    color: #555555;\n    background-color: #e7e7e7;\n  }\n  .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a,\n  .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover,\n  .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:focus {\n    color: #cccccc;\n    background-color: transparent;\n  }\n}\n.navbar-default .navbar-link {\n  color: #777777;\n}\n.navbar-default .navbar-link:hover {\n  color: #333333;\n}\n.navbar-default .btn-link {\n  color: #777777;\n}\n.navbar-default .btn-link:hover,\n.navbar-default .btn-link:focus {\n  color: #333333;\n}\n.navbar-default .btn-link[disabled]:hover,\nfieldset[disabled] .navbar-default .btn-link:hover,\n.navbar-default .btn-link[disabled]:focus,\nfieldset[disabled] .navbar-default .btn-link:focus {\n  color: #cccccc;\n}\n.navbar-inverse {\n  background-color: #222222;\n  border-color: #080808;\n}\n.navbar-inverse .navbar-brand {\n  color: #9d9d9d;\n}\n.navbar-inverse .navbar-brand:hover,\n.navbar-inverse .navbar-brand:focus {\n  color: #ffffff;\n  background-color: transparent;\n}\n.navbar-inverse .navbar-text {\n  color: #9d9d9d;\n}\n.navbar-inverse .navbar-nav > li > a {\n  color: #9d9d9d;\n}\n.navbar-inverse .navbar-nav > li > a:hover,\n.navbar-inverse .navbar-nav > li > a:focus {\n  color: #ffffff;\n  background-color: transparent;\n}\n.navbar-inverse .navbar-nav > .active > a,\n.navbar-inverse .navbar-nav > .active > a:hover,\n.navbar-inverse .navbar-nav > .active > a:focus {\n  color: #ffffff;\n  background-color: #080808;\n}\n.navbar-inverse .navbar-nav > .disabled > a,\n.navbar-inverse .navbar-nav > .disabled > a:hover,\n.navbar-inverse .navbar-nav > .disabled > a:focus {\n  color: #444444;\n  background-color: transparent;\n}\n.navbar-inverse .navbar-toggle {\n  border-color: #333333;\n}\n.navbar-inverse .navbar-toggle:hover,\n.navbar-inverse .navbar-toggle:focus {\n  background-color: #333333;\n}\n.navbar-inverse .navbar-toggle .icon-bar {\n  background-color: #ffffff;\n}\n.navbar-inverse .navbar-collapse,\n.navbar-inverse .navbar-form {\n  border-color: #101010;\n}\n.navbar-inverse .navbar-nav > .open > a,\n.navbar-inverse .navbar-nav > .open > a:hover,\n.navbar-inverse .navbar-nav > .open > a:focus {\n  background-color: #080808;\n  color: #ffffff;\n}\n@media (max-width: 767px) {\n  .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {\n    border-color: #080808;\n  }\n  .navbar-inverse .navbar-nav .open .dropdown-menu .divider {\n    background-color: #080808;\n  }\n  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {\n    color: #9d9d9d;\n  }\n  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover,\n  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus {\n    color: #ffffff;\n    background-color: transparent;\n  }\n  .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a,\n  .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:hover,\n  .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:focus {\n    color: #ffffff;\n    background-color: #080808;\n  }\n  .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a,\n  .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:hover,\n  .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:focus {\n    color: #444444;\n    background-color: transparent;\n  }\n}\n.navbar-inverse .navbar-link {\n  color: #9d9d9d;\n}\n.navbar-inverse .navbar-link:hover {\n  color: #ffffff;\n}\n.navbar-inverse .btn-link {\n  color: #9d9d9d;\n}\n.navbar-inverse .btn-link:hover,\n.navbar-inverse .btn-link:focus {\n  color: #ffffff;\n}\n.navbar-inverse .btn-link[disabled]:hover,\nfieldset[disabled] .navbar-inverse .btn-link:hover,\n.navbar-inverse .btn-link[disabled]:focus,\nfieldset[disabled] .navbar-inverse .btn-link:focus {\n  color: #444444;\n}\n.breadcrumb {\n  padding: 8px 15px;\n  margin-bottom: 20px;\n  list-style: none;\n  background-color: #f5f5f5;\n  border-radius: 4px;\n}\n.breadcrumb > li {\n  display: inline-block;\n}\n.breadcrumb > li + li:before {\n  content: \"/\\00a0\";\n  padding: 0 5px;\n  color: #cccccc;\n}\n.breadcrumb > .active {\n  color: #777777;\n}\n.pagination {\n  display: inline-block;\n  padding-left: 0;\n  margin: 20px 0;\n  border-radius: 4px;\n}\n.pagination > li {\n  display: inline;\n}\n.pagination > li > a,\n.pagination > li > span {\n  position: relative;\n  float: left;\n  padding: 6px 12px;\n  line-height: 1.428571429;\n  text-decoration: none;\n  color: #337ab7;\n  background-color: #ffffff;\n  border: 1px solid #dddddd;\n  margin-left: -1px;\n}\n.pagination > li:first-child > a,\n.pagination > li:first-child > span {\n  margin-left: 0;\n  border-bottom-left-radius: 4px;\n  border-top-left-radius: 4px;\n}\n.pagination > li:last-child > a,\n.pagination > li:last-child > span {\n  border-bottom-right-radius: 4px;\n  border-top-right-radius: 4px;\n}\n.pagination > li > a:hover,\n.pagination > li > span:hover,\n.pagination > li > a:focus,\n.pagination > li > span:focus {\n  color: #23527c;\n  background-color: #eeeeee;\n  border-color: #dddddd;\n}\n.pagination > .active > a,\n.pagination > .active > span,\n.pagination > .active > a:hover,\n.pagination > .active > span:hover,\n.pagination > .active > a:focus,\n.pagination > .active > span:focus {\n  z-index: 2;\n  color: #ffffff;\n  background-color: #337ab7;\n  border-color: #337ab7;\n  cursor: default;\n}\n.pagination > .disabled > span,\n.pagination > .disabled > span:hover,\n.pagination > .disabled > span:focus,\n.pagination > .disabled > a,\n.pagination > .disabled > a:hover,\n.pagination > .disabled > a:focus {\n  color: #777777;\n  background-color: #ffffff;\n  border-color: #dddddd;\n  cursor: not-allowed;\n}\n.pagination-lg > li > a,\n.pagination-lg > li > span {\n  padding: 10px 16px;\n  font-size: 18px;\n}\n.pagination-lg > li:first-child > a,\n.pagination-lg > li:first-child > span {\n  border-bottom-left-radius: 6px;\n  border-top-left-radius: 6px;\n}\n.pagination-lg > li:last-child > a,\n.pagination-lg > li:last-child > span {\n  border-bottom-right-radius: 6px;\n  border-top-right-radius: 6px;\n}\n.pagination-sm > li > a,\n.pagination-sm > li > span {\n  padding: 5px 10px;\n  font-size: 12px;\n}\n.pagination-sm > li:first-child > a,\n.pagination-sm > li:first-child > span {\n  border-bottom-left-radius: 3px;\n  border-top-left-radius: 3px;\n}\n.pagination-sm > li:last-child > a,\n.pagination-sm > li:last-child > span {\n  border-bottom-right-radius: 3px;\n  border-top-right-radius: 3px;\n}\n.pager {\n  padding-left: 0;\n  margin: 20px 0;\n  list-style: none;\n  text-align: center;\n}\n.pager li {\n  display: inline;\n}\n.pager li > a,\n.pager li > span {\n  display: inline-block;\n  padding: 5px 14px;\n  background-color: #ffffff;\n  border: 1px solid #dddddd;\n  border-radius: 15px;\n}\n.pager li > a:hover,\n.pager li > a:focus {\n  text-decoration: none;\n  background-color: #eeeeee;\n}\n.pager .next > a,\n.pager .next > span {\n  float: right;\n}\n.pager .previous > a,\n.pager .previous > span {\n  float: left;\n}\n.pager .disabled > a,\n.pager .disabled > a:hover,\n.pager .disabled > a:focus,\n.pager .disabled > span {\n  color: #777777;\n  background-color: #ffffff;\n  cursor: not-allowed;\n}\n.label {\n  display: inline;\n  padding: .2em .6em .3em;\n  font-size: 75%;\n  font-weight: bold;\n  line-height: 1;\n  color: #ffffff;\n  text-align: center;\n  white-space: nowrap;\n  vertical-align: baseline;\n  border-radius: .25em;\n}\na.label:hover,\na.label:focus {\n  color: #ffffff;\n  text-decoration: none;\n  cursor: pointer;\n}\n.label:empty {\n  display: none;\n}\n.btn .label {\n  position: relative;\n  top: -1px;\n}\n.label-default {\n  background-color: #777777;\n}\n.label-default[href]:hover,\n.label-default[href]:focus {\n  background-color: #5e5e5e;\n}\n.label-primary {\n  background-color: #337ab7;\n}\n.label-primary[href]:hover,\n.label-primary[href]:focus {\n  background-color: #286090;\n}\n.label-success {\n  background-color: #5cb85c;\n}\n.label-success[href]:hover,\n.label-success[href]:focus {\n  background-color: #449d44;\n}\n.label-info {\n  background-color: #5bc0de;\n}\n.label-info[href]:hover,\n.label-info[href]:focus {\n  background-color: #31b0d5;\n}\n.label-warning {\n  background-color: #f0ad4e;\n}\n.label-warning[href]:hover,\n.label-warning[href]:focus {\n  background-color: #ec971f;\n}\n.label-danger {\n  background-color: #d9534f;\n}\n.label-danger[href]:hover,\n.label-danger[href]:focus {\n  background-color: #c9302c;\n}\n.badge {\n  display: inline-block;\n  min-width: 10px;\n  padding: 3px 7px;\n  font-size: 12px;\n  font-weight: bold;\n  color: #ffffff;\n  line-height: 1;\n  vertical-align: baseline;\n  white-space: nowrap;\n  text-align: center;\n  background-color: #777777;\n  border-radius: 10px;\n}\n.badge:empty {\n  display: none;\n}\n.btn .badge {\n  position: relative;\n  top: -1px;\n}\n.btn-xs .badge,\n.btn-group-xs > .btn .badge {\n  top: 0;\n  padding: 1px 5px;\n}\na.badge:hover,\na.badge:focus {\n  color: #ffffff;\n  text-decoration: none;\n  cursor: pointer;\n}\n.list-group-item.active > .badge,\n.nav-pills > .active > a > .badge {\n  color: #337ab7;\n  background-color: #ffffff;\n}\n.list-group-item > .badge {\n  float: right;\n}\n.list-group-item > .badge + .badge {\n  margin-right: 5px;\n}\n.nav-pills > li > a > .badge {\n  margin-left: 3px;\n}\n.jumbotron {\n  padding: 30px 15px;\n  margin-bottom: 30px;\n  color: inherit;\n  background-color: #eeeeee;\n}\n.jumbotron h1,\n.jumbotron .h1 {\n  color: inherit;\n}\n.jumbotron p {\n  margin-bottom: 15px;\n  font-size: 21px;\n  font-weight: 200;\n}\n.jumbotron > hr {\n  border-top-color: #d5d5d5;\n}\n.container .jumbotron,\n.container-fluid .jumbotron {\n  border-radius: 6px;\n}\n.jumbotron .container {\n  max-width: 100%;\n}\n@media screen and (min-width: 768px) {\n  .jumbotron {\n    padding: 48px 0;\n  }\n  .container .jumbotron,\n  .container-fluid .jumbotron {\n    padding-left: 60px;\n    padding-right: 60px;\n  }\n  .jumbotron h1,\n  .jumbotron .h1 {\n    font-size: 63px;\n  }\n}\n.thumbnail {\n  display: block;\n  padding: 4px;\n  margin-bottom: 20px;\n  line-height: 1.428571429;\n  background-color: #ffffff;\n  border: 1px solid #dddddd;\n  border-radius: 4px;\n  -webkit-transition: border 0.2s ease-in-out;\n  -o-transition: border 0.2s ease-in-out;\n  transition: border 0.2s ease-in-out;\n}\n.thumbnail > img,\n.thumbnail a > img {\n  margin-left: auto;\n  margin-right: auto;\n}\na.thumbnail:hover,\na.thumbnail:focus,\na.thumbnail.active {\n  border-color: #337ab7;\n}\n.thumbnail .caption {\n  padding: 9px;\n  color: #333333;\n}\n.alert {\n  padding: 15px;\n  margin-bottom: 20px;\n  border: 1px solid transparent;\n  border-radius: 4px;\n}\n.alert h4 {\n  margin-top: 0;\n  color: inherit;\n}\n.alert .alert-link {\n  font-weight: bold;\n}\n.alert > p,\n.alert > ul {\n  margin-bottom: 0;\n}\n.alert > p + p {\n  margin-top: 5px;\n}\n.alert-dismissable,\n.alert-dismissible {\n  padding-right: 35px;\n}\n.alert-dismissable .close,\n.alert-dismissible .close {\n  position: relative;\n  top: -2px;\n  right: -21px;\n  color: inherit;\n}\n.alert-success {\n  background-color: #dff0d8;\n  border-color: #d6e9c6;\n  color: #3c763d;\n}\n.alert-success hr {\n  border-top-color: #c9e2b3;\n}\n.alert-success .alert-link {\n  color: #2b542c;\n}\n.alert-info {\n  background-color: #d9edf7;\n  border-color: #bce8f1;\n  color: #31708f;\n}\n.alert-info hr {\n  border-top-color: #a6e1ec;\n}\n.alert-info .alert-link {\n  color: #245269;\n}\n.alert-warning {\n  background-color: #fcf8e3;\n  border-color: #faebcc;\n  color: #8a6d3b;\n}\n.alert-warning hr {\n  border-top-color: #f7e1b5;\n}\n.alert-warning .alert-link {\n  color: #66512c;\n}\n.alert-danger {\n  background-color: #f2dede;\n  border-color: #ebccd1;\n  color: #a94442;\n}\n.alert-danger hr {\n  border-top-color: #e4b9c0;\n}\n.alert-danger .alert-link {\n  color: #843534;\n}\n@-webkit-keyframes progress-bar-stripes {\n  from {\n    background-position: 40px 0;\n  }\n  to {\n    background-position: 0 0;\n  }\n}\n@keyframes progress-bar-stripes {\n  from {\n    background-position: 40px 0;\n  }\n  to {\n    background-position: 0 0;\n  }\n}\n.progress {\n  overflow: hidden;\n  height: 20px;\n  margin-bottom: 20px;\n  background-color: #f5f5f5;\n  border-radius: 4px;\n  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);\n  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);\n}\n.progress-bar {\n  float: left;\n  width: 0%;\n  height: 100%;\n  font-size: 12px;\n  line-height: 20px;\n  color: #ffffff;\n  text-align: center;\n  background-color: #337ab7;\n  -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);\n  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);\n  -webkit-transition: width 0.6s ease;\n  -o-transition: width 0.6s ease;\n  transition: width 0.6s ease;\n}\n.progress-striped .progress-bar,\n.progress-bar-striped {\n  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\n  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\n  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\n  background-size: 40px 40px;\n}\n.progress.active .progress-bar,\n.progress-bar.active {\n  -webkit-animation: progress-bar-stripes 2s linear infinite;\n  -o-animation: progress-bar-stripes 2s linear infinite;\n  animation: progress-bar-stripes 2s linear infinite;\n}\n.progress-bar-success {\n  background-color: #5cb85c;\n}\n.progress-striped .progress-bar-success {\n  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\n  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\n  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\n}\n.progress-bar-info {\n  background-color: #5bc0de;\n}\n.progress-striped .progress-bar-info {\n  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\n  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\n  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\n}\n.progress-bar-warning {\n  background-color: #f0ad4e;\n}\n.progress-striped .progress-bar-warning {\n  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\n  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\n  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\n}\n.progress-bar-danger {\n  background-color: #d9534f;\n}\n.progress-striped .progress-bar-danger {\n  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\n  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\n  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\n}\n.media {\n  margin-top: 15px;\n}\n.media:first-child {\n  margin-top: 0;\n}\n.media,\n.media-body {\n  zoom: 1;\n  overflow: hidden;\n}\n.media-body {\n  width: 10000px;\n}\n.media-object {\n  display: block;\n}\n.media-right,\n.media > .pull-right {\n  padding-left: 10px;\n}\n.media-left,\n.media > .pull-left {\n  padding-right: 10px;\n}\n.media-left,\n.media-right,\n.media-body {\n  display: table-cell;\n  vertical-align: top;\n}\n.media-middle {\n  vertical-align: middle;\n}\n.media-bottom {\n  vertical-align: bottom;\n}\n.media-heading {\n  margin-top: 0;\n  margin-bottom: 5px;\n}\n.media-list {\n  padding-left: 0;\n  list-style: none;\n}\n.list-group {\n  margin-bottom: 20px;\n  padding-left: 0;\n}\n.list-group-item {\n  position: relative;\n  display: block;\n  padding: 10px 15px;\n  margin-bottom: -1px;\n  background-color: #ffffff;\n  border: 1px solid #dddddd;\n}\n.list-group-item:first-child {\n  border-top-right-radius: 4px;\n  border-top-left-radius: 4px;\n}\n.list-group-item:last-child {\n  margin-bottom: 0;\n  border-bottom-right-radius: 4px;\n  border-bottom-left-radius: 4px;\n}\na.list-group-item {\n  color: #555555;\n}\na.list-group-item .list-group-item-heading {\n  color: #333333;\n}\na.list-group-item:hover,\na.list-group-item:focus {\n  text-decoration: none;\n  color: #555555;\n  background-color: #f5f5f5;\n}\n.list-group-item.disabled,\n.list-group-item.disabled:hover,\n.list-group-item.disabled:focus {\n  background-color: #eeeeee;\n  color: #777777;\n  cursor: not-allowed;\n}\n.list-group-item.disabled .list-group-item-heading,\n.list-group-item.disabled:hover .list-group-item-heading,\n.list-group-item.disabled:focus .list-group-item-heading {\n  color: inherit;\n}\n.list-group-item.disabled .list-group-item-text,\n.list-group-item.disabled:hover .list-group-item-text,\n.list-group-item.disabled:focus .list-group-item-text {\n  color: #777777;\n}\n.list-group-item.active,\n.list-group-item.active:hover,\n.list-group-item.active:focus {\n  z-index: 2;\n  color: #ffffff;\n  background-color: #337ab7;\n  border-color: #337ab7;\n}\n.list-group-item.active .list-group-item-heading,\n.list-group-item.active:hover .list-group-item-heading,\n.list-group-item.active:focus .list-group-item-heading,\n.list-group-item.active .list-group-item-heading > small,\n.list-group-item.active:hover .list-group-item-heading > small,\n.list-group-item.active:focus .list-group-item-heading > small,\n.list-group-item.active .list-group-item-heading > .small,\n.list-group-item.active:hover .list-group-item-heading > .small,\n.list-group-item.active:focus .list-group-item-heading > .small {\n  color: inherit;\n}\n.list-group-item.active .list-group-item-text,\n.list-group-item.active:hover .list-group-item-text,\n.list-group-item.active:focus .list-group-item-text {\n  color: #c7ddef;\n}\n.list-group-item-success {\n  color: #3c763d;\n  background-color: #dff0d8;\n}\na.list-group-item-success {\n  color: #3c763d;\n}\na.list-group-item-success .list-group-item-heading {\n  color: inherit;\n}\na.list-group-item-success:hover,\na.list-group-item-success:focus {\n  color: #3c763d;\n  background-color: #d0e9c6;\n}\na.list-group-item-success.active,\na.list-group-item-success.active:hover,\na.list-group-item-success.active:focus {\n  color: #fff;\n  background-color: #3c763d;\n  border-color: #3c763d;\n}\n.list-group-item-info {\n  color: #31708f;\n  background-color: #d9edf7;\n}\na.list-group-item-info {\n  color: #31708f;\n}\na.list-group-item-info .list-group-item-heading {\n  color: inherit;\n}\na.list-group-item-info:hover,\na.list-group-item-info:focus {\n  color: #31708f;\n  background-color: #c4e3f3;\n}\na.list-group-item-info.active,\na.list-group-item-info.active:hover,\na.list-group-item-info.active:focus {\n  color: #fff;\n  background-color: #31708f;\n  border-color: #31708f;\n}\n.list-group-item-warning {\n  color: #8a6d3b;\n  background-color: #fcf8e3;\n}\na.list-group-item-warning {\n  color: #8a6d3b;\n}\na.list-group-item-warning .list-group-item-heading {\n  color: inherit;\n}\na.list-group-item-warning:hover,\na.list-group-item-warning:focus {\n  color: #8a6d3b;\n  background-color: #faf2cc;\n}\na.list-group-item-warning.active,\na.list-group-item-warning.active:hover,\na.list-group-item-warning.active:focus {\n  color: #fff;\n  background-color: #8a6d3b;\n  border-color: #8a6d3b;\n}\n.list-group-item-danger {\n  color: #a94442;\n  background-color: #f2dede;\n}\na.list-group-item-danger {\n  color: #a94442;\n}\na.list-group-item-danger .list-group-item-heading {\n  color: inherit;\n}\na.list-group-item-danger:hover,\na.list-group-item-danger:focus {\n  color: #a94442;\n  background-color: #ebcccc;\n}\na.list-group-item-danger.active,\na.list-group-item-danger.active:hover,\na.list-group-item-danger.active:focus {\n  color: #fff;\n  background-color: #a94442;\n  border-color: #a94442;\n}\n.list-group-item-heading {\n  margin-top: 0;\n  margin-bottom: 5px;\n}\n.list-group-item-text {\n  margin-bottom: 0;\n  line-height: 1.3;\n}\n.panel {\n  margin-bottom: 20px;\n  background-color: #ffffff;\n  border: 1px solid transparent;\n  border-radius: 4px;\n  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);\n  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);\n}\n.panel-body {\n  padding: 15px;\n}\n.panel-heading {\n  padding: 10px 15px;\n  border-bottom: 1px solid transparent;\n  border-top-right-radius: 3px;\n  border-top-left-radius: 3px;\n}\n.panel-heading > .dropdown .dropdown-toggle {\n  color: inherit;\n}\n.panel-title {\n  margin-top: 0;\n  margin-bottom: 0;\n  font-size: 16px;\n  color: inherit;\n}\n.panel-title > a,\n.panel-title > small,\n.panel-title > .small,\n.panel-title > small > a,\n.panel-title > .small > a {\n  color: inherit;\n}\n.panel-footer {\n  padding: 10px 15px;\n  background-color: #f5f5f5;\n  border-top: 1px solid #dddddd;\n  border-bottom-right-radius: 3px;\n  border-bottom-left-radius: 3px;\n}\n.panel > .list-group,\n.panel > .panel-collapse > .list-group {\n  margin-bottom: 0;\n}\n.panel > .list-group .list-group-item,\n.panel > .panel-collapse > .list-group .list-group-item {\n  border-width: 1px 0;\n  border-radius: 0;\n}\n.panel > .list-group:first-child .list-group-item:first-child,\n.panel > .panel-collapse > .list-group:first-child .list-group-item:first-child {\n  border-top: 0;\n  border-top-right-radius: 3px;\n  border-top-left-radius: 3px;\n}\n.panel > .list-group:last-child .list-group-item:last-child,\n.panel > .panel-collapse > .list-group:last-child .list-group-item:last-child {\n  border-bottom: 0;\n  border-bottom-right-radius: 3px;\n  border-bottom-left-radius: 3px;\n}\n.panel-heading + .list-group .list-group-item:first-child {\n  border-top-width: 0;\n}\n.list-group + .panel-footer {\n  border-top-width: 0;\n}\n.panel > .table,\n.panel > .table-responsive > .table,\n.panel > .panel-collapse > .table {\n  margin-bottom: 0;\n}\n.panel > .table caption,\n.panel > .table-responsive > .table caption,\n.panel > .panel-collapse > .table caption {\n  padding-left: 15px;\n  padding-right: 15px;\n}\n.panel > .table:first-child,\n.panel > .table-responsive:first-child > .table:first-child {\n  border-top-right-radius: 3px;\n  border-top-left-radius: 3px;\n}\n.panel > .table:first-child > thead:first-child > tr:first-child,\n.panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child,\n.panel > .table:first-child > tbody:first-child > tr:first-child,\n.panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child {\n  border-top-left-radius: 3px;\n  border-top-right-radius: 3px;\n}\n.panel > .table:first-child > thead:first-child > tr:first-child td:first-child,\n.panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child td:first-child,\n.panel > .table:first-child > tbody:first-child > tr:first-child td:first-child,\n.panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child td:first-child,\n.panel > .table:first-child > thead:first-child > tr:first-child th:first-child,\n.panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child th:first-child,\n.panel > .table:first-child > tbody:first-child > tr:first-child th:first-child,\n.panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child th:first-child {\n  border-top-left-radius: 3px;\n}\n.panel > .table:first-child > thead:first-child > tr:first-child td:last-child,\n.panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child td:last-child,\n.panel > .table:first-child > tbody:first-child > tr:first-child td:last-child,\n.panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child td:last-child,\n.panel > .table:first-child > thead:first-child > tr:first-child th:last-child,\n.panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child th:last-child,\n.panel > .table:first-child > tbody:first-child > tr:first-child th:last-child,\n.panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child th:last-child {\n  border-top-right-radius: 3px;\n}\n.panel > .table:last-child,\n.panel > .table-responsive:last-child > .table:last-child {\n  border-bottom-right-radius: 3px;\n  border-bottom-left-radius: 3px;\n}\n.panel > .table:last-child > tbody:last-child > tr:last-child,\n.panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child,\n.panel > .table:last-child > tfoot:last-child > tr:last-child,\n.panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child {\n  border-bottom-left-radius: 3px;\n  border-bottom-right-radius: 3px;\n}\n.panel > .table:last-child > tbody:last-child > tr:last-child td:first-child,\n.panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child td:first-child,\n.panel > .table:last-child > tfoot:last-child > tr:last-child td:first-child,\n.panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child td:first-child,\n.panel > .table:last-child > tbody:last-child > tr:last-child th:first-child,\n.panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child th:first-child,\n.panel > .table:last-child > tfoot:last-child > tr:last-child th:first-child,\n.panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child th:first-child {\n  border-bottom-left-radius: 3px;\n}\n.panel > .table:last-child > tbody:last-child > tr:last-child td:last-child,\n.panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child td:last-child,\n.panel > .table:last-child > tfoot:last-child > tr:last-child td:last-child,\n.panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child td:last-child,\n.panel > .table:last-child > tbody:last-child > tr:last-child th:last-child,\n.panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child th:last-child,\n.panel > .table:last-child > tfoot:last-child > tr:last-child th:last-child,\n.panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child th:last-child {\n  border-bottom-right-radius: 3px;\n}\n.panel > .panel-body + .table,\n.panel > .panel-body + .table-responsive,\n.panel > .table + .panel-body,\n.panel > .table-responsive + .panel-body {\n  border-top: 1px solid #dddddd;\n}\n.panel > .table > tbody:first-child > tr:first-child th,\n.panel > .table > tbody:first-child > tr:first-child td {\n  border-top: 0;\n}\n.panel > .table-bordered,\n.panel > .table-responsive > .table-bordered {\n  border: 0;\n}\n.panel > .table-bordered > thead > tr > th:first-child,\n.panel > .table-responsive > .table-bordered > thead > tr > th:first-child,\n.panel > .table-bordered > tbody > tr > th:first-child,\n.panel > .table-responsive > .table-bordered > tbody > tr > th:first-child,\n.panel > .table-bordered > tfoot > tr > th:first-child,\n.panel > .table-responsive > .table-bordered > tfoot > tr > th:first-child,\n.panel > .table-bordered > thead > tr > td:first-child,\n.panel > .table-responsive > .table-bordered > thead > tr > td:first-child,\n.panel > .table-bordered > tbody > tr > td:first-child,\n.panel > .table-responsive > .table-bordered > tbody > tr > td:first-child,\n.panel > .table-bordered > tfoot > tr > td:first-child,\n.panel > .table-responsive > .table-bordered > tfoot > tr > td:first-child {\n  border-left: 0;\n}\n.panel > .table-bordered > thead > tr > th:last-child,\n.panel > .table-responsive > .table-bordered > thead > tr > th:last-child,\n.panel > .table-bordered > tbody > tr > th:last-child,\n.panel > .table-responsive > .table-bordered > tbody > tr > th:last-child,\n.panel > .table-bordered > tfoot > tr > th:last-child,\n.panel > .table-responsive > .table-bordered > tfoot > tr > th:last-child,\n.panel > .table-bordered > thead > tr > td:last-child,\n.panel > .table-responsive > .table-bordered > thead > tr > td:last-child,\n.panel > .table-bordered > tbody > tr > td:last-child,\n.panel > .table-responsive > .table-bordered > tbody > tr > td:last-child,\n.panel > .table-bordered > tfoot > tr > td:last-child,\n.panel > .table-responsive > .table-bordered > tfoot > tr > td:last-child {\n  border-right: 0;\n}\n.panel > .table-bordered > thead > tr:first-child > td,\n.panel > .table-responsive > .table-bordered > thead > tr:first-child > td,\n.panel > .table-bordered > tbody > tr:first-child > td,\n.panel > .table-responsive > .table-bordered > tbody > tr:first-child > td,\n.panel > .table-bordered > thead > tr:first-child > th,\n.panel > .table-responsive > .table-bordered > thead > tr:first-child > th,\n.panel > .table-bordered > tbody > tr:first-child > th,\n.panel > .table-responsive > .table-bordered > tbody > tr:first-child > th {\n  border-bottom: 0;\n}\n.panel > .table-bordered > tbody > tr:last-child > td,\n.panel > .table-responsive > .table-bordered > tbody > tr:last-child > td,\n.panel > .table-bordered > tfoot > tr:last-child > td,\n.panel > .table-responsive > .table-bordered > tfoot > tr:last-child > td,\n.panel > .table-bordered > tbody > tr:last-child > th,\n.panel > .table-responsive > .table-bordered > tbody > tr:last-child > th,\n.panel > .table-bordered > tfoot > tr:last-child > th,\n.panel > .table-responsive > .table-bordered > tfoot > tr:last-child > th {\n  border-bottom: 0;\n}\n.panel > .table-responsive {\n  border: 0;\n  margin-bottom: 0;\n}\n.panel-group {\n  margin-bottom: 20px;\n}\n.panel-group .panel {\n  margin-bottom: 0;\n  border-radius: 4px;\n}\n.panel-group .panel + .panel {\n  margin-top: 5px;\n}\n.panel-group .panel-heading {\n  border-bottom: 0;\n}\n.panel-group .panel-heading + .panel-collapse > .panel-body,\n.panel-group .panel-heading + .panel-collapse > .list-group {\n  border-top: 1px solid #dddddd;\n}\n.panel-group .panel-footer {\n  border-top: 0;\n}\n.panel-group .panel-footer + .panel-collapse .panel-body {\n  border-bottom: 1px solid #dddddd;\n}\n.panel-default {\n  border-color: #dddddd;\n}\n.panel-default > .panel-heading {\n  color: #333333;\n  background-color: #f5f5f5;\n  border-color: #dddddd;\n}\n.panel-default > .panel-heading + .panel-collapse > .panel-body {\n  border-top-color: #dddddd;\n}\n.panel-default > .panel-heading .badge {\n  color: #f5f5f5;\n  background-color: #333333;\n}\n.panel-default > .panel-footer + .panel-collapse > .panel-body {\n  border-bottom-color: #dddddd;\n}\n.panel-primary {\n  border-color: #337ab7;\n}\n.panel-primary > .panel-heading {\n  color: #ffffff;\n  background-color: #337ab7;\n  border-color: #337ab7;\n}\n.panel-primary > .panel-heading + .panel-collapse > .panel-body {\n  border-top-color: #337ab7;\n}\n.panel-primary > .panel-heading .badge {\n  color: #337ab7;\n  background-color: #ffffff;\n}\n.panel-primary > .panel-footer + .panel-collapse > .panel-body {\n  border-bottom-color: #337ab7;\n}\n.panel-success {\n  border-color: #d6e9c6;\n}\n.panel-success > .panel-heading {\n  color: #3c763d;\n  background-color: #dff0d8;\n  border-color: #d6e9c6;\n}\n.panel-success > .panel-heading + .panel-collapse > .panel-body {\n  border-top-color: #d6e9c6;\n}\n.panel-success > .panel-heading .badge {\n  color: #dff0d8;\n  background-color: #3c763d;\n}\n.panel-success > .panel-footer + .panel-collapse > .panel-body {\n  border-bottom-color: #d6e9c6;\n}\n.panel-info {\n  border-color: #bce8f1;\n}\n.panel-info > .panel-heading {\n  color: #31708f;\n  background-color: #d9edf7;\n  border-color: #bce8f1;\n}\n.panel-info > .panel-heading + .panel-collapse > .panel-body {\n  border-top-color: #bce8f1;\n}\n.panel-info > .panel-heading .badge {\n  color: #d9edf7;\n  background-color: #31708f;\n}\n.panel-info > .panel-footer + .panel-collapse > .panel-body {\n  border-bottom-color: #bce8f1;\n}\n.panel-warning {\n  border-color: #faebcc;\n}\n.panel-warning > .panel-heading {\n  color: #8a6d3b;\n  background-color: #fcf8e3;\n  border-color: #faebcc;\n}\n.panel-warning > .panel-heading + .panel-collapse > .panel-body {\n  border-top-color: #faebcc;\n}\n.panel-warning > .panel-heading .badge {\n  color: #fcf8e3;\n  background-color: #8a6d3b;\n}\n.panel-warning > .panel-footer + .panel-collapse > .panel-body {\n  border-bottom-color: #faebcc;\n}\n.panel-danger {\n  border-color: #ebccd1;\n}\n.panel-danger > .panel-heading {\n  color: #a94442;\n  background-color: #f2dede;\n  border-color: #ebccd1;\n}\n.panel-danger > .panel-heading + .panel-collapse > .panel-body {\n  border-top-color: #ebccd1;\n}\n.panel-danger > .panel-heading .badge {\n  color: #f2dede;\n  background-color: #a94442;\n}\n.panel-danger > .panel-footer + .panel-collapse > .panel-body {\n  border-bottom-color: #ebccd1;\n}\n.well {\n  min-height: 20px;\n  padding: 19px;\n  margin-bottom: 20px;\n  background-color: #f5f5f5;\n  border: 1px solid #e3e3e3;\n  border-radius: 4px;\n  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);\n  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);\n}\n.well blockquote {\n  border-color: #ddd;\n  border-color: rgba(0, 0, 0, 0.15);\n}\n.well-lg {\n  padding: 24px;\n  border-radius: 6px;\n}\n.well-sm {\n  padding: 9px;\n  border-radius: 3px;\n}\n.close {\n  float: right;\n  font-size: 21px;\n  font-weight: bold;\n  line-height: 1;\n  color: #000000;\n  text-shadow: 0 1px 0 #ffffff;\n  opacity: 0.2;\n  filter: alpha(opacity=20);\n}\n.close:hover,\n.close:focus {\n  color: #000000;\n  text-decoration: none;\n  cursor: pointer;\n  opacity: 0.5;\n  filter: alpha(opacity=50);\n}\nbutton.close {\n  padding: 0;\n  cursor: pointer;\n  background: transparent;\n  border: 0;\n  -webkit-appearance: none;\n}\n.modal-open {\n  overflow: hidden;\n}\n.modal {\n  display: none;\n  overflow: hidden;\n  position: fixed;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: 1050;\n  -webkit-overflow-scrolling: touch;\n  outline: 0;\n}\n.modal.fade .modal-dialog {\n  -webkit-transform: translate(0, -25%);\n  -ms-transform: translate(0, -25%);\n  -o-transform: translate(0, -25%);\n  transform: translate(0, -25%);\n  -webkit-transition: -webkit-transform 0.3s ease-out;\n  -moz-transition: -moz-transform 0.3s ease-out;\n  -o-transition: -o-transform 0.3s ease-out;\n  transition: transform 0.3s ease-out;\n}\n.modal.in .modal-dialog {\n  -webkit-transform: translate(0, 0);\n  -ms-transform: translate(0, 0);\n  -o-transform: translate(0, 0);\n  transform: translate(0, 0);\n}\n.modal-open .modal {\n  overflow-x: hidden;\n  overflow-y: auto;\n}\n.modal-dialog {\n  position: relative;\n  width: auto;\n  margin: 10px;\n}\n.modal-content {\n  position: relative;\n  background-color: #ffffff;\n  border: 1px solid #999999;\n  border: 1px solid rgba(0, 0, 0, 0.2);\n  border-radius: 6px;\n  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);\n  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);\n  background-clip: padding-box;\n  outline: 0;\n}\n.modal-backdrop {\n  position: fixed;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: 1040;\n  background-color: #000000;\n}\n.modal-backdrop.fade {\n  opacity: 0;\n  filter: alpha(opacity=0);\n}\n.modal-backdrop.in {\n  opacity: 0.5;\n  filter: alpha(opacity=50);\n}\n.modal-header {\n  padding: 15px;\n  border-bottom: 1px solid #e5e5e5;\n  min-height: 16.428571429px;\n}\n.modal-header .close {\n  margin-top: -2px;\n}\n.modal-title {\n  margin: 0;\n  line-height: 1.428571429;\n}\n.modal-body {\n  position: relative;\n  padding: 15px;\n}\n.modal-footer {\n  padding: 15px;\n  text-align: right;\n  border-top: 1px solid #e5e5e5;\n}\n.modal-footer .btn + .btn {\n  margin-left: 5px;\n  margin-bottom: 0;\n}\n.modal-footer .btn-group .btn + .btn {\n  margin-left: -1px;\n}\n.modal-footer .btn-block + .btn-block {\n  margin-left: 0;\n}\n.modal-scrollbar-measure {\n  position: absolute;\n  top: -9999px;\n  width: 50px;\n  height: 50px;\n  overflow: scroll;\n}\n@media (min-width: 768px) {\n  .modal-dialog {\n    width: 600px;\n    margin: 30px auto;\n  }\n  .modal-content {\n    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);\n    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);\n  }\n  .modal-sm {\n    width: 300px;\n  }\n}\n@media (min-width: 992px) {\n  .modal-lg {\n    width: 900px;\n  }\n}\n.tooltip {\n  position: absolute;\n  z-index: 1070;\n  display: block;\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  font-size: 12px;\n  font-weight: normal;\n  line-height: 1.4;\n  opacity: 0;\n  filter: alpha(opacity=0);\n}\n.tooltip.in {\n  opacity: 0.9;\n  filter: alpha(opacity=90);\n}\n.tooltip.top {\n  margin-top: -3px;\n  padding: 5px 0;\n}\n.tooltip.right {\n  margin-left: 3px;\n  padding: 0 5px;\n}\n.tooltip.bottom {\n  margin-top: 3px;\n  padding: 5px 0;\n}\n.tooltip.left {\n  margin-left: -3px;\n  padding: 0 5px;\n}\n.tooltip-inner {\n  max-width: 200px;\n  padding: 3px 8px;\n  color: #ffffff;\n  text-align: center;\n  text-decoration: none;\n  background-color: #000000;\n  border-radius: 4px;\n}\n.tooltip-arrow {\n  position: absolute;\n  width: 0;\n  height: 0;\n  border-color: transparent;\n  border-style: solid;\n}\n.tooltip.top .tooltip-arrow {\n  bottom: 0;\n  left: 50%;\n  margin-left: -5px;\n  border-width: 5px 5px 0;\n  border-top-color: #000000;\n}\n.tooltip.top-left .tooltip-arrow {\n  bottom: 0;\n  right: 5px;\n  margin-bottom: -5px;\n  border-width: 5px 5px 0;\n  border-top-color: #000000;\n}\n.tooltip.top-right .tooltip-arrow {\n  bottom: 0;\n  left: 5px;\n  margin-bottom: -5px;\n  border-width: 5px 5px 0;\n  border-top-color: #000000;\n}\n.tooltip.right .tooltip-arrow {\n  top: 50%;\n  left: 0;\n  margin-top: -5px;\n  border-width: 5px 5px 5px 0;\n  border-right-color: #000000;\n}\n.tooltip.left .tooltip-arrow {\n  top: 50%;\n  right: 0;\n  margin-top: -5px;\n  border-width: 5px 0 5px 5px;\n  border-left-color: #000000;\n}\n.tooltip.bottom .tooltip-arrow {\n  top: 0;\n  left: 50%;\n  margin-left: -5px;\n  border-width: 0 5px 5px;\n  border-bottom-color: #000000;\n}\n.tooltip.bottom-left .tooltip-arrow {\n  top: 0;\n  right: 5px;\n  margin-top: -5px;\n  border-width: 0 5px 5px;\n  border-bottom-color: #000000;\n}\n.tooltip.bottom-right .tooltip-arrow {\n  top: 0;\n  left: 5px;\n  margin-top: -5px;\n  border-width: 0 5px 5px;\n  border-bottom-color: #000000;\n}\n.popover {\n  position: absolute;\n  top: 0;\n  left: 0;\n  z-index: 1060;\n  display: none;\n  max-width: 276px;\n  padding: 1px;\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  font-size: 14px;\n  font-weight: normal;\n  line-height: 1.428571429;\n  text-align: left;\n  background-color: #ffffff;\n  background-clip: padding-box;\n  border: 1px solid #cccccc;\n  border: 1px solid rgba(0, 0, 0, 0.2);\n  border-radius: 6px;\n  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);\n  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);\n  white-space: normal;\n}\n.popover.top {\n  margin-top: -10px;\n}\n.popover.right {\n  margin-left: 10px;\n}\n.popover.bottom {\n  margin-top: 10px;\n}\n.popover.left {\n  margin-left: -10px;\n}\n.popover-title {\n  margin: 0;\n  padding: 8px 14px;\n  font-size: 14px;\n  background-color: #f7f7f7;\n  border-bottom: 1px solid #ebebeb;\n  border-radius: 5px 5px 0 0;\n}\n.popover-content {\n  padding: 9px 14px;\n}\n.popover > .arrow,\n.popover > .arrow:after {\n  position: absolute;\n  display: block;\n  width: 0;\n  height: 0;\n  border-color: transparent;\n  border-style: solid;\n}\n.popover > .arrow {\n  border-width: 11px;\n}\n.popover > .arrow:after {\n  border-width: 10px;\n  content: \"\";\n}\n.popover.top > .arrow {\n  left: 50%;\n  margin-left: -11px;\n  border-bottom-width: 0;\n  border-top-color: #999999;\n  border-top-color: rgba(0, 0, 0, 0.25);\n  bottom: -11px;\n}\n.popover.top > .arrow:after {\n  content: \" \";\n  bottom: 1px;\n  margin-left: -10px;\n  border-bottom-width: 0;\n  border-top-color: #ffffff;\n}\n.popover.right > .arrow {\n  top: 50%;\n  left: -11px;\n  margin-top: -11px;\n  border-left-width: 0;\n  border-right-color: #999999;\n  border-right-color: rgba(0, 0, 0, 0.25);\n}\n.popover.right > .arrow:after {\n  content: \" \";\n  left: 1px;\n  bottom: -10px;\n  border-left-width: 0;\n  border-right-color: #ffffff;\n}\n.popover.bottom > .arrow {\n  left: 50%;\n  margin-left: -11px;\n  border-top-width: 0;\n  border-bottom-color: #999999;\n  border-bottom-color: rgba(0, 0, 0, 0.25);\n  top: -11px;\n}\n.popover.bottom > .arrow:after {\n  content: \" \";\n  top: 1px;\n  margin-left: -10px;\n  border-top-width: 0;\n  border-bottom-color: #ffffff;\n}\n.popover.left > .arrow {\n  top: 50%;\n  right: -11px;\n  margin-top: -11px;\n  border-right-width: 0;\n  border-left-color: #999999;\n  border-left-color: rgba(0, 0, 0, 0.25);\n}\n.popover.left > .arrow:after {\n  content: \" \";\n  right: 1px;\n  border-right-width: 0;\n  border-left-color: #ffffff;\n  bottom: -10px;\n}\n.carousel {\n  position: relative;\n}\n.carousel-inner {\n  position: relative;\n  overflow: hidden;\n  width: 100%;\n}\n.carousel-inner > .item {\n  display: none;\n  position: relative;\n  -webkit-transition: 0.6s ease-in-out left;\n  -o-transition: 0.6s ease-in-out left;\n  transition: 0.6s ease-in-out left;\n}\n.carousel-inner > .item > img,\n.carousel-inner > .item > a > img {\n  line-height: 1;\n}\n@media all and (transform-3d), (-webkit-transform-3d) {\n  .carousel-inner > .item {\n    -webkit-transition: -webkit-transform 0.6s ease-in-out;\n    -moz-transition: -moz-transform 0.6s ease-in-out;\n    -o-transition: -o-transform 0.6s ease-in-out;\n    transition: transform 0.6s ease-in-out;\n    -webkit-backface-visibility: hidden;\n    -moz-backface-visibility: hidden;\n    backface-visibility: hidden;\n    -webkit-perspective: 1000;\n    -moz-perspective: 1000;\n    perspective: 1000;\n  }\n  .carousel-inner > .item.next,\n  .carousel-inner > .item.active.right {\n    -webkit-transform: translate3d(100%, 0, 0);\n    transform: translate3d(100%, 0, 0);\n    left: 0;\n  }\n  .carousel-inner > .item.prev,\n  .carousel-inner > .item.active.left {\n    -webkit-transform: translate3d(-100%, 0, 0);\n    transform: translate3d(-100%, 0, 0);\n    left: 0;\n  }\n  .carousel-inner > .item.next.left,\n  .carousel-inner > .item.prev.right,\n  .carousel-inner > .item.active {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n    left: 0;\n  }\n}\n.carousel-inner > .active,\n.carousel-inner > .next,\n.carousel-inner > .prev {\n  display: block;\n}\n.carousel-inner > .active {\n  left: 0;\n}\n.carousel-inner > .next,\n.carousel-inner > .prev {\n  position: absolute;\n  top: 0;\n  width: 100%;\n}\n.carousel-inner > .next {\n  left: 100%;\n}\n.carousel-inner > .prev {\n  left: -100%;\n}\n.carousel-inner > .next.left,\n.carousel-inner > .prev.right {\n  left: 0;\n}\n.carousel-inner > .active.left {\n  left: -100%;\n}\n.carousel-inner > .active.right {\n  left: 100%;\n}\n.carousel-control {\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  width: 15%;\n  opacity: 0.5;\n  filter: alpha(opacity=50);\n  font-size: 20px;\n  color: #ffffff;\n  text-align: center;\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);\n}\n.carousel-control.left {\n  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);\n  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);\n  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);\n  background-repeat: repeat-x;\n  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);\n}\n.carousel-control.right {\n  left: auto;\n  right: 0;\n  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);\n  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);\n  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);\n  background-repeat: repeat-x;\n  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);\n}\n.carousel-control:hover,\n.carousel-control:focus {\n  outline: 0;\n  color: #ffffff;\n  text-decoration: none;\n  opacity: 0.9;\n  filter: alpha(opacity=90);\n}\n.carousel-control .icon-prev,\n.carousel-control .icon-next,\n.carousel-control .glyphicon-chevron-left,\n.carousel-control .glyphicon-chevron-right {\n  position: absolute;\n  top: 50%;\n  z-index: 5;\n  display: inline-block;\n}\n.carousel-control .icon-prev,\n.carousel-control .glyphicon-chevron-left {\n  left: 50%;\n  margin-left: -10px;\n}\n.carousel-control .icon-next,\n.carousel-control .glyphicon-chevron-right {\n  right: 50%;\n  margin-right: -10px;\n}\n.carousel-control .icon-prev,\n.carousel-control .icon-next {\n  width: 20px;\n  height: 20px;\n  margin-top: -10px;\n  line-height: 1;\n  font-family: serif;\n}\n.carousel-control .icon-prev:before {\n  content: '\\2039';\n}\n.carousel-control .icon-next:before {\n  content: '\\203a';\n}\n.carousel-indicators {\n  position: absolute;\n  bottom: 10px;\n  left: 50%;\n  z-index: 15;\n  width: 60%;\n  margin-left: -30%;\n  padding-left: 0;\n  list-style: none;\n  text-align: center;\n}\n.carousel-indicators li {\n  display: inline-block;\n  width: 10px;\n  height: 10px;\n  margin: 1px;\n  text-indent: -999px;\n  border: 1px solid #ffffff;\n  border-radius: 10px;\n  cursor: pointer;\n  background-color: #000 \\9;\n  background-color: rgba(0, 0, 0, 0);\n}\n.carousel-indicators .active {\n  margin: 0;\n  width: 12px;\n  height: 12px;\n  background-color: #ffffff;\n}\n.carousel-caption {\n  position: absolute;\n  left: 15%;\n  right: 15%;\n  bottom: 20px;\n  z-index: 10;\n  padding-top: 20px;\n  padding-bottom: 20px;\n  color: #ffffff;\n  text-align: center;\n  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);\n}\n.carousel-caption .btn {\n  text-shadow: none;\n}\n@media screen and (min-width: 768px) {\n  .carousel-control .glyphicon-chevron-left,\n  .carousel-control .glyphicon-chevron-right,\n  .carousel-control .icon-prev,\n  .carousel-control .icon-next {\n    width: 30px;\n    height: 30px;\n    margin-top: -15px;\n    font-size: 30px;\n  }\n  .carousel-control .glyphicon-chevron-left,\n  .carousel-control .icon-prev {\n    margin-left: -15px;\n  }\n  .carousel-control .glyphicon-chevron-right,\n  .carousel-control .icon-next {\n    margin-right: -15px;\n  }\n  .carousel-caption {\n    left: 20%;\n    right: 20%;\n    padding-bottom: 30px;\n  }\n  .carousel-indicators {\n    bottom: 20px;\n  }\n}\n.clearfix:before,\n.clearfix:after,\n.dl-horizontal dd:before,\n.dl-horizontal dd:after,\n.container:before,\n.container:after,\n.container-fluid:before,\n.container-fluid:after,\n.row:before,\n.row:after,\n.form-horizontal .form-group:before,\n.form-horizontal .form-group:after,\n.btn-toolbar:before,\n.btn-toolbar:after,\n.btn-group-vertical > .btn-group:before,\n.btn-group-vertical > .btn-group:after,\n.nav:before,\n.nav:after,\n.navbar:before,\n.navbar:after,\n.navbar-header:before,\n.navbar-header:after,\n.navbar-collapse:before,\n.navbar-collapse:after,\n.pager:before,\n.pager:after,\n.panel-body:before,\n.panel-body:after,\n.modal-footer:before,\n.modal-footer:after {\n  content: \" \";\n  display: table;\n}\n.clearfix:after,\n.dl-horizontal dd:after,\n.container:after,\n.container-fluid:after,\n.row:after,\n.form-horizontal .form-group:after,\n.btn-toolbar:after,\n.btn-group-vertical > .btn-group:after,\n.nav:after,\n.navbar:after,\n.navbar-header:after,\n.navbar-collapse:after,\n.pager:after,\n.panel-body:after,\n.modal-footer:after {\n  clear: both;\n}\n.center-block {\n  display: block;\n  margin-left: auto;\n  margin-right: auto;\n}\n.pull-right {\n  float: right !important;\n}\n.pull-left {\n  float: left !important;\n}\n.hide {\n  display: none !important;\n}\n.show {\n  display: block !important;\n}\n.invisible {\n  visibility: hidden;\n}\n.text-hide {\n  font: 0/0 a;\n  color: transparent;\n  text-shadow: none;\n  background-color: transparent;\n  border: 0;\n}\n.hidden {\n  display: none !important;\n}\n.affix {\n  position: fixed;\n}\n@-ms-viewport {\n  width: device-width;\n}\n.visible-xs,\n.visible-sm,\n.visible-md,\n.visible-lg {\n  display: none !important;\n}\n.visible-xs-block,\n.visible-xs-inline,\n.visible-xs-inline-block,\n.visible-sm-block,\n.visible-sm-inline,\n.visible-sm-inline-block,\n.visible-md-block,\n.visible-md-inline,\n.visible-md-inline-block,\n.visible-lg-block,\n.visible-lg-inline,\n.visible-lg-inline-block {\n  display: none !important;\n}\n@media (max-width: 767px) {\n  .visible-xs {\n    display: block !important;\n  }\n  table.visible-xs {\n    display: table;\n  }\n  tr.visible-xs {\n    display: table-row !important;\n  }\n  th.visible-xs,\n  td.visible-xs {\n    display: table-cell !important;\n  }\n}\n@media (max-width: 767px) {\n  .visible-xs-block {\n    display: block !important;\n  }\n}\n@media (max-width: 767px) {\n  .visible-xs-inline {\n    display: inline !important;\n  }\n}\n@media (max-width: 767px) {\n  .visible-xs-inline-block {\n    display: inline-block !important;\n  }\n}\n@media (min-width: 768px) and (max-width: 991px) {\n  .visible-sm {\n    display: block !important;\n  }\n  table.visible-sm {\n    display: table;\n  }\n  tr.visible-sm {\n    display: table-row !important;\n  }\n  th.visible-sm,\n  td.visible-sm {\n    display: table-cell !important;\n  }\n}\n@media (min-width: 768px) and (max-width: 991px) {\n  .visible-sm-block {\n    display: block !important;\n  }\n}\n@media (min-width: 768px) and (max-width: 991px) {\n  .visible-sm-inline {\n    display: inline !important;\n  }\n}\n@media (min-width: 768px) and (max-width: 991px) {\n  .visible-sm-inline-block {\n    display: inline-block !important;\n  }\n}\n@media (min-width: 992px) and (max-width: 1199px) {\n  .visible-md {\n    display: block !important;\n  }\n  table.visible-md {\n    display: table;\n  }\n  tr.visible-md {\n    display: table-row !important;\n  }\n  th.visible-md,\n  td.visible-md {\n    display: table-cell !important;\n  }\n}\n@media (min-width: 992px) and (max-width: 1199px) {\n  .visible-md-block {\n    display: block !important;\n  }\n}\n@media (min-width: 992px) and (max-width: 1199px) {\n  .visible-md-inline {\n    display: inline !important;\n  }\n}\n@media (min-width: 992px) and (max-width: 1199px) {\n  .visible-md-inline-block {\n    display: inline-block !important;\n  }\n}\n@media (min-width: 1200px) {\n  .visible-lg {\n    display: block !important;\n  }\n  table.visible-lg {\n    display: table;\n  }\n  tr.visible-lg {\n    display: table-row !important;\n  }\n  th.visible-lg,\n  td.visible-lg {\n    display: table-cell !important;\n  }\n}\n@media (min-width: 1200px) {\n  .visible-lg-block {\n    display: block !important;\n  }\n}\n@media (min-width: 1200px) {\n  .visible-lg-inline {\n    display: inline !important;\n  }\n}\n@media (min-width: 1200px) {\n  .visible-lg-inline-block {\n    display: inline-block !important;\n  }\n}\n@media (max-width: 767px) {\n  .hidden-xs {\n    display: none !important;\n  }\n}\n@media (min-width: 768px) and (max-width: 991px) {\n  .hidden-sm {\n    display: none !important;\n  }\n}\n@media (min-width: 992px) and (max-width: 1199px) {\n  .hidden-md {\n    display: none !important;\n  }\n}\n@media (min-width: 1200px) {\n  .hidden-lg {\n    display: none !important;\n  }\n}\n.visible-print {\n  display: none !important;\n}\n@media print {\n  .visible-print {\n    display: block !important;\n  }\n  table.visible-print {\n    display: table;\n  }\n  tr.visible-print {\n    display: table-row !important;\n  }\n  th.visible-print,\n  td.visible-print {\n    display: table-cell !important;\n  }\n}\n.visible-print-block {\n  display: none !important;\n}\n@media print {\n  .visible-print-block {\n    display: block !important;\n  }\n}\n.visible-print-inline {\n  display: none !important;\n}\n@media print {\n  .visible-print-inline {\n    display: inline !important;\n  }\n}\n.visible-print-inline-block {\n  display: none !important;\n}\n@media print {\n  .visible-print-inline-block {\n    display: inline-block !important;\n  }\n}\n@media print {\n  .hidden-print {\n    display: none !important;\n  }\n}\n";
+
+/***/ },
+/* 28 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	var stylesInDom = {},
+		memoize = function(fn) {
+			var memo;
+			return function () {
+				if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+				return memo;
+			};
+		},
+		isOldIE = memoize(function() {
+			return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
+		}),
+		getHeadElement = memoize(function () {
+			return document.head || document.getElementsByTagName("head")[0];
+		}),
+		singletonElement = null,
+		singletonCounter = 0;
+
+	module.exports = function(list, options) {
+		if(false) {
+			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+		}
+
+		options = options || {};
+		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+		// tags it will allow on a page
+		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
+
+		var styles = listToStyles(list);
+		addStylesToDom(styles, options);
+
+		return function update(newList) {
+			var mayRemove = [];
+			for(var i = 0; i < styles.length; i++) {
+				var item = styles[i];
+				var domStyle = stylesInDom[item.id];
+				domStyle.refs--;
+				mayRemove.push(domStyle);
+			}
+			if(newList) {
+				var newStyles = listToStyles(newList);
+				addStylesToDom(newStyles, options);
+			}
+			for(var i = 0; i < mayRemove.length; i++) {
+				var domStyle = mayRemove[i];
+				if(domStyle.refs === 0) {
+					for(var j = 0; j < domStyle.parts.length; j++)
+						domStyle.parts[j]();
+					delete stylesInDom[domStyle.id];
+				}
+			}
+		};
+	}
+
+	function addStylesToDom(styles, options) {
+		for(var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+			if(domStyle) {
+				domStyle.refs++;
+				for(var j = 0; j < domStyle.parts.length; j++) {
+					domStyle.parts[j](item.parts[j]);
+				}
+				for(; j < item.parts.length; j++) {
+					domStyle.parts.push(addStyle(item.parts[j], options));
+				}
+			} else {
+				var parts = [];
+				for(var j = 0; j < item.parts.length; j++) {
+					parts.push(addStyle(item.parts[j], options));
+				}
+				stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+			}
+		}
+	}
+
+	function listToStyles(list) {
+		var styles = [];
+		var newStyles = {};
+		for(var i = 0; i < list.length; i++) {
+			var item = list[i];
+			var id = item[0];
+			var css = item[1];
+			var media = item[2];
+			var sourceMap = item[3];
+			var part = {css: css, media: media, sourceMap: sourceMap};
+			if(!newStyles[id])
+				styles.push(newStyles[id] = {id: id, parts: [part]});
+			else
+				newStyles[id].parts.push(part);
+		}
+		return styles;
+	}
+
+	function createStyleElement() {
+		var styleElement = document.createElement("style");
+		var head = getHeadElement();
+		styleElement.type = "text/css";
+		head.appendChild(styleElement);
+		return styleElement;
+	}
+
+	function createLinkElement() {
+		var linkElement = document.createElement("link");
+		var head = getHeadElement();
+		linkElement.rel = "stylesheet";
+		head.appendChild(linkElement);
+		return linkElement;
+	}
+
+	function addStyle(obj, options) {
+		var styleElement, update, remove;
+
+		if (options.singleton) {
+			var styleIndex = singletonCounter++;
+			styleElement = singletonElement || (singletonElement = createStyleElement());
+			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
+			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
+		} else if(obj.sourceMap &&
+			typeof URL === "function" &&
+			typeof URL.createObjectURL === "function" &&
+			typeof URL.revokeObjectURL === "function" &&
+			typeof Blob === "function" &&
+			typeof btoa === "function") {
+			styleElement = createLinkElement();
+			update = updateLink.bind(null, styleElement);
+			remove = function() {
+				styleElement.parentNode.removeChild(styleElement);
+				if(styleElement.href)
+					URL.revokeObjectURL(styleElement.href);
+			};
+		} else {
+			styleElement = createStyleElement();
+			update = applyToTag.bind(null, styleElement);
+			remove = function() {
+				styleElement.parentNode.removeChild(styleElement);
+			};
+		}
+
+		update(obj);
+
+		return function updateStyle(newObj) {
+			if(newObj) {
+				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
+					return;
+				update(obj = newObj);
+			} else {
+				remove();
+			}
+		};
+	}
+
+	var replaceText = (function () {
+		var textStore = [];
+
+		return function (index, replacement) {
+			textStore[index] = replacement;
+			return textStore.filter(Boolean).join('\n');
+		};
+	})();
+
+	function applyToSingletonTag(styleElement, index, remove, obj) {
+		var css = remove ? "" : obj.css;
+
+		if (styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = replaceText(index, css);
+		} else {
+			var cssNode = document.createTextNode(css);
+			var childNodes = styleElement.childNodes;
+			if (childNodes[index]) styleElement.removeChild(childNodes[index]);
+			if (childNodes.length) {
+				styleElement.insertBefore(cssNode, childNodes[index]);
+			} else {
+				styleElement.appendChild(cssNode);
+			}
+		}
+	}
+
+	function applyToTag(styleElement, obj) {
+		var css = obj.css;
+		var media = obj.media;
+		var sourceMap = obj.sourceMap;
+
+		if(media) {
+			styleElement.setAttribute("media", media)
+		}
+
+		if(styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = css;
+		} else {
+			while(styleElement.firstChild) {
+				styleElement.removeChild(styleElement.firstChild);
+			}
+			styleElement.appendChild(document.createTextNode(css));
+		}
+	}
+
+	function updateLink(linkElement, obj) {
+		var css = obj.css;
+		var media = obj.media;
+		var sourceMap = obj.sourceMap;
+
+		if(sourceMap) {
+			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(JSON.stringify(sourceMap)) + " */";
+		}
+
+		var blob = new Blob([css], { type: "text/css" });
+
+		var oldSrc = linkElement.href;
+
+		linkElement.href = URL.createObjectURL(blob);
+
+		if(oldSrc)
+			URL.revokeObjectURL(oldSrc);
+	}
+
+
+/***/ },
+/* 29 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isArray = __webpack_require__(126);
+
+	/**
+	 * Expose `pathToRegexp`.
+	 */
+	module.exports = pathToRegexp;
+
+	/**
+	 * The main path matching regexp utility.
+	 *
+	 * @type {RegExp}
+	 */
+	var PATH_REGEXP = new RegExp([
+	  // Match escaped characters that would otherwise appear in future matches.
+	  // This allows the user to escape special characters that won't transform.
+	  '(\\\\.)',
+	  // Match Express-style parameters and un-named parameters with a prefix
+	  // and optional suffixes. Matches appear as:
+	  //
+	  // "/:test(\\d+)?" => ["/", "test", "\d+", undefined, "?"]
+	  // "/route(\\d+)" => [undefined, undefined, undefined, "\d+", undefined]
+	  '([\\/.])?(?:\\:(\\w+)(?:\\(((?:\\\\.|[^)])*)\\))?|\\(((?:\\\\.|[^)])*)\\))([+*?])?',
+	  // Match regexp special characters that are always escaped.
+	  '([.+*?=^!:${}()[\\]|\\/])'
+	].join('|'), 'g');
+
+	/**
+	 * Escape the capturing group by escaping special characters and meaning.
+	 *
+	 * @param  {String} group
+	 * @return {String}
+	 */
+	function escapeGroup (group) {
+	  return group.replace(/([=!:$\/()])/g, '\\$1');
+	}
+
+	/**
+	 * Attach the keys as a property of the regexp.
+	 *
+	 * @param  {RegExp} re
+	 * @param  {Array}  keys
+	 * @return {RegExp}
+	 */
+	function attachKeys (re, keys) {
+	  re.keys = keys;
+	  return re;
+	}
+
+	/**
+	 * Get the flags for a regexp from the options.
+	 *
+	 * @param  {Object} options
+	 * @return {String}
+	 */
+	function flags (options) {
+	  return options.sensitive ? '' : 'i';
+	}
+
+	/**
+	 * Pull out keys from a regexp.
+	 *
+	 * @param  {RegExp} path
+	 * @param  {Array}  keys
+	 * @return {RegExp}
+	 */
+	function regexpToRegexp (path, keys) {
+	  // Use a negative lookahead to match only capturing groups.
+	  var groups = path.source.match(/\((?!\?)/g);
+
+	  if (groups) {
+	    for (var i = 0; i < groups.length; i++) {
+	      keys.push({
+	        name:      i,
+	        delimiter: null,
+	        optional:  false,
+	        repeat:    false
+	      });
+	    }
+	  }
+
+	  return attachKeys(path, keys);
+	}
+
+	/**
+	 * Transform an array into a regexp.
+	 *
+	 * @param  {Array}  path
+	 * @param  {Array}  keys
+	 * @param  {Object} options
+	 * @return {RegExp}
+	 */
+	function arrayToRegexp (path, keys, options) {
+	  var parts = [];
+
+	  for (var i = 0; i < path.length; i++) {
+	    parts.push(pathToRegexp(path[i], keys, options).source);
+	  }
+
+	  var regexp = new RegExp('(?:' + parts.join('|') + ')', flags(options));
+	  return attachKeys(regexp, keys);
+	}
+
+	/**
+	 * Replace the specific tags with regexp strings.
+	 *
+	 * @param  {String} path
+	 * @param  {Array}  keys
+	 * @return {String}
+	 */
+	function replacePath (path, keys) {
+	  var index = 0;
+
+	  function replace (_, escaped, prefix, key, capture, group, suffix, escape) {
+	    if (escaped) {
+	      return escaped;
+	    }
+
+	    if (escape) {
+	      return '\\' + escape;
+	    }
+
+	    var repeat   = suffix === '+' || suffix === '*';
+	    var optional = suffix === '?' || suffix === '*';
+
+	    keys.push({
+	      name:      key || index++,
+	      delimiter: prefix || '/',
+	      optional:  optional,
+	      repeat:    repeat
+	    });
+
+	    prefix = prefix ? ('\\' + prefix) : '';
+	    capture = escapeGroup(capture || group || '[^' + (prefix || '\\/') + ']+?');
+
+	    if (repeat) {
+	      capture = capture + '(?:' + prefix + capture + ')*';
+	    }
+
+	    if (optional) {
+	      return '(?:' + prefix + '(' + capture + '))?';
+	    }
+
+	    // Basic parameter support.
+	    return prefix + '(' + capture + ')';
+	  }
+
+	  return path.replace(PATH_REGEXP, replace);
+	}
+
+	/**
+	 * Normalize the given path string, returning a regular expression.
+	 *
+	 * An empty array can be passed in for the keys, which will hold the
+	 * placeholder key descriptions. For example, using `/user/:id`, `keys` will
+	 * contain `[{ name: 'id', delimiter: '/', optional: false, repeat: false }]`.
+	 *
+	 * @param  {(String|RegExp|Array)} path
+	 * @param  {Array}                 [keys]
+	 * @param  {Object}                [options]
+	 * @return {RegExp}
+	 */
+	function pathToRegexp (path, keys, options) {
+	  keys = keys || [];
+
+	  if (!isArray(keys)) {
+	    options = keys;
+	    keys = [];
+	  } else if (!options) {
+	    options = {};
+	  }
+
+	  if (path instanceof RegExp) {
+	    return regexpToRegexp(path, keys, options);
+	  }
+
+	  if (isArray(path)) {
+	    return arrayToRegexp(path, keys, options);
+	  }
+
+	  var strict = options.strict;
+	  var end = options.end !== false;
+	  var route = replacePath(path, keys);
+	  var endsWithSlash = path.charAt(path.length - 1) === '/';
+
+	  // In non-strict mode we allow a slash at the end of match. If the path to
+	  // match already ends with a slash, we remove it for consistency. The slash
+	  // is valid at the end of a path match, not in the middle. This is important
+	  // in non-ending mode, where "/test/" shouldn't match "/test//route".
+	  if (!strict) {
+	    route = (endsWithSlash ? route.slice(0, -2) : route) + '(?:\\/(?=$))?';
+	  }
+
+	  if (end) {
+	    route += '$';
+	  } else {
+	    // In non-ending mode, we need the capturing groups to match as much as
+	    // possible by using a positive lookahead to the end or next path segment.
+	    route += strict && endsWithSlash ? '' : '(?=\\/|$)';
+	  }
+
+	  return attachKeys(new RegExp('^' + route, flags(options)), keys);
+	}
+
+
+/***/ },
+/* 30 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	module.exports = function addStyle(cssCode) {
+		if(false) {
+			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+		}
+		var styleElement = document.createElement("style");
+		styleElement.type = "text/css";
+		var head = document.getElementsByTagName("head")[0];
+		head.appendChild(styleElement);
+		if (styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = cssCode;
+		} else {
+			styleElement.appendChild(document.createTextNode(cssCode));
+		}
+		return function() {
+			head.removeChild(styleElement);
+		};
+	}
+
+
+/***/ },
+/* 31 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict'
+	module.exports = {
+	  getCards : function (option) {
+	    return new Promise(function (resolve, reject) {
+	      resolve([
+	        {
+	          jp: "日常生活用品",
+	          ch_t: "日常生活用品",
+	          ch_s: "日常生活用品",
+	          pinyin: "rì cháng shēng huó yòng pǐn",
+	          zhuyin: "ㄖˋㄤˊㄕㄥㄏㄨㄛˊㄩㄥˋㄆㄧㄣˇ",
+	        },{
+	          jp: "ティッシュペーパー",
+	          ch_t: "面紙",
+	          ch_s: "面纸",
+	          pinyin: "miàn zhǐ",
+	          zhuyin: "ㄇㄧㄢˋㄓˇ",
+	        },{
+	          jp: "キッチンタオル, キッチンペーパー",
+	          ch_t: "廚房紙巾",
+	          ch_s: "厨房纸巾",
+	          pinyin: "chú fáng zhǐ jin",
+	          zhuyin: "ㄔㄨˋㄈㄤˊㄓˇㄐㄧㄣ",
+	        },{
+	          jp: "おりものシート",
+	          ch_t: "衛生棉",
+	          ch_s: "卫生棉",
+	          pinyin: "wèi shēng mián",
+	          zhuyin: "ㄨㄟˋㄕㄥㄇㄧㄢ",
+	        },{
+	          jp: "生理用ナプキン",
+	          ch_t: "衛生護墊",
+	          ch_s: "卫生护垫",
+	          pinyin: "wèi shēng fù diàn",
+	          zhuyin: "ㄨㄟˋㄕㄥㄏㄨˋㄉㄧㄢ",
+	        }
+	      ])
+	    })
+	  } 
+	}
+
+
+/***/ },
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+
+/***/ },
+/* 33 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	// css base code, injected by the css-loader
+	module.exports = function() {
+		var list = [];
+
+		// return the list of modules as css string
+		list.toString = function toString() {
+			var result = [];
+			for(var i = 0; i < this.length; i++) {
+				var item = this[i];
+				if(item[2]) {
+					result.push("@media " + item[2] + "{" + item[1] + "}");
+				} else {
+					result.push(item[1]);
+				}
+			}
+			return result.join("");
+		};
+
+		// import a list of modules into the list
+		list.i = function(modules, mediaQuery) {
+			if(typeof modules === "string")
+				modules = [[null, modules, ""]];
+			var alreadyImportedModules = {};
+			for(var i = 0; i < this.length; i++) {
+				var id = this[i][0];
+				if(typeof id === "number")
+					alreadyImportedModules[id] = true;
+			}
+			for(i = 0; i < modules.length; i++) {
+				var item = modules[i];
+				// skip already imported module
+				// this implementation is not 100% perfect for weird media query combinations
+				//  when a module is imported multiple times with different media queries.
+				//  I hope this will never occur (Hey this way we have smaller bundles)
+				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+					if(mediaQuery && !item[2]) {
+						item[2] = mediaQuery;
+					} else if(mediaQuery) {
+						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+					}
+					list.push(item);
+				}
+			}
+		};
+		return list;
+	};
+
+
+/***/ },
+/* 34 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var extend = _.extend
+
+	/**
+	 * Option overwriting strategies are functions that handle
+	 * how to merge a parent option value and a child option
+	 * value into the final value.
+	 *
+	 * All strategy functions follow the same signature:
+	 *
+	 * @param {*} parentVal
+	 * @param {*} childVal
+	 * @param {Vue} [vm]
+	 */
+
+	var strats = Object.create(null)
+
+	/**
+	 * Helper that recursively merges two data objects together.
+	 */
+
+	function mergeData (to, from) {
+	  var key, toVal, fromVal
+	  for (key in from) {
+	    toVal = to[key]
+	    fromVal = from[key]
+	    if (!to.hasOwnProperty(key)) {
+	      to.$add(key, fromVal)
+	    } else if (_.isObject(toVal) && _.isObject(fromVal)) {
+	      mergeData(toVal, fromVal)
+	    }
+	  }
+	  return to
+	}
+
+	/**
+	 * Data
+	 */
+
+	strats.data = function (parentVal, childVal, vm) {
+	  if (!vm) {
+	    // in a Vue.extend merge, both should be functions
+	    if (!childVal) {
+	      return parentVal
+	    }
+	    if (typeof childVal !== 'function') {
+	      _.warn(
+	        'The "data" option should be a function ' +
+	        'that returns a per-instance value in component ' +
+	        'definitions.'
+	      )
+	      return parentVal
+	    }
+	    if (!parentVal) {
+	      return childVal
+	    }
+	    // when parentVal & childVal are both present,
+	    // we need to return a function that returns the
+	    // merged result of both functions... no need to
+	    // check if parentVal is a function here because
+	    // it has to be a function to pass previous merges.
+	    return function mergedDataFn () {
+	      return mergeData(
+	        childVal.call(this),
+	        parentVal.call(this)
+	      )
+	    }
+	  } else {
+	    // instance merge, return raw object
+	    var instanceData = typeof childVal === 'function'
+	      ? childVal.call(vm)
+	      : childVal
+	    var defaultData = typeof parentVal === 'function'
+	      ? parentVal.call(vm)
+	      : undefined
+	    if (instanceData) {
+	      return mergeData(instanceData, defaultData)
+	    } else {
+	      return defaultData
+	    }
+	  }
+	}
+
+	/**
+	 * El
+	 */
+
+	strats.el = function (parentVal, childVal, vm) {
+	  if (!vm && childVal && typeof childVal !== 'function') {
+	    _.warn(
+	      'The "el" option should be a function ' +
+	      'that returns a per-instance value in component ' +
+	      'definitions.'
+	    )
+	    return
+	  }
+	  var ret = childVal || parentVal
+	  // invoke the element factory if this is instance merge
+	  return vm && typeof ret === 'function'
+	    ? ret.call(vm)
+	    : ret
+	}
+
+	/**
+	 * Hooks and param attributes are merged as arrays.
+	 */
+
+	strats.created =
+	strats.ready =
+	strats.attached =
+	strats.detached =
+	strats.beforeCompile =
+	strats.compiled =
+	strats.beforeDestroy =
+	strats.destroyed =
+	strats.paramAttributes = function (parentVal, childVal) {
+	  return childVal
+	    ? parentVal
+	      ? parentVal.concat(childVal)
+	      : _.isArray(childVal)
+	        ? childVal
+	        : [childVal]
+	    : parentVal
+	}
+
+	/**
+	 * Assets
+	 *
+	 * When a vm is present (instance creation), we need to do
+	 * a three-way merge between constructor options, instance
+	 * options and parent options.
+	 */
+
+	strats.directives =
+	strats.filters =
+	strats.partials =
+	strats.transitions =
+	strats.components = function (parentVal, childVal, vm, key) {
+	  var ret = Object.create(
+	    vm && vm.$parent
+	      ? vm.$parent.$options[key]
+	      : _.Vue.options[key]
+	  )
+	  if (parentVal) {
+	    var keys = Object.keys(parentVal)
+	    var i = keys.length
+	    var field
+	    while (i--) {
+	      field = keys[i]
+	      ret[field] = parentVal[field]
+	    }
+	  }
+	  if (childVal) extend(ret, childVal)
+	  return ret
+	}
+
+	/**
+	 * Events & Watchers.
+	 *
+	 * Events & watchers hashes should not overwrite one
+	 * another, so we merge them as arrays.
+	 */
+
+	strats.watch =
+	strats.events = function (parentVal, childVal) {
+	  if (!childVal) return parentVal
+	  if (!parentVal) return childVal
+	  var ret = {}
+	  extend(ret, parentVal)
+	  for (var key in childVal) {
+	    var parent = ret[key]
+	    var child = childVal[key]
+	    if (parent && !_.isArray(parent)) {
+	      parent = [parent]
+	    }
+	    ret[key] = parent
+	      ? parent.concat(child)
+	      : [child]
+	  }
+	  return ret
+	}
+
+	/**
+	 * Other object hashes.
+	 */
+
+	strats.methods =
+	strats.computed = function (parentVal, childVal) {
+	  if (!childVal) return parentVal
+	  if (!parentVal) return childVal
+	  var ret = Object.create(parentVal)
+	  extend(ret, childVal)
+	  return ret
+	}
+
+	/**
+	 * Default strategy.
+	 */
+
+	var defaultStrat = function (parentVal, childVal) {
+	  return childVal === undefined
+	    ? parentVal
+	    : childVal
+	}
+
+	/**
+	 * Make sure component options get converted to actual
+	 * constructors.
+	 *
+	 * @param {Object} components
+	 */
+
+	function guardComponents (components) {
+	  if (components) {
+	    var def
+	    for (var key in components) {
+	      def = components[key]
+	      if (_.isPlainObject(def)) {
+	        def.name = key
+	        components[key] = _.Vue.extend(def)
+	      }
+	    }
+	  }
+	}
+
+	/**
+	 * Merge two option objects into a new one.
+	 * Core utility used in both instantiation and inheritance.
+	 *
+	 * @param {Object} parent
+	 * @param {Object} child
+	 * @param {Vue} [vm] - if vm is present, indicates this is
+	 *                     an instantiation merge.
+	 */
+
+	module.exports = function mergeOptions (parent, child, vm) {
+	  guardComponents(child.components)
+	  var options = {}
+	  var key
+	  if (child.mixins) {
+	    for (var i = 0, l = child.mixins.length; i < l; i++) {
+	      parent = mergeOptions(parent, child.mixins[i], vm)
+	    }
+	  }
+	  for (key in parent) {
+	    merge(key)
+	  }
+	  for (key in child) {
+	    if (!(parent.hasOwnProperty(key))) {
+	      merge(key)
+	    }
+	  }
+	  function merge (key) {
+	    var strat = strats[key] || defaultStrat
+	    options[key] = strat(parent[key], child[key], vm, key)
+	  }
+	  return options
+	}
+
+/***/ },
+/* 35 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = {
+
+	  /**
+	   * The prefix to look for when parsing directives.
+	   *
+	   * @type {String}
+	   */
+
+	  prefix: 'v-',
+
+	  /**
+	   * Whether to print debug messages.
+	   * Also enables stack trace for warnings.
+	   *
+	   * @type {Boolean}
+	   */
+
+	  debug: false,
+
+	  /**
+	   * Whether to suppress warnings.
+	   *
+	   * @type {Boolean}
+	   */
+
+	  silent: false,
+
+	  /**
+	   * Whether allow observer to alter data objects'
+	   * __proto__.
+	   *
+	   * @type {Boolean}
+	   */
+
+	  proto: true,
+
+	  /**
+	   * Whether to parse mustache tags in templates.
+	   *
+	   * @type {Boolean}
+	   */
+
+	  interpolate: true,
+
+	  /**
+	   * Whether to use async rendering.
+	   */
+
+	  async: true,
+
+	  /**
+	   * Whether to warn against errors caught when evaluating
+	   * expressions.
+	   */
+
+	  warnExpressionErrors: true,
+
+	  /**
+	   * Internal flag to indicate the delimiters have been
+	   * changed.
+	   *
+	   * @type {Boolean}
+	   */
+
+	  _delimitersChanged: true
+
+	}
+
+	/**
+	 * Interpolation delimiters.
+	 * We need to mark the changed flag so that the text parser
+	 * knows it needs to recompile the regex.
+	 *
+	 * @type {Array<String>}
+	 */
+
+	var delimiters = ['{{', '}}']
+	Object.defineProperty(module.exports, 'delimiters', {
+	  get: function () {
+	    return delimiters
+	  },
+	  set: function (val) {
+	    delimiters = val
+	    this._delimitersChanged = true
+	  }
+	})
+
+/***/ },
+/* 36 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var config = __webpack_require__(35)
+	var textParser = __webpack_require__(39)
+	var dirParser = __webpack_require__(41)
+	var templateParser = __webpack_require__(40)
+
+	/**
+	 * Compile a template and return a reusable composite link
+	 * function, which recursively contains more link functions
+	 * inside. This top level compile function should only be
+	 * called on instance root nodes.
+	 *
+	 * When the `asParent` flag is true, this means we are doing
+	 * a partial compile for a component's parent scope markup
+	 * (See #502). This could **only** be triggered during
+	 * compilation of `v-component`, and we need to skip v-with,
+	 * v-ref & v-component in this situation.
+	 *
+	 * @param {Element|DocumentFragment} el
+	 * @param {Object} options
+	 * @param {Boolean} partial
+	 * @param {Boolean} asParent - compiling a component
+	 *                             container as its parent.
+	 * @return {Function}
+	 */
+
+	module.exports = function compile (el, options, partial, asParent) {
+	  var params = !partial && options.paramAttributes
+	  var paramsLinkFn = params
+	    ? compileParamAttributes(el, params, options)
+	    : null
+	  var nodeLinkFn = el instanceof DocumentFragment
+	    ? null
+	    : compileNode(el, options, asParent)
+	  var childLinkFn =
+	    !(nodeLinkFn && nodeLinkFn.terminal) &&
+	    el.tagName !== 'SCRIPT' &&
+	    el.hasChildNodes()
+	      ? compileNodeList(el.childNodes, options)
+	      : null
+
+	  /**
+	   * A linker function to be called on a already compiled
+	   * piece of DOM, which instantiates all directive
+	   * instances.
+	   *
+	   * @param {Vue} vm
+	   * @param {Element|DocumentFragment} el
+	   * @return {Function|undefined}
+	   */
+
+	  return function link (vm, el) {
+	    var originalDirCount = vm._directives.length
+	    if (paramsLinkFn) paramsLinkFn(vm, el)
+	    // cache childNodes before linking parent, fix #657
+	    var childNodes = _.toArray(el.childNodes)
+	    if (nodeLinkFn) nodeLinkFn(vm, el)
+	    if (childLinkFn) childLinkFn(vm, childNodes)
+
+	    /**
+	     * If this is a partial compile, the linker function
+	     * returns an unlink function that tearsdown all
+	     * directives instances generated during the partial
+	     * linking.
+	     */
+
+	    if (partial) {
+	      var dirs = vm._directives.slice(originalDirCount)
+	      return function unlink () {
+	        var i = dirs.length
+	        while (i--) {
+	          dirs[i]._teardown()
+	        }
+	        i = vm._directives.indexOf(dirs[0])
+	        vm._directives.splice(i, dirs.length)
+	      }
+	    }
+	  }
+	}
+
+	/**
+	 * Compile a node and return a nodeLinkFn based on the
+	 * node type.
+	 *
+	 * @param {Node} node
+	 * @param {Object} options
+	 * @param {Boolean} asParent
+	 * @return {Function|undefined}
+	 */
+
+	function compileNode (node, options, asParent) {
+	  var type = node.nodeType
+	  if (type === 1 && node.tagName !== 'SCRIPT') {
+	    return compileElement(node, options, asParent)
+	  } else if (type === 3 && config.interpolate) {
+	    return compileTextNode(node, options)
+	  }
+	}
+
+	/**
+	 * Compile an element and return a nodeLinkFn.
+	 *
+	 * @param {Element} el
+	 * @param {Object} options
+	 * @param {Boolean} asParent
+	 * @return {Function|null}
+	 */
+
+	function compileElement (el, options, asParent) {
+	  var linkFn, tag, component
+	  // check custom element component, but only on non-root
+	  if (!asParent && !el.__vue__) {
+	    tag = el.tagName.toLowerCase()
+	    component =
+	      tag.indexOf('-') > 0 &&
+	      options.components[tag]
+	    if (component) {
+	      el.setAttribute(config.prefix + 'component', tag)
+	    }
+	  }
+	  if (component || el.hasAttributes()) {
+	    // check terminal direcitves
+	    if (!asParent) {
+	      linkFn = checkTerminalDirectives(el, options)
+	    }
+	    // if not terminal, build normal link function
+	    if (!linkFn) {
+	      var dirs = collectDirectives(el, options, asParent)
+	      linkFn = dirs.length
+	        ? makeDirectivesLinkFn(dirs)
+	        : null
+	    }
+	  }
+	  // if the element is a textarea, we need to interpolate
+	  // its content on initial render.
+	  if (el.tagName === 'TEXTAREA') {
+	    var realLinkFn = linkFn
+	    linkFn = function (vm, el) {
+	      el.value = vm.$interpolate(el.value)
+	      if (realLinkFn) realLinkFn(vm, el)
+	    }
+	    linkFn.terminal = true
+	  }
+	  return linkFn
+	}
+
+	/**
+	 * Build a multi-directive link function.
+	 *
+	 * @param {Array} directives
+	 * @return {Function} directivesLinkFn
+	 */
+
+	function makeDirectivesLinkFn (directives) {
+	  return function directivesLinkFn (vm, el) {
+	    // reverse apply because it's sorted low to high
+	    var i = directives.length
+	    var dir, j, k
+	    while (i--) {
+	      dir = directives[i]
+	      if (dir._link) {
+	        // custom link fn
+	        dir._link(vm, el)
+	      } else {
+	        k = dir.descriptors.length
+	        for (j = 0; j < k; j++) {
+	          vm._bindDir(dir.name, el,
+	                      dir.descriptors[j], dir.def)
+	        }
+	      }
+	    }
+	  }
+	}
+
+	/**
+	 * Compile a textNode and return a nodeLinkFn.
+	 *
+	 * @param {TextNode} node
+	 * @param {Object} options
+	 * @return {Function|null} textNodeLinkFn
+	 */
+
+	function compileTextNode (node, options) {
+	  var tokens = textParser.parse(node.nodeValue)
+	  if (!tokens) {
+	    return null
+	  }
+	  var frag = document.createDocumentFragment()
+	  var el, token
+	  for (var i = 0, l = tokens.length; i < l; i++) {
+	    token = tokens[i]
+	    el = token.tag
+	      ? processTextToken(token, options)
+	      : document.createTextNode(token.value)
+	    frag.appendChild(el)
+	  }
+	  return makeTextNodeLinkFn(tokens, frag, options)
+	}
+
+	/**
+	 * Process a single text token.
+	 *
+	 * @param {Object} token
+	 * @param {Object} options
+	 * @return {Node}
+	 */
+
+	function processTextToken (token, options) {
+	  var el
+	  if (token.oneTime) {
+	    el = document.createTextNode(token.value)
+	  } else {
+	    if (token.html) {
+	      el = document.createComment('v-html')
+	      setTokenType('html')
+	    } else if (token.partial) {
+	      el = document.createComment('v-partial')
+	      setTokenType('partial')
+	    } else {
+	      // IE will clean up empty textNodes during
+	      // frag.cloneNode(true), so we have to give it
+	      // something here...
+	      el = document.createTextNode(' ')
+	      setTokenType('text')
+	    }
+	  }
+	  function setTokenType (type) {
+	    token.type = type
+	    token.def = options.directives[type]
+	    token.descriptor = dirParser.parse(token.value)[0]
+	  }
+	  return el
+	}
+
+	/**
+	 * Build a function that processes a textNode.
+	 *
+	 * @param {Array<Object>} tokens
+	 * @param {DocumentFragment} frag
+	 */
+
+	function makeTextNodeLinkFn (tokens, frag) {
+	  return function textNodeLinkFn (vm, el) {
+	    var fragClone = frag.cloneNode(true)
+	    var childNodes = _.toArray(fragClone.childNodes)
+	    var token, value, node
+	    for (var i = 0, l = tokens.length; i < l; i++) {
+	      token = tokens[i]
+	      value = token.value
+	      if (token.tag) {
+	        node = childNodes[i]
+	        if (token.oneTime) {
+	          value = vm.$eval(value)
+	          if (token.html) {
+	            _.replace(node, templateParser.parse(value, true))
+	          } else {
+	            node.nodeValue = value
+	          }
+	        } else {
+	          vm._bindDir(token.type, node,
+	                      token.descriptor, token.def)
+	        }
+	      }
+	    }
+	    _.replace(el, fragClone)
+	  }
+	}
+
+	/**
+	 * Compile a node list and return a childLinkFn.
+	 *
+	 * @param {NodeList} nodeList
+	 * @param {Object} options
+	 * @return {Function|undefined}
+	 */
+
+	function compileNodeList (nodeList, options) {
+	  var linkFns = []
+	  var nodeLinkFn, childLinkFn, node
+	  for (var i = 0, l = nodeList.length; i < l; i++) {
+	    node = nodeList[i]
+	    nodeLinkFn = compileNode(node, options)
+	    childLinkFn =
+	      !(nodeLinkFn && nodeLinkFn.terminal) &&
+	      node.tagName !== 'SCRIPT' &&
+	      node.hasChildNodes()
+	        ? compileNodeList(node.childNodes, options)
+	        : null
+	    linkFns.push(nodeLinkFn, childLinkFn)
+	  }
+	  return linkFns.length
+	    ? makeChildLinkFn(linkFns)
+	    : null
+	}
+
+	/**
+	 * Make a child link function for a node's childNodes.
+	 *
+	 * @param {Array<Function>} linkFns
+	 * @return {Function} childLinkFn
+	 */
+
+	function makeChildLinkFn (linkFns) {
+	  return function childLinkFn (vm, nodes) {
+	    var node, nodeLinkFn, childrenLinkFn
+	    for (var i = 0, n = 0, l = linkFns.length; i < l; n++) {
+	      node = nodes[n]
+	      nodeLinkFn = linkFns[i++]
+	      childrenLinkFn = linkFns[i++]
+	      // cache childNodes before linking parent, fix #657
+	      var childNodes = _.toArray(node.childNodes)
+	      if (nodeLinkFn) {
+	        nodeLinkFn(vm, node)
+	      }
+	      if (childrenLinkFn) {
+	        childrenLinkFn(vm, childNodes)
+	      }
+	    }
+	  }
+	}
+
+	/**
+	 * Compile param attributes on a root element and return
+	 * a paramAttributes link function.
+	 *
+	 * @param {Element} el
+	 * @param {Array} attrs
+	 * @param {Object} options
+	 * @return {Function} paramsLinkFn
+	 */
+
+	function compileParamAttributes (el, attrs, options) {
+	  var params = []
+	  var i = attrs.length
+	  var name, value, param
+	  while (i--) {
+	    name = attrs[i]
+	    if (/[A-Z]/.test(name)) {
+	      _.warn(
+	        'You seem to be using camelCase for a paramAttribute, ' +
+	        'but HTML doesn\'t differentiate between upper and ' +
+	        'lower case. You should use hyphen-delimited ' +
+	        'attribute names. For more info see ' +
+	        'http://vuejs.org/api/options.html#paramAttributes'
+	      )
+	    }
+	    value = el.getAttribute(name)
+	    if (value !== null) {
+	      param = {
+	        name: name,
+	        value: value
+	      }
+	      var tokens = textParser.parse(value)
+	      if (tokens) {
+	        el.removeAttribute(name)
+	        if (tokens.length > 1) {
+	          _.warn(
+	            'Invalid param attribute binding: "' +
+	            name + '="' + value + '"' +
+	            '\nDon\'t mix binding tags with plain text ' +
+	            'in param attribute bindings.'
+	          )
+	          continue
+	        } else {
+	          param.dynamic = true
+	          param.value = tokens[0].value
+	        }
+	      }
+	      params.push(param)
+	    }
+	  }
+	  return makeParamsLinkFn(params, options)
+	}
+
+	/**
+	 * Build a function that applies param attributes to a vm.
+	 *
+	 * @param {Array} params
+	 * @param {Object} options
+	 * @return {Function} paramsLinkFn
+	 */
+
+	var dataAttrRE = /^data-/
+
+	function makeParamsLinkFn (params, options) {
+	  var def = options.directives['with']
+	  return function paramsLinkFn (vm, el) {
+	    var i = params.length
+	    var param, path
+	    while (i--) {
+	      param = params[i]
+	      // params could contain dashes, which will be
+	      // interpreted as minus calculations by the parser
+	      // so we need to wrap the path here
+	      path = _.camelize(param.name.replace(dataAttrRE, ''))
+	      if (param.dynamic) {
+	        // dynamic param attribtues are bound as v-with.
+	        // we can directly duck the descriptor here beacuse
+	        // param attributes cannot use expressions or
+	        // filters.
+	        vm._bindDir('with', el, {
+	          arg: path,
+	          expression: param.value
+	        }, def)
+	      } else {
+	        // just set once
+	        vm.$set(path, param.value)
+	      }
+	    }
+	  }
+	}
+
+	/**
+	 * Check an element for terminal directives in fixed order.
+	 * If it finds one, return a terminal link function.
+	 *
+	 * @param {Element} el
+	 * @param {Object} options
+	 * @return {Function} terminalLinkFn
+	 */
+
+	var terminalDirectives = [
+	  'repeat',
+	  'if',
+	  'component'
+	]
+
+	function skip () {}
+	skip.terminal = true
+
+	function checkTerminalDirectives (el, options) {
+	  if (_.attr(el, 'pre') !== null) {
+	    return skip
+	  }
+	  var value, dirName
+	  /* jshint boss: true */
+	  for (var i = 0; i < 3; i++) {
+	    dirName = terminalDirectives[i]
+	    if (value = _.attr(el, dirName)) {
+	      return makeTeriminalLinkFn(el, dirName, value, options)
+	    }
+	  }
+	}
+
+	/**
+	 * Build a link function for a terminal directive.
+	 *
+	 * @param {Element} el
+	 * @param {String} dirName
+	 * @param {String} value
+	 * @param {Object} options
+	 * @return {Function} terminalLinkFn
+	 */
+
+	function makeTeriminalLinkFn (el, dirName, value, options) {
+	  var descriptor = dirParser.parse(value)[0]
+	  var def = options.directives[dirName]
+	  var terminalLinkFn = function (vm, el) {
+	    vm._bindDir(dirName, el, descriptor, def)
+	  }
+	  terminalLinkFn.terminal = true
+	  return terminalLinkFn
+	}
+
+	/**
+	 * Collect the directives on an element.
+	 *
+	 * @param {Element} el
+	 * @param {Object} options
+	 * @param {Boolean} asParent
+	 * @return {Array}
+	 */
+
+	function collectDirectives (el, options, asParent) {
+	  var attrs = _.toArray(el.attributes)
+	  var i = attrs.length
+	  var dirs = []
+	  var attr, attrName, dir, dirName, dirDef
+	  while (i--) {
+	    attr = attrs[i]
+	    attrName = attr.name
+	    if (attrName.indexOf(config.prefix) === 0) {
+	      dirName = attrName.slice(config.prefix.length)
+	      if (asParent &&
+	          (dirName === 'with' ||
+	           dirName === 'component')) {
+	        continue
+	      }
+	      dirDef = options.directives[dirName]
+	      _.assertAsset(dirDef, 'directive', dirName)
+	      if (dirDef) {
+	        dirs.push({
+	          name: dirName,
+	          descriptors: dirParser.parse(attr.value),
+	          def: dirDef
+	        })
+	      }
+	    } else if (config.interpolate) {
+	      dir = collectAttrDirective(el, attrName, attr.value,
+	                                 options)
+	      if (dir) {
+	        dirs.push(dir)
+	      }
+	    }
+	  }
+	  // sort by priority, LOW to HIGH
+	  dirs.sort(directiveComparator)
+	  return dirs
+	}
+
+	/**
+	 * Check an attribute for potential dynamic bindings,
+	 * and return a directive object.
+	 *
+	 * @param {Element} el
+	 * @param {String} name
+	 * @param {String} value
+	 * @param {Object} options
+	 * @return {Object}
+	 */
+
+	function collectAttrDirective (el, name, value, options) {
+	  if (options._skipAttrs &&
+	      options._skipAttrs.indexOf(name) > -1) {
+	    return
+	  }
+	  var tokens = textParser.parse(value)
+	  if (tokens) {
+	    var def = options.directives.attr
+	    var i = tokens.length
+	    var allOneTime = true
+	    while (i--) {
+	      var token = tokens[i]
+	      if (token.tag && !token.oneTime) {
+	        allOneTime = false
+	      }
+	    }
+	    return {
+	      def: def,
+	      _link: allOneTime
+	        ? function (vm, el) {
+	            el.setAttribute(name, vm.$interpolate(value))
+	          }
+	        : function (vm, el) {
+	            var value = textParser.tokensToExp(tokens, vm)
+	            var desc = dirParser.parse(name + ':' + value)[0]
+	            vm._bindDir('attr', el, desc, def)
+	          }
+	    }
+	  }
+	}
+
+	/**
+	 * Directive priority sort comparator
+	 *
+	 * @param {Object} a
+	 * @param {Object} b
+	 */
+
+	function directiveComparator (a, b) {
+	  a = a.def.priority || 0
+	  b = b.def.priority || 0
+	  return a > b ? 1 : -1
+	}
+
+/***/ },
+/* 37 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var templateParser = __webpack_require__(40)
+
+	/**
+	 * Process an element or a DocumentFragment based on a
+	 * instance option object. This allows us to transclude
+	 * a template node/fragment before the instance is created,
+	 * so the processed fragment can then be cloned and reused
+	 * in v-repeat.
+	 *
+	 * @param {Element} el
+	 * @param {Object} options
+	 * @return {Element|DocumentFragment}
+	 */
+
+	module.exports = function transclude (el, options) {
+	  // for template tags, what we want is its content as
+	  // a documentFragment (for block instances)
+	  if (el.tagName === 'TEMPLATE') {
+	    el = templateParser.parse(el)
+	  }
+	  if (options && options.template) {
+	    el = transcludeTemplate(el, options)
+	  }
+	  if (el instanceof DocumentFragment) {
+	    _.prepend(document.createComment('v-start'), el)
+	    el.appendChild(document.createComment('v-end'))
+	  }
+	  return el
+	}
+
+	/**
+	 * Process the template option.
+	 * If the replace option is true this will swap the $el.
+	 *
+	 * @param {Element} el
+	 * @param {Object} options
+	 * @return {Element|DocumentFragment}
+	 */
+
+	function transcludeTemplate (el, options) {
+	  var template = options.template
+	  var frag = templateParser.parse(template, true)
+	  if (!frag) {
+	    _.warn('Invalid template option: ' + template)
+	  } else {
+	    var rawContent = options._content || _.extractContent(el)
+	    if (options.replace) {
+	      if (frag.childNodes.length > 1) {
+	        transcludeContent(frag, rawContent)
+	        // TODO: store directives on placeholder node
+	        // and compile it somehow
+	        // probably only check for v-with, v-ref & paramAttributes
+	        return frag
+	      } else {
+	        var replacer = frag.firstChild
+	        _.copyAttributes(el, replacer)
+	        transcludeContent(replacer, rawContent)
+	        return replacer
+	      }
+	    } else {
+	      el.appendChild(frag)
+	      transcludeContent(el, rawContent)
+	      return el
+	    }
+	  }
+	}
+
+	/**
+	 * Resolve <content> insertion points mimicking the behavior
+	 * of the Shadow DOM spec:
+	 *
+	 *   http://w3c.github.io/webcomponents/spec/shadow/#insertion-points
+	 *
+	 * @param {Element|DocumentFragment} el
+	 * @param {Element} raw
+	 */
+
+	function transcludeContent (el, raw) {
+	  var outlets = getOutlets(el)
+	  var i = outlets.length
+	  if (!i) return
+	  var outlet, select, selected, j, main
+	  // first pass, collect corresponding content
+	  // for each outlet.
+	  while (i--) {
+	    outlet = outlets[i]
+	    if (raw) {
+	      select = outlet.getAttribute('select')
+	      if (select) {  // select content
+	        selected = raw.querySelectorAll(select)
+	        outlet.content = _.toArray(
+	          selected.length
+	            ? selected
+	            : outlet.childNodes
+	        )
+	      } else { // default content
+	        main = outlet
+	      }
+	    } else { // fallback content
+	      outlet.content = _.toArray(outlet.childNodes)
+	    }
+	  }
+	  // second pass, actually insert the contents
+	  for (i = 0, j = outlets.length; i < j; i++) {
+	    outlet = outlets[i]
+	    if (outlet !== main) {
+	      insertContentAt(outlet, outlet.content)
+	    }
+	  }
+	  // finally insert the main content
+	  if (main) {
+	    insertContentAt(main, _.toArray(raw.childNodes))
+	  }
+	}
+
+	/**
+	 * Get <content> outlets from the element/list
+	 *
+	 * @param {Element|Array} el
+	 * @return {Array}
+	 */
+
+	var concat = [].concat
+	function getOutlets (el) {
+	  return _.isArray(el)
+	    ? concat.apply([], el.map(getOutlets))
+	    : el.querySelectorAll
+	      ? _.toArray(el.querySelectorAll('content'))
+	      : []
+	}
+
+	/**
+	 * Insert an array of nodes at outlet,
+	 * then remove the outlet.
+	 *
+	 * @param {Element} outlet
+	 * @param {Array} contents
+	 */
+
+	function insertContentAt (outlet, contents) {
+	  // not using util DOM methods here because
+	  // parentNode can be cached
+	  var parent = outlet.parentNode
+	  for (var i = 0, j = contents.length; i < j; i++) {
+	    parent.insertBefore(contents[i], outlet)
+	  }
+	  parent.removeChild(outlet)
+	}
+
+/***/ },
+/* 38 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var Cache = __webpack_require__(124)
+	var pathCache = new Cache(1000)
+	var identRE = /^[$_a-zA-Z]+[\w$]*$/
+
+	/**
+	 * Path-parsing algorithm scooped from Polymer/observe-js
+	 */
+
+	var pathStateMachine = {
+	  'beforePath': {
+	    'ws': ['beforePath'],
+	    'ident': ['inIdent', 'append'],
+	    '[': ['beforeElement'],
+	    'eof': ['afterPath']
+	  },
+
+	  'inPath': {
+	    'ws': ['inPath'],
+	    '.': ['beforeIdent'],
+	    '[': ['beforeElement'],
+	    'eof': ['afterPath']
+	  },
+
+	  'beforeIdent': {
+	    'ws': ['beforeIdent'],
+	    'ident': ['inIdent', 'append']
+	  },
+
+	  'inIdent': {
+	    'ident': ['inIdent', 'append'],
+	    '0': ['inIdent', 'append'],
+	    'number': ['inIdent', 'append'],
+	    'ws': ['inPath', 'push'],
+	    '.': ['beforeIdent', 'push'],
+	    '[': ['beforeElement', 'push'],
+	    'eof': ['afterPath', 'push']
+	  },
+
+	  'beforeElement': {
+	    'ws': ['beforeElement'],
+	    '0': ['afterZero', 'append'],
+	    'number': ['inIndex', 'append'],
+	    "'": ['inSingleQuote', 'append', ''],
+	    '"': ['inDoubleQuote', 'append', '']
+	  },
+
+	  'afterZero': {
+	    'ws': ['afterElement', 'push'],
+	    ']': ['inPath', 'push']
+	  },
+
+	  'inIndex': {
+	    '0': ['inIndex', 'append'],
+	    'number': ['inIndex', 'append'],
+	    'ws': ['afterElement'],
+	    ']': ['inPath', 'push']
+	  },
+
+	  'inSingleQuote': {
+	    "'": ['afterElement'],
+	    'eof': 'error',
+	    'else': ['inSingleQuote', 'append']
+	  },
+
+	  'inDoubleQuote': {
+	    '"': ['afterElement'],
+	    'eof': 'error',
+	    'else': ['inDoubleQuote', 'append']
+	  },
+
+	  'afterElement': {
+	    'ws': ['afterElement'],
+	    ']': ['inPath', 'push']
+	  }
+	}
+
+	function noop () {}
+
+	/**
+	 * Determine the type of a character in a keypath.
+	 *
+	 * @param {Char} char
+	 * @return {String} type
+	 */
+
+	function getPathCharType (char) {
+	  if (char === undefined) {
+	    return 'eof'
+	  }
+
+	  var code = char.charCodeAt(0)
+
+	  switch(code) {
+	    case 0x5B: // [
+	    case 0x5D: // ]
+	    case 0x2E: // .
+	    case 0x22: // "
+	    case 0x27: // '
+	    case 0x30: // 0
+	      return char
+
+	    case 0x5F: // _
+	    case 0x24: // $
+	      return 'ident'
+
+	    case 0x20: // Space
+	    case 0x09: // Tab
+	    case 0x0A: // Newline
+	    case 0x0D: // Return
+	    case 0xA0:  // No-break space
+	    case 0xFEFF:  // Byte Order Mark
+	    case 0x2028:  // Line Separator
+	    case 0x2029:  // Paragraph Separator
+	      return 'ws'
+	  }
+
+	  // a-z, A-Z
+	  if ((0x61 <= code && code <= 0x7A) ||
+	      (0x41 <= code && code <= 0x5A)) {
+	    return 'ident'
+	  }
+
+	  // 1-9
+	  if (0x31 <= code && code <= 0x39) {
+	    return 'number'
+	  }
+
+	  return 'else'
+	}
+
+	/**
+	 * Parse a string path into an array of segments
+	 * Todo implement cache
+	 *
+	 * @param {String} path
+	 * @return {Array|undefined}
+	 */
+
+	function parsePath (path) {
+	  var keys = []
+	  var index = -1
+	  var mode = 'beforePath'
+	  var c, newChar, key, type, transition, action, typeMap
+
+	  var actions = {
+	    push: function() {
+	      if (key === undefined) {
+	        return
+	      }
+	      keys.push(key)
+	      key = undefined
+	    },
+	    append: function() {
+	      if (key === undefined) {
+	        key = newChar
+	      } else {
+	        key += newChar
+	      }
+	    }
+	  }
+
+	  function maybeUnescapeQuote () {
+	    var nextChar = path[index + 1]
+	    if ((mode === 'inSingleQuote' && nextChar === "'") ||
+	        (mode === 'inDoubleQuote' && nextChar === '"')) {
+	      index++
+	      newChar = nextChar
+	      actions.append()
+	      return true
+	    }
+	  }
+
+	  while (mode) {
+	    index++
+	    c = path[index]
+
+	    if (c === '\\' && maybeUnescapeQuote()) {
+	      continue
+	    }
+
+	    type = getPathCharType(c)
+	    typeMap = pathStateMachine[mode]
+	    transition = typeMap[type] || typeMap['else'] || 'error'
+
+	    if (transition === 'error') {
+	      return // parse error
+	    }
+
+	    mode = transition[0]
+	    action = actions[transition[1]] || noop
+	    newChar = transition[2] === undefined
+	      ? c
+	      : transition[2]
+	    action()
+
+	    if (mode === 'afterPath') {
+	      return keys
+	    }
+	  }
+	}
+
+	/**
+	 * Format a accessor segment based on its type.
+	 *
+	 * @param {String} key
+	 * @return {Boolean}
+	 */
+
+	function formatAccessor(key) {
+	  if (identRE.test(key)) { // identifier
+	    return '.' + key
+	  } else if (+key === key >>> 0) { // bracket index
+	    return '[' + key + ']'
+	  } else { // bracket string
+	    return '["' + key.replace(/"/g, '\\"') + '"]'
+	  }
+	}
+
+	/**
+	 * Compiles a getter function with a fixed path.
+	 *
+	 * @param {Array} path
+	 * @return {Function}
+	 */
+
+	exports.compileGetter = function (path) {
+	  var body = 'return o' + path.map(formatAccessor).join('')
+	  return new Function('o', body)
+	}
+
+	/**
+	 * External parse that check for a cache hit first
+	 *
+	 * @param {String} path
+	 * @return {Array|undefined}
+	 */
+
+	exports.parse = function (path) {
+	  var hit = pathCache.get(path)
+	  if (!hit) {
+	    hit = parsePath(path)
+	    if (hit) {
+	      hit.get = exports.compileGetter(hit)
+	      pathCache.put(path, hit)
+	    }
+	  }
+	  return hit
+	}
+
+	/**
+	 * Get from an object from a path string
+	 *
+	 * @param {Object} obj
+	 * @param {String} path
+	 */
+
+	exports.get = function (obj, path) {
+	  path = exports.parse(path)
+	  if (path) {
+	    return path.get(obj)
+	  }
+	}
+
+	/**
+	 * Set on an object from a path
+	 *
+	 * @param {Object} obj
+	 * @param {String | Array} path
+	 * @param {*} val
+	 */
+
+	exports.set = function (obj, path, val) {
+	  if (typeof path === 'string') {
+	    path = exports.parse(path)
+	  }
+	  if (!path || !_.isObject(obj)) {
+	    return false
+	  }
+	  var last, key
+	  for (var i = 0, l = path.length - 1; i < l; i++) {
+	    last = obj
+	    key = path[i]
+	    obj = obj[key]
+	    if (!_.isObject(obj)) {
+	      obj = {}
+	      last.$add(key, obj)
+	    }
+	  }
+	  key = path[i]
+	  if (key in obj) {
+	    obj[key] = val
+	  } else {
+	    obj.$add(key, val)
+	  }
+	  return true
+	}
+
+/***/ },
+/* 39 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Cache = __webpack_require__(124)
+	var config = __webpack_require__(35)
+	var dirParser = __webpack_require__(41)
+	var regexEscapeRE = /[-.*+?^${}()|[\]\/\\]/g
+	var cache, tagRE, htmlRE, firstChar, lastChar
+
+	/**
+	 * Escape a string so it can be used in a RegExp
+	 * constructor.
+	 *
+	 * @param {String} str
+	 */
+
+	function escapeRegex (str) {
+	  return str.replace(regexEscapeRE, '\\$&')
+	}
+
+	/**
+	 * Compile the interpolation tag regex.
+	 *
+	 * @return {RegExp}
+	 */
+
+	function compileRegex () {
+	  config._delimitersChanged = false
+	  var open = config.delimiters[0]
+	  var close = config.delimiters[1]
+	  firstChar = open.charAt(0)
+	  lastChar = close.charAt(close.length - 1)
+	  var firstCharRE = escapeRegex(firstChar)
+	  var lastCharRE = escapeRegex(lastChar)
+	  var openRE = escapeRegex(open)
+	  var closeRE = escapeRegex(close)
+	  tagRE = new RegExp(
+	    firstCharRE + '?' + openRE +
+	    '(.+?)' +
+	    closeRE + lastCharRE + '?',
+	    'g'
+	  )
+	  htmlRE = new RegExp(
+	    '^' + firstCharRE + openRE +
+	    '.*' +
+	    closeRE + lastCharRE + '$'
+	  )
+	  // reset cache
+	  cache = new Cache(1000)
+	}
+
+	/**
+	 * Parse a template text string into an array of tokens.
+	 *
+	 * @param {String} text
+	 * @return {Array<Object> | null}
+	 *               - {String} type
+	 *               - {String} value
+	 *               - {Boolean} [html]
+	 *               - {Boolean} [oneTime]
+	 */
+
+	exports.parse = function (text) {
+	  if (config._delimitersChanged) {
+	    compileRegex()
+	  }
+	  var hit = cache.get(text)
+	  if (hit) {
+	    return hit
+	  }
+	  if (!tagRE.test(text)) {
+	    return null
+	  }
+	  var tokens = []
+	  var lastIndex = tagRE.lastIndex = 0
+	  var match, index, value, first, oneTime, partial
+	  /* jshint boss:true */
+	  while (match = tagRE.exec(text)) {
+	    index = match.index
+	    // push text token
+	    if (index > lastIndex) {
+	      tokens.push({
+	        value: text.slice(lastIndex, index)
+	      })
+	    }
+	    // tag token
+	    first = match[1].charCodeAt(0)
+	    oneTime = first === 0x2A // *
+	    partial = first === 0x3E // >
+	    value = (oneTime || partial)
+	      ? match[1].slice(1)
+	      : match[1]
+	    tokens.push({
+	      tag: true,
+	      value: value.trim(),
+	      html: htmlRE.test(match[0]),
+	      oneTime: oneTime,
+	      partial: partial
+	    })
+	    lastIndex = index + match[0].length
+	  }
+	  if (lastIndex < text.length) {
+	    tokens.push({
+	      value: text.slice(lastIndex)
+	    })
+	  }
+	  cache.put(text, tokens)
+	  return tokens
+	}
+
+	/**
+	 * Format a list of tokens into an expression.
+	 * e.g. tokens parsed from 'a {{b}} c' can be serialized
+	 * into one single expression as '"a " + b + " c"'.
+	 *
+	 * @param {Array} tokens
+	 * @param {Vue} [vm]
+	 * @return {String}
+	 */
+
+	exports.tokensToExp = function (tokens, vm) {
+	  return tokens.length > 1
+	    ? tokens.map(function (token) {
+	        return formatToken(token, vm)
+	      }).join('+')
+	    : formatToken(tokens[0], vm, true)
+	}
+
+	/**
+	 * Format a single token.
+	 *
+	 * @param {Object} token
+	 * @param {Vue} [vm]
+	 * @param {Boolean} single
+	 * @return {String}
+	 */
+
+	function formatToken (token, vm, single) {
+	  return token.tag
+	    ? vm && token.oneTime
+	      ? '"' + vm.$eval(token.value) + '"'
+	      : single
+	        ? token.value
+	        : inlineFilters(token.value)
+	    : '"' + token.value + '"'
+	}
+
+	/**
+	 * For an attribute with multiple interpolation tags,
+	 * e.g. attr="some-{{thing | filter}}", in order to combine
+	 * the whole thing into a single watchable expression, we
+	 * have to inline those filters. This function does exactly
+	 * that. This is a bit hacky but it avoids heavy changes
+	 * to directive parser and watcher mechanism.
+	 *
+	 * @param {String} exp
+	 * @return {String}
+	 */
+
+	var filterRE = /[^|]\|[^|]/
+	function inlineFilters (exp) {
+	  if (!filterRE.test(exp)) {
+	    return '(' + exp + ')'
+	  } else {
+	    var dir = dirParser.parse(exp)[0]
+	    if (!dir.filters) {
+	      return '(' + exp + ')'
+	    } else {
+	      exp = dir.expression
+	      for (var i = 0, l = dir.filters.length; i < l; i++) {
+	        var filter = dir.filters[i]
+	        var args = filter.args
+	          ? ',"' + filter.args.join('","') + '"'
+	          : ''
+	        exp = 'this.$options.filters["' + filter.name + '"]' +
+	          '.apply(this,[' + exp + args + '])'
+	      }
+	      return exp
+	    }
+	  }
+	}
+
+/***/ },
+/* 40 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var Cache = __webpack_require__(124)
+	var templateCache = new Cache(1000)
+	var idSelectorCache = new Cache(1000)
+
+	var map = {
+	  _default : [0, '', ''],
+	  legend   : [1, '<fieldset>', '</fieldset>'],
+	  tr       : [2, '<table><tbody>', '</tbody></table>'],
+	  col      : [
+	    2,
+	    '<table><tbody></tbody><colgroup>',
+	    '</colgroup></table>'
+	  ]
+	}
+
+	map.td =
+	map.th = [
+	  3,
+	  '<table><tbody><tr>',
+	  '</tr></tbody></table>'
+	]
+
+	map.option =
+	map.optgroup = [
+	  1,
+	  '<select multiple="multiple">',
+	  '</select>'
+	]
+
+	map.thead =
+	map.tbody =
+	map.colgroup =
+	map.caption =
+	map.tfoot = [1, '<table>', '</table>']
+
+	map.g =
+	map.defs =
+	map.symbol =
+	map.use =
+	map.image =
+	map.text =
+	map.circle =
+	map.ellipse =
+	map.line =
+	map.path =
+	map.polygon =
+	map.polyline =
+	map.rect = [
+	  1,
+	  '<svg ' +
+	    'xmlns="http://www.w3.org/2000/svg" ' +
+	    'xmlns:xlink="http://www.w3.org/1999/xlink" ' +
+	    'xmlns:ev="http://www.w3.org/2001/xml-events"' +
+	    'version="1.1">',
+	  '</svg>'
+	]
+
+	var tagRE = /<([\w:]+)/
+	var entityRE = /&\w+;/
+
+	/**
+	 * Convert a string template to a DocumentFragment.
+	 * Determines correct wrapping by tag types. Wrapping
+	 * strategy found in jQuery & component/domify.
+	 *
+	 * @param {String} templateString
+	 * @return {DocumentFragment}
+	 */
+
+	function stringToFragment (templateString) {
+	  // try a cache hit first
+	  var hit = templateCache.get(templateString)
+	  if (hit) {
+	    return hit
+	  }
+
+	  var frag = document.createDocumentFragment()
+	  var tagMatch = templateString.match(tagRE)
+	  var entityMatch = entityRE.test(templateString)
+
+	  if (!tagMatch && !entityMatch) {
+	    // text only, return a single text node.
+	    frag.appendChild(
+	      document.createTextNode(templateString)
+	    )
+	  } else {
+
+	    var tag    = tagMatch && tagMatch[1]
+	    var wrap   = map[tag] || map._default
+	    var depth  = wrap[0]
+	    var prefix = wrap[1]
+	    var suffix = wrap[2]
+	    var node   = document.createElement('div')
+
+	    node.innerHTML = prefix + templateString.trim() + suffix
+	    while (depth--) {
+	      node = node.lastChild
+	    }
+
+	    var child
+	    /* jshint boss:true */
+	    while (child = node.firstChild) {
+	      frag.appendChild(child)
+	    }
+	  }
+
+	  templateCache.put(templateString, frag)
+	  return frag
+	}
+
+	/**
+	 * Convert a template node to a DocumentFragment.
+	 *
+	 * @param {Node} node
+	 * @return {DocumentFragment}
+	 */
+
+	function nodeToFragment (node) {
+	  var tag = node.tagName
+	  // if its a template tag and the browser supports it,
+	  // its content is already a document fragment.
+	  if (
+	    tag === 'TEMPLATE' &&
+	    node.content instanceof DocumentFragment
+	  ) {
+	    return node.content
+	  }
+	  return tag === 'SCRIPT'
+	    ? stringToFragment(node.textContent)
+	    : stringToFragment(node.innerHTML)
+	}
+
+	// Test for the presence of the Safari template cloning bug
+	// https://bugs.webkit.org/show_bug.cgi?id=137755
+	var hasBrokenTemplate = _.inBrowser
+	  ? (function () {
+	      var a = document.createElement('div')
+	      a.innerHTML = '<template>1</template>'
+	      return !a.cloneNode(true).firstChild.innerHTML
+	    })()
+	  : false
+
+	// Test for IE10/11 textarea placeholder clone bug
+	var hasTextareaCloneBug = _.inBrowser
+	  ? (function () {
+	      var t = document.createElement('textarea')
+	      t.placeholder = 't'
+	      return t.cloneNode(true).value === 't'
+	    })()
+	  : false
+
+	/**
+	 * 1. Deal with Safari cloning nested <template> bug by
+	 *    manually cloning all template instances.
+	 * 2. Deal with IE10/11 textarea placeholder bug by setting
+	 *    the correct value after cloning.
+	 *
+	 * @param {Element|DocumentFragment} node
+	 * @return {Element|DocumentFragment}
+	 */
+
+	exports.clone = function (node) {
+	  var res = node.cloneNode(true)
+	  var i, original, cloned
+	  /* istanbul ignore if */
+	  if (hasBrokenTemplate) {
+	    original = node.querySelectorAll('template')
+	    if (original.length) {
+	      cloned = res.querySelectorAll('template')
+	      i = cloned.length
+	      while (i--) {
+	        cloned[i].parentNode.replaceChild(
+	          original[i].cloneNode(true),
+	          cloned[i]
+	        )
+	      }
+	    }
+	  }
+	  /* istanbul ignore if */
+	  if (hasTextareaCloneBug) {
+	    if (node.tagName === 'TEXTAREA') {
+	      res.value = node.value
+	    } else {
+	      original = node.querySelectorAll('textarea')
+	      if (original.length) {
+	        cloned = res.querySelectorAll('textarea')
+	        i = cloned.length
+	        while (i--) {
+	          cloned[i].value = original[i].value
+	        }
+	      }
+	    }
+	  }
+	  return res
+	}
+
+	/**
+	 * Process the template option and normalizes it into a
+	 * a DocumentFragment that can be used as a partial or a
+	 * instance template.
+	 *
+	 * @param {*} template
+	 *    Possible values include:
+	 *    - DocumentFragment object
+	 *    - Node object of type Template
+	 *    - id selector: '#some-template-id'
+	 *    - template string: '<div><span>{{msg}}</span></div>'
+	 * @param {Boolean} clone
+	 * @param {Boolean} noSelector
+	 * @return {DocumentFragment|undefined}
+	 */
+
+	exports.parse = function (template, clone, noSelector) {
+	  var node, frag
+
+	  // if the template is already a document fragment,
+	  // do nothing
+	  if (template instanceof DocumentFragment) {
+	    return clone
+	      ? template.cloneNode(true)
+	      : template
+	  }
+
+	  if (typeof template === 'string') {
+	    // id selector
+	    if (!noSelector && template.charAt(0) === '#') {
+	      // id selector can be cached too
+	      frag = idSelectorCache.get(template)
+	      if (!frag) {
+	        node = document.getElementById(template.slice(1))
+	        if (node) {
+	          frag = nodeToFragment(node)
+	          // save selector to cache
+	          idSelectorCache.put(template, frag)
+	        }
+	      }
+	    } else {
+	      // normal string template
+	      frag = stringToFragment(template)
+	    }
+	  } else if (template.nodeType) {
+	    // a direct node
+	    frag = nodeToFragment(template)
+	  }
+
+	  return frag && clone
+	    ? exports.clone(frag)
+	    : frag
+	}
+
+/***/ },
+/* 41 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var Cache = __webpack_require__(124)
+	var cache = new Cache(1000)
+	var argRE = /^[^\{\?]+$|^'[^']*'$|^"[^"]*"$/
+	var filterTokenRE = /[^\s'"]+|'[^']+'|"[^"]+"/g
+
+	/**
+	 * Parser state
+	 */
+
+	var str
+	var c, i, l
+	var inSingle
+	var inDouble
+	var curly
+	var square
+	var paren
+	var begin
+	var argIndex
+	var dirs
+	var dir
+	var lastFilterIndex
+	var arg
+
+	/**
+	 * Push a directive object into the result Array
+	 */
+
+	function pushDir () {
+	  dir.raw = str.slice(begin, i).trim()
+	  if (dir.expression === undefined) {
+	    dir.expression = str.slice(argIndex, i).trim()
+	  } else if (lastFilterIndex !== begin) {
+	    pushFilter()
+	  }
+	  if (i === 0 || dir.expression) {
+	    dirs.push(dir)
+	  }
+	}
+
+	/**
+	 * Push a filter to the current directive object
+	 */
+
+	function pushFilter () {
+	  var exp = str.slice(lastFilterIndex, i).trim()
+	  var filter
+	  if (exp) {
+	    filter = {}
+	    var tokens = exp.match(filterTokenRE)
+	    filter.name = tokens[0]
+	    filter.args = tokens.length > 1 ? tokens.slice(1) : null
+	  }
+	  if (filter) {
+	    (dir.filters = dir.filters || []).push(filter)
+	  }
+	  lastFilterIndex = i + 1
+	}
+
+	/**
+	 * Parse a directive string into an Array of AST-like
+	 * objects representing directives.
+	 *
+	 * Example:
+	 *
+	 * "click: a = a + 1 | uppercase" will yield:
+	 * {
+	 *   arg: 'click',
+	 *   expression: 'a = a + 1',
+	 *   filters: [
+	 *     { name: 'uppercase', args: null }
+	 *   ]
+	 * }
+	 *
+	 * @param {String} str
+	 * @return {Array<Object>}
+	 */
+
+	exports.parse = function (s) {
+
+	  var hit = cache.get(s)
+	  if (hit) {
+	    return hit
+	  }
+
+	  // reset parser state
+	  str = s
+	  inSingle = inDouble = false
+	  curly = square = paren = begin = argIndex = 0
+	  lastFilterIndex = 0
+	  dirs = []
+	  dir = {}
+	  arg = null
+
+	  for (i = 0, l = str.length; i < l; i++) {
+	    c = str.charCodeAt(i)
+	    if (inSingle) {
+	      // check single quote
+	      if (c === 0x27) inSingle = !inSingle
+	    } else if (inDouble) {
+	      // check double quote
+	      if (c === 0x22) inDouble = !inDouble
+	    } else if (
+	      c === 0x2C && // comma
+	      !paren && !curly && !square
+	    ) {
+	      // reached the end of a directive
+	      pushDir()
+	      // reset & skip the comma
+	      dir = {}
+	      begin = argIndex = lastFilterIndex = i + 1
+	    } else if (
+	      c === 0x3A && // colon
+	      !dir.expression &&
+	      !dir.arg
+	    ) {
+	      // argument
+	      arg = str.slice(begin, i).trim()
+	      // test for valid argument here
+	      // since we may have caught stuff like first half of
+	      // an object literal or a ternary expression.
+	      if (argRE.test(arg)) {
+	        argIndex = i + 1
+	        dir.arg = _.stripQuotes(arg) || arg
+	      }
+	    } else if (
+	      c === 0x7C && // pipe
+	      str.charCodeAt(i + 1) !== 0x7C &&
+	      str.charCodeAt(i - 1) !== 0x7C
+	    ) {
+	      if (dir.expression === undefined) {
+	        // first filter, end of expression
+	        lastFilterIndex = i + 1
+	        dir.expression = str.slice(argIndex, i).trim()
+	      } else {
+	        // already has filter
+	        pushFilter()
+	      }
+	    } else {
+	      switch (c) {
+	        case 0x22: inDouble = true; break // "
+	        case 0x27: inSingle = true; break // '
+	        case 0x28: paren++; break         // (
+	        case 0x29: paren--; break         // )
+	        case 0x5B: square++; break        // [
+	        case 0x5D: square--; break        // ]
+	        case 0x7B: curly++; break         // {
+	        case 0x7D: curly--; break         // }
+	      }
+	    }
+	  }
+
+	  if (i === 0 || begin !== i) {
+	    pushDir()
+	  }
+
+	  cache.put(s, dirs)
+	  return dirs
+	}
+
+/***/ },
+/* 42 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var Path = __webpack_require__(38)
+	var Cache = __webpack_require__(124)
+	var expressionCache = new Cache(1000)
+
+	var keywords =
+	  'Math,break,case,catch,continue,debugger,default,' +
+	  'delete,do,else,false,finally,for,function,if,in,' +
+	  'instanceof,new,null,return,switch,this,throw,true,try,' +
+	  'typeof,var,void,while,with,undefined,abstract,boolean,' +
+	  'byte,char,class,const,double,enum,export,extends,' +
+	  'final,float,goto,implements,import,int,interface,long,' +
+	  'native,package,private,protected,public,short,static,' +
+	  'super,synchronized,throws,transient,volatile,' +
+	  'arguments,let,yield'
+
+	var wsRE = /\s/g
+	var newlineRE = /\n/g
+	var saveRE = /[\{,]\s*[\w\$_]+\s*:|'[^']*'|"[^"]*"/g
+	var restoreRE = /"(\d+)"/g
+	var pathTestRE = /^[A-Za-z_$][\w$]*(\.[A-Za-z_$][\w$]*|\['.*?'\]|\[".*?"\]|\[\d+\])*$/
+	var pathReplaceRE = /[^\w$\.]([A-Za-z_$][\w$]*(\.[A-Za-z_$][\w$]*|\['.*?'\]|\[".*?"\])*)/g
+	var keywordsRE = new RegExp('^(' + keywords.replace(/,/g, '\\b|') + '\\b)')
+
+	/**
+	 * Save / Rewrite / Restore
+	 *
+	 * When rewriting paths found in an expression, it is
+	 * possible for the same letter sequences to be found in
+	 * strings and Object literal property keys. Therefore we
+	 * remove and store these parts in a temporary array, and
+	 * restore them after the path rewrite.
+	 */
+
+	var saved = []
+
+	/**
+	 * Save replacer
+	 *
+	 * @param {String} str
+	 * @return {String} - placeholder with index
+	 */
+
+	function save (str) {
+	  var i = saved.length
+	  saved[i] = str.replace(newlineRE, '\\n')
+	  return '"' + i + '"'
+	}
+
+	/**
+	 * Path rewrite replacer
+	 *
+	 * @param {String} raw
+	 * @return {String}
+	 */
+
+	function rewrite (raw) {
+	  var c = raw.charAt(0)
+	  var path = raw.slice(1)
+	  if (keywordsRE.test(path)) {
+	    return raw
+	  } else {
+	    path = path.indexOf('"') > -1
+	      ? path.replace(restoreRE, restore)
+	      : path
+	    return c + 'scope.' + path
+	  }
+	}
+
+	/**
+	 * Restore replacer
+	 *
+	 * @param {String} str
+	 * @param {String} i - matched save index
+	 * @return {String}
+	 */
+
+	function restore (str, i) {
+	  return saved[i]
+	}
+
+	/**
+	 * Rewrite an expression, prefixing all path accessors with
+	 * `scope.` and generate getter/setter functions.
+	 *
+	 * @param {String} exp
+	 * @param {Boolean} needSet
+	 * @return {Function}
+	 */
+
+	function compileExpFns (exp, needSet) {
+	  // reset state
+	  saved.length = 0
+	  // save strings and object literal keys
+	  var body = exp
+	    .replace(saveRE, save)
+	    .replace(wsRE, '')
+	  // rewrite all paths
+	  // pad 1 space here becaue the regex matches 1 extra char
+	  body = (' ' + body)
+	    .replace(pathReplaceRE, rewrite)
+	    .replace(restoreRE, restore)
+	  var getter = makeGetter(body)
+	  if (getter) {
+	    return {
+	      get: getter,
+	      body: body,
+	      set: needSet
+	        ? makeSetter(body)
+	        : null
+	    }
+	  }
+	}
+
+	/**
+	 * Compile getter setters for a simple path.
+	 *
+	 * @param {String} exp
+	 * @return {Function}
+	 */
+
+	function compilePathFns (exp) {
+	  var getter, path
+	  if (exp.indexOf('[') < 0) {
+	    // really simple path
+	    path = exp.split('.')
+	    getter = Path.compileGetter(path)
+	  } else {
+	    // do the real parsing
+	    path = Path.parse(exp)
+	    getter = path.get
+	  }
+	  return {
+	    get: getter,
+	    // always generate setter for simple paths
+	    set: function (obj, val) {
+	      Path.set(obj, path, val)
+	    }
+	  }
+	}
+
+	/**
+	 * Build a getter function. Requires eval.
+	 *
+	 * We isolate the try/catch so it doesn't affect the
+	 * optimization of the parse function when it is not called.
+	 *
+	 * @param {String} body
+	 * @return {Function|undefined}
+	 */
+
+	function makeGetter (body) {
+	  try {
+	    return new Function('scope', 'return ' + body + ';')
+	  } catch (e) {
+	    _.warn(
+	      'Invalid expression. ' +
+	      'Generated function body: ' + body
+	    )
+	  }
+	}
+
+	/**
+	 * Build a setter function.
+	 *
+	 * This is only needed in rare situations like "a[b]" where
+	 * a settable path requires dynamic evaluation.
+	 *
+	 * This setter function may throw error when called if the
+	 * expression body is not a valid left-hand expression in
+	 * assignment.
+	 *
+	 * @param {String} body
+	 * @return {Function|undefined}
+	 */
+
+	function makeSetter (body) {
+	  try {
+	    return new Function('scope', 'value', body + '=value;')
+	  } catch (e) {
+	    _.warn('Invalid setter function body: ' + body)
+	  }
+	}
+
+	/**
+	 * Check for setter existence on a cache hit.
+	 *
+	 * @param {Function} hit
+	 */
+
+	function checkSetter (hit) {
+	  if (!hit.set) {
+	    hit.set = makeSetter(hit.body)
+	  }
+	}
+
+	/**
+	 * Parse an expression into re-written getter/setters.
+	 *
+	 * @param {String} exp
+	 * @param {Boolean} needSet
+	 * @return {Function}
+	 */
+
+	exports.parse = function (exp, needSet) {
+	  exp = exp.trim()
+	  // try cache
+	  var hit = expressionCache.get(exp)
+	  if (hit) {
+	    if (needSet) {
+	      checkSetter(hit)
+	    }
+	    return hit
+	  }
+	  // we do a simple path check to optimize for them.
+	  // the check fails valid paths with unusal whitespaces,
+	  // but that's too rare and we don't care.
+	  // also skip paths that start with global "Math"
+	  var res = pathTestRE.test(exp) && exp.slice(0, 5) !== 'Math.'
+	    ? compilePathFns(exp)
+	    : compileExpFns(exp, needSet)
+	  expressionCache.put(exp, res)
+	  return res
+	}
+
+	// Export the pathRegex for external use
+	exports.pathTestRE = pathTestRE
+
+/***/ },
+/* 43 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var uid = 0
+
+	/**
+	 * A dep is an observable that can have multiple
+	 * directives subscribing to it.
+	 *
+	 * @constructor
+	 */
+
+	function Dep () {
+	  this.id = ++uid
+	  this.subs = []
+	}
+
+	var p = Dep.prototype
+
+	/**
+	 * Add a directive subscriber.
+	 *
+	 * @param {Directive} sub
+	 */
+
+	p.addSub = function (sub) {
+	  this.subs.push(sub)
+	}
+
+	/**
+	 * Remove a directive subscriber.
+	 *
+	 * @param {Directive} sub
+	 */
+
+	p.removeSub = function (sub) {
+	  if (this.subs.length) {
+	    var i = this.subs.indexOf(sub)
+	    if (i > -1) this.subs.splice(i, 1)
+	  }
+	}
+
+	/**
+	 * Notify all subscribers of a new value.
+	 */
+
+	p.notify = function () {
+	  for (var i = 0, subs = this.subs; i < subs.length; i++) {
+	    subs[i].update()
+	  }
+	}
+
+	module.exports = Dep
+
+/***/ },
+/* 44 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var config = __webpack_require__(35)
+	var Watcher = __webpack_require__(45)
+	var textParser = __webpack_require__(39)
+	var expParser = __webpack_require__(42)
+
+	/**
+	 * A directive links a DOM element with a piece of data,
+	 * which is the result of evaluating an expression.
+	 * It registers a watcher with the expression and calls
+	 * the DOM update function when a change is triggered.
+	 *
+	 * @param {String} name
+	 * @param {Node} el
+	 * @param {Vue} vm
+	 * @param {Object} descriptor
+	 *                 - {String} expression
+	 *                 - {String} [arg]
+	 *                 - {Array<Object>} [filters]
+	 * @param {Object} def - directive definition object
+	 * @constructor
+	 */
+
+	function Directive (name, el, vm, descriptor, def) {
+	  // public
+	  this.name = name
+	  this.el = el
+	  this.vm = vm
+	  // copy descriptor props
+	  this.raw = descriptor.raw
+	  this.expression = descriptor.expression
+	  this.arg = descriptor.arg
+	  this.filters = _.resolveFilters(vm, descriptor.filters)
+	  // private
+	  this._locked = false
+	  this._bound = false
+	  // init
+	  this._bind(def)
+	}
+
+	var p = Directive.prototype
+
+	/**
+	 * Initialize the directive, mixin definition properties,
+	 * setup the watcher, call definition bind() and update()
+	 * if present.
+	 *
+	 * @param {Object} def
+	 */
+
+	p._bind = function (def) {
+	  if (this.name !== 'cloak' && this.el.removeAttribute) {
+	    this.el.removeAttribute(config.prefix + this.name)
+	  }
+	  if (typeof def === 'function') {
+	    this.update = def
+	  } else {
+	    _.extend(this, def)
+	  }
+	  this._watcherExp = this.expression
+	  this._checkDynamicLiteral()
+	  if (this.bind) {
+	    this.bind()
+	  }
+	  if (this._watcherExp &&
+	      (this.update || this.twoWay) &&
+	      (!this.isLiteral || this._isDynamicLiteral) &&
+	      !this._checkStatement()) {
+	    // wrapped updater for context
+	    var dir = this
+	    var update = this._update = this.update
+	      ? function (val, oldVal) {
+	          if (!dir._locked) {
+	            dir.update(val, oldVal)
+	          }
+	        }
+	      : function () {} // noop if no update is provided
+	    // use raw expression as identifier because filters
+	    // make them different watchers
+	    var watcher = this.vm._watchers[this.raw]
+	    // v-repeat always creates a new watcher because it has
+	    // a special filter that's bound to its directive
+	    // instance.
+	    if (!watcher || this.name === 'repeat') {
+	      watcher = this.vm._watchers[this.raw] = new Watcher(
+	        this.vm,
+	        this._watcherExp,
+	        update, // callback
+	        {
+	          filters: this.filters,
+	          twoWay: this.twoWay,
+	          deep: this.deep
+	        }
+	      )
+	    } else {
+	      watcher.addCb(update)
+	    }
+	    this._watcher = watcher
+	    if (this._initValue != null) {
+	      watcher.set(this._initValue)
+	    } else if (this.update) {
+	      this.update(watcher.value)
+	    }
+	  }
+	  this._bound = true
+	}
+
+	/**
+	 * check if this is a dynamic literal binding.
+	 *
+	 * e.g. v-component="{{currentView}}"
+	 */
+
+	p._checkDynamicLiteral = function () {
+	  var expression = this.expression
+	  if (expression && this.isLiteral) {
+	    var tokens = textParser.parse(expression)
+	    if (tokens) {
+	      var exp = textParser.tokensToExp(tokens)
+	      this.expression = this.vm.$get(exp)
+	      this._watcherExp = exp
+	      this._isDynamicLiteral = true
+	    }
+	  }
+	}
+
+	/**
+	 * Check if the directive is a function caller
+	 * and if the expression is a callable one. If both true,
+	 * we wrap up the expression and use it as the event
+	 * handler.
+	 *
+	 * e.g. v-on="click: a++"
+	 *
+	 * @return {Boolean}
+	 */
+
+	p._checkStatement = function () {
+	  var expression = this.expression
+	  if (
+	    expression && this.acceptStatement &&
+	    !expParser.pathTestRE.test(expression)
+	  ) {
+	    var fn = expParser.parse(expression).get
+	    var vm = this.vm
+	    var handler = function () {
+	      fn.call(vm, vm)
+	    }
+	    if (this.filters) {
+	      handler = _.applyFilters(
+	        handler,
+	        this.filters.read,
+	        vm
+	      )
+	    }
+	    this.update(handler)
+	    return true
+	  }
+	}
+
+	/**
+	 * Check for an attribute directive param, e.g. lazy
+	 *
+	 * @param {String} name
+	 * @return {String}
+	 */
+
+	p._checkParam = function (name) {
+	  var param = this.el.getAttribute(name)
+	  if (param !== null) {
+	    this.el.removeAttribute(name)
+	  }
+	  return param
+	}
+
+	/**
+	 * Teardown the watcher and call unbind.
+	 */
+
+	p._teardown = function () {
+	  if (this._bound) {
+	    if (this.unbind) {
+	      this.unbind()
+	    }
+	    var watcher = this._watcher
+	    if (watcher && watcher.active) {
+	      watcher.removeCb(this._update)
+	      if (!watcher.active) {
+	        this.vm._watchers[this.raw] = null
+	      }
+	    }
+	    this._bound = false
+	    this.vm = this.el = this._watcher = null
+	  }
+	}
+
+	/**
+	 * Set the corresponding value with the setter.
+	 * This should only be used in two-way directives
+	 * e.g. v-model.
+	 *
+	 * @param {*} value
+	 * @param {Boolean} lock - prevent wrtie triggering update.
+	 * @public
+	 */
+
+	p.set = function (value, lock) {
+	  if (this.twoWay) {
+	    if (lock) {
+	      this._locked = true
+	    }
+	    this._watcher.set(value)
+	    if (lock) {
+	      var self = this
+	      _.nextTick(function () {
+	        self._locked = false
+	      })
+	    }
+	  }
+	}
+
+	module.exports = Directive
+
+/***/ },
+/* 45 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var config = __webpack_require__(35)
+	var Observer = __webpack_require__(69)
+	var expParser = __webpack_require__(42)
+	var batcher = __webpack_require__(125)
+	var uid = 0
+
+	/**
+	 * A watcher parses an expression, collects dependencies,
+	 * and fires callback when the expression value changes.
+	 * This is used for both the $watch() api and directives.
+	 *
+	 * @param {Vue} vm
+	 * @param {String} expression
+	 * @param {Function} cb
+	 * @param {Object} options
+	 *                 - {Array} filters
+	 *                 - {Boolean} twoWay
+	 *                 - {Boolean} deep
+	 *                 - {Boolean} user
+	 * @constructor
+	 */
+
+	function Watcher (vm, expression, cb, options) {
+	  this.vm = vm
+	  vm._watcherList.push(this)
+	  this.expression = expression
+	  this.cbs = [cb]
+	  this.id = ++uid // uid for batching
+	  this.active = true
+	  options = options || {}
+	  this.deep = options.deep
+	  this.user = options.user
+	  this.deps = Object.create(null)
+	  // setup filters if any.
+	  // We delegate directive filters here to the watcher
+	  // because they need to be included in the dependency
+	  // collection process.
+	  if (options.filters) {
+	    this.readFilters = options.filters.read
+	    this.writeFilters = options.filters.write
+	  }
+	  // parse expression for getter/setter
+	  var res = expParser.parse(expression, options.twoWay)
+	  this.getter = res.get
+	  this.setter = res.set
+	  this.value = this.get()
+	}
+
+	var p = Watcher.prototype
+
+	/**
+	 * Add a dependency to this directive.
+	 *
+	 * @param {Dep} dep
+	 */
+
+	p.addDep = function (dep) {
+	  var id = dep.id
+	  if (!this.newDeps[id]) {
+	    this.newDeps[id] = dep
+	    if (!this.deps[id]) {
+	      this.deps[id] = dep
+	      dep.addSub(this)
+	    }
+	  }
+	}
+
+	/**
+	 * Evaluate the getter, and re-collect dependencies.
+	 */
+
+	p.get = function () {
+	  this.beforeGet()
+	  var vm = this.vm
+	  var value
+	  try {
+	    value = this.getter.call(vm, vm)
+	  } catch (e) {
+	    if (config.warnExpressionErrors) {
+	      _.warn(
+	        'Error when evaluating expression "' +
+	        this.expression + '":\n   ' + e
+	      )
+	    }
+	  }
+	  // "touch" every property so they are all tracked as
+	  // dependencies for deep watching
+	  if (this.deep) {
+	    traverse(value)
+	  }
+	  value = _.applyFilters(value, this.readFilters, vm)
+	  this.afterGet()
+	  return value
+	}
+
+	/**
+	 * Set the corresponding value with the setter.
+	 *
+	 * @param {*} value
+	 */
+
+	p.set = function (value) {
+	  var vm = this.vm
+	  value = _.applyFilters(
+	    value, this.writeFilters, vm, this.value
+	  )
+	  try {
+	    this.setter.call(vm, vm, value)
+	  } catch (e) {
+	    if (config.warnExpressionErrors) {
+	      _.warn(
+	        'Error when evaluating setter "' +
+	        this.expression + '":\n   ' + e
+	      )
+	    }
+	  }
+	}
+
+	/**
+	 * Prepare for dependency collection.
+	 */
+
+	p.beforeGet = function () {
+	  Observer.target = this
+	  this.newDeps = {}
+	}
+
+	/**
+	 * Clean up for dependency collection.
+	 */
+
+	p.afterGet = function () {
+	  Observer.target = null
+	  for (var id in this.deps) {
+	    if (!this.newDeps[id]) {
+	      this.deps[id].removeSub(this)
+	    }
+	  }
+	  this.deps = this.newDeps
+	}
+
+	/**
+	 * Subscriber interface.
+	 * Will be called when a dependency changes.
+	 */
+
+	p.update = function () {
+	  if (!config.async || config.debug) {
+	    this.run()
+	  } else {
+	    batcher.push(this)
+	  }
+	}
+
+	/**
+	 * Batcher job interface.
+	 * Will be called by the batcher.
+	 */
+
+	p.run = function () {
+	  if (this.active) {
+	    var value = this.get()
+	    if (
+	      value !== this.value ||
+	      Array.isArray(value) ||
+	      this.deep
+	    ) {
+	      var oldValue = this.value
+	      this.value = value
+	      var cbs = this.cbs
+	      for (var i = 0, l = cbs.length; i < l; i++) {
+	        cbs[i](value, oldValue)
+	        // if a callback also removed other callbacks,
+	        // we need to adjust the loop accordingly.
+	        var removed = l - cbs.length
+	        if (removed) {
+	          i -= removed
+	          l -= removed
+	        }
+	      }
+	    }
+	  }
+	}
+
+	/**
+	 * Add a callback.
+	 *
+	 * @param {Function} cb
+	 */
+
+	p.addCb = function (cb) {
+	  this.cbs.push(cb)
+	}
+
+	/**
+	 * Remove a callback.
+	 *
+	 * @param {Function} cb
+	 */
+
+	p.removeCb = function (cb) {
+	  var cbs = this.cbs
+	  if (cbs.length > 1) {
+	    var i = cbs.indexOf(cb)
+	    if (i > -1) {
+	      cbs.splice(i, 1)
+	    }
+	  } else if (cb === cbs[0]) {
+	    this.teardown()
+	  }
+	}
+
+	/**
+	 * Remove self from all dependencies' subcriber list.
+	 */
+
+	p.teardown = function () {
+	  if (this.active) {
+	    // remove self from vm's watcher list
+	    // we can skip this if the vm if being destroyed
+	    // which can improve teardown performance.
+	    if (!this.vm._isBeingDestroyed) {
+	      var list = this.vm._watcherList
+	      list.splice(list.indexOf(this))
+	    }
+	    for (var id in this.deps) {
+	      this.deps[id].removeSub(this)
+	    }
+	    this.active = false
+	    this.vm = this.cbs = this.value = null
+	  }
+	}
+
+
+	/**
+	 * Recrusively traverse an object to evoke all converted
+	 * getters, so that every nested property inside the object
+	 * is collected as a "deep" dependency.
+	 *
+	 * @param {Object} obj
+	 */
+
+	function traverse (obj) {
+	  var key, val, i
+	  for (key in obj) {
+	    val = obj[key]
+	    if (_.isArray(val)) {
+	      i = val.length
+	      while (i--) traverse(val[i])
+	    } else if (_.isObject(val)) {
+	      traverse(val)
+	    }
+	  }
+	}
+
+	module.exports = Watcher
+
+/***/ },
+/* 46 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Check is a string starts with $ or _
+	 *
+	 * @param {String} str
+	 * @return {Boolean}
+	 */
+
+	exports.isReserved = function (str) {
+	  var c = str.charCodeAt(0)
+	  return c === 0x24 || c === 0x5F
+	}
+
+	/**
+	 * Guard text output, make sure undefined outputs
+	 * empty string
+	 *
+	 * @param {*} value
+	 * @return {String}
+	 */
+
+	exports.toString = function (value) {
+	  return value == null
+	    ? ''
+	    : value.toString()
+	}
+
+	/**
+	 * Check and convert possible numeric numbers before
+	 * setting back to data
+	 *
+	 * @param {*} value
+	 * @return {*|Number}
+	 */
+
+	exports.toNumber = function (value) {
+	  return (
+	    isNaN(value) ||
+	    value === null ||
+	    typeof value === 'boolean'
+	  ) ? value
+	    : Number(value)
+	}
+
+	/**
+	 * Strip quotes from a string
+	 *
+	 * @param {String} str
+	 * @return {String | false}
+	 */
+
+	exports.stripQuotes = function (str) {
+	  var a = str.charCodeAt(0)
+	  var b = str.charCodeAt(str.length - 1)
+	  return a === b && (a === 0x22 || a === 0x27)
+	    ? str.slice(1, -1)
+	    : false
+	}
+
+	/**
+	 * Camelize a hyphen-delmited string.
+	 *
+	 * @param {String} str
+	 * @return {String}
+	 */
+
+	var camelRE = /[-_](\w)/g
+	var capitalCamelRE = /(?:^|[-_])(\w)/g
+
+	exports.camelize = function (str, cap) {
+	  var RE = cap ? capitalCamelRE : camelRE
+	  return str.replace(RE, function (_, c) {
+	    return c ? c.toUpperCase () : ''
+	  })
+	}
+
+	/**
+	 * Simple bind, faster than native
+	 *
+	 * @param {Function} fn
+	 * @param {Object} ctx
+	 * @return {Function}
+	 */
+
+	exports.bind = function (fn, ctx) {
+	  return function () {
+	    return fn.apply(ctx, arguments)
+	  }
+	}
+
+	/**
+	 * Convert an Array-like object to a real Array.
+	 *
+	 * @param {Array-like} list
+	 * @param {Number} [start] - start index
+	 * @return {Array}
+	 */
+
+	exports.toArray = function (list, start) {
+	  start = start || 0
+	  var i = list.length - start
+	  var ret = new Array(i)
+	  while (i--) {
+	    ret[i] = list[i + start]
+	  }
+	  return ret
+	}
+
+	/**
+	 * Mix properties into target object.
+	 *
+	 * @param {Object} to
+	 * @param {Object} from
+	 */
+
+	exports.extend = function (to, from) {
+	  for (var key in from) {
+	    to[key] = from[key]
+	  }
+	  return to
+	}
+
+	/**
+	 * Quick object check - this is primarily used to tell
+	 * Objects from primitive values when we know the value
+	 * is a JSON-compliant type.
+	 *
+	 * @param {*} obj
+	 * @return {Boolean}
+	 */
+
+	exports.isObject = function (obj) {
+	  return obj && typeof obj === 'object'
+	}
+
+	/**
+	 * Strict object type check. Only returns true
+	 * for plain JavaScript objects.
+	 *
+	 * @param {*} obj
+	 * @return {Boolean}
+	 */
+
+	var toString = Object.prototype.toString
+	exports.isPlainObject = function (obj) {
+	  return toString.call(obj) === '[object Object]'
+	}
+
+	/**
+	 * Array type check.
+	 *
+	 * @param {*} obj
+	 * @return {Boolean}
+	 */
+
+	exports.isArray = function (obj) {
+	  return Array.isArray(obj)
+	}
+
+	/**
+	 * Define a non-enumerable property
+	 *
+	 * @param {Object} obj
+	 * @param {String} key
+	 * @param {*} val
+	 * @param {Boolean} [enumerable]
+	 */
+
+	exports.define = function (obj, key, val, enumerable) {
+	  Object.defineProperty(obj, key, {
+	    value        : val,
+	    enumerable   : !!enumerable,
+	    writable     : true,
+	    configurable : true
+	  })
+	}
+
+/***/ },
+/* 47 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Can we use __proto__?
+	 *
+	 * @type {Boolean}
+	 */
+
+	exports.hasProto = '__proto__' in {}
+
+	/**
+	 * Indicates we have a window
+	 *
+	 * @type {Boolean}
+	 */
+
+	var toString = Object.prototype.toString
+	var inBrowser = exports.inBrowser =
+	  typeof window !== 'undefined' &&
+	  toString.call(window) !== '[object Object]'
+
+	/**
+	 * Defer a task to execute it asynchronously. Ideally this
+	 * should be executed as a microtask, so we leverage
+	 * MutationObserver if it's available.
+	 * 
+	 * If the user has included a setImmediate polyfill, we can
+	 * also use that. In Node we actually prefer setImmediate to
+	 * process.nextTick so we don't block the I/O.
+	 * 
+	 * Finally, fallback to setTimeout(0) if nothing else works.
+	 *
+	 * @param {Function} cb
+	 * @param {Object} ctx
+	 */
+
+	var defer
+	/* istanbul ignore if */
+	if (typeof MutationObserver !== 'undefined') {
+	  defer = deferFromMutationObserver(MutationObserver)
+	} else
+	/* istanbul ignore if */
+	if (typeof WebkitMutationObserver !== 'undefined') {
+	  defer = deferFromMutationObserver(WebkitMutationObserver)
+	} else {
+	  defer = setTimeout
+	}
+
+	/* istanbul ignore next */
+	function deferFromMutationObserver (Observer) {
+	  var queue = []
+	  var node = document.createTextNode('0')
+	  var i = 0
+	  new Observer(function () {
+	    var l = queue.length
+	    for (var i = 0; i < l; i++) {
+	      queue[i]()
+	    }
+	    queue = queue.slice(l)
+	  }).observe(node, { characterData: true })
+	  return function mutationObserverDefer (cb) {
+	    queue.push(cb)
+	    node.nodeValue = (i = ++i % 2)
+	  }
+	}
+
+	exports.nextTick = function (cb, ctx) {
+	  if (ctx) {
+	    defer(function () { cb.call(ctx) }, 0)
+	  } else {
+	    defer(cb, 0)
+	  }
+	}
+
+	/**
+	 * Detect if we are in IE9...
+	 *
+	 * @type {Boolean}
+	 */
+
+	exports.isIE9 =
+	  inBrowser &&
+	  navigator.userAgent.indexOf('MSIE 9.0') > 0
+
+	/**
+	 * Sniff transition/animation events
+	 */
+
+	if (inBrowser && !exports.isIE9) {
+	  var isWebkitTrans =
+	    window.ontransitionend === undefined &&
+	    window.onwebkittransitionend !== undefined
+	  var isWebkitAnim =
+	    window.onanimationend === undefined &&
+	    window.onwebkitanimationend !== undefined
+	  exports.transitionProp = isWebkitTrans
+	    ? 'WebkitTransition'
+	    : 'transition'
+	  exports.transitionEndEvent = isWebkitTrans
+	    ? 'webkitTransitionEnd'
+	    : 'transitionend'
+	  exports.animationProp = isWebkitAnim
+	    ? 'WebkitAnimation'
+	    : 'animation'
+	  exports.animationEndEvent = isWebkitAnim
+	    ? 'webkitAnimationEnd'
+	    : 'animationend'
+	}
+
+/***/ },
+/* 48 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var config = __webpack_require__(35)
+
+	/**
+	 * Check if a node is in the document.
+	 *
+	 * @param {Node} node
+	 * @return {Boolean}
+	 */
+
+	var doc =
+	  typeof document !== 'undefined' &&
+	  document.documentElement
+
+	exports.inDoc = function (node) {
+	  return doc && doc.contains(node)
+	}
+
+	/**
+	 * Extract an attribute from a node.
+	 *
+	 * @param {Node} node
+	 * @param {String} attr
+	 */
+
+	exports.attr = function (node, attr) {
+	  attr = config.prefix + attr
+	  var val = node.getAttribute(attr)
+	  if (val !== null) {
+	    node.removeAttribute(attr)
+	  }
+	  return val
+	}
+
+	/**
+	 * Insert el before target
+	 *
+	 * @param {Element} el
+	 * @param {Element} target 
+	 */
+
+	exports.before = function (el, target) {
+	  target.parentNode.insertBefore(el, target)
+	}
+
+	/**
+	 * Insert el after target
+	 *
+	 * @param {Element} el
+	 * @param {Element} target 
+	 */
+
+	exports.after = function (el, target) {
+	  if (target.nextSibling) {
+	    exports.before(el, target.nextSibling)
+	  } else {
+	    target.parentNode.appendChild(el)
+	  }
+	}
+
+	/**
+	 * Remove el from DOM
+	 *
+	 * @param {Element} el
+	 */
+
+	exports.remove = function (el) {
+	  el.parentNode.removeChild(el)
+	}
+
+	/**
+	 * Prepend el to target
+	 *
+	 * @param {Element} el
+	 * @param {Element} target 
+	 */
+
+	exports.prepend = function (el, target) {
+	  if (target.firstChild) {
+	    exports.before(el, target.firstChild)
+	  } else {
+	    target.appendChild(el)
+	  }
+	}
+
+	/**
+	 * Replace target with el
+	 *
+	 * @param {Element} target
+	 * @param {Element} el
+	 */
+
+	exports.replace = function (target, el) {
+	  var parent = target.parentNode
+	  if (parent) {
+	    parent.replaceChild(el, target)
+	  }
+	}
+
+	/**
+	 * Copy attributes from one element to another.
+	 *
+	 * @param {Element} from
+	 * @param {Element} to
+	 */
+
+	exports.copyAttributes = function (from, to) {
+	  if (from.hasAttributes()) {
+	    var attrs = from.attributes
+	    for (var i = 0, l = attrs.length; i < l; i++) {
+	      var attr = attrs[i]
+	      to.setAttribute(attr.name, attr.value)
+	    }
+	  }
+	}
+
+	/**
+	 * Add event listener shorthand.
+	 *
+	 * @param {Element} el
+	 * @param {String} event
+	 * @param {Function} cb
+	 */
+
+	exports.on = function (el, event, cb) {
+	  el.addEventListener(event, cb)
+	}
+
+	/**
+	 * Remove event listener shorthand.
+	 *
+	 * @param {Element} el
+	 * @param {String} event
+	 * @param {Function} cb
+	 */
+
+	exports.off = function (el, event, cb) {
+	  el.removeEventListener(event, cb)
+	}
+
+	/**
+	 * Add class with compatibility for IE & SVG
+	 *
+	 * @param {Element} el
+	 * @param {Strong} cls
+	 */
+
+	exports.addClass = function (el, cls) {
+	  if (el.classList) {
+	    el.classList.add(cls)
+	  } else {
+	    var cur = ' ' + (el.getAttribute('class') || '') + ' '
+	    if (cur.indexOf(' ' + cls + ' ') < 0) {
+	      el.setAttribute('class', (cur + cls).trim())
+	    }
+	  }
+	}
+
+	/**
+	 * Remove class with compatibility for IE & SVG
+	 *
+	 * @param {Element} el
+	 * @param {Strong} cls
+	 */
+
+	exports.removeClass = function (el, cls) {
+	  if (el.classList) {
+	    el.classList.remove(cls)
+	  } else {
+	    var cur = ' ' + (el.getAttribute('class') || '') + ' '
+	    var tar = ' ' + cls + ' '
+	    while (cur.indexOf(tar) >= 0) {
+	      cur = cur.replace(tar, ' ')
+	    }
+	    el.setAttribute('class', cur.trim())
+	  }
+	}
+
+	/**
+	 * Extract raw content inside an element into a temporary
+	 * container div
+	 *
+	 * @param {Element} el
+	 * @return {Element}
+	 */
+
+	exports.extractContent = function (el) {
+	  var child
+	  var rawContent
+	  if (el.hasChildNodes()) {
+	    rawContent = document.createElement('div')
+	    /* jshint boss:true */
+	    while (child = el.firstChild) {
+	      rawContent.appendChild(child)
+	    }
+	  }
+	  return rawContent
+	}
+
+/***/ },
+/* 49 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(50)
+
+	/**
+	 * Resolve read & write filters for a vm instance. The
+	 * filters descriptor Array comes from the directive parser.
+	 *
+	 * This is extracted into its own utility so it can
+	 * be used in multiple scenarios.
+	 *
+	 * @param {Vue} vm
+	 * @param {Array<Object>} filters
+	 * @param {Object} [target]
+	 * @return {Object}
+	 */
+
+	exports.resolveFilters = function (vm, filters, target) {
+	  if (!filters) {
+	    return
+	  }
+	  var res = target || {}
+	  // var registry = vm.$options.filters
+	  filters.forEach(function (f) {
+	    var def = vm.$options.filters[f.name]
+	    _.assertAsset(def, 'filter', f.name)
+	    if (!def) return
+	    var args = f.args
+	    var reader, writer
+	    if (typeof def === 'function') {
+	      reader = def
+	    } else {
+	      reader = def.read
+	      writer = def.write
+	    }
+	    if (reader) {
+	      if (!res.read) res.read = []
+	      res.read.push(function (value) {
+	        return args
+	          ? reader.apply(vm, [value].concat(args))
+	          : reader.call(vm, value)
+	      })
+	    }
+	    if (writer) {
+	      if (!res.write) res.write = []
+	      res.write.push(function (value, oldVal) {
+	        return args
+	          ? writer.apply(vm, [value, oldVal].concat(args))
+	          : writer.call(vm, value, oldVal)
+	      })
+	    }
+	  })
+	  return res
+	}
+
+	/**
+	 * Apply filters to a value
+	 *
+	 * @param {*} value
+	 * @param {Array} filters
+	 * @param {Vue} vm
+	 * @param {*} oldVal
+	 * @return {*}
+	 */
+
+	exports.applyFilters = function (value, filters, vm, oldVal) {
+	  if (!filters) {
+	    return value
+	  }
+	  for (var i = 0, l = filters.length; i < l; i++) {
+	    value = filters[i].call(vm, value, oldVal)
+	  }
+	  return value
+	}
+
+/***/ },
+/* 50 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var config = __webpack_require__(35)
+
+	/**
+	 * Enable debug utilities. The enableDebug() function and
+	 * all _.log() & _.warn() calls will be dropped in the
+	 * minified production build.
+	 */
+
+	enableDebug()
+
+	function enableDebug () {
+
+	  var hasConsole = typeof console !== 'undefined'
+	  
+	  /**
+	   * Log a message.
+	   *
+	   * @param {String} msg
+	   */
+
+	  exports.log = function (msg) {
+	    if (hasConsole && config.debug) {
+	      console.log('[Vue info]: ' + msg)
+	    }
+	  }
+
+	  /**
+	   * We've got a problem here.
+	   *
+	   * @param {String} msg
+	   */
+
+	  var warned = false
+	  exports.warn = function (msg) {
+	    if (hasConsole && (!config.silent || config.debug)) {
+	      if (!config.debug && !warned) {
+	        warned = true
+	        console.log(
+	          'Set `Vue.config.debug = true` to enable debug mode.'
+	        )
+	      }
+	      console.warn('[Vue warn]: ' + msg)
+	      /* istanbul ignore if */
+	      if (config.debug) {
+	        /* jshint debug: true */
+	        debugger
+	      }
+	    }
+	  }
+
+	  /**
+	   * Assert asset exists
+	   */
+
+	  exports.assertAsset = function (val, type, id) {
+	    if (!val) {
+	      exports.warn('Failed to resolve ' + type + ': ' + id)
+	    }
+	  }
+	}
+
+/***/ },
+/* 51 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+
+	module.exports = {
+
+	  bind: function () {
+	    this.attr = this.el.nodeType === 3
+	      ? 'nodeValue'
+	      : 'textContent'
+	  },
+
+	  update: function (value) {
+	    this.el[this.attr] = _.toString(value)
+	  }
+	  
+	}
+
+/***/ },
+/* 52 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var templateParser = __webpack_require__(40)
+
+	module.exports = {
+
+	  bind: function () {
+	    // a comment node means this is a binding for
+	    // {{{ inline unescaped html }}}
+	    if (this.el.nodeType === 8) {
+	      // hold nodes
+	      this.nodes = []
+	    }
+	  },
+
+	  update: function (value) {
+	    value = _.toString(value)
+	    if (this.nodes) {
+	      this.swap(value)
+	    } else {
+	      this.el.innerHTML = value
+	    }
+	  },
+
+	  swap: function (value) {
+	    // remove old nodes
+	    var i = this.nodes.length
+	    while (i--) {
+	      _.remove(this.nodes[i])
+	    }
+	    // convert new value to a fragment
+	    // do not attempt to retrieve from id selector
+	    var frag = templateParser.parse(value, true, true)
+	    // save a reference to these nodes so we can remove later
+	    this.nodes = _.toArray(frag.childNodes)
+	    _.before(frag, this.el)
+	  }
+
+	}
+
+/***/ },
+/* 53 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// xlink
+	var xlinkNS = 'http://www.w3.org/1999/xlink'
+	var xlinkRE = /^xlink:/
+
+	module.exports = {
+
+	  priority: 850,
+
+	  bind: function () {
+	    var name = this.arg
+	    this.update = xlinkRE.test(name)
+	      ? xlinkHandler
+	      : defaultHandler
+	  }
+
+	}
+
+	function defaultHandler (value) {
+	  if (value || value === 0) {
+	    this.el.setAttribute(this.arg, value)
+	  } else {
+	    this.el.removeAttribute(this.arg)
+	  }
+	}
+
+	function xlinkHandler (value) {
+	  if (value != null) {
+	    this.el.setAttributeNS(xlinkNS, this.arg, value)
+	  } else {
+	    this.el.removeAttributeNS(xlinkNS, 'href')
+	  }
+	}
+
+/***/ },
+/* 54 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var transition = __webpack_require__(70)
+
+	module.exports = function (value) {
+	  var el = this.el
+	  transition.apply(el, value ? 1 : -1, function () {
+	    el.style.display = value ? '' : 'none'
+	  }, this.vm)
+	}
+
+/***/ },
+/* 55 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var addClass = _.addClass
+	var removeClass = _.removeClass
+
+	module.exports = function (value) {
+	  if (this.arg) {
+	    var method = value ? addClass : removeClass
+	    method(this.el, this.arg)
+	  } else {
+	    if (this.lastVal) {
+	      removeClass(this.el, this.lastVal)
+	    }
+	    if (value) {
+	      addClass(this.el, value)
+	      this.lastVal = value
+	    }
+	  }
+	}
+
+/***/ },
+/* 56 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = {
+
+	  isLiteral: true,
+
+	  bind: function () {
+	    this.vm.$$[this.expression] = this.el
+	  },
+
+	  unbind: function () {
+	    delete this.vm.$$[this.expression]
+	  }
+	  
+	}
+
+/***/ },
+/* 57 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+
+	module.exports = {
+
+	  isLiteral: true,
+
+	  bind: function () {
+	    var vm = this.el.__vue__
+	    if (!vm) {
+	      _.warn(
+	        'v-ref should only be used on a component root element.'
+	      )
+	      return
+	    }
+	    // If we get here, it means this is a `v-ref` on a
+	    // child, because parent scope `v-ref` is stripped in
+	    // `v-component` already. So we just record our own ref
+	    // here - it will overwrite parent ref in `v-component`,
+	    // if any.
+	    vm._refID = this.expression
+	  }
+	  
+	}
+
+/***/ },
+/* 58 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var config = __webpack_require__(35)
+
+	module.exports = {
+
+	  bind: function () {
+	    var el = this.el
+	    this.vm.$once('hook:compiled', function () {
+	      el.removeAttribute(config.prefix + 'cloak')
+	    })
+	  }
+
+	}
+
+/***/ },
+/* 59 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var prefixes = ['-webkit-', '-moz-', '-ms-']
+	var camelPrefixes = ['Webkit', 'Moz', 'ms']
+	var importantRE = /!important;?$/
+	var camelRE = /([a-z])([A-Z])/g
+	var testEl = null
+	var propCache = {}
+
+	module.exports = {
+
+	  deep: true,
+
+	  update: function (value) {
+	    if (this.arg) {
+	      this.setProp(this.arg, value)
+	    } else {
+	      if (typeof value === 'object') {
+	        // cache object styles so that only changed props
+	        // are actually updated.
+	        if (!this.cache) this.cache = {}
+	        for (var prop in value) {
+	          this.setProp(prop, value[prop])
+	          /* jshint eqeqeq: false */
+	          if (value[prop] != this.cache[prop]) {
+	            this.cache[prop] = value[prop]
+	            this.setProp(prop, value[prop])
+	          }
+	        }
+	      } else {
+	        this.el.style.cssText = value
+	      }
+	    }
+	  },
+
+	  setProp: function (prop, value) {
+	    prop = normalize(prop)
+	    if (!prop) return // unsupported prop
+	    // cast possible numbers/booleans into strings
+	    if (value != null) value += ''
+	    if (value) {
+	      var isImportant = importantRE.test(value)
+	        ? 'important'
+	        : ''
+	      if (isImportant) {
+	        value = value.replace(importantRE, '').trim()
+	      }
+	      this.el.style.setProperty(prop, value, isImportant)
+	    } else {
+	      this.el.style.removeProperty(prop)
+	    }
+	  }
+
+	}
+
+	/**
+	 * Normalize a CSS property name.
+	 * - cache result
+	 * - auto prefix
+	 * - camelCase -> dash-case
+	 *
+	 * @param {String} prop
+	 * @return {String}
+	 */
+
+	function normalize (prop) {
+	  if (propCache[prop]) {
+	    return propCache[prop]
+	  }
+	  var res = prefix(prop)
+	  propCache[prop] = propCache[res] = res
+	  return res
+	}
+
+	/**
+	 * Auto detect the appropriate prefix for a CSS property.
+	 * https://gist.github.com/paulirish/523692
+	 *
+	 * @param {String} prop
+	 * @return {String}
+	 */
+
+	function prefix (prop) {
+	  prop = prop.replace(camelRE, '$1-$2').toLowerCase()
+	  var camel = _.camelize(prop)
+	  var upper = camel.charAt(0).toUpperCase() + camel.slice(1)
+	  if (!testEl) {
+	    testEl = document.createElement('div')
+	  }
+	  if (camel in testEl.style) {
+	    return prop
+	  }
+	  var i = prefixes.length
+	  var prefixed
+	  while (i--) {
+	    prefixed = camelPrefixes[i] + upper
+	    if (prefixed in testEl.style) {
+	      return prefixes[i] + prop
+	    }
+	  }
+	}
+
+/***/ },
+/* 60 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var templateParser = __webpack_require__(40)
+	var vIf = __webpack_require__(65)
+
+	module.exports = {
+
+	  isLiteral: true,
+
+	  // same logic reuse from v-if
+	  compile: vIf.compile,
+	  teardown: vIf.teardown,
+
+	  bind: function () {
+	    var el = this.el
+	    this.start = document.createComment('v-partial-start')
+	    this.end = document.createComment('v-partial-end')
+	    if (el.nodeType !== 8) {
+	      el.innerHTML = ''
+	    }
+	    if (el.tagName === 'TEMPLATE' || el.nodeType === 8) {
+	      _.replace(el, this.end)
+	    } else {
+	      el.appendChild(this.end)
+	    }
+	    _.before(this.start, this.end)
+	    if (!this._isDynamicLiteral) {
+	      this.insert(this.expression)
+	    }
+	  },
+
+	  update: function (id) {
+	    this.teardown()
+	    this.insert(id)
+	  },
+
+	  insert: function (id) {
+	    var partial = this.vm.$options.partials[id]
+	    _.assertAsset(partial, 'partial', id)
+	    if (partial) {
+	      this.compile(templateParser.parse(partial))
+	    }
+	  }
+
+	}
+
+/***/ },
+/* 61 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = {
+
+	  priority: 1000,
+	  isLiteral: true,
+
+	  bind: function () {
+	    this.el.__v_trans = {
+	      id: this.expression,
+	      // resolve the custom transition functions now
+	      fns: this.vm.$options.transitions[this.expression]
+	    }
+	  }
+
+	}
+
+/***/ },
+/* 62 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+
+	module.exports = {
+
+	  acceptStatement: true,
+	  priority: 700,
+
+	  bind: function () {
+	    // deal with iframes
+	    if (
+	      this.el.tagName === 'IFRAME' &&
+	      this.arg !== 'load'
+	    ) {
+	      var self = this
+	      this.iframeBind = function () {
+	        _.on(self.el.contentWindow, self.arg, self.handler)
+	      }
+	      _.on(this.el, 'load', this.iframeBind)
+	    }
+	  },
+
+	  update: function (handler) {
+	    if (typeof handler !== 'function') {
+	      _.warn(
+	        'Directive "v-on:' + this.expression + '" ' +
+	        'expects a function value.'
+	      )
+	      return
+	    }
+	    this.reset()
+	    var vm = this.vm
+	    this.handler = function (e) {
+	      e.targetVM = vm
+	      vm.$event = e
+	      var res = handler(e)
+	      vm.$event = null
+	      return res
+	    }
+	    if (this.iframeBind) {
+	      this.iframeBind()
+	    } else {
+	      _.on(this.el, this.arg, this.handler)
+	    }
+	  },
+
+	  reset: function () {
+	    var el = this.iframeBind
+	      ? this.el.contentWindow
+	      : this.el
+	    if (this.handler) {
+	      _.off(el, this.arg, this.handler)
+	    }
+	  },
+
+	  unbind: function () {
+	    this.reset()
+	    _.off(this.el, 'load', this.iframeBind)
+	  }
+	}
+
+/***/ },
+/* 63 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var templateParser = __webpack_require__(40)
+
+	module.exports = {
+
+	  isLiteral: true,
+
+	  /**
+	   * Setup. Two possible usages:
+	   *
+	   * - static:
+	   *   v-component="comp"
+	   *
+	   * - dynamic:
+	   *   v-component="{{currentView}}"
+	   */
+
+	  bind: function () {
+	    if (!this.el.__vue__) {
+	      // create a ref anchor
+	      this.ref = document.createComment('v-component')
+	      _.replace(this.el, this.ref)
+	      // check keep-alive options.
+	      // If yes, instead of destroying the active vm when
+	      // hiding (v-if) or switching (dynamic literal) it,
+	      // we simply remove it from the DOM and save it in a
+	      // cache object, with its constructor id as the key.
+	      this.keepAlive = this._checkParam('keep-alive') != null
+	      // check ref
+	      this.refID = _.attr(this.el, 'ref')
+	      if (this.keepAlive) {
+	        this.cache = {}
+	      }
+	      // if static, build right now.
+	      if (!this._isDynamicLiteral) {
+	        this.resolveCtor(this.expression)
+	        var child = this.build()
+	        child.$before(this.ref)
+	        this.setCurrent(child)
+	      } else {
+	        // check dynamic component params
+	        this.readyEvent = this._checkParam('wait-for')
+	        this.transMode = this._checkParam('transition-mode')
+	      }
+	    } else {
+	      _.warn(
+	        'v-component="' + this.expression + '" cannot be ' +
+	        'used on an already mounted instance.'
+	      )
+	    }
+	  },
+
+	  /**
+	   * Resolve the component constructor to use when creating
+	   * the child vm.
+	   */
+
+	  resolveCtor: function (id) {
+	    this.ctorId = id
+	    this.Ctor = this.vm.$options.components[id]
+	    _.assertAsset(this.Ctor, 'component', id)
+	  },
+
+	  /**
+	   * Instantiate/insert a new child vm.
+	   * If keep alive and has cached instance, insert that
+	   * instance; otherwise build a new one and cache it.
+	   *
+	   * @return {Vue} - the created instance
+	   */
+
+	  build: function () {
+	    if (this.keepAlive) {
+	      var cached = this.cache[this.ctorId]
+	      if (cached) {
+	        return cached
+	      }
+	    }
+	    var vm = this.vm
+	    var el = templateParser.clone(this.el)
+	    if (this.Ctor) {
+	      var child = vm.$addChild({
+	        el: el,
+	        _asComponent: true
+	      }, this.Ctor)
+	      if (this.keepAlive) {
+	        this.cache[this.ctorId] = child
+	      }
+	      return child
+	    }
+	  },
+
+	  /**
+	   * Teardown the current child, but defers cleanup so
+	   * that we can separate the destroy and removal steps.
+	   */
+
+	  unbuild: function () {
+	    var child = this.childVM
+	    if (!child || this.keepAlive) {
+	      return
+	    }
+	    // the sole purpose of `deferCleanup` is so that we can
+	    // "deactivate" the vm right now and perform DOM removal
+	    // later.
+	    child.$destroy(false, true)
+	  },
+
+	  /**
+	   * Remove current destroyed child and manually do
+	   * the cleanup after removal.
+	   *
+	   * @param {Function} cb
+	   */
+
+	  remove: function (child, cb) {
+	    var keepAlive = this.keepAlive
+	    if (child) {
+	      child.$remove(function () {
+	        if (!keepAlive) child._cleanup()
+	        if (cb) cb()
+	      })
+	    } else if (cb) {
+	      cb()
+	    }
+	  },
+
+	  /**
+	   * Update callback for the dynamic literal scenario,
+	   * e.g. v-component="{{view}}"
+	   */
+
+	  update: function (value) {
+	    if (!value) {
+	      // just destroy and remove current
+	      this.unbuild()
+	      this.remove(this.childVM)
+	      this.unsetCurrent()
+	    } else {
+	      this.resolveCtor(value)
+	      this.unbuild()
+	      var newComponent = this.build()
+	      var self = this
+	      if (this.readyEvent) {
+	        newComponent.$once(this.readyEvent, function () {
+	          self.swapTo(newComponent)
+	        })
+	      } else {
+	        this.swapTo(newComponent)
+	      }
+	    }
+	  },
+
+	  /**
+	   * Actually swap the components, depending on the
+	   * transition mode. Defaults to simultaneous.
+	   *
+	   * @param {Vue} target
+	   */
+
+	  swapTo: function (target) {
+	    var self = this
+	    var current = this.childVM
+	    this.unsetCurrent()
+	    this.setCurrent(target)
+	    switch (self.transMode) {
+	      case 'in-out':
+	        target.$before(self.ref, function () {
+	          self.remove(current)
+	        })
+	        break
+	      case 'out-in':
+	        self.remove(current, function () {
+	          target.$before(self.ref)
+	        })
+	        break
+	      default:
+	        self.remove(current)
+	        target.$before(self.ref)
+	    }
+	  },
+
+	  /**
+	   * Set childVM and parent ref
+	   */
+	  
+	  setCurrent: function (child) {
+	    this.childVM = child
+	    var refID = child._refID || this.refID
+	    if (refID) {
+	      this.vm.$[refID] = child
+	    }
+	  },
+
+	  /**
+	   * Unset childVM and parent ref
+	   */
+
+	  unsetCurrent: function () {
+	    var child = this.childVM
+	    this.childVM = null
+	    var refID = (child && child._refID) || this.refID
+	    if (refID) {
+	      this.vm.$[refID] = null
+	    }
+	  },
+
+	  /**
+	   * Unbind.
+	   */
+
+	  unbind: function () {
+	    this.unbuild()
+	    // destroy all keep-alive cached instances
+	    if (this.cache) {
+	      for (var key in this.cache) {
+	        this.cache[key].$destroy()
+	      }
+	      this.cache = null
+	    }
+	  }
+
+	}
+
+/***/ },
+/* 64 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var isObject = _.isObject
+	var isPlainObject = _.isPlainObject
+	var textParser = __webpack_require__(39)
+	var expParser = __webpack_require__(42)
+	var templateParser = __webpack_require__(40)
+	var compile = __webpack_require__(36)
+	var transclude = __webpack_require__(37)
+	var mergeOptions = __webpack_require__(34)
+	var uid = 0
+
+	module.exports = {
+
+	  /**
+	   * Setup.
+	   */
+
+	  bind: function () {
+	    // uid as a cache identifier
+	    this.id = '__v_repeat_' + (++uid)
+	    // we need to insert the objToArray converter
+	    // as the first read filter, because it has to be invoked
+	    // before any user filters. (can't do it in `update`)
+	    if (!this.filters) {
+	      this.filters = {}
+	    }
+	    // add the object -> array convert filter
+	    var objectConverter = _.bind(objToArray, this)
+	    if (!this.filters.read) {
+	      this.filters.read = [objectConverter]
+	    } else {
+	      this.filters.read.unshift(objectConverter)
+	    }
+	    // setup ref node
+	    this.ref = document.createComment('v-repeat')
+	    _.replace(this.el, this.ref)
+	    // check if this is a block repeat
+	    this.template = this.el.tagName === 'TEMPLATE'
+	      ? templateParser.parse(this.el, true)
+	      : this.el
+	    // check other directives that need to be handled
+	    // at v-repeat level
+	    this.checkIf()
+	    this.checkRef()
+	    this.checkComponent()
+	    // check for trackby param
+	    this.idKey =
+	      this._checkParam('track-by') ||
+	      this._checkParam('trackby') // 0.11.0 compat
+	    // cache for primitive value instances
+	    this.cache = Object.create(null)
+	  },
+
+	  /**
+	   * Warn against v-if usage.
+	   */
+
+	  checkIf: function () {
+	    if (_.attr(this.el, 'if') !== null) {
+	      _.warn(
+	        'Don\'t use v-if with v-repeat. ' +
+	        'Use v-show or the "filterBy" filter instead.'
+	      )
+	    }
+	  },
+
+	  /**
+	   * Check if v-ref/ v-el is also present.
+	   */
+
+	  checkRef: function () {
+	    var refID = _.attr(this.el, 'ref')
+	    this.refID = refID
+	      ? this.vm.$interpolate(refID)
+	      : null
+	    var elId = _.attr(this.el, 'el')
+	    this.elId = elId
+	      ? this.vm.$interpolate(elId)
+	      : null
+	  },
+
+	  /**
+	   * Check the component constructor to use for repeated
+	   * instances. If static we resolve it now, otherwise it
+	   * needs to be resolved at build time with actual data.
+	   */
+
+	  checkComponent: function () {
+	    var id = _.attr(this.el, 'component')
+	    var options = this.vm.$options
+	    if (!id) {
+	      this.Ctor = _.Vue // default constructor
+	      this.inherit = true // inline repeats should inherit
+	      // important: transclude with no options, just
+	      // to ensure block start and block end
+	      this.template = transclude(this.template)
+	      this._linkFn = compile(this.template, options)
+	    } else {
+	      this._asComponent = true
+	      var tokens = textParser.parse(id)
+	      if (!tokens) { // static component
+	        var Ctor = this.Ctor = options.components[id]
+	        _.assertAsset(Ctor, 'component', id)
+	        // If there's no parent scope directives and no
+	        // content to be transcluded, we can optimize the
+	        // rendering by pre-transcluding + compiling here
+	        // and provide a link function to every instance.
+	        if (!this.el.hasChildNodes() &&
+	            !this.el.hasAttributes()) {
+	          // merge an empty object with owner vm as parent
+	          // so child vms can access parent assets.
+	          var merged = mergeOptions(Ctor.options, {}, {
+	            $parent: this.vm
+	          })
+	          this.template = transclude(this.template, merged)
+	          this._linkFn = compile(this.template, merged, false, true)
+	        }
+	      } else {
+	        // to be resolved later
+	        var ctorExp = textParser.tokensToExp(tokens)
+	        this.ctorGetter = expParser.parse(ctorExp).get
+	      }
+	    }
+	  },
+
+	  /**
+	   * Update.
+	   * This is called whenever the Array mutates.
+	   *
+	   * @param {Array} data
+	   */
+
+	  update: function (data) {
+	    if (typeof data === 'number') {
+	      data = range(data)
+	    }
+	    this.vms = this.diff(data || [], this.vms)
+	    // update v-ref
+	    if (this.refID) {
+	      this.vm.$[this.refID] = this.vms
+	    }
+	    if (this.elId) {
+	      this.vm.$$[this.elId] = this.vms.map(function (vm) {
+	        return vm.$el
+	      })
+	    }
+	  },
+
+	  /**
+	   * Diff, based on new data and old data, determine the
+	   * minimum amount of DOM manipulations needed to make the
+	   * DOM reflect the new data Array.
+	   *
+	   * The algorithm diffs the new data Array by storing a
+	   * hidden reference to an owner vm instance on previously
+	   * seen data. This allows us to achieve O(n) which is
+	   * better than a levenshtein distance based algorithm,
+	   * which is O(m * n).
+	   *
+	   * @param {Array} data
+	   * @param {Array} oldVms
+	   * @return {Array}
+	   */
+
+	  diff: function (data, oldVms) {
+	    var idKey = this.idKey
+	    var converted = this.converted
+	    var ref = this.ref
+	    var alias = this.arg
+	    var init = !oldVms
+	    var vms = new Array(data.length)
+	    var obj, raw, vm, i, l
+	    // First pass, go through the new Array and fill up
+	    // the new vms array. If a piece of data has a cached
+	    // instance for it, we reuse it. Otherwise build a new
+	    // instance.
+	    for (i = 0, l = data.length; i < l; i++) {
+	      obj = data[i]
+	      raw = converted ? obj.value : obj
+	      vm = !init && this.getVm(raw)
+	      if (vm) { // reusable instance
+	        vm._reused = true
+	        vm.$index = i // update $index
+	        if (converted) {
+	          vm.$key = obj.key // update $key
+	        }
+	        if (idKey) { // swap track by id data
+	          if (alias) {
+	            vm[alias] = raw
+	          } else {
+	            vm._setData(raw)
+	          }
+	        }
+	      } else { // new instance
+	        vm = this.build(obj, i)
+	        vm._new = true
+	      }
+	      vms[i] = vm
+	      // insert if this is first run
+	      if (init) {
+	        vm.$before(ref)
+	      }
+	    }
+	    // if this is the first run, we're done.
+	    if (init) {
+	      return vms
+	    }
+	    // Second pass, go through the old vm instances and
+	    // destroy those who are not reused (and remove them
+	    // from cache)
+	    for (i = 0, l = oldVms.length; i < l; i++) {
+	      vm = oldVms[i]
+	      if (!vm._reused) {
+	        this.uncacheVm(vm)
+	        vm.$destroy(true)
+	      }
+	    }
+	    // final pass, move/insert new instances into the
+	    // right place. We're going in reverse here because
+	    // insertBefore relies on the next sibling to be
+	    // resolved.
+	    var targetNext, currentNext
+	    i = vms.length
+	    while (i--) {
+	      vm = vms[i]
+	      // this is the vm that we should be in front of
+	      targetNext = vms[i + 1]
+	      if (!targetNext) {
+	        // This is the last item. If it's reused then
+	        // everything else will eventually be in the right
+	        // place, so no need to touch it. Otherwise, insert
+	        // it.
+	        if (!vm._reused) {
+	          vm.$before(ref)
+	        }
+	      } else {
+	        if (vm._reused) {
+	          // this is the vm we are actually in front of
+	          currentNext = findNextVm(vm, ref)
+	          // we only need to move if we are not in the right
+	          // place already.
+	          if (currentNext !== targetNext) {
+	            vm.$before(targetNext.$el, null, false)
+	          }
+	        } else {
+	          // new instance, insert to existing next
+	          vm.$before(targetNext.$el)
+	        }
+	      }
+	      vm._new = false
+	      vm._reused = false
+	    }
+	    return vms
+	  },
+
+	  /**
+	   * Build a new instance and cache it.
+	   *
+	   * @param {Object} data
+	   * @param {Number} index
+	   */
+
+	  build: function (data, index) {
+	    var original = data
+	    var meta = { $index: index }
+	    if (this.converted) {
+	      meta.$key = original.key
+	    }
+	    var raw = this.converted ? data.value : data
+	    var alias = this.arg
+	    var hasAlias = !isPlainObject(raw) || alias
+	    // wrap the raw data with alias
+	    data = hasAlias ? {} : raw
+	    if (alias) {
+	      data[alias] = raw
+	    } else if (hasAlias) {
+	      meta.$value = raw
+	    }
+	    // resolve constructor
+	    var Ctor = this.Ctor || this.resolveCtor(data, meta)
+	    var vm = this.vm.$addChild({
+	      el: templateParser.clone(this.template),
+	      _asComponent: this._asComponent,
+	      _linkFn: this._linkFn,
+	      _meta: meta,
+	      data: data,
+	      inherit: this.inherit
+	    }, Ctor)
+	    // cache instance
+	    this.cacheVm(raw, vm)
+	    return vm
+	  },
+
+	  /**
+	   * Resolve a contructor to use for an instance.
+	   * The tricky part here is that there could be dynamic
+	   * components depending on instance data.
+	   *
+	   * @param {Object} data
+	   * @param {Object} meta
+	   * @return {Function}
+	   */
+
+	  resolveCtor: function (data, meta) {
+	    // create a temporary context object and copy data
+	    // and meta properties onto it.
+	    // use _.define to avoid accidentally overwriting scope
+	    // properties.
+	    var context = Object.create(this.vm)
+	    var key
+	    for (key in data) {
+	      _.define(context, key, data[key])
+	    }
+	    for (key in meta) {
+	      _.define(context, key, meta[key])
+	    }
+	    var id = this.ctorGetter.call(context, context)
+	    var Ctor = this.vm.$options.components[id]
+	    _.assertAsset(Ctor, 'component', id)
+	    return Ctor
+	  },
+
+	  /**
+	   * Unbind, teardown everything
+	   */
+
+	  unbind: function () {
+	    if (this.refID) {
+	      this.vm.$[this.refID] = null
+	    }
+	    if (this.vms) {
+	      var i = this.vms.length
+	      var vm
+	      while (i--) {
+	        vm = this.vms[i]
+	        this.uncacheVm(vm)
+	        vm.$destroy()
+	      }
+	    }
+	  },
+
+	  /**
+	   * Cache a vm instance based on its data.
+	   *
+	   * If the data is an object, we save the vm's reference on
+	   * the data object as a hidden property. Otherwise we
+	   * cache them in an object and for each primitive value
+	   * there is an array in case there are duplicates.
+	   *
+	   * @param {Object} data
+	   * @param {Vue} vm
+	   */
+
+	  cacheVm: function (data, vm) {
+	    var idKey = this.idKey
+	    var cache = this.cache
+	    var id
+	    if (idKey) {
+	      id = data[idKey]
+	      if (!cache[id]) {
+	        cache[id] = vm
+	      } else {
+	        _.warn('Duplicate ID in v-repeat: ' + id)
+	      }
+	    } else if (isObject(data)) {
+	      id = this.id
+	      if (data.hasOwnProperty(id)) {
+	        if (data[id] === null) {
+	          data[id] = vm
+	        } else {
+	          _.warn(
+	            'Duplicate objects are not supported in v-repeat.'
+	          )
+	        }
+	      } else {
+	        _.define(data, this.id, vm)
+	      }
+	    } else {
+	      if (!cache[data]) {
+	        cache[data] = [vm]
+	      } else {
+	        cache[data].push(vm)
+	      }
+	    }
+	    vm._raw = data
+	  },
+
+	  /**
+	   * Try to get a cached instance from a piece of data.
+	   *
+	   * @param {Object} data
+	   * @return {Vue|undefined}
+	   */
+
+	  getVm: function (data) {
+	    if (this.idKey) {
+	      return this.cache[data[this.idKey]]
+	    } else if (isObject(data)) {
+	      return data[this.id]
+	    } else {
+	      var cached = this.cache[data]
+	      if (cached) {
+	        var i = 0
+	        var vm = cached[i]
+	        // since duplicated vm instances might be a reused
+	        // one OR a newly created one, we need to return the
+	        // first instance that is neither of these.
+	        while (vm && (vm._reused || vm._new)) {
+	          vm = cached[++i]
+	        }
+	        return vm
+	      }
+	    }
+	  },
+
+	  /**
+	   * Delete a cached vm instance.
+	   *
+	   * @param {Vue} vm
+	   */
+
+	  uncacheVm: function (vm) {
+	    var data = vm._raw
+	    if (this.idKey) {
+	      this.cache[data[this.idKey]] = null
+	    } else if (isObject(data)) {
+	      data[this.id] = null
+	      vm._raw = null
+	    } else {
+	      this.cache[data].pop()
+	    }
+	  }
+
+	}
+
+	/**
+	 * Helper to find the next element that is an instance
+	 * root node. This is necessary because a destroyed vm's
+	 * element could still be lingering in the DOM before its
+	 * leaving transition finishes, but its __vue__ reference
+	 * should have been removed so we can skip them.
+	 *
+	 * @param {Vue} vm
+	 * @param {CommentNode} ref
+	 * @return {Vue}
+	 */
+
+	function findNextVm (vm, ref) {
+	  var el = (vm._blockEnd || vm.$el).nextSibling
+	  while (!el.__vue__ && el !== ref) {
+	    el = el.nextSibling
+	  }
+	  return el.__vue__
+	}
+
+	/**
+	 * Attempt to convert non-Array objects to array.
+	 * This is the default filter installed to every v-repeat
+	 * directive.
+	 *
+	 * It will be called with **the directive** as `this`
+	 * context so that we can mark the repeat array as converted
+	 * from an object.
+	 *
+	 * @param {*} obj
+	 * @return {Array}
+	 * @private
+	 */
+
+	function objToArray (obj) {
+	  if (!isPlainObject(obj)) {
+	    return obj
+	  }
+	  var keys = Object.keys(obj)
+	  var i = keys.length
+	  var res = new Array(i)
+	  var key
+	  while (i--) {
+	    key = keys[i]
+	    res[i] = {
+	      key: key,
+	      value: obj[key]
+	    }
+	  }
+	  // `this` points to the repeat directive instance
+	  this.converted = true
+	  return res
+	}
+
+	/**
+	 * Create a range array from given number.
+	 *
+	 * @param {Number} n
+	 * @return {Array}
+	 */
+
+	function range (n) {
+	  var i = -1
+	  var ret = new Array(n)
+	  while (++i < n) {
+	    ret[i] = i
+	  }
+	  return ret
+	}
+
+/***/ },
+/* 65 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var compile = __webpack_require__(36)
+	var templateParser = __webpack_require__(40)
+	var transition = __webpack_require__(70)
+
+	module.exports = {
+
+	  bind: function () {
+	    var el = this.el
+	    if (!el.__vue__) {
+	      this.start = document.createComment('v-if-start')
+	      this.end = document.createComment('v-if-end')
+	      _.replace(el, this.end)
+	      _.before(this.start, this.end)
+	      if (el.tagName === 'TEMPLATE') {
+	        this.template = templateParser.parse(el, true)
+	      } else {
+	        this.template = document.createDocumentFragment()
+	        this.template.appendChild(el)
+	      }
+	      // compile the nested partial
+	      this.linker = compile(
+	        this.template,
+	        this.vm.$options,
+	        true
+	      )
+	    } else {
+	      this.invalid = true
+	      _.warn(
+	        'v-if="' + this.expression + '" cannot be ' +
+	        'used on an already mounted instance.'
+	      )
+	    }
+	  },
+
+	  update: function (value) {
+	    if (this.invalid) return
+	    if (value) {
+	      this.insert()
+	    } else {
+	      this.teardown()
+	    }
+	  },
+
+	  insert: function () {
+	    // avoid duplicate inserts, since update() can be
+	    // called with different truthy values
+	    if (!this.unlink) {
+	      this.compile(this.template) 
+	    }
+	  },
+
+	  compile: function (template) {
+	    var vm = this.vm
+	    var frag = templateParser.clone(template)
+	    var originalChildLength = vm._children.length
+	    this.unlink = this.linker
+	      ? this.linker(vm, frag)
+	      : vm.$compile(frag)
+	    transition.blockAppend(frag, this.end, vm)
+	    this.children = vm._children.slice(originalChildLength)
+	    if (this.children.length && _.inDoc(vm.$el)) {
+	      this.children.forEach(function (child) {
+	        child._callHook('attached')
+	      })
+	    }
+	  },
+
+	  teardown: function () {
+	    if (!this.unlink) return
+	    transition.blockRemove(this.start, this.end, this.vm)
+	    if (this.children && _.inDoc(this.vm.$el)) {
+	      this.children.forEach(function (child) {
+	        if (!child._isDestroyed) {
+	          child._callHook('detached')
+	        }
+	      })
+	    }
+	    this.unlink()
+	    this.unlink = null
+	  }
+
+	}
+
+/***/ },
+/* 66 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var Watcher = __webpack_require__(45)
+
+	module.exports = {
+
+	  priority: 900,
+
+	  bind: function () {
+
+	    var child = this.vm
+	    var parent = child.$parent
+	    var childKey = this.arg || '$data'
+	    var parentKey = this.expression
+
+	    if (this.el !== child.$el) {
+	      _.warn(
+	        'v-with can only be used on instance root elements.'
+	      )
+	    } else if (!parent) {
+	      _.warn(
+	        'v-with must be used on an instance with a parent.'
+	      )
+	    } else {
+
+	      // simple lock to avoid circular updates.
+	      // without this it would stabilize too, but this makes
+	      // sure it doesn't cause other watchers to re-evaluate.
+	      var locked = false
+	      var lock = function () {
+	        locked = true
+	        _.nextTick(unlock)
+	      }
+	      var unlock = function () {
+	        locked = false
+	      }
+
+	      this.parentWatcher = new Watcher(
+	        parent,
+	        parentKey,
+	        function (val) {
+	          if (!locked) {
+	            lock()
+	            child.$set(childKey, val)
+	          }
+	        }
+	      )
+	      
+	      // set the child initial value first, before setting
+	      // up the child watcher to avoid triggering it
+	      // immediately.
+	      child.$set(childKey, this.parentWatcher.value)
+
+	      this.childWatcher = new Watcher(
+	        child,
+	        childKey,
+	        function (val) {
+	          if (!locked) {
+	            lock()
+	            parent.$set(parentKey, val)
+	          }
+	        }
+	      )
+	    }
+	  },
+
+	  unbind: function () {
+	    if (this.parentWatcher) {
+	      this.parentWatcher.teardown()
+	      this.childWatcher.teardown()
+	    }
+	  }
+
+	}
+
+/***/ },
+/* 67 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+
+	module.exports = { 
+
+	  bind: function () {
+	    var child = this.el.__vue__
+	    if (!child || this.vm !== child.$parent) {
+	      _.warn(
+	        '`v-events` should only be used on a child component ' +
+	        'from the parent template.'
+	      )
+	      return
+	    }
+	    var method = this.vm[this.expression]
+	    if (!method) {
+	      _.warn(
+	        '`v-events` cannot find method "' + this.expression +
+	        '" on the parent instance.'
+	      )
+	    }
+	    child.$on(this.arg, method)
+	  }
+
+	  // when child is destroyed, all events are turned off,
+	  // so no need for unbind here.
+
+	}
+
+/***/ },
+/* 68 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var Path = __webpack_require__(38)
+
+	/**
+	 * Filter filter for v-repeat
+	 *
+	 * @param {String} searchKey
+	 * @param {String} [delimiter]
+	 * @param {String} dataKey
+	 */
+
+	exports.filterBy = function (arr, searchKey, delimiter, dataKey) {
+	  // allow optional `in` delimiter
+	  // because why not
+	  if (delimiter && delimiter !== 'in') {
+	    dataKey = delimiter
+	  }
+	  // get the search string
+	  var search =
+	    _.stripQuotes(searchKey) ||
+	    this.$get(searchKey)
+	  if (!search) {
+	    return arr
+	  }
+	  search = ('' + search).toLowerCase()
+	  // get the optional dataKey
+	  dataKey =
+	    dataKey &&
+	    (_.stripQuotes(dataKey) || this.$get(dataKey))
+	  return arr.filter(function (item) {
+	    return dataKey
+	      ? contains(Path.get(item, dataKey), search)
+	      : contains(item, search)
+	  })
+	}
+
+	/**
+	 * Filter filter for v-repeat
+	 *
+	 * @param {String} sortKey
+	 * @param {String} reverseKey
+	 */
+
+	exports.orderBy = function (arr, sortKey, reverseKey) {
+	  var key =
+	    _.stripQuotes(sortKey) ||
+	    this.$get(sortKey)
+	  if (!key) {
+	    return arr
+	  }
+	  var order = 1
+	  if (reverseKey) {
+	    if (reverseKey === '-1') {
+	      order = -1
+	    } else if (reverseKey.charCodeAt(0) === 0x21) { // !
+	      reverseKey = reverseKey.slice(1)
+	      order = this.$get(reverseKey) ? 1 : -1
+	    } else {
+	      order = this.$get(reverseKey) ? -1 : 1
+	    }
+	  }
+	  // sort on a copy to avoid mutating original array
+	  return arr.slice().sort(function (a, b) {
+	    a = Path.get(a, key)
+	    b = Path.get(b, key)
+	    return a === b ? 0 : a > b ? order : -order
+	  })
+	}
+
+	/**
+	 * String contain helper
+	 *
+	 * @param {*} val
+	 * @param {String} search
+	 */
+
+	function contains (val, search) {
+	  if (_.isObject(val)) {
+	    for (var key in val) {
+	      if (contains(val[key], search)) {
+	        return true
+	      }
+	    }
+	  } else if (val != null) {
+	    return val.toString().toLowerCase().indexOf(search) > -1
+	  }
+	}
+
+/***/ },
+/* 69 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var config = __webpack_require__(35)
+	var Dep = __webpack_require__(43)
+	var arrayMethods = __webpack_require__(127)
+	var arrayKeys = Object.getOwnPropertyNames(arrayMethods)
+	__webpack_require__(128)
+
+	var uid = 0
+
+	/**
+	 * Type enums
+	 */
+
+	var ARRAY  = 0
+	var OBJECT = 1
+
+	/**
+	 * Augment an target Object or Array by intercepting
+	 * the prototype chain using __proto__
+	 *
+	 * @param {Object|Array} target
+	 * @param {Object} proto
+	 */
+
+	function protoAugment (target, src) {
+	  target.__proto__ = src
+	}
+
+	/**
+	 * Augment an target Object or Array by defining
+	 * hidden properties.
+	 *
+	 * @param {Object|Array} target
+	 * @param {Object} proto
+	 */
+
+	function copyAugment (target, src, keys) {
+	  var i = keys.length
+	  var key
+	  while (i--) {
+	    key = keys[i]
+	    _.define(target, key, src[key])
+	  }
+	}
+
+	/**
+	 * Observer class that are attached to each observed
+	 * object. Once attached, the observer converts target
+	 * object's property keys into getter/setters that
+	 * collect dependencies and dispatches updates.
+	 *
+	 * @param {Array|Object} value
+	 * @param {Number} type
+	 * @constructor
+	 */
+
+	function Observer (value, type) {
+	  this.id = ++uid
+	  this.value = value
+	  this.active = true
+	  this.deps = []
+	  _.define(value, '__ob__', this)
+	  if (type === ARRAY) {
+	    var augment = config.proto && _.hasProto
+	      ? protoAugment
+	      : copyAugment
+	    augment(value, arrayMethods, arrayKeys)
+	    this.observeArray(value)
+	  } else if (type === OBJECT) {
+	    this.walk(value)
+	  }
+	}
+
+	Observer.target = null
+
+	var p = Observer.prototype
+
+	/**
+	 * Attempt to create an observer instance for a value,
+	 * returns the new observer if successfully observed,
+	 * or the existing observer if the value already has one.
+	 *
+	 * @param {*} value
+	 * @return {Observer|undefined}
+	 * @static
+	 */
+
+	Observer.create = function (value) {
+	  if (
+	    value &&
+	    value.hasOwnProperty('__ob__') &&
+	    value.__ob__ instanceof Observer
+	  ) {
+	    return value.__ob__
+	  } else if (_.isArray(value)) {
+	    return new Observer(value, ARRAY)
+	  } else if (
+	    _.isPlainObject(value) &&
+	    !value._isVue // avoid Vue instance
+	  ) {
+	    return new Observer(value, OBJECT)
+	  }
+	}
+
+	/**
+	 * Walk through each property and convert them into
+	 * getter/setters. This method should only be called when
+	 * value type is Object. Properties prefixed with `$` or `_`
+	 * and accessor properties are ignored.
+	 *
+	 * @param {Object} obj
+	 */
+
+	p.walk = function (obj) {
+	  var keys = Object.keys(obj)
+	  var i = keys.length
+	  var key, prefix
+	  while (i--) {
+	    key = keys[i]
+	    prefix = key.charCodeAt(0)
+	    if (prefix !== 0x24 && prefix !== 0x5F) { // skip $ or _
+	      this.convert(key, obj[key])
+	    }
+	  }
+	}
+
+	/**
+	 * Try to carete an observer for a child value,
+	 * and if value is array, link dep to the array.
+	 *
+	 * @param {*} val
+	 * @return {Dep|undefined}
+	 */
+
+	p.observe = function (val) {
+	  return Observer.create(val)
+	}
+
+	/**
+	 * Observe a list of Array items.
+	 *
+	 * @param {Array} items
+	 */
+
+	p.observeArray = function (items) {
+	  var i = items.length
+	  while (i--) {
+	    this.observe(items[i])
+	  }
+	}
+
+	/**
+	 * Convert a property into getter/setter so we can emit
+	 * the events when the property is accessed/changed.
+	 *
+	 * @param {String} key
+	 * @param {*} val
+	 */
+
+	p.convert = function (key, val) {
+	  var ob = this
+	  var childOb = ob.observe(val)
+	  var dep = new Dep()
+	  if (childOb) {
+	    childOb.deps.push(dep)
+	  }
+	  Object.defineProperty(ob.value, key, {
+	    enumerable: true,
+	    configurable: true,
+	    get: function () {
+	      // Observer.target is a watcher whose getter is
+	      // currently being evaluated.
+	      if (ob.active && Observer.target) {
+	        Observer.target.addDep(dep)
+	      }
+	      return val
+	    },
+	    set: function (newVal) {
+	      if (newVal === val) return
+	      // remove dep from old value
+	      var oldChildOb = val && val.__ob__
+	      if (oldChildOb) {
+	        var oldDeps = oldChildOb.deps
+	        oldDeps.splice(oldDeps.indexOf(dep), 1)
+	      }
+	      val = newVal
+	      // add dep to new value
+	      var newChildOb = ob.observe(newVal)
+	      if (newChildOb) {
+	        newChildOb.deps.push(dep)
+	      }
+	      dep.notify()
+	    }
+	  })
+	}
+
+	/**
+	 * Notify change on all self deps on an observer.
+	 * This is called when a mutable value mutates. e.g.
+	 * when an Array's mutating methods are called, or an
+	 * Object's $add/$delete are called.
+	 */
+
+	p.notify = function () {
+	  var deps = this.deps
+	  for (var i = 0, l = deps.length; i < l; i++) {
+	    deps[i].notify()
+	  }
+	}
+
+	/**
+	 * Add an owner vm, so that when $add/$delete mutations
+	 * happen we can notify owner vms to proxy the keys and
+	 * digest the watchers. This is only called when the object
+	 * is observed as an instance's root $data.
+	 *
+	 * @param {Vue} vm
+	 */
+
+	p.addVm = function (vm) {
+	  (this.vms = this.vms || []).push(vm)
+	}
+
+	/**
+	 * Remove an owner vm. This is called when the object is
+	 * swapped out as an instance's $data object.
+	 *
+	 * @param {Vue} vm
+	 */
+
+	p.removeVm = function (vm) {
+	  this.vms.splice(this.vms.indexOf(vm), 1)
+	}
+
+	module.exports = Observer
+
+
+/***/ },
+/* 70 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var applyCSSTransition = __webpack_require__(129)
+	var applyJSTransition = __webpack_require__(130)
+
+	/**
+	 * Append with transition.
+	 *
+	 * @oaram {Element} el
+	 * @param {Element} target
+	 * @param {Vue} vm
+	 * @param {Function} [cb]
+	 */
+
+	exports.append = function (el, target, vm, cb) {
+	  apply(el, 1, function () {
+	    target.appendChild(el)
+	  }, vm, cb)
+	}
+
+	/**
+	 * InsertBefore with transition.
+	 *
+	 * @oaram {Element} el
+	 * @param {Element} target
+	 * @param {Vue} vm
+	 * @param {Function} [cb]
+	 */
+
+	exports.before = function (el, target, vm, cb) {
+	  apply(el, 1, function () {
+	    _.before(el, target)
+	  }, vm, cb)
+	}
+
+	/**
+	 * Remove with transition.
+	 *
+	 * @oaram {Element} el
+	 * @param {Vue} vm
+	 * @param {Function} [cb]
+	 */
+
+	exports.remove = function (el, vm, cb) {
+	  apply(el, -1, function () {
+	    _.remove(el)
+	  }, vm, cb)
+	}
+
+	/**
+	 * Remove by appending to another parent with transition.
+	 * This is only used in block operations.
+	 *
+	 * @oaram {Element} el
+	 * @param {Element} target
+	 * @param {Vue} vm
+	 * @param {Function} [cb]
+	 */
+
+	exports.removeThenAppend = function (el, target, vm, cb) {
+	  apply(el, -1, function () {
+	    target.appendChild(el)
+	  }, vm, cb)
+	}
+
+	/**
+	 * Append the childNodes of a fragment to target.
+	 *
+	 * @param {DocumentFragment} block
+	 * @param {Node} target
+	 * @param {Vue} vm
+	 */
+
+	exports.blockAppend = function (block, target, vm) {
+	  var nodes = _.toArray(block.childNodes)
+	  for (var i = 0, l = nodes.length; i < l; i++) {
+	    exports.before(nodes[i], target, vm)
+	  }
+	}
+
+	/**
+	 * Remove a block of nodes between two edge nodes.
+	 *
+	 * @param {Node} start
+	 * @param {Node} end
+	 * @param {Vue} vm
+	 */
+
+	exports.blockRemove = function (start, end, vm) {
+	  var node = start.nextSibling
+	  var next
+	  while (node !== end) {
+	    next = node.nextSibling
+	    exports.remove(node, vm)
+	    node = next
+	  }
+	}
+
+	/**
+	 * Apply transitions with an operation callback.
+	 *
+	 * @oaram {Element} el
+	 * @param {Number} direction
+	 *                  1: enter
+	 *                 -1: leave
+	 * @param {Function} op - the actual DOM operation
+	 * @param {Vue} vm
+	 * @param {Function} [cb]
+	 */
+
+	var apply = exports.apply = function (el, direction, op, vm, cb) {
+	  var transData = el.__v_trans
+	  if (
+	    !transData ||
+	    !vm._isCompiled ||
+	    // if the vm is being manipulated by a parent directive
+	    // during the parent's compilation phase, skip the
+	    // animation.
+	    (vm.$parent && !vm.$parent._isCompiled)
+	  ) {
+	    op()
+	    if (cb) cb()
+	    return
+	  }
+	  // determine the transition type on the element
+	  var jsTransition = transData.fns
+	  if (jsTransition) {
+	    // js
+	    applyJSTransition(
+	      el,
+	      direction,
+	      op,
+	      transData,
+	      jsTransition,
+	      vm,
+	      cb
+	    )
+	  } else if (_.transitionEndEvent) {
+	    // css
+	    applyCSSTransition(
+	      el,
+	      direction,
+	      op,
+	      transData,
+	      cb
+	    )
+	  } else {
+	    // not applicable
+	    op()
+	    if (cb) cb()
+	  }
+	}
+
+/***/ },
+/* 71 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+
+	var handlers = {
+	  _default: __webpack_require__(131),
+	  radio: __webpack_require__(132),
+	  select: __webpack_require__(133),
+	  checkbox: __webpack_require__(134)
+	}
+
+	module.exports = {
+
+	  priority: 800,
+	  twoWay: true,
+	  handlers: handlers,
+
+	  /**
+	   * Possible elements:
+	   *   <select>
+	   *   <textarea>
+	   *   <input type="*">
+	   *     - text
+	   *     - checkbox
+	   *     - radio
+	   *     - number
+	   *     - TODO: more types may be supplied as a plugin
+	   */
+
+	  bind: function () {
+	    // friendly warning...
+	    var filters = this.filters
+	    if (filters && filters.read && !filters.write) {
+	      _.warn(
+	        'It seems you are using a read-only filter with ' +
+	        'v-model. You might want to use a two-way filter ' +
+	        'to ensure correct behavior.'
+	      )
+	    }
+	    var el = this.el
+	    var tag = el.tagName
+	    var handler
+	    if (tag === 'INPUT') {
+	      handler = handlers[el.type] || handlers._default
+	    } else if (tag === 'SELECT') {
+	      handler = handlers.select
+	    } else if (tag === 'TEXTAREA') {
+	      handler = handlers._default
+	    } else {
+	      _.warn("v-model doesn't support element type: " + tag)
+	      return
+	    }
+	    handler.bind.call(this)
+	    this.update = handler.update
+	    this.unbind = handler.unbind
+	  }
+
+	}
+
+/***/ },
+/* 72 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var inserted = {};
+
+	module.exports = function (css, options) {
+	    if (inserted[css]) return;
+	    inserted[css] = true;
+	    
+	    var elem = document.createElement('style');
+	    elem.setAttribute('type', 'text/css');
+
+	    if ('textContent' in elem) {
+	      elem.textContent = css;
+	    } else {
+	      elem.styleSheet.cssText = css;
+	    }
+	    
+	    var head = document.getElementsByTagName('head')[0];
+	    if (options && options.prepend) {
+	        head.insertBefore(elem, head.childNodes[0]);
+	    } else {
+	        head.appendChild(elem);
+	    }
+	};
+
+
+/***/ },
+/* 73 */,
+/* 74 */,
+/* 75 */,
+/* 76 */,
+/* 77 */,
+/* 78 */,
+/* 79 */,
+/* 80 */,
+/* 81 */,
+/* 82 */,
+/* 83 */,
+/* 84 */,
+/* 85 */,
+/* 86 */,
+/* 87 */,
+/* 88 */,
+/* 89 */,
+/* 90 */,
+/* 91 */,
+/* 92 */,
+/* 93 */,
+/* 94 */,
+/* 95 */,
+/* 96 */,
+/* 97 */,
+/* 98 */,
+/* 99 */,
+/* 100 */,
+/* 101 */,
+/* 102 */,
+/* 103 */,
+/* 104 */,
+/* 105 */,
+/* 106 */,
+/* 107 */,
+/* 108 */,
+/* 109 */,
+/* 110 */,
+/* 111 */,
+/* 112 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*** IMPORTS FROM imports-loader ***/
+	var jQuery = __webpack_require__(4);
+
+	/* ========================================================================
+	 * Bootstrap: transition.js v3.3.4
+	 * http://getbootstrap.com/javascript/#transitions
+	 * ========================================================================
+	 * Copyright 2011-2015 Twitter, Inc.
+	 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+	 * ======================================================================== */
+
+
+	+function ($) {
+	  'use strict';
+
+	  // CSS TRANSITION SUPPORT (Shoutout: http://www.modernizr.com/)
+	  // ============================================================
+
+	  function transitionEnd() {
+	    var el = document.createElement('bootstrap')
+
+	    var transEndEventNames = {
+	      WebkitTransition : 'webkitTransitionEnd',
+	      MozTransition    : 'transitionend',
+	      OTransition      : 'oTransitionEnd otransitionend',
+	      transition       : 'transitionend'
+	    }
+
+	    for (var name in transEndEventNames) {
+	      if (el.style[name] !== undefined) {
+	        return { end: transEndEventNames[name] }
+	      }
+	    }
+
+	    return false // explicit for ie8 (  ._.)
+	  }
+
+	  // http://blog.alexmaccaw.com/css-transitions
+	  $.fn.emulateTransitionEnd = function (duration) {
+	    var called = false
+	    var $el = this
+	    $(this).one('bsTransitionEnd', function () { called = true })
+	    var callback = function () { if (!called) $($el).trigger($.support.transition.end) }
+	    setTimeout(callback, duration)
+	    return this
+	  }
+
+	  $(function () {
+	    $.support.transition = transitionEnd()
+
+	    if (!$.support.transition) return
+
+	    $.event.special.bsTransitionEnd = {
+	      bindType: $.support.transition.end,
+	      delegateType: $.support.transition.end,
+	      handle: function (e) {
+	        if ($(e.target).is(this)) return e.handleObj.handler.apply(this, arguments)
+	      }
+	    }
+	  })
+
+	}(jQuery);
+
+
+/***/ },
+/* 113 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*** IMPORTS FROM imports-loader ***/
+	var jQuery = __webpack_require__(4);
+
+	/* ========================================================================
+	 * Bootstrap: alert.js v3.3.4
+	 * http://getbootstrap.com/javascript/#alerts
+	 * ========================================================================
+	 * Copyright 2011-2015 Twitter, Inc.
+	 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+	 * ======================================================================== */
+
+
+	+function ($) {
+	  'use strict';
+
+	  // ALERT CLASS DEFINITION
+	  // ======================
+
+	  var dismiss = '[data-dismiss="alert"]'
+	  var Alert   = function (el) {
+	    $(el).on('click', dismiss, this.close)
+	  }
+
+	  Alert.VERSION = '3.3.4'
+
+	  Alert.TRANSITION_DURATION = 150
+
+	  Alert.prototype.close = function (e) {
+	    var $this    = $(this)
+	    var selector = $this.attr('data-target')
+
+	    if (!selector) {
+	      selector = $this.attr('href')
+	      selector = selector && selector.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
+	    }
+
+	    var $parent = $(selector)
+
+	    if (e) e.preventDefault()
+
+	    if (!$parent.length) {
+	      $parent = $this.closest('.alert')
+	    }
+
+	    $parent.trigger(e = $.Event('close.bs.alert'))
+
+	    if (e.isDefaultPrevented()) return
+
+	    $parent.removeClass('in')
+
+	    function removeElement() {
+	      // detach from parent, fire event then clean up data
+	      $parent.detach().trigger('closed.bs.alert').remove()
+	    }
+
+	    $.support.transition && $parent.hasClass('fade') ?
+	      $parent
+	        .one('bsTransitionEnd', removeElement)
+	        .emulateTransitionEnd(Alert.TRANSITION_DURATION) :
+	      removeElement()
+	  }
+
+
+	  // ALERT PLUGIN DEFINITION
+	  // =======================
+
+	  function Plugin(option) {
+	    return this.each(function () {
+	      var $this = $(this)
+	      var data  = $this.data('bs.alert')
+
+	      if (!data) $this.data('bs.alert', (data = new Alert(this)))
+	      if (typeof option == 'string') data[option].call($this)
+	    })
+	  }
+
+	  var old = $.fn.alert
+
+	  $.fn.alert             = Plugin
+	  $.fn.alert.Constructor = Alert
+
+
+	  // ALERT NO CONFLICT
+	  // =================
+
+	  $.fn.alert.noConflict = function () {
+	    $.fn.alert = old
+	    return this
+	  }
+
+
+	  // ALERT DATA-API
+	  // ==============
+
+	  $(document).on('click.bs.alert.data-api', dismiss, Alert.prototype.close)
+
+	}(jQuery);
+
+
+/***/ },
+/* 114 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*** IMPORTS FROM imports-loader ***/
+	var jQuery = __webpack_require__(4);
+
+	/* ========================================================================
+	 * Bootstrap: button.js v3.3.4
+	 * http://getbootstrap.com/javascript/#buttons
+	 * ========================================================================
+	 * Copyright 2011-2015 Twitter, Inc.
+	 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+	 * ======================================================================== */
+
+
+	+function ($) {
+	  'use strict';
+
+	  // BUTTON PUBLIC CLASS DEFINITION
+	  // ==============================
+
+	  var Button = function (element, options) {
+	    this.$element  = $(element)
+	    this.options   = $.extend({}, Button.DEFAULTS, options)
+	    this.isLoading = false
+	  }
+
+	  Button.VERSION  = '3.3.4'
+
+	  Button.DEFAULTS = {
+	    loadingText: 'loading...'
+	  }
+
+	  Button.prototype.setState = function (state) {
+	    var d    = 'disabled'
+	    var $el  = this.$element
+	    var val  = $el.is('input') ? 'val' : 'html'
+	    var data = $el.data()
+
+	    state = state + 'Text'
+
+	    if (data.resetText == null) $el.data('resetText', $el[val]())
+
+	    // push to event loop to allow forms to submit
+	    setTimeout($.proxy(function () {
+	      $el[val](data[state] == null ? this.options[state] : data[state])
+
+	      if (state == 'loadingText') {
+	        this.isLoading = true
+	        $el.addClass(d).attr(d, d)
+	      } else if (this.isLoading) {
+	        this.isLoading = false
+	        $el.removeClass(d).removeAttr(d)
+	      }
+	    }, this), 0)
+	  }
+
+	  Button.prototype.toggle = function () {
+	    var changed = true
+	    var $parent = this.$element.closest('[data-toggle="buttons"]')
+
+	    if ($parent.length) {
+	      var $input = this.$element.find('input')
+	      if ($input.prop('type') == 'radio') {
+	        if ($input.prop('checked') && this.$element.hasClass('active')) changed = false
+	        else $parent.find('.active').removeClass('active')
+	      }
+	      if (changed) $input.prop('checked', !this.$element.hasClass('active')).trigger('change')
+	    } else {
+	      this.$element.attr('aria-pressed', !this.$element.hasClass('active'))
+	    }
+
+	    if (changed) this.$element.toggleClass('active')
+	  }
+
+
+	  // BUTTON PLUGIN DEFINITION
+	  // ========================
+
+	  function Plugin(option) {
+	    return this.each(function () {
+	      var $this   = $(this)
+	      var data    = $this.data('bs.button')
+	      var options = typeof option == 'object' && option
+
+	      if (!data) $this.data('bs.button', (data = new Button(this, options)))
+
+	      if (option == 'toggle') data.toggle()
+	      else if (option) data.setState(option)
+	    })
+	  }
+
+	  var old = $.fn.button
+
+	  $.fn.button             = Plugin
+	  $.fn.button.Constructor = Button
+
+
+	  // BUTTON NO CONFLICT
+	  // ==================
+
+	  $.fn.button.noConflict = function () {
+	    $.fn.button = old
+	    return this
+	  }
+
+
+	  // BUTTON DATA-API
+	  // ===============
+
+	  $(document)
+	    .on('click.bs.button.data-api', '[data-toggle^="button"]', function (e) {
+	      var $btn = $(e.target)
+	      if (!$btn.hasClass('btn')) $btn = $btn.closest('.btn')
+	      Plugin.call($btn, 'toggle')
+	      e.preventDefault()
+	    })
+	    .on('focus.bs.button.data-api blur.bs.button.data-api', '[data-toggle^="button"]', function (e) {
+	      $(e.target).closest('.btn').toggleClass('focus', /^focus(in)?$/.test(e.type))
+	    })
+
+	}(jQuery);
+
+
+/***/ },
+/* 115 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*** IMPORTS FROM imports-loader ***/
+	var jQuery = __webpack_require__(4);
+
+	/* ========================================================================
+	 * Bootstrap: carousel.js v3.3.4
+	 * http://getbootstrap.com/javascript/#carousel
+	 * ========================================================================
+	 * Copyright 2011-2015 Twitter, Inc.
+	 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+	 * ======================================================================== */
+
+
+	+function ($) {
+	  'use strict';
+
+	  // CAROUSEL CLASS DEFINITION
+	  // =========================
+
+	  var Carousel = function (element, options) {
+	    this.$element    = $(element)
+	    this.$indicators = this.$element.find('.carousel-indicators')
+	    this.options     = options
+	    this.paused      = null
+	    this.sliding     = null
+	    this.interval    = null
+	    this.$active     = null
+	    this.$items      = null
+
+	    this.options.keyboard && this.$element.on('keydown.bs.carousel', $.proxy(this.keydown, this))
+
+	    this.options.pause == 'hover' && !('ontouchstart' in document.documentElement) && this.$element
+	      .on('mouseenter.bs.carousel', $.proxy(this.pause, this))
+	      .on('mouseleave.bs.carousel', $.proxy(this.cycle, this))
+	  }
+
+	  Carousel.VERSION  = '3.3.4'
+
+	  Carousel.TRANSITION_DURATION = 600
+
+	  Carousel.DEFAULTS = {
+	    interval: 5000,
+	    pause: 'hover',
+	    wrap: true,
+	    keyboard: true
+	  }
+
+	  Carousel.prototype.keydown = function (e) {
+	    if (/input|textarea/i.test(e.target.tagName)) return
+	    switch (e.which) {
+	      case 37: this.prev(); break
+	      case 39: this.next(); break
+	      default: return
+	    }
+
+	    e.preventDefault()
+	  }
+
+	  Carousel.prototype.cycle = function (e) {
+	    e || (this.paused = false)
+
+	    this.interval && clearInterval(this.interval)
+
+	    this.options.interval
+	      && !this.paused
+	      && (this.interval = setInterval($.proxy(this.next, this), this.options.interval))
+
+	    return this
+	  }
+
+	  Carousel.prototype.getItemIndex = function (item) {
+	    this.$items = item.parent().children('.item')
+	    return this.$items.index(item || this.$active)
+	  }
+
+	  Carousel.prototype.getItemForDirection = function (direction, active) {
+	    var activeIndex = this.getItemIndex(active)
+	    var willWrap = (direction == 'prev' && activeIndex === 0)
+	                || (direction == 'next' && activeIndex == (this.$items.length - 1))
+	    if (willWrap && !this.options.wrap) return active
+	    var delta = direction == 'prev' ? -1 : 1
+	    var itemIndex = (activeIndex + delta) % this.$items.length
+	    return this.$items.eq(itemIndex)
+	  }
+
+	  Carousel.prototype.to = function (pos) {
+	    var that        = this
+	    var activeIndex = this.getItemIndex(this.$active = this.$element.find('.item.active'))
+
+	    if (pos > (this.$items.length - 1) || pos < 0) return
+
+	    if (this.sliding)       return this.$element.one('slid.bs.carousel', function () { that.to(pos) }) // yes, "slid"
+	    if (activeIndex == pos) return this.pause().cycle()
+
+	    return this.slide(pos > activeIndex ? 'next' : 'prev', this.$items.eq(pos))
+	  }
+
+	  Carousel.prototype.pause = function (e) {
+	    e || (this.paused = true)
+
+	    if (this.$element.find('.next, .prev').length && $.support.transition) {
+	      this.$element.trigger($.support.transition.end)
+	      this.cycle(true)
+	    }
+
+	    this.interval = clearInterval(this.interval)
+
+	    return this
+	  }
+
+	  Carousel.prototype.next = function () {
+	    if (this.sliding) return
+	    return this.slide('next')
+	  }
+
+	  Carousel.prototype.prev = function () {
+	    if (this.sliding) return
+	    return this.slide('prev')
+	  }
+
+	  Carousel.prototype.slide = function (type, next) {
+	    var $active   = this.$element.find('.item.active')
+	    var $next     = next || this.getItemForDirection(type, $active)
+	    var isCycling = this.interval
+	    var direction = type == 'next' ? 'left' : 'right'
+	    var that      = this
+
+	    if ($next.hasClass('active')) return (this.sliding = false)
+
+	    var relatedTarget = $next[0]
+	    var slideEvent = $.Event('slide.bs.carousel', {
+	      relatedTarget: relatedTarget,
+	      direction: direction
+	    })
+	    this.$element.trigger(slideEvent)
+	    if (slideEvent.isDefaultPrevented()) return
+
+	    this.sliding = true
+
+	    isCycling && this.pause()
+
+	    if (this.$indicators.length) {
+	      this.$indicators.find('.active').removeClass('active')
+	      var $nextIndicator = $(this.$indicators.children()[this.getItemIndex($next)])
+	      $nextIndicator && $nextIndicator.addClass('active')
+	    }
+
+	    var slidEvent = $.Event('slid.bs.carousel', { relatedTarget: relatedTarget, direction: direction }) // yes, "slid"
+	    if ($.support.transition && this.$element.hasClass('slide')) {
+	      $next.addClass(type)
+	      $next[0].offsetWidth // force reflow
+	      $active.addClass(direction)
+	      $next.addClass(direction)
+	      $active
+	        .one('bsTransitionEnd', function () {
+	          $next.removeClass([type, direction].join(' ')).addClass('active')
+	          $active.removeClass(['active', direction].join(' '))
+	          that.sliding = false
+	          setTimeout(function () {
+	            that.$element.trigger(slidEvent)
+	          }, 0)
+	        })
+	        .emulateTransitionEnd(Carousel.TRANSITION_DURATION)
+	    } else {
+	      $active.removeClass('active')
+	      $next.addClass('active')
+	      this.sliding = false
+	      this.$element.trigger(slidEvent)
+	    }
+
+	    isCycling && this.cycle()
+
+	    return this
+	  }
+
+
+	  // CAROUSEL PLUGIN DEFINITION
+	  // ==========================
+
+	  function Plugin(option) {
+	    return this.each(function () {
+	      var $this   = $(this)
+	      var data    = $this.data('bs.carousel')
+	      var options = $.extend({}, Carousel.DEFAULTS, $this.data(), typeof option == 'object' && option)
+	      var action  = typeof option == 'string' ? option : options.slide
+
+	      if (!data) $this.data('bs.carousel', (data = new Carousel(this, options)))
+	      if (typeof option == 'number') data.to(option)
+	      else if (action) data[action]()
+	      else if (options.interval) data.pause().cycle()
+	    })
+	  }
+
+	  var old = $.fn.carousel
+
+	  $.fn.carousel             = Plugin
+	  $.fn.carousel.Constructor = Carousel
+
+
+	  // CAROUSEL NO CONFLICT
+	  // ====================
+
+	  $.fn.carousel.noConflict = function () {
+	    $.fn.carousel = old
+	    return this
+	  }
+
+
+	  // CAROUSEL DATA-API
+	  // =================
+
+	  var clickHandler = function (e) {
+	    var href
+	    var $this   = $(this)
+	    var $target = $($this.attr('data-target') || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '')) // strip for ie7
+	    if (!$target.hasClass('carousel')) return
+	    var options = $.extend({}, $target.data(), $this.data())
+	    var slideIndex = $this.attr('data-slide-to')
+	    if (slideIndex) options.interval = false
+
+	    Plugin.call($target, options)
+
+	    if (slideIndex) {
+	      $target.data('bs.carousel').to(slideIndex)
+	    }
+
+	    e.preventDefault()
+	  }
+
+	  $(document)
+	    .on('click.bs.carousel.data-api', '[data-slide]', clickHandler)
+	    .on('click.bs.carousel.data-api', '[data-slide-to]', clickHandler)
+
+	  $(window).on('load', function () {
+	    $('[data-ride="carousel"]').each(function () {
+	      var $carousel = $(this)
+	      Plugin.call($carousel, $carousel.data())
+	    })
+	  })
+
+	}(jQuery);
+
+
+/***/ },
+/* 116 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*** IMPORTS FROM imports-loader ***/
+	var jQuery = __webpack_require__(4);
+
+	/* ========================================================================
+	 * Bootstrap: collapse.js v3.3.4
+	 * http://getbootstrap.com/javascript/#collapse
+	 * ========================================================================
+	 * Copyright 2011-2015 Twitter, Inc.
+	 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+	 * ======================================================================== */
+
+
+	+function ($) {
+	  'use strict';
+
+	  // COLLAPSE PUBLIC CLASS DEFINITION
+	  // ================================
+
+	  var Collapse = function (element, options) {
+	    this.$element      = $(element)
+	    this.options       = $.extend({}, Collapse.DEFAULTS, options)
+	    this.$trigger      = $('[data-toggle="collapse"][href="#' + element.id + '"],' +
+	                           '[data-toggle="collapse"][data-target="#' + element.id + '"]')
+	    this.transitioning = null
+
+	    if (this.options.parent) {
+	      this.$parent = this.getParent()
+	    } else {
+	      this.addAriaAndCollapsedClass(this.$element, this.$trigger)
+	    }
+
+	    if (this.options.toggle) this.toggle()
+	  }
+
+	  Collapse.VERSION  = '3.3.4'
+
+	  Collapse.TRANSITION_DURATION = 350
+
+	  Collapse.DEFAULTS = {
+	    toggle: true
+	  }
+
+	  Collapse.prototype.dimension = function () {
+	    var hasWidth = this.$element.hasClass('width')
+	    return hasWidth ? 'width' : 'height'
+	  }
+
+	  Collapse.prototype.show = function () {
+	    if (this.transitioning || this.$element.hasClass('in')) return
+
+	    var activesData
+	    var actives = this.$parent && this.$parent.children('.panel').children('.in, .collapsing')
+
+	    if (actives && actives.length) {
+	      activesData = actives.data('bs.collapse')
+	      if (activesData && activesData.transitioning) return
+	    }
+
+	    var startEvent = $.Event('show.bs.collapse')
+	    this.$element.trigger(startEvent)
+	    if (startEvent.isDefaultPrevented()) return
+
+	    if (actives && actives.length) {
+	      Plugin.call(actives, 'hide')
+	      activesData || actives.data('bs.collapse', null)
+	    }
+
+	    var dimension = this.dimension()
+
+	    this.$element
+	      .removeClass('collapse')
+	      .addClass('collapsing')[dimension](0)
+	      .attr('aria-expanded', true)
+
+	    this.$trigger
+	      .removeClass('collapsed')
+	      .attr('aria-expanded', true)
+
+	    this.transitioning = 1
+
+	    var complete = function () {
+	      this.$element
+	        .removeClass('collapsing')
+	        .addClass('collapse in')[dimension]('')
+	      this.transitioning = 0
+	      this.$element
+	        .trigger('shown.bs.collapse')
+	    }
+
+	    if (!$.support.transition) return complete.call(this)
+
+	    var scrollSize = $.camelCase(['scroll', dimension].join('-'))
+
+	    this.$element
+	      .one('bsTransitionEnd', $.proxy(complete, this))
+	      .emulateTransitionEnd(Collapse.TRANSITION_DURATION)[dimension](this.$element[0][scrollSize])
+	  }
+
+	  Collapse.prototype.hide = function () {
+	    if (this.transitioning || !this.$element.hasClass('in')) return
+
+	    var startEvent = $.Event('hide.bs.collapse')
+	    this.$element.trigger(startEvent)
+	    if (startEvent.isDefaultPrevented()) return
+
+	    var dimension = this.dimension()
+
+	    this.$element[dimension](this.$element[dimension]())[0].offsetHeight
+
+	    this.$element
+	      .addClass('collapsing')
+	      .removeClass('collapse in')
+	      .attr('aria-expanded', false)
+
+	    this.$trigger
+	      .addClass('collapsed')
+	      .attr('aria-expanded', false)
+
+	    this.transitioning = 1
+
+	    var complete = function () {
+	      this.transitioning = 0
+	      this.$element
+	        .removeClass('collapsing')
+	        .addClass('collapse')
+	        .trigger('hidden.bs.collapse')
+	    }
+
+	    if (!$.support.transition) return complete.call(this)
+
+	    this.$element
+	      [dimension](0)
+	      .one('bsTransitionEnd', $.proxy(complete, this))
+	      .emulateTransitionEnd(Collapse.TRANSITION_DURATION)
+	  }
+
+	  Collapse.prototype.toggle = function () {
+	    this[this.$element.hasClass('in') ? 'hide' : 'show']()
+	  }
+
+	  Collapse.prototype.getParent = function () {
+	    return $(this.options.parent)
+	      .find('[data-toggle="collapse"][data-parent="' + this.options.parent + '"]')
+	      .each($.proxy(function (i, element) {
+	        var $element = $(element)
+	        this.addAriaAndCollapsedClass(getTargetFromTrigger($element), $element)
+	      }, this))
+	      .end()
+	  }
+
+	  Collapse.prototype.addAriaAndCollapsedClass = function ($element, $trigger) {
+	    var isOpen = $element.hasClass('in')
+
+	    $element.attr('aria-expanded', isOpen)
+	    $trigger
+	      .toggleClass('collapsed', !isOpen)
+	      .attr('aria-expanded', isOpen)
+	  }
+
+	  function getTargetFromTrigger($trigger) {
+	    var href
+	    var target = $trigger.attr('data-target')
+	      || (href = $trigger.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '') // strip for ie7
+
+	    return $(target)
+	  }
+
+
+	  // COLLAPSE PLUGIN DEFINITION
+	  // ==========================
+
+	  function Plugin(option) {
+	    return this.each(function () {
+	      var $this   = $(this)
+	      var data    = $this.data('bs.collapse')
+	      var options = $.extend({}, Collapse.DEFAULTS, $this.data(), typeof option == 'object' && option)
+
+	      if (!data && options.toggle && /show|hide/.test(option)) options.toggle = false
+	      if (!data) $this.data('bs.collapse', (data = new Collapse(this, options)))
+	      if (typeof option == 'string') data[option]()
+	    })
+	  }
+
+	  var old = $.fn.collapse
+
+	  $.fn.collapse             = Plugin
+	  $.fn.collapse.Constructor = Collapse
+
+
+	  // COLLAPSE NO CONFLICT
+	  // ====================
+
+	  $.fn.collapse.noConflict = function () {
+	    $.fn.collapse = old
+	    return this
+	  }
+
+
+	  // COLLAPSE DATA-API
+	  // =================
+
+	  $(document).on('click.bs.collapse.data-api', '[data-toggle="collapse"]', function (e) {
+	    var $this   = $(this)
+
+	    if (!$this.attr('data-target')) e.preventDefault()
+
+	    var $target = getTargetFromTrigger($this)
+	    var data    = $target.data('bs.collapse')
+	    var option  = data ? 'toggle' : $this.data()
+
+	    Plugin.call($target, option)
+	  })
+
+	}(jQuery);
+
+
+/***/ },
+/* 117 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*** IMPORTS FROM imports-loader ***/
+	var jQuery = __webpack_require__(4);
+
+	/* ========================================================================
+	 * Bootstrap: dropdown.js v3.3.4
+	 * http://getbootstrap.com/javascript/#dropdowns
+	 * ========================================================================
+	 * Copyright 2011-2015 Twitter, Inc.
+	 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+	 * ======================================================================== */
+
+
+	+function ($) {
+	  'use strict';
+
+	  // DROPDOWN CLASS DEFINITION
+	  // =========================
+
+	  var backdrop = '.dropdown-backdrop'
+	  var toggle   = '[data-toggle="dropdown"]'
+	  var Dropdown = function (element) {
+	    $(element).on('click.bs.dropdown', this.toggle)
+	  }
+
+	  Dropdown.VERSION = '3.3.4'
+
+	  Dropdown.prototype.toggle = function (e) {
+	    var $this = $(this)
+
+	    if ($this.is('.disabled, :disabled')) return
+
+	    var $parent  = getParent($this)
+	    var isActive = $parent.hasClass('open')
+
+	    clearMenus()
+
+	    if (!isActive) {
+	      if ('ontouchstart' in document.documentElement && !$parent.closest('.navbar-nav').length) {
+	        // if mobile we use a backdrop because click events don't delegate
+	        $('<div class="dropdown-backdrop"/>').insertAfter($(this)).on('click', clearMenus)
+	      }
+
+	      var relatedTarget = { relatedTarget: this }
+	      $parent.trigger(e = $.Event('show.bs.dropdown', relatedTarget))
+
+	      if (e.isDefaultPrevented()) return
+
+	      $this
+	        .trigger('focus')
+	        .attr('aria-expanded', 'true')
+
+	      $parent
+	        .toggleClass('open')
+	        .trigger('shown.bs.dropdown', relatedTarget)
+	    }
+
+	    return false
+	  }
+
+	  Dropdown.prototype.keydown = function (e) {
+	    if (!/(38|40|27|32)/.test(e.which) || /input|textarea/i.test(e.target.tagName)) return
+
+	    var $this = $(this)
+
+	    e.preventDefault()
+	    e.stopPropagation()
+
+	    if ($this.is('.disabled, :disabled')) return
+
+	    var $parent  = getParent($this)
+	    var isActive = $parent.hasClass('open')
+
+	    if ((!isActive && e.which != 27) || (isActive && e.which == 27)) {
+	      if (e.which == 27) $parent.find(toggle).trigger('focus')
+	      return $this.trigger('click')
+	    }
+
+	    var desc = ' li:not(.disabled):visible a'
+	    var $items = $parent.find('[role="menu"]' + desc + ', [role="listbox"]' + desc)
+
+	    if (!$items.length) return
+
+	    var index = $items.index(e.target)
+
+	    if (e.which == 38 && index > 0)                 index--                        // up
+	    if (e.which == 40 && index < $items.length - 1) index++                        // down
+	    if (!~index)                                      index = 0
+
+	    $items.eq(index).trigger('focus')
+	  }
+
+	  function clearMenus(e) {
+	    if (e && e.which === 3) return
+	    $(backdrop).remove()
+	    $(toggle).each(function () {
+	      var $this         = $(this)
+	      var $parent       = getParent($this)
+	      var relatedTarget = { relatedTarget: this }
+
+	      if (!$parent.hasClass('open')) return
+
+	      $parent.trigger(e = $.Event('hide.bs.dropdown', relatedTarget))
+
+	      if (e.isDefaultPrevented()) return
+
+	      $this.attr('aria-expanded', 'false')
+	      $parent.removeClass('open').trigger('hidden.bs.dropdown', relatedTarget)
+	    })
+	  }
+
+	  function getParent($this) {
+	    var selector = $this.attr('data-target')
+
+	    if (!selector) {
+	      selector = $this.attr('href')
+	      selector = selector && /#[A-Za-z]/.test(selector) && selector.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
+	    }
+
+	    var $parent = selector && $(selector)
+
+	    return $parent && $parent.length ? $parent : $this.parent()
+	  }
+
+
+	  // DROPDOWN PLUGIN DEFINITION
+	  // ==========================
+
+	  function Plugin(option) {
+	    return this.each(function () {
+	      var $this = $(this)
+	      var data  = $this.data('bs.dropdown')
+
+	      if (!data) $this.data('bs.dropdown', (data = new Dropdown(this)))
+	      if (typeof option == 'string') data[option].call($this)
+	    })
+	  }
+
+	  var old = $.fn.dropdown
+
+	  $.fn.dropdown             = Plugin
+	  $.fn.dropdown.Constructor = Dropdown
+
+
+	  // DROPDOWN NO CONFLICT
+	  // ====================
+
+	  $.fn.dropdown.noConflict = function () {
+	    $.fn.dropdown = old
+	    return this
+	  }
+
+
+	  // APPLY TO STANDARD DROPDOWN ELEMENTS
+	  // ===================================
+
+	  $(document)
+	    .on('click.bs.dropdown.data-api', clearMenus)
+	    .on('click.bs.dropdown.data-api', '.dropdown form', function (e) { e.stopPropagation() })
+	    .on('click.bs.dropdown.data-api', toggle, Dropdown.prototype.toggle)
+	    .on('keydown.bs.dropdown.data-api', toggle, Dropdown.prototype.keydown)
+	    .on('keydown.bs.dropdown.data-api', '[role="menu"]', Dropdown.prototype.keydown)
+	    .on('keydown.bs.dropdown.data-api', '[role="listbox"]', Dropdown.prototype.keydown)
+
+	}(jQuery);
+
+
+/***/ },
+/* 118 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*** IMPORTS FROM imports-loader ***/
+	var jQuery = __webpack_require__(4);
+
+	/* ========================================================================
+	 * Bootstrap: modal.js v3.3.4
+	 * http://getbootstrap.com/javascript/#modals
+	 * ========================================================================
+	 * Copyright 2011-2015 Twitter, Inc.
+	 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+	 * ======================================================================== */
+
+
+	+function ($) {
+	  'use strict';
+
+	  // MODAL CLASS DEFINITION
+	  // ======================
+
+	  var Modal = function (element, options) {
+	    this.options             = options
+	    this.$body               = $(document.body)
+	    this.$element            = $(element)
+	    this.$dialog             = this.$element.find('.modal-dialog')
+	    this.$backdrop           = null
+	    this.isShown             = null
+	    this.originalBodyPad     = null
+	    this.scrollbarWidth      = 0
+	    this.ignoreBackdropClick = false
+
+	    if (this.options.remote) {
+	      this.$element
+	        .find('.modal-content')
+	        .load(this.options.remote, $.proxy(function () {
+	          this.$element.trigger('loaded.bs.modal')
+	        }, this))
+	    }
+	  }
+
+	  Modal.VERSION  = '3.3.4'
+
+	  Modal.TRANSITION_DURATION = 300
+	  Modal.BACKDROP_TRANSITION_DURATION = 150
+
+	  Modal.DEFAULTS = {
+	    backdrop: true,
+	    keyboard: true,
+	    show: true
+	  }
+
+	  Modal.prototype.toggle = function (_relatedTarget) {
+	    return this.isShown ? this.hide() : this.show(_relatedTarget)
+	  }
+
+	  Modal.prototype.show = function (_relatedTarget) {
+	    var that = this
+	    var e    = $.Event('show.bs.modal', { relatedTarget: _relatedTarget })
+
+	    this.$element.trigger(e)
+
+	    if (this.isShown || e.isDefaultPrevented()) return
+
+	    this.isShown = true
+
+	    this.checkScrollbar()
+	    this.setScrollbar()
+	    this.$body.addClass('modal-open')
+
+	    this.escape()
+	    this.resize()
+
+	    this.$element.on('click.dismiss.bs.modal', '[data-dismiss="modal"]', $.proxy(this.hide, this))
+
+	    this.$dialog.on('mousedown.dismiss.bs.modal', function () {
+	      that.$element.one('mouseup.dismiss.bs.modal', function (e) {
+	        if ($(e.target).is(that.$element)) that.ignoreBackdropClick = true
+	      })
+	    })
+
+	    this.backdrop(function () {
+	      var transition = $.support.transition && that.$element.hasClass('fade')
+
+	      if (!that.$element.parent().length) {
+	        that.$element.appendTo(that.$body) // don't move modals dom position
+	      }
+
+	      that.$element
+	        .show()
+	        .scrollTop(0)
+
+	      that.adjustDialog()
+
+	      if (transition) {
+	        that.$element[0].offsetWidth // force reflow
+	      }
+
+	      that.$element
+	        .addClass('in')
+	        .attr('aria-hidden', false)
+
+	      that.enforceFocus()
+
+	      var e = $.Event('shown.bs.modal', { relatedTarget: _relatedTarget })
+
+	      transition ?
+	        that.$dialog // wait for modal to slide in
+	          .one('bsTransitionEnd', function () {
+	            that.$element.trigger('focus').trigger(e)
+	          })
+	          .emulateTransitionEnd(Modal.TRANSITION_DURATION) :
+	        that.$element.trigger('focus').trigger(e)
+	    })
+	  }
+
+	  Modal.prototype.hide = function (e) {
+	    if (e) e.preventDefault()
+
+	    e = $.Event('hide.bs.modal')
+
+	    this.$element.trigger(e)
+
+	    if (!this.isShown || e.isDefaultPrevented()) return
+
+	    this.isShown = false
+
+	    this.escape()
+	    this.resize()
+
+	    $(document).off('focusin.bs.modal')
+
+	    this.$element
+	      .removeClass('in')
+	      .attr('aria-hidden', true)
+	      .off('click.dismiss.bs.modal')
+	      .off('mouseup.dismiss.bs.modal')
+
+	    this.$dialog.off('mousedown.dismiss.bs.modal')
+
+	    $.support.transition && this.$element.hasClass('fade') ?
+	      this.$element
+	        .one('bsTransitionEnd', $.proxy(this.hideModal, this))
+	        .emulateTransitionEnd(Modal.TRANSITION_DURATION) :
+	      this.hideModal()
+	  }
+
+	  Modal.prototype.enforceFocus = function () {
+	    $(document)
+	      .off('focusin.bs.modal') // guard against infinite focus loop
+	      .on('focusin.bs.modal', $.proxy(function (e) {
+	        if (this.$element[0] !== e.target && !this.$element.has(e.target).length) {
+	          this.$element.trigger('focus')
+	        }
+	      }, this))
+	  }
+
+	  Modal.prototype.escape = function () {
+	    if (this.isShown && this.options.keyboard) {
+	      this.$element.on('keydown.dismiss.bs.modal', $.proxy(function (e) {
+	        e.which == 27 && this.hide()
+	      }, this))
+	    } else if (!this.isShown) {
+	      this.$element.off('keydown.dismiss.bs.modal')
+	    }
+	  }
+
+	  Modal.prototype.resize = function () {
+	    if (this.isShown) {
+	      $(window).on('resize.bs.modal', $.proxy(this.handleUpdate, this))
+	    } else {
+	      $(window).off('resize.bs.modal')
+	    }
+	  }
+
+	  Modal.prototype.hideModal = function () {
+	    var that = this
+	    this.$element.hide()
+	    this.backdrop(function () {
+	      that.$body.removeClass('modal-open')
+	      that.resetAdjustments()
+	      that.resetScrollbar()
+	      that.$element.trigger('hidden.bs.modal')
+	    })
+	  }
+
+	  Modal.prototype.removeBackdrop = function () {
+	    this.$backdrop && this.$backdrop.remove()
+	    this.$backdrop = null
+	  }
+
+	  Modal.prototype.backdrop = function (callback) {
+	    var that = this
+	    var animate = this.$element.hasClass('fade') ? 'fade' : ''
+
+	    if (this.isShown && this.options.backdrop) {
+	      var doAnimate = $.support.transition && animate
+
+	      this.$backdrop = $('<div class="modal-backdrop ' + animate + '" />')
+	        .appendTo(this.$body)
+
+	      this.$element.on('click.dismiss.bs.modal', $.proxy(function (e) {
+	        if (this.ignoreBackdropClick) {
+	          this.ignoreBackdropClick = false
+	          return
+	        }
+	        if (e.target !== e.currentTarget) return
+	        this.options.backdrop == 'static'
+	          ? this.$element[0].focus()
+	          : this.hide()
+	      }, this))
+
+	      if (doAnimate) this.$backdrop[0].offsetWidth // force reflow
+
+	      this.$backdrop.addClass('in')
+
+	      if (!callback) return
+
+	      doAnimate ?
+	        this.$backdrop
+	          .one('bsTransitionEnd', callback)
+	          .emulateTransitionEnd(Modal.BACKDROP_TRANSITION_DURATION) :
+	        callback()
+
+	    } else if (!this.isShown && this.$backdrop) {
+	      this.$backdrop.removeClass('in')
+
+	      var callbackRemove = function () {
+	        that.removeBackdrop()
+	        callback && callback()
+	      }
+	      $.support.transition && this.$element.hasClass('fade') ?
+	        this.$backdrop
+	          .one('bsTransitionEnd', callbackRemove)
+	          .emulateTransitionEnd(Modal.BACKDROP_TRANSITION_DURATION) :
+	        callbackRemove()
+
+	    } else if (callback) {
+	      callback()
+	    }
+	  }
+
+	  // these following methods are used to handle overflowing modals
+
+	  Modal.prototype.handleUpdate = function () {
+	    this.adjustDialog()
+	  }
+
+	  Modal.prototype.adjustDialog = function () {
+	    var modalIsOverflowing = this.$element[0].scrollHeight > document.documentElement.clientHeight
+
+	    this.$element.css({
+	      paddingLeft:  !this.bodyIsOverflowing && modalIsOverflowing ? this.scrollbarWidth : '',
+	      paddingRight: this.bodyIsOverflowing && !modalIsOverflowing ? this.scrollbarWidth : ''
+	    })
+	  }
+
+	  Modal.prototype.resetAdjustments = function () {
+	    this.$element.css({
+	      paddingLeft: '',
+	      paddingRight: ''
+	    })
+	  }
+
+	  Modal.prototype.checkScrollbar = function () {
+	    var fullWindowWidth = window.innerWidth
+	    if (!fullWindowWidth) { // workaround for missing window.innerWidth in IE8
+	      var documentElementRect = document.documentElement.getBoundingClientRect()
+	      fullWindowWidth = documentElementRect.right - Math.abs(documentElementRect.left)
+	    }
+	    this.bodyIsOverflowing = document.body.clientWidth < fullWindowWidth
+	    this.scrollbarWidth = this.measureScrollbar()
+	  }
+
+	  Modal.prototype.setScrollbar = function () {
+	    var bodyPad = parseInt((this.$body.css('padding-right') || 0), 10)
+	    this.originalBodyPad = document.body.style.paddingRight || ''
+	    if (this.bodyIsOverflowing) this.$body.css('padding-right', bodyPad + this.scrollbarWidth)
+	  }
+
+	  Modal.prototype.resetScrollbar = function () {
+	    this.$body.css('padding-right', this.originalBodyPad)
+	  }
+
+	  Modal.prototype.measureScrollbar = function () { // thx walsh
+	    var scrollDiv = document.createElement('div')
+	    scrollDiv.className = 'modal-scrollbar-measure'
+	    this.$body.append(scrollDiv)
+	    var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth
+	    this.$body[0].removeChild(scrollDiv)
+	    return scrollbarWidth
+	  }
+
+
+	  // MODAL PLUGIN DEFINITION
+	  // =======================
+
+	  function Plugin(option, _relatedTarget) {
+	    return this.each(function () {
+	      var $this   = $(this)
+	      var data    = $this.data('bs.modal')
+	      var options = $.extend({}, Modal.DEFAULTS, $this.data(), typeof option == 'object' && option)
+
+	      if (!data) $this.data('bs.modal', (data = new Modal(this, options)))
+	      if (typeof option == 'string') data[option](_relatedTarget)
+	      else if (options.show) data.show(_relatedTarget)
+	    })
+	  }
+
+	  var old = $.fn.modal
+
+	  $.fn.modal             = Plugin
+	  $.fn.modal.Constructor = Modal
+
+
+	  // MODAL NO CONFLICT
+	  // =================
+
+	  $.fn.modal.noConflict = function () {
+	    $.fn.modal = old
+	    return this
+	  }
+
+
+	  // MODAL DATA-API
+	  // ==============
+
+	  $(document).on('click.bs.modal.data-api', '[data-toggle="modal"]', function (e) {
+	    var $this   = $(this)
+	    var href    = $this.attr('href')
+	    var $target = $($this.attr('data-target') || (href && href.replace(/.*(?=#[^\s]+$)/, ''))) // strip for ie7
+	    var option  = $target.data('bs.modal') ? 'toggle' : $.extend({ remote: !/#/.test(href) && href }, $target.data(), $this.data())
+
+	    if ($this.is('a')) e.preventDefault()
+
+	    $target.one('show.bs.modal', function (showEvent) {
+	      if (showEvent.isDefaultPrevented()) return // only register focus restorer if modal will actually get shown
+	      $target.one('hidden.bs.modal', function () {
+	        $this.is(':visible') && $this.trigger('focus')
+	      })
+	    })
+	    Plugin.call($target, option, this)
+	  })
+
+	}(jQuery);
+
+
+/***/ },
+/* 119 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*** IMPORTS FROM imports-loader ***/
+	var jQuery = __webpack_require__(4);
+
+	/* ========================================================================
+	 * Bootstrap: tooltip.js v3.3.4
+	 * http://getbootstrap.com/javascript/#tooltip
+	 * Inspired by the original jQuery.tipsy by Jason Frame
+	 * ========================================================================
+	 * Copyright 2011-2015 Twitter, Inc.
+	 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+	 * ======================================================================== */
+
+
+	+function ($) {
+	  'use strict';
+
+	  // TOOLTIP PUBLIC CLASS DEFINITION
+	  // ===============================
+
+	  var Tooltip = function (element, options) {
+	    this.type       = null
+	    this.options    = null
+	    this.enabled    = null
+	    this.timeout    = null
+	    this.hoverState = null
+	    this.$element   = null
+
+	    this.init('tooltip', element, options)
+	  }
+
+	  Tooltip.VERSION  = '3.3.4'
+
+	  Tooltip.TRANSITION_DURATION = 150
+
+	  Tooltip.DEFAULTS = {
+	    animation: true,
+	    placement: 'top',
+	    selector: false,
+	    template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',
+	    trigger: 'hover focus',
+	    title: '',
+	    delay: 0,
+	    html: false,
+	    container: false,
+	    viewport: {
+	      selector: 'body',
+	      padding: 0
+	    }
+	  }
+
+	  Tooltip.prototype.init = function (type, element, options) {
+	    this.enabled   = true
+	    this.type      = type
+	    this.$element  = $(element)
+	    this.options   = this.getOptions(options)
+	    this.$viewport = this.options.viewport && $(this.options.viewport.selector || this.options.viewport)
+
+	    if (this.$element[0] instanceof document.constructor && !this.options.selector) {
+	      throw new Error('`selector` option must be specified when initializing ' + this.type + ' on the window.document object!')
+	    }
+
+	    var triggers = this.options.trigger.split(' ')
+
+	    for (var i = triggers.length; i--;) {
+	      var trigger = triggers[i]
+
+	      if (trigger == 'click') {
+	        this.$element.on('click.' + this.type, this.options.selector, $.proxy(this.toggle, this))
+	      } else if (trigger != 'manual') {
+	        var eventIn  = trigger == 'hover' ? 'mouseenter' : 'focusin'
+	        var eventOut = trigger == 'hover' ? 'mouseleave' : 'focusout'
+
+	        this.$element.on(eventIn  + '.' + this.type, this.options.selector, $.proxy(this.enter, this))
+	        this.$element.on(eventOut + '.' + this.type, this.options.selector, $.proxy(this.leave, this))
+	      }
+	    }
+
+	    this.options.selector ?
+	      (this._options = $.extend({}, this.options, { trigger: 'manual', selector: '' })) :
+	      this.fixTitle()
+	  }
+
+	  Tooltip.prototype.getDefaults = function () {
+	    return Tooltip.DEFAULTS
+	  }
+
+	  Tooltip.prototype.getOptions = function (options) {
+	    options = $.extend({}, this.getDefaults(), this.$element.data(), options)
+
+	    if (options.delay && typeof options.delay == 'number') {
+	      options.delay = {
+	        show: options.delay,
+	        hide: options.delay
+	      }
+	    }
+
+	    return options
+	  }
+
+	  Tooltip.prototype.getDelegateOptions = function () {
+	    var options  = {}
+	    var defaults = this.getDefaults()
+
+	    this._options && $.each(this._options, function (key, value) {
+	      if (defaults[key] != value) options[key] = value
+	    })
+
+	    return options
+	  }
+
+	  Tooltip.prototype.enter = function (obj) {
+	    var self = obj instanceof this.constructor ?
+	      obj : $(obj.currentTarget).data('bs.' + this.type)
+
+	    if (self && self.$tip && self.$tip.is(':visible')) {
+	      self.hoverState = 'in'
+	      return
+	    }
+
+	    if (!self) {
+	      self = new this.constructor(obj.currentTarget, this.getDelegateOptions())
+	      $(obj.currentTarget).data('bs.' + this.type, self)
+	    }
+
+	    clearTimeout(self.timeout)
+
+	    self.hoverState = 'in'
+
+	    if (!self.options.delay || !self.options.delay.show) return self.show()
+
+	    self.timeout = setTimeout(function () {
+	      if (self.hoverState == 'in') self.show()
+	    }, self.options.delay.show)
+	  }
+
+	  Tooltip.prototype.leave = function (obj) {
+	    var self = obj instanceof this.constructor ?
+	      obj : $(obj.currentTarget).data('bs.' + this.type)
+
+	    if (!self) {
+	      self = new this.constructor(obj.currentTarget, this.getDelegateOptions())
+	      $(obj.currentTarget).data('bs.' + this.type, self)
+	    }
+
+	    clearTimeout(self.timeout)
+
+	    self.hoverState = 'out'
+
+	    if (!self.options.delay || !self.options.delay.hide) return self.hide()
+
+	    self.timeout = setTimeout(function () {
+	      if (self.hoverState == 'out') self.hide()
+	    }, self.options.delay.hide)
+	  }
+
+	  Tooltip.prototype.show = function () {
+	    var e = $.Event('show.bs.' + this.type)
+
+	    if (this.hasContent() && this.enabled) {
+	      this.$element.trigger(e)
+
+	      var inDom = $.contains(this.$element[0].ownerDocument.documentElement, this.$element[0])
+	      if (e.isDefaultPrevented() || !inDom) return
+	      var that = this
+
+	      var $tip = this.tip()
+
+	      var tipId = this.getUID(this.type)
+
+	      this.setContent()
+	      $tip.attr('id', tipId)
+	      this.$element.attr('aria-describedby', tipId)
+
+	      if (this.options.animation) $tip.addClass('fade')
+
+	      var placement = typeof this.options.placement == 'function' ?
+	        this.options.placement.call(this, $tip[0], this.$element[0]) :
+	        this.options.placement
+
+	      var autoToken = /\s?auto?\s?/i
+	      var autoPlace = autoToken.test(placement)
+	      if (autoPlace) placement = placement.replace(autoToken, '') || 'top'
+
+	      $tip
+	        .detach()
+	        .css({ top: 0, left: 0, display: 'block' })
+	        .addClass(placement)
+	        .data('bs.' + this.type, this)
+
+	      this.options.container ? $tip.appendTo(this.options.container) : $tip.insertAfter(this.$element)
+
+	      var pos          = this.getPosition()
+	      var actualWidth  = $tip[0].offsetWidth
+	      var actualHeight = $tip[0].offsetHeight
+
+	      if (autoPlace) {
+	        var orgPlacement = placement
+	        var $container   = this.options.container ? $(this.options.container) : this.$element.parent()
+	        var containerDim = this.getPosition($container)
+
+	        placement = placement == 'bottom' && pos.bottom + actualHeight > containerDim.bottom ? 'top'    :
+	                    placement == 'top'    && pos.top    - actualHeight < containerDim.top    ? 'bottom' :
+	                    placement == 'right'  && pos.right  + actualWidth  > containerDim.width  ? 'left'   :
+	                    placement == 'left'   && pos.left   - actualWidth  < containerDim.left   ? 'right'  :
+	                    placement
+
+	        $tip
+	          .removeClass(orgPlacement)
+	          .addClass(placement)
+	      }
+
+	      var calculatedOffset = this.getCalculatedOffset(placement, pos, actualWidth, actualHeight)
+
+	      this.applyPlacement(calculatedOffset, placement)
+
+	      var complete = function () {
+	        var prevHoverState = that.hoverState
+	        that.$element.trigger('shown.bs.' + that.type)
+	        that.hoverState = null
+
+	        if (prevHoverState == 'out') that.leave(that)
+	      }
+
+	      $.support.transition && this.$tip.hasClass('fade') ?
+	        $tip
+	          .one('bsTransitionEnd', complete)
+	          .emulateTransitionEnd(Tooltip.TRANSITION_DURATION) :
+	        complete()
+	    }
+	  }
+
+	  Tooltip.prototype.applyPlacement = function (offset, placement) {
+	    var $tip   = this.tip()
+	    var width  = $tip[0].offsetWidth
+	    var height = $tip[0].offsetHeight
+
+	    // manually read margins because getBoundingClientRect includes difference
+	    var marginTop = parseInt($tip.css('margin-top'), 10)
+	    var marginLeft = parseInt($tip.css('margin-left'), 10)
+
+	    // we must check for NaN for ie 8/9
+	    if (isNaN(marginTop))  marginTop  = 0
+	    if (isNaN(marginLeft)) marginLeft = 0
+
+	    offset.top  = offset.top  + marginTop
+	    offset.left = offset.left + marginLeft
+
+	    // $.fn.offset doesn't round pixel values
+	    // so we use setOffset directly with our own function B-0
+	    $.offset.setOffset($tip[0], $.extend({
+	      using: function (props) {
+	        $tip.css({
+	          top: Math.round(props.top),
+	          left: Math.round(props.left)
+	        })
+	      }
+	    }, offset), 0)
+
+	    $tip.addClass('in')
+
+	    // check to see if placing tip in new offset caused the tip to resize itself
+	    var actualWidth  = $tip[0].offsetWidth
+	    var actualHeight = $tip[0].offsetHeight
+
+	    if (placement == 'top' && actualHeight != height) {
+	      offset.top = offset.top + height - actualHeight
+	    }
+
+	    var delta = this.getViewportAdjustedDelta(placement, offset, actualWidth, actualHeight)
+
+	    if (delta.left) offset.left += delta.left
+	    else offset.top += delta.top
+
+	    var isVertical          = /top|bottom/.test(placement)
+	    var arrowDelta          = isVertical ? delta.left * 2 - width + actualWidth : delta.top * 2 - height + actualHeight
+	    var arrowOffsetPosition = isVertical ? 'offsetWidth' : 'offsetHeight'
+
+	    $tip.offset(offset)
+	    this.replaceArrow(arrowDelta, $tip[0][arrowOffsetPosition], isVertical)
+	  }
+
+	  Tooltip.prototype.replaceArrow = function (delta, dimension, isVertical) {
+	    this.arrow()
+	      .css(isVertical ? 'left' : 'top', 50 * (1 - delta / dimension) + '%')
+	      .css(isVertical ? 'top' : 'left', '')
+	  }
+
+	  Tooltip.prototype.setContent = function () {
+	    var $tip  = this.tip()
+	    var title = this.getTitle()
+
+	    $tip.find('.tooltip-inner')[this.options.html ? 'html' : 'text'](title)
+	    $tip.removeClass('fade in top bottom left right')
+	  }
+
+	  Tooltip.prototype.hide = function (callback) {
+	    var that = this
+	    var $tip = $(this.$tip)
+	    var e    = $.Event('hide.bs.' + this.type)
+
+	    function complete() {
+	      if (that.hoverState != 'in') $tip.detach()
+	      that.$element
+	        .removeAttr('aria-describedby')
+	        .trigger('hidden.bs.' + that.type)
+	      callback && callback()
+	    }
+
+	    this.$element.trigger(e)
+
+	    if (e.isDefaultPrevented()) return
+
+	    $tip.removeClass('in')
+
+	    $.support.transition && $tip.hasClass('fade') ?
+	      $tip
+	        .one('bsTransitionEnd', complete)
+	        .emulateTransitionEnd(Tooltip.TRANSITION_DURATION) :
+	      complete()
+
+	    this.hoverState = null
+
+	    return this
+	  }
+
+	  Tooltip.prototype.fixTitle = function () {
+	    var $e = this.$element
+	    if ($e.attr('title') || typeof ($e.attr('data-original-title')) != 'string') {
+	      $e.attr('data-original-title', $e.attr('title') || '').attr('title', '')
+	    }
+	  }
+
+	  Tooltip.prototype.hasContent = function () {
+	    return this.getTitle()
+	  }
+
+	  Tooltip.prototype.getPosition = function ($element) {
+	    $element   = $element || this.$element
+
+	    var el     = $element[0]
+	    var isBody = el.tagName == 'BODY'
+
+	    var elRect    = el.getBoundingClientRect()
+	    if (elRect.width == null) {
+	      // width and height are missing in IE8, so compute them manually; see https://github.com/twbs/bootstrap/issues/14093
+	      elRect = $.extend({}, elRect, { width: elRect.right - elRect.left, height: elRect.bottom - elRect.top })
+	    }
+	    var elOffset  = isBody ? { top: 0, left: 0 } : $element.offset()
+	    var scroll    = { scroll: isBody ? document.documentElement.scrollTop || document.body.scrollTop : $element.scrollTop() }
+	    var outerDims = isBody ? { width: $(window).width(), height: $(window).height() } : null
+
+	    return $.extend({}, elRect, scroll, outerDims, elOffset)
+	  }
+
+	  Tooltip.prototype.getCalculatedOffset = function (placement, pos, actualWidth, actualHeight) {
+	    return placement == 'bottom' ? { top: pos.top + pos.height,   left: pos.left + pos.width / 2 - actualWidth / 2 } :
+	           placement == 'top'    ? { top: pos.top - actualHeight, left: pos.left + pos.width / 2 - actualWidth / 2 } :
+	           placement == 'left'   ? { top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left - actualWidth } :
+	        /* placement == 'right' */ { top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left + pos.width }
+
+	  }
+
+	  Tooltip.prototype.getViewportAdjustedDelta = function (placement, pos, actualWidth, actualHeight) {
+	    var delta = { top: 0, left: 0 }
+	    if (!this.$viewport) return delta
+
+	    var viewportPadding = this.options.viewport && this.options.viewport.padding || 0
+	    var viewportDimensions = this.getPosition(this.$viewport)
+
+	    if (/right|left/.test(placement)) {
+	      var topEdgeOffset    = pos.top - viewportPadding - viewportDimensions.scroll
+	      var bottomEdgeOffset = pos.top + viewportPadding - viewportDimensions.scroll + actualHeight
+	      if (topEdgeOffset < viewportDimensions.top) { // top overflow
+	        delta.top = viewportDimensions.top - topEdgeOffset
+	      } else if (bottomEdgeOffset > viewportDimensions.top + viewportDimensions.height) { // bottom overflow
+	        delta.top = viewportDimensions.top + viewportDimensions.height - bottomEdgeOffset
+	      }
+	    } else {
+	      var leftEdgeOffset  = pos.left - viewportPadding
+	      var rightEdgeOffset = pos.left + viewportPadding + actualWidth
+	      if (leftEdgeOffset < viewportDimensions.left) { // left overflow
+	        delta.left = viewportDimensions.left - leftEdgeOffset
+	      } else if (rightEdgeOffset > viewportDimensions.width) { // right overflow
+	        delta.left = viewportDimensions.left + viewportDimensions.width - rightEdgeOffset
+	      }
+	    }
+
+	    return delta
+	  }
+
+	  Tooltip.prototype.getTitle = function () {
+	    var title
+	    var $e = this.$element
+	    var o  = this.options
+
+	    title = $e.attr('data-original-title')
+	      || (typeof o.title == 'function' ? o.title.call($e[0]) :  o.title)
+
+	    return title
+	  }
+
+	  Tooltip.prototype.getUID = function (prefix) {
+	    do prefix += ~~(Math.random() * 1000000)
+	    while (document.getElementById(prefix))
+	    return prefix
+	  }
+
+	  Tooltip.prototype.tip = function () {
+	    return (this.$tip = this.$tip || $(this.options.template))
+	  }
+
+	  Tooltip.prototype.arrow = function () {
+	    return (this.$arrow = this.$arrow || this.tip().find('.tooltip-arrow'))
+	  }
+
+	  Tooltip.prototype.enable = function () {
+	    this.enabled = true
+	  }
+
+	  Tooltip.prototype.disable = function () {
+	    this.enabled = false
+	  }
+
+	  Tooltip.prototype.toggleEnabled = function () {
+	    this.enabled = !this.enabled
+	  }
+
+	  Tooltip.prototype.toggle = function (e) {
+	    var self = this
+	    if (e) {
+	      self = $(e.currentTarget).data('bs.' + this.type)
+	      if (!self) {
+	        self = new this.constructor(e.currentTarget, this.getDelegateOptions())
+	        $(e.currentTarget).data('bs.' + this.type, self)
+	      }
+	    }
+
+	    self.tip().hasClass('in') ? self.leave(self) : self.enter(self)
+	  }
+
+	  Tooltip.prototype.destroy = function () {
+	    var that = this
+	    clearTimeout(this.timeout)
+	    this.hide(function () {
+	      that.$element.off('.' + that.type).removeData('bs.' + that.type)
+	    })
+	  }
+
+
+	  // TOOLTIP PLUGIN DEFINITION
+	  // =========================
+
+	  function Plugin(option) {
+	    return this.each(function () {
+	      var $this   = $(this)
+	      var data    = $this.data('bs.tooltip')
+	      var options = typeof option == 'object' && option
+
+	      if (!data && /destroy|hide/.test(option)) return
+	      if (!data) $this.data('bs.tooltip', (data = new Tooltip(this, options)))
+	      if (typeof option == 'string') data[option]()
+	    })
+	  }
+
+	  var old = $.fn.tooltip
+
+	  $.fn.tooltip             = Plugin
+	  $.fn.tooltip.Constructor = Tooltip
+
+
+	  // TOOLTIP NO CONFLICT
+	  // ===================
+
+	  $.fn.tooltip.noConflict = function () {
+	    $.fn.tooltip = old
+	    return this
+	  }
+
+	}(jQuery);
+
+
+/***/ },
+/* 120 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*** IMPORTS FROM imports-loader ***/
+	var jQuery = __webpack_require__(4);
+
+	/* ========================================================================
+	 * Bootstrap: popover.js v3.3.4
+	 * http://getbootstrap.com/javascript/#popovers
+	 * ========================================================================
+	 * Copyright 2011-2015 Twitter, Inc.
+	 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+	 * ======================================================================== */
+
+
+	+function ($) {
+	  'use strict';
+
+	  // POPOVER PUBLIC CLASS DEFINITION
+	  // ===============================
+
+	  var Popover = function (element, options) {
+	    this.init('popover', element, options)
+	  }
+
+	  if (!$.fn.tooltip) throw new Error('Popover requires tooltip.js')
+
+	  Popover.VERSION  = '3.3.4'
+
+	  Popover.DEFAULTS = $.extend({}, $.fn.tooltip.Constructor.DEFAULTS, {
+	    placement: 'right',
+	    trigger: 'click',
+	    content: '',
+	    template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
+	  })
+
+
+	  // NOTE: POPOVER EXTENDS tooltip.js
+	  // ================================
+
+	  Popover.prototype = $.extend({}, $.fn.tooltip.Constructor.prototype)
+
+	  Popover.prototype.constructor = Popover
+
+	  Popover.prototype.getDefaults = function () {
+	    return Popover.DEFAULTS
+	  }
+
+	  Popover.prototype.setContent = function () {
+	    var $tip    = this.tip()
+	    var title   = this.getTitle()
+	    var content = this.getContent()
+
+	    $tip.find('.popover-title')[this.options.html ? 'html' : 'text'](title)
+	    $tip.find('.popover-content').children().detach().end()[ // we use append for html objects to maintain js events
+	      this.options.html ? (typeof content == 'string' ? 'html' : 'append') : 'text'
+	    ](content)
+
+	    $tip.removeClass('fade top bottom left right in')
+
+	    // IE8 doesn't accept hiding via the `:empty` pseudo selector, we have to do
+	    // this manually by checking the contents.
+	    if (!$tip.find('.popover-title').html()) $tip.find('.popover-title').hide()
+	  }
+
+	  Popover.prototype.hasContent = function () {
+	    return this.getTitle() || this.getContent()
+	  }
+
+	  Popover.prototype.getContent = function () {
+	    var $e = this.$element
+	    var o  = this.options
+
+	    return $e.attr('data-content')
+	      || (typeof o.content == 'function' ?
+	            o.content.call($e[0]) :
+	            o.content)
+	  }
+
+	  Popover.prototype.arrow = function () {
+	    return (this.$arrow = this.$arrow || this.tip().find('.arrow'))
+	  }
+
+
+	  // POPOVER PLUGIN DEFINITION
+	  // =========================
+
+	  function Plugin(option) {
+	    return this.each(function () {
+	      var $this   = $(this)
+	      var data    = $this.data('bs.popover')
+	      var options = typeof option == 'object' && option
+
+	      if (!data && /destroy|hide/.test(option)) return
+	      if (!data) $this.data('bs.popover', (data = new Popover(this, options)))
+	      if (typeof option == 'string') data[option]()
+	    })
+	  }
+
+	  var old = $.fn.popover
+
+	  $.fn.popover             = Plugin
+	  $.fn.popover.Constructor = Popover
+
+
+	  // POPOVER NO CONFLICT
+	  // ===================
+
+	  $.fn.popover.noConflict = function () {
+	    $.fn.popover = old
+	    return this
+	  }
+
+	}(jQuery);
+
+
+/***/ },
+/* 121 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*** IMPORTS FROM imports-loader ***/
+	var jQuery = __webpack_require__(4);
+
+	/* ========================================================================
+	 * Bootstrap: scrollspy.js v3.3.4
+	 * http://getbootstrap.com/javascript/#scrollspy
+	 * ========================================================================
+	 * Copyright 2011-2015 Twitter, Inc.
+	 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+	 * ======================================================================== */
+
+
+	+function ($) {
+	  'use strict';
+
+	  // SCROLLSPY CLASS DEFINITION
+	  // ==========================
+
+	  function ScrollSpy(element, options) {
+	    this.$body          = $(document.body)
+	    this.$scrollElement = $(element).is(document.body) ? $(window) : $(element)
+	    this.options        = $.extend({}, ScrollSpy.DEFAULTS, options)
+	    this.selector       = (this.options.target || '') + ' .nav li > a'
+	    this.offsets        = []
+	    this.targets        = []
+	    this.activeTarget   = null
+	    this.scrollHeight   = 0
+
+	    this.$scrollElement.on('scroll.bs.scrollspy', $.proxy(this.process, this))
+	    this.refresh()
+	    this.process()
+	  }
+
+	  ScrollSpy.VERSION  = '3.3.4'
+
+	  ScrollSpy.DEFAULTS = {
+	    offset: 10
+	  }
+
+	  ScrollSpy.prototype.getScrollHeight = function () {
+	    return this.$scrollElement[0].scrollHeight || Math.max(this.$body[0].scrollHeight, document.documentElement.scrollHeight)
+	  }
+
+	  ScrollSpy.prototype.refresh = function () {
+	    var that          = this
+	    var offsetMethod  = 'offset'
+	    var offsetBase    = 0
+
+	    this.offsets      = []
+	    this.targets      = []
+	    this.scrollHeight = this.getScrollHeight()
+
+	    if (!$.isWindow(this.$scrollElement[0])) {
+	      offsetMethod = 'position'
+	      offsetBase   = this.$scrollElement.scrollTop()
+	    }
+
+	    this.$body
+	      .find(this.selector)
+	      .map(function () {
+	        var $el   = $(this)
+	        var href  = $el.data('target') || $el.attr('href')
+	        var $href = /^#./.test(href) && $(href)
+
+	        return ($href
+	          && $href.length
+	          && $href.is(':visible')
+	          && [[$href[offsetMethod]().top + offsetBase, href]]) || null
+	      })
+	      .sort(function (a, b) { return a[0] - b[0] })
+	      .each(function () {
+	        that.offsets.push(this[0])
+	        that.targets.push(this[1])
+	      })
+	  }
+
+	  ScrollSpy.prototype.process = function () {
+	    var scrollTop    = this.$scrollElement.scrollTop() + this.options.offset
+	    var scrollHeight = this.getScrollHeight()
+	    var maxScroll    = this.options.offset + scrollHeight - this.$scrollElement.height()
+	    var offsets      = this.offsets
+	    var targets      = this.targets
+	    var activeTarget = this.activeTarget
+	    var i
+
+	    if (this.scrollHeight != scrollHeight) {
+	      this.refresh()
+	    }
+
+	    if (scrollTop >= maxScroll) {
+	      return activeTarget != (i = targets[targets.length - 1]) && this.activate(i)
+	    }
+
+	    if (activeTarget && scrollTop < offsets[0]) {
+	      this.activeTarget = null
+	      return this.clear()
+	    }
+
+	    for (i = offsets.length; i--;) {
+	      activeTarget != targets[i]
+	        && scrollTop >= offsets[i]
+	        && (offsets[i + 1] === undefined || scrollTop < offsets[i + 1])
+	        && this.activate(targets[i])
+	    }
+	  }
+
+	  ScrollSpy.prototype.activate = function (target) {
+	    this.activeTarget = target
+
+	    this.clear()
+
+	    var selector = this.selector +
+	      '[data-target="' + target + '"],' +
+	      this.selector + '[href="' + target + '"]'
+
+	    var active = $(selector)
+	      .parents('li')
+	      .addClass('active')
+
+	    if (active.parent('.dropdown-menu').length) {
+	      active = active
+	        .closest('li.dropdown')
+	        .addClass('active')
+	    }
+
+	    active.trigger('activate.bs.scrollspy')
+	  }
+
+	  ScrollSpy.prototype.clear = function () {
+	    $(this.selector)
+	      .parentsUntil(this.options.target, '.active')
+	      .removeClass('active')
+	  }
+
+
+	  // SCROLLSPY PLUGIN DEFINITION
+	  // ===========================
+
+	  function Plugin(option) {
+	    return this.each(function () {
+	      var $this   = $(this)
+	      var data    = $this.data('bs.scrollspy')
+	      var options = typeof option == 'object' && option
+
+	      if (!data) $this.data('bs.scrollspy', (data = new ScrollSpy(this, options)))
+	      if (typeof option == 'string') data[option]()
+	    })
+	  }
+
+	  var old = $.fn.scrollspy
+
+	  $.fn.scrollspy             = Plugin
+	  $.fn.scrollspy.Constructor = ScrollSpy
+
+
+	  // SCROLLSPY NO CONFLICT
+	  // =====================
+
+	  $.fn.scrollspy.noConflict = function () {
+	    $.fn.scrollspy = old
+	    return this
+	  }
+
+
+	  // SCROLLSPY DATA-API
+	  // ==================
+
+	  $(window).on('load.bs.scrollspy.data-api', function () {
+	    $('[data-spy="scroll"]').each(function () {
+	      var $spy = $(this)
+	      Plugin.call($spy, $spy.data())
+	    })
+	  })
+
+	}(jQuery);
+
+
+/***/ },
+/* 122 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*** IMPORTS FROM imports-loader ***/
+	var jQuery = __webpack_require__(4);
+
+	/* ========================================================================
+	 * Bootstrap: tab.js v3.3.4
+	 * http://getbootstrap.com/javascript/#tabs
+	 * ========================================================================
+	 * Copyright 2011-2015 Twitter, Inc.
+	 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+	 * ======================================================================== */
+
+
+	+function ($) {
+	  'use strict';
+
+	  // TAB CLASS DEFINITION
+	  // ====================
+
+	  var Tab = function (element) {
+	    this.element = $(element)
+	  }
+
+	  Tab.VERSION = '3.3.4'
+
+	  Tab.TRANSITION_DURATION = 150
+
+	  Tab.prototype.show = function () {
+	    var $this    = this.element
+	    var $ul      = $this.closest('ul:not(.dropdown-menu)')
+	    var selector = $this.data('target')
+
+	    if (!selector) {
+	      selector = $this.attr('href')
+	      selector = selector && selector.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
+	    }
+
+	    if ($this.parent('li').hasClass('active')) return
+
+	    var $previous = $ul.find('.active:last a')
+	    var hideEvent = $.Event('hide.bs.tab', {
+	      relatedTarget: $this[0]
+	    })
+	    var showEvent = $.Event('show.bs.tab', {
+	      relatedTarget: $previous[0]
+	    })
+
+	    $previous.trigger(hideEvent)
+	    $this.trigger(showEvent)
+
+	    if (showEvent.isDefaultPrevented() || hideEvent.isDefaultPrevented()) return
+
+	    var $target = $(selector)
+
+	    this.activate($this.closest('li'), $ul)
+	    this.activate($target, $target.parent(), function () {
+	      $previous.trigger({
+	        type: 'hidden.bs.tab',
+	        relatedTarget: $this[0]
+	      })
+	      $this.trigger({
+	        type: 'shown.bs.tab',
+	        relatedTarget: $previous[0]
+	      })
+	    })
+	  }
+
+	  Tab.prototype.activate = function (element, container, callback) {
+	    var $active    = container.find('> .active')
+	    var transition = callback
+	      && $.support.transition
+	      && (($active.length && $active.hasClass('fade')) || !!container.find('> .fade').length)
+
+	    function next() {
+	      $active
+	        .removeClass('active')
+	        .find('> .dropdown-menu > .active')
+	          .removeClass('active')
+	        .end()
+	        .find('[data-toggle="tab"]')
+	          .attr('aria-expanded', false)
+
+	      element
+	        .addClass('active')
+	        .find('[data-toggle="tab"]')
+	          .attr('aria-expanded', true)
+
+	      if (transition) {
+	        element[0].offsetWidth // reflow for transition
+	        element.addClass('in')
+	      } else {
+	        element.removeClass('fade')
+	      }
+
+	      if (element.parent('.dropdown-menu').length) {
+	        element
+	          .closest('li.dropdown')
+	            .addClass('active')
+	          .end()
+	          .find('[data-toggle="tab"]')
+	            .attr('aria-expanded', true)
+	      }
+
+	      callback && callback()
+	    }
+
+	    $active.length && transition ?
+	      $active
+	        .one('bsTransitionEnd', next)
+	        .emulateTransitionEnd(Tab.TRANSITION_DURATION) :
+	      next()
+
+	    $active.removeClass('in')
+	  }
+
+
+	  // TAB PLUGIN DEFINITION
+	  // =====================
+
+	  function Plugin(option) {
+	    return this.each(function () {
+	      var $this = $(this)
+	      var data  = $this.data('bs.tab')
+
+	      if (!data) $this.data('bs.tab', (data = new Tab(this)))
+	      if (typeof option == 'string') data[option]()
+	    })
+	  }
+
+	  var old = $.fn.tab
+
+	  $.fn.tab             = Plugin
+	  $.fn.tab.Constructor = Tab
+
+
+	  // TAB NO CONFLICT
+	  // ===============
+
+	  $.fn.tab.noConflict = function () {
+	    $.fn.tab = old
+	    return this
+	  }
+
+
+	  // TAB DATA-API
+	  // ============
+
+	  var clickHandler = function (e) {
+	    e.preventDefault()
+	    Plugin.call($(this), 'show')
+	  }
+
+	  $(document)
+	    .on('click.bs.tab.data-api', '[data-toggle="tab"]', clickHandler)
+	    .on('click.bs.tab.data-api', '[data-toggle="pill"]', clickHandler)
+
+	}(jQuery);
+
+
+/***/ },
+/* 123 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*** IMPORTS FROM imports-loader ***/
+	var jQuery = __webpack_require__(4);
+
+	/* ========================================================================
+	 * Bootstrap: affix.js v3.3.4
+	 * http://getbootstrap.com/javascript/#affix
+	 * ========================================================================
+	 * Copyright 2011-2015 Twitter, Inc.
+	 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+	 * ======================================================================== */
+
+
+	+function ($) {
+	  'use strict';
+
+	  // AFFIX CLASS DEFINITION
+	  // ======================
+
+	  var Affix = function (element, options) {
+	    this.options = $.extend({}, Affix.DEFAULTS, options)
+
+	    this.$target = $(this.options.target)
+	      .on('scroll.bs.affix.data-api', $.proxy(this.checkPosition, this))
+	      .on('click.bs.affix.data-api',  $.proxy(this.checkPositionWithEventLoop, this))
+
+	    this.$element     = $(element)
+	    this.affixed      = null
+	    this.unpin        = null
+	    this.pinnedOffset = null
+
+	    this.checkPosition()
+	  }
+
+	  Affix.VERSION  = '3.3.4'
+
+	  Affix.RESET    = 'affix affix-top affix-bottom'
+
+	  Affix.DEFAULTS = {
+	    offset: 0,
+	    target: window
+	  }
+
+	  Affix.prototype.getState = function (scrollHeight, height, offsetTop, offsetBottom) {
+	    var scrollTop    = this.$target.scrollTop()
+	    var position     = this.$element.offset()
+	    var targetHeight = this.$target.height()
+
+	    if (offsetTop != null && this.affixed == 'top') return scrollTop < offsetTop ? 'top' : false
+
+	    if (this.affixed == 'bottom') {
+	      if (offsetTop != null) return (scrollTop + this.unpin <= position.top) ? false : 'bottom'
+	      return (scrollTop + targetHeight <= scrollHeight - offsetBottom) ? false : 'bottom'
+	    }
+
+	    var initializing   = this.affixed == null
+	    var colliderTop    = initializing ? scrollTop : position.top
+	    var colliderHeight = initializing ? targetHeight : height
+
+	    if (offsetTop != null && scrollTop <= offsetTop) return 'top'
+	    if (offsetBottom != null && (colliderTop + colliderHeight >= scrollHeight - offsetBottom)) return 'bottom'
+
+	    return false
+	  }
+
+	  Affix.prototype.getPinnedOffset = function () {
+	    if (this.pinnedOffset) return this.pinnedOffset
+	    this.$element.removeClass(Affix.RESET).addClass('affix')
+	    var scrollTop = this.$target.scrollTop()
+	    var position  = this.$element.offset()
+	    return (this.pinnedOffset = position.top - scrollTop)
+	  }
+
+	  Affix.prototype.checkPositionWithEventLoop = function () {
+	    setTimeout($.proxy(this.checkPosition, this), 1)
+	  }
+
+	  Affix.prototype.checkPosition = function () {
+	    if (!this.$element.is(':visible')) return
+
+	    var height       = this.$element.height()
+	    var offset       = this.options.offset
+	    var offsetTop    = offset.top
+	    var offsetBottom = offset.bottom
+	    var scrollHeight = $(document.body).height()
+
+	    if (typeof offset != 'object')         offsetBottom = offsetTop = offset
+	    if (typeof offsetTop == 'function')    offsetTop    = offset.top(this.$element)
+	    if (typeof offsetBottom == 'function') offsetBottom = offset.bottom(this.$element)
+
+	    var affix = this.getState(scrollHeight, height, offsetTop, offsetBottom)
+
+	    if (this.affixed != affix) {
+	      if (this.unpin != null) this.$element.css('top', '')
+
+	      var affixType = 'affix' + (affix ? '-' + affix : '')
+	      var e         = $.Event(affixType + '.bs.affix')
+
+	      this.$element.trigger(e)
+
+	      if (e.isDefaultPrevented()) return
+
+	      this.affixed = affix
+	      this.unpin = affix == 'bottom' ? this.getPinnedOffset() : null
+
+	      this.$element
+	        .removeClass(Affix.RESET)
+	        .addClass(affixType)
+	        .trigger(affixType.replace('affix', 'affixed') + '.bs.affix')
+	    }
+
+	    if (affix == 'bottom') {
+	      this.$element.offset({
+	        top: scrollHeight - height - offsetBottom
+	      })
+	    }
+	  }
+
+
+	  // AFFIX PLUGIN DEFINITION
+	  // =======================
+
+	  function Plugin(option) {
+	    return this.each(function () {
+	      var $this   = $(this)
+	      var data    = $this.data('bs.affix')
+	      var options = typeof option == 'object' && option
+
+	      if (!data) $this.data('bs.affix', (data = new Affix(this, options)))
+	      if (typeof option == 'string') data[option]()
+	    })
+	  }
+
+	  var old = $.fn.affix
+
+	  $.fn.affix             = Plugin
+	  $.fn.affix.Constructor = Affix
+
+
+	  // AFFIX NO CONFLICT
+	  // =================
+
+	  $.fn.affix.noConflict = function () {
+	    $.fn.affix = old
+	    return this
+	  }
+
+
+	  // AFFIX DATA-API
+	  // ==============
+
+	  $(window).on('load', function () {
+	    $('[data-spy="affix"]').each(function () {
+	      var $spy = $(this)
+	      var data = $spy.data()
+
+	      data.offset = data.offset || {}
+
+	      if (data.offsetBottom != null) data.offset.bottom = data.offsetBottom
+	      if (data.offsetTop    != null) data.offset.top    = data.offsetTop
+
+	      Plugin.call($spy, data)
+	    })
+	  })
+
+	}(jQuery);
+
+
+/***/ },
+/* 124 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * A doubly linked list-based Least Recently Used (LRU)
+	 * cache. Will keep most recently used items while
+	 * discarding least recently used items when its limit is
+	 * reached. This is a bare-bone version of
+	 * Rasmus Andersson's js-lru:
+	 *
+	 *   https://github.com/rsms/js-lru
+	 *
+	 * @param {Number} limit
+	 * @constructor
+	 */
+
+	function Cache (limit) {
+	  this.size = 0
+	  this.limit = limit
+	  this.head = this.tail = undefined
+	  this._keymap = {}
+	}
+
+	var p = Cache.prototype
+
+	/**
+	 * Put <value> into the cache associated with <key>.
+	 * Returns the entry which was removed to make room for
+	 * the new entry. Otherwise undefined is returned.
+	 * (i.e. if there was enough room already).
+	 *
+	 * @param {String} key
+	 * @param {*} value
+	 * @return {Entry|undefined}
+	 */
+
+	p.put = function (key, value) {
+	  var entry = {
+	    key:key,
+	    value:value
+	  }
+	  this._keymap[key] = entry
+	  if (this.tail) {
+	    this.tail.newer = entry
+	    entry.older = this.tail
+	  } else {
+	    this.head = entry
+	  }
+	  this.tail = entry
+	  if (this.size === this.limit) {
+	    return this.shift()
+	  } else {
+	    this.size++
+	  }
+	}
+
+	/**
+	 * Purge the least recently used (oldest) entry from the
+	 * cache. Returns the removed entry or undefined if the
+	 * cache was empty.
+	 */
+
+	p.shift = function () {
+	  var entry = this.head
+	  if (entry) {
+	    this.head = this.head.newer
+	    this.head.older = undefined
+	    entry.newer = entry.older = undefined
+	    this._keymap[entry.key] = undefined
+	  }
+	  return entry
+	}
+
+	/**
+	 * Get and register recent use of <key>. Returns the value
+	 * associated with <key> or undefined if not in cache.
+	 *
+	 * @param {String} key
+	 * @param {Boolean} returnEntry
+	 * @return {Entry|*}
+	 */
+
+	p.get = function (key, returnEntry) {
+	  var entry = this._keymap[key]
+	  if (entry === undefined) return
+	  if (entry === this.tail) {
+	    return returnEntry
+	      ? entry
+	      : entry.value
+	  }
+	  // HEAD--------------TAIL
+	  //   <.older   .newer>
+	  //  <--- add direction --
+	  //   A  B  C  <D>  E
+	  if (entry.newer) {
+	    if (entry === this.head) {
+	      this.head = entry.newer
+	    }
+	    entry.newer.older = entry.older // C <-- E.
+	  }
+	  if (entry.older) {
+	    entry.older.newer = entry.newer // C. --> E
+	  }
+	  entry.newer = undefined // D --x
+	  entry.older = this.tail // D. --> E
+	  if (this.tail) {
+	    this.tail.newer = entry // E. <-- D
+	  }
+	  this.tail = entry
+	  return returnEntry
+	    ? entry
+	    : entry.value
+	}
+
+	module.exports = Cache
+
+/***/ },
+/* 125 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var MAX_UPDATE_COUNT = 10
+
+	// we have two separate queues: one for directive updates
+	// and one for user watcher registered via $watch().
+	// we want to guarantee directive updates to be called
+	// before user watchers so that when user watchers are
+	// triggered, the DOM would have already been in updated
+	// state.
+	var queue = []
+	var userQueue = []
+	var has = {}
+	var waiting = false
+	var flushing = false
+
+	/**
+	 * Reset the batcher's state.
+	 */
+
+	function reset () {
+	  queue = []
+	  userQueue = []
+	  has = {}
+	  waiting = false
+	  flushing = false
+	}
+
+	/**
+	 * Flush both queues and run the jobs.
+	 */
+
+	function flush () {
+	  flushing = true
+	  run(queue)
+	  run(userQueue)
+	  reset()
+	}
+
+	/**
+	 * Run the jobs in a single queue.
+	 *
+	 * @param {Array} queue
+	 */
+
+	function run (queue) {
+	  // do not cache length because more jobs might be pushed
+	  // as we run existing jobs
+	  for (var i = 0; i < queue.length; i++) {
+	    queue[i].run()
+	  }
+	}
+
+	/**
+	 * Push a job into the job queue.
+	 * Jobs with duplicate IDs will be skipped unless it's
+	 * pushed when the queue is being flushed.
+	 *
+	 * @param {Object} job
+	 *   properties:
+	 *   - {String|Number} id
+	 *   - {Function}      run
+	 */
+
+	exports.push = function (job) {
+	  var id = job.id
+	  if (!id || !has[id] || flushing) {
+	    if (!has[id]) {
+	      has[id] = 1
+	    } else {
+	      has[id]++
+	      // detect possible infinite update loops
+	      if (has[id] > MAX_UPDATE_COUNT) {
+	        _.warn(
+	          'You may have an infinite update loop for the ' +
+	          'watcher with expression: "' + job.expression + '".'
+	        )
+	        return
+	      }
+	    }
+	    // A user watcher callback could trigger another
+	    // directive update during the flushing; at that time
+	    // the directive queue would already have been run, so
+	    // we call that update immediately as it is pushed.
+	    if (flushing && !job.user) {
+	      job.run()
+	      return
+	    }
+	    ;(job.user ? userQueue : queue).push(job)
+	    if (!waiting) {
+	      waiting = true
+	      _.nextTick(flush)
+	    }
+	  }
+	}
+
+/***/ },
+/* 126 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = Array.isArray || function (arr) {
+	  return Object.prototype.toString.call(arr) == '[object Array]';
+	};
+
+
+/***/ },
+/* 127 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var arrayProto = Array.prototype
+	var arrayMethods = Object.create(arrayProto)
+
+	/**
+	 * Intercept mutating methods and emit events
+	 */
+
+	;[
+	  'push',
+	  'pop',
+	  'shift',
+	  'unshift',
+	  'splice',
+	  'sort',
+	  'reverse'
+	]
+	.forEach(function (method) {
+	  // cache original method
+	  var original = arrayProto[method]
+	  _.define(arrayMethods, method, function mutator () {
+	    // avoid leaking arguments:
+	    // http://jsperf.com/closure-with-arguments
+	    var i = arguments.length
+	    var args = new Array(i)
+	    while (i--) {
+	      args[i] = arguments[i]
+	    }
+	    var result = original.apply(this, args)
+	    var ob = this.__ob__
+	    var inserted
+	    switch (method) {
+	      case 'push':
+	        inserted = args
+	        break
+	      case 'unshift':
+	        inserted = args
+	        break
+	      case 'splice':
+	        inserted = args.slice(2)
+	        break
+	    }
+	    if (inserted) ob.observeArray(inserted)
+	    // notify change
+	    ob.notify()
+	    return result
+	  })
+	})
+
+	/**
+	 * Swap the element at the given index with a new value
+	 * and emits corresponding event.
+	 *
+	 * @param {Number} index
+	 * @param {*} val
+	 * @return {*} - replaced element
+	 */
+
+	_.define(
+	  arrayProto,
+	  '$set',
+	  function $set (index, val) {
+	    if (index >= this.length) {
+	      this.length = index + 1
+	    }
+	    return this.splice(index, 1, val)[0]
+	  }
+	)
+
+	/**
+	 * Convenience method to remove the element at given index.
+	 *
+	 * @param {Number} index
+	 * @param {*} val
+	 */
+
+	_.define(
+	  arrayProto,
+	  '$remove',
+	  function $remove (index) {
+	    if (typeof index !== 'number') {
+	      index = this.indexOf(index)
+	    }
+	    if (index > -1) {
+	      return this.splice(index, 1)[0]
+	    }
+	  }
+	)
+
+	module.exports = arrayMethods
+
+/***/ },
+/* 128 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var objProto = Object.prototype
+
+	/**
+	 * Add a new property to an observed object
+	 * and emits corresponding event
+	 *
+	 * @param {String} key
+	 * @param {*} val
+	 * @public
+	 */
+
+	_.define(
+	  objProto,
+	  '$add',
+	  function $add (key, val) {
+	    if (this.hasOwnProperty(key)) return
+	    var ob = this.__ob__
+	    if (!ob || _.isReserved(key)) {
+	      this[key] = val
+	      return
+	    }
+	    ob.convert(key, val)
+	    if (ob.vms) {
+	      var i = ob.vms.length
+	      while (i--) {
+	        var vm = ob.vms[i]
+	        vm._proxy(key)
+	        vm._digest()
+	      }
+	    } else {
+	      ob.notify()
+	    }
+	  }
+	)
+
+	/**
+	 * Deletes a property from an observed object
+	 * and emits corresponding event
+	 *
+	 * @param {String} key
+	 * @public
+	 */
+
+	_.define(
+	  objProto,
+	  '$delete',
+	  function $delete (key) {
+	    if (!this.hasOwnProperty(key)) return
+	    delete this[key]
+	    var ob = this.__ob__
+	    if (!ob || _.isReserved(key)) {
+	      return
+	    }
+	    if (ob.vms) {
+	      var i = ob.vms.length
+	      while (i--) {
+	        var vm = ob.vms[i]
+	        vm._unproxy(key)
+	        vm._digest()
+	      }
+	    } else {
+	      ob.notify()
+	    }
+	  }
+	)
+
+/***/ },
+/* 129 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var addClass = _.addClass
+	var removeClass = _.removeClass
+	var transDurationProp = _.transitionProp + 'Duration'
+	var animDurationProp = _.animationProp + 'Duration'
+
+	var queue = []
+	var queued = false
+
+	/**
+	 * Push a job into the transition queue, which is to be
+	 * executed on next frame.
+	 *
+	 * @param {Element} el    - target element
+	 * @param {Number} dir    - 1: enter, -1: leave
+	 * @param {Function} op   - the actual dom operation
+	 * @param {String} cls    - the className to remove when the
+	 *                          transition is done.
+	 * @param {Function} [cb] - user supplied callback.
+	 */
+
+	function push (el, dir, op, cls, cb) {
+	  queue.push({
+	    el  : el,
+	    dir : dir,
+	    cb  : cb,
+	    cls : cls,
+	    op  : op
+	  })
+	  if (!queued) {
+	    queued = true
+	    _.nextTick(flush)
+	  }
+	}
+
+	/**
+	 * Flush the queue, and do one forced reflow before
+	 * triggering transitions.
+	 */
+
+	function flush () {
+	  /* jshint unused: false */
+	  var f = document.documentElement.offsetHeight
+	  queue.forEach(run)
+	  queue = []
+	  queued = false
+	}
+
+	/**
+	 * Run a transition job.
+	 *
+	 * @param {Object} job
+	 */
+
+	function run (job) {
+
+	  var el = job.el
+	  var data = el.__v_trans
+	  var cls = job.cls
+	  var cb = job.cb
+	  var op = job.op
+	  var transitionType = getTransitionType(el, data, cls)
+
+	  if (job.dir > 0) { // ENTER
+	    if (transitionType === 1) {
+	      // trigger transition by removing enter class
+	      removeClass(el, cls)
+	      // only need to listen for transitionend if there's
+	      // a user callback
+	      if (cb) setupTransitionCb(_.transitionEndEvent)
+	    } else if (transitionType === 2) {
+	      // animations are triggered when class is added
+	      // so we just listen for animationend to remove it.
+	      setupTransitionCb(_.animationEndEvent, function () {
+	        removeClass(el, cls)
+	      })
+	    } else {
+	      // no transition applicable
+	      removeClass(el, cls)
+	      if (cb) cb()
+	    }
+	  } else { // LEAVE
+	    if (transitionType) {
+	      // leave transitions/animations are both triggered
+	      // by adding the class, just remove it on end event.
+	      var event = transitionType === 1
+	        ? _.transitionEndEvent
+	        : _.animationEndEvent
+	      setupTransitionCb(event, function () {
+	        op()
+	        removeClass(el, cls)
+	      })
+	    } else {
+	      op()
+	      removeClass(el, cls)
+	      if (cb) cb()
+	    }
+	  }
+
+	  /**
+	   * Set up a transition end callback, store the callback
+	   * on the element's __v_trans data object, so we can
+	   * clean it up if another transition is triggered before
+	   * the callback is fired.
+	   *
+	   * @param {String} event
+	   * @param {Function} [cleanupFn]
+	   */
+
+	  function setupTransitionCb (event, cleanupFn) {
+	    data.event = event
+	    var onEnd = data.callback = function transitionCb (e) {
+	      if (e.target === el) {
+	        _.off(el, event, onEnd)
+	        data.event = data.callback = null
+	        if (cleanupFn) cleanupFn()
+	        if (cb) cb()
+	      }
+	    }
+	    _.on(el, event, onEnd)
+	  }
+	}
+
+	/**
+	 * Get an element's transition type based on the
+	 * calculated styles
+	 *
+	 * @param {Element} el
+	 * @param {Object} data
+	 * @param {String} className
+	 * @return {Number}
+	 *         1 - transition
+	 *         2 - animation
+	 */
+
+	function getTransitionType (el, data, className) {
+	  var type = data.cache && data.cache[className]
+	  if (type) return type
+	  var inlineStyles = el.style
+	  var computedStyles = window.getComputedStyle(el)
+	  var transDuration =
+	    inlineStyles[transDurationProp] ||
+	    computedStyles[transDurationProp]
+	  if (transDuration && transDuration !== '0s') {
+	    type = 1
+	  } else {
+	    var animDuration =
+	      inlineStyles[animDurationProp] ||
+	      computedStyles[animDurationProp]
+	    if (animDuration && animDuration !== '0s') {
+	      type = 2
+	    }
+	  }
+	  if (type) {
+	    if (!data.cache) data.cache = {}
+	    data.cache[className] = type
+	  }
+	  return type
+	}
+
+	/**
+	 * Apply CSS transition to an element.
+	 *
+	 * @param {Element} el
+	 * @param {Number} direction - 1: enter, -1: leave
+	 * @param {Function} op - the actual DOM operation
+	 * @param {Object} data - target element's transition data
+	 */
+
+	module.exports = function (el, direction, op, data, cb) {
+	  var prefix = data.id || 'v'
+	  var enterClass = prefix + '-enter'
+	  var leaveClass = prefix + '-leave'
+	  // clean up potential previous unfinished transition
+	  if (data.callback) {
+	    _.off(el, data.event, data.callback)
+	    removeClass(el, enterClass)
+	    removeClass(el, leaveClass)
+	    data.event = data.callback = null
+	  }
+	  if (direction > 0) { // enter
+	    addClass(el, enterClass)
+	    op()
+	    push(el, direction, null, enterClass, cb)
+	  } else { // leave
+	    addClass(el, leaveClass)
+	    push(el, direction, op, leaveClass, cb)
+	  }
+	}
+
+/***/ },
+/* 130 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Apply JavaScript enter/leave functions.
+	 *
+	 * @param {Element} el
+	 * @param {Number} direction - 1: enter, -1: leave
+	 * @param {Function} op - the actual DOM operation
+	 * @param {Object} data - target element's transition data
+	 * @param {Object} def - transition definition object
+	 * @param {Vue} vm - the owner vm of the element
+	 * @param {Function} [cb]
+	 */
+
+	module.exports = function (el, direction, op, data, def, vm, cb) {
+	  if (data.cancel) {
+	    data.cancel()
+	    data.cancel = null
+	  }
+	  if (direction > 0) { // enter
+	    if (def.beforeEnter) {
+	      def.beforeEnter.call(vm, el)
+	    }
+	    op()
+	    if (def.enter) {
+	      data.cancel = def.enter.call(vm, el, function () {
+	        data.cancel = null
+	        if (cb) cb()
+	      })
+	    } else if (cb) {
+	      cb()
+	    }
+	  } else { // leave
+	    if (def.leave) {
+	      data.cancel = def.leave.call(vm, el, function () {
+	        data.cancel = null
+	        op()
+	        if (cb) cb()
+	      })
+	    } else {
+	      op()
+	      if (cb) cb()
+	    }
+	  }
+	}
+
+/***/ },
+/* 131 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+
+	module.exports = {
+
+	  bind: function () {
+	    var self = this
+	    var el = this.el
+
+	    // check params
+	    // - lazy: update model on "change" instead of "input"
+	    var lazy = this._checkParam('lazy') != null
+	    // - number: cast value into number when updating model.
+	    var number = this._checkParam('number') != null
+
+	    // handle composition events.
+	    // http://blog.evanyou.me/2014/01/03/composition-event/
+	    var cpLocked = false
+	    this.cpLock = function () {
+	      cpLocked = true
+	    }
+	    this.cpUnlock = function () {
+	      cpLocked = false
+	      // in IE11 the "compositionend" event fires AFTER
+	      // the "input" event, so the input handler is blocked
+	      // at the end... have to call it here.
+	      set()
+	    }
+	    _.on(el,'compositionstart', this.cpLock)
+	    _.on(el,'compositionend', this.cpUnlock)
+
+	    // shared setter
+	    function set () {
+	      self.set(
+	        number ? _.toNumber(el.value) : el.value,
+	        true
+	      )
+	    }
+
+	    // if the directive has filters, we need to
+	    // record cursor position and restore it after updating
+	    // the input with the filtered value.
+	    // also force update for type="range" inputs to enable
+	    // "lock in range" (see #506)
+	    this.listener = this.filters || el.type === 'range'
+	      ? function textInputListener () {
+	          if (cpLocked) return
+	          var charsOffset
+	          // some HTML5 input types throw error here
+	          try {
+	            // record how many chars from the end of input
+	            // the cursor was at
+	            charsOffset = el.value.length - el.selectionStart
+	          } catch (e) {}
+	          // Fix IE10/11 infinite update cycle
+	          // https://github.com/yyx990803/vue/issues/592
+	          /* istanbul ignore if */
+	          if (charsOffset < 0) {
+	            return
+	          }
+	          set()
+	          _.nextTick(function () {
+	            // force a value update, because in
+	            // certain cases the write filters output the
+	            // same result for different input values, and
+	            // the Observer set events won't be triggered.
+	            var newVal = self._watcher.value
+	            self.update(newVal)
+	            if (charsOffset != null) {
+	              var cursorPos =
+	                _.toString(newVal).length - charsOffset
+	              el.setSelectionRange(cursorPos, cursorPos)
+	            }
+	          })
+	        }
+	      : function textInputListener () {
+	          if (cpLocked) return
+	          set()
+	        }
+
+	    this.event = lazy ? 'change' : 'input'
+	    _.on(el, this.event, this.listener)
+
+	    // IE9 doesn't fire input event on backspace/del/cut
+	    if (!lazy && _.isIE9) {
+	      this.onCut = function () {
+	        _.nextTick(self.listener)
+	      }
+	      this.onDel = function (e) {
+	        if (e.keyCode === 46 || e.keyCode === 8) {
+	          self.listener()
+	        }
+	      }
+	      _.on(el, 'cut', this.onCut)
+	      _.on(el, 'keyup', this.onDel)
+	    }
+
+	    // set initial value if present
+	    if (
+	      el.hasAttribute('value') ||
+	      (el.tagName === 'TEXTAREA' && el.value.trim())
+	    ) {
+	      this._initValue = number
+	        ? _.toNumber(el.value)
+	        : el.value
+	    }
+	  },
+
+	  update: function (value) {
+	    this.el.value = _.toString(value)
+	  },
+
+	  unbind: function () {
+	    var el = this.el
+	    _.off(el, this.event, this.listener)
+	    _.off(el,'compositionstart', this.cpLock)
+	    _.off(el,'compositionend', this.cpUnlock)
+	    if (this.onCut) {
+	      _.off(el,'cut', this.onCut)
+	      _.off(el,'keyup', this.onDel)
+	    }
+	  }
+
+	}
+
+/***/ },
+/* 132 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+
+	module.exports = {
+
+	  bind: function () {
+	    var self = this
+	    var el = this.el
+	    this.listener = function () {
+	      self.set(el.value, true)
+	    }
+	    _.on(el, 'change', this.listener)
+	    if (el.checked) {
+	      this._initValue = el.value
+	    }
+	  },
+
+	  update: function (value) {
+	    /* jshint eqeqeq: false */
+	    this.el.checked = value == this.el.value
+	  },
+
+	  unbind: function () {
+	    _.off(this.el, 'change', this.listener)
+	  }
+
+	}
+
+/***/ },
+/* 133 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var Watcher = __webpack_require__(45)
+
+	module.exports = {
+
+	  bind: function () {
+	    var self = this
+	    var el = this.el
+	    // check options param
+	    var optionsParam = this._checkParam('options')
+	    if (optionsParam) {
+	      initOptions.call(this, optionsParam)
+	    }
+	    this.number = this._checkParam('number') != null
+	    this.multiple = el.hasAttribute('multiple')
+	    this.listener = function () {
+	      var value = self.multiple
+	        ? getMultiValue(el)
+	        : el.value
+	      value = self.number
+	        ? _.toNumber(value)
+	        : value
+	      self.set(value, true)
+	    }
+	    _.on(el, 'change', this.listener)
+	    checkInitialValue.call(this)
+	  },
+
+	  update: function (value) {
+	    /* jshint eqeqeq: false */
+	    var el = this.el
+	    el.selectedIndex = -1
+	    var multi = this.multiple && _.isArray(value)
+	    var options = el.options
+	    var i = options.length
+	    var option
+	    while (i--) {
+	      option = options[i]
+	      option.selected = multi
+	        ? indexOf(value, option.value) > -1
+	        : value == option.value
+	    }
+	  },
+
+	  unbind: function () {
+	    _.off(this.el, 'change', this.listener)
+	    if (this.optionWatcher) {
+	      this.optionWatcher.teardown()
+	    }
+	  }
+
+	}
+
+	/**
+	 * Initialize the option list from the param.
+	 *
+	 * @param {String} expression
+	 */
+
+	function initOptions (expression) {
+	  var self = this
+	  function optionUpdateWatcher (value) {
+	    if (_.isArray(value)) {
+	      self.el.innerHTML = ''
+	      buildOptions(self.el, value)
+	      if (self._watcher) {
+	        self.update(self._watcher.value)
+	      }
+	    } else {
+	      _.warn('Invalid options value for v-model: ' + value)
+	    }
+	  }
+	  this.optionWatcher = new Watcher(
+	    this.vm,
+	    expression,
+	    optionUpdateWatcher,
+	    { deep: true }
+	  )
+	  // update with initial value
+	  optionUpdateWatcher(this.optionWatcher.value)
+	}
+
+	/**
+	 * Build up option elements. IE9 doesn't create options
+	 * when setting innerHTML on <select> elements, so we have
+	 * to use DOM API here.
+	 *
+	 * @param {Element} parent - a <select> or an <optgroup>
+	 * @param {Array} options
+	 */
+
+	function buildOptions (parent, options) {
+	  var op, el
+	  for (var i = 0, l = options.length; i < l; i++) {
+	    op = options[i]
+	    if (!op.options) {
+	      el = document.createElement('option')
+	      if (typeof op === 'string') {
+	        el.text = el.value = op
+	      } else {
+	        el.text = op.text
+	        el.value = op.value
+	      }
+	    } else {
+	      el = document.createElement('optgroup')
+	      el.label = op.label
+	      buildOptions(el, op.options)
+	    }
+	    parent.appendChild(el)
+	  }
+	}
+
+	/**
+	 * Check the initial value for selected options.
+	 */
+
+	function checkInitialValue () {
+	  var initValue
+	  var options = this.el.options
+	  for (var i = 0, l = options.length; i < l; i++) {
+	    if (options[i].hasAttribute('selected')) {
+	      if (this.multiple) {
+	        (initValue || (initValue = []))
+	          .push(options[i].value)
+	      } else {
+	        initValue = options[i].value
+	      }
+	    }
+	  }
+	  if (initValue) {
+	    this._initValue = this.number
+	      ? _.toNumber(initValue)
+	      : initValue
+	  }
+	}
+
+	/**
+	 * Helper to extract a value array for select[multiple]
+	 *
+	 * @param {SelectElement} el
+	 * @return {Array}
+	 */
+
+	function getMultiValue (el) {
+	  return Array.prototype.filter
+	    .call(el.options, filterSelected)
+	    .map(getOptionValue)
+	}
+
+	function filterSelected (op) {
+	  return op.selected
+	}
+
+	function getOptionValue (op) {
+	  return op.value || op.text
+	}
+
+	/**
+	 * Native Array.indexOf uses strict equal, but in this
+	 * case we need to match string/numbers with soft equal.
+	 *
+	 * @param {Array} arr
+	 * @param {*} val
+	 */
+
+	function indexOf (arr, val) {
+	  /* jshint eqeqeq: false */
+	  var i = arr.length
+	  while (i--) {
+	    if (arr[i] == val) return i
+	  }
+	  return -1
+	}
+
+/***/ },
+/* 134 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+
+	module.exports = {
+
+	  bind: function () {
+	    var self = this
+	    var el = this.el
+	    this.listener = function () {
+	      self.set(el.checked, true)
+	    }
+	    _.on(el, 'change', this.listener)
+	    if (el.checked) {
+	      this._initValue = el.checked
+	    }
+	  },
+
+	  update: function (value) {
+	    this.el.checked = !!value
+	  },
+
+	  unbind: function () {
+	    _.off(this.el, 'change', this.listener)
+	  }
+
+	}
+
+/***/ },
+/* 135 */,
+/* 136 */,
+/* 137 */,
+/* 138 */,
+/* 139 */,
+/* 140 */,
+/* 141 */,
+/* 142 */,
+/* 143 */,
+/* 144 */,
+/* 145 */,
+/* 146 */,
+/* 147 */,
+/* 148 */,
+/* 149 */,
+/* 150 */,
+/* 151 */,
+/* 152 */,
+/* 153 */,
+/* 154 */,
+/* 155 */,
+/* 156 */,
+/* 157 */,
+/* 158 */,
+/* 159 */,
+/* 160 */,
+/* 161 */,
+/* 162 */,
+/* 163 */,
+/* 164 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "448c34a56d699c29117adc64c43affeb.woff2"
 
 /***/ },
-/* 161 */
+/* 165 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "fa2772327f55d8198301fdb8bcfc8158.woff"
 
 /***/ },
-/* 162 */
+/* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "e18bbf611f2a2e43afc071aa2f4e1512.ttf"
 
 /***/ },
-/* 163 */
+/* 167 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "89889688147bd7575d6327160d64e760.svg"
+
+/***/ },
+/* 168 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "f4769f9bdb7466be65088239c12046d1.eot"
 
 /***/ }
 /******/ ]);
