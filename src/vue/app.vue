@@ -11,8 +11,10 @@ module.exports = {
     view : 'page_top'
   },
   components : {
-    page_top  : require('./page/top.vue'),
-    page_card : require('./page/card.vue')
+    page_top    : require('./page/top.vue'),
+    page_card   : require('./page/card.vue'),
+    page_config : require('./page/config.vue'),
+    page_credit : require('./page/credit.vue')
   }}
 </script>
 <!-- vim: set ft=html: -->

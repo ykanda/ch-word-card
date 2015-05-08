@@ -42,6 +42,16 @@ page("/card", function(context) {
   app.view = 'page_card'
 })
 
+page("/config", function(context) {
+  window.scrollTo(0, 0)
+  app.view = 'page_config'
+})
+
+page("/credit", function(context) {
+  window.scrollTo(0, 0)
+  app.view = 'page_credit'
+})
+
 // ROUTING!!
 page()
 

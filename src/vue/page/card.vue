@@ -19,7 +19,7 @@
       <div class="progress-bar" role="progressbar" aria-valuenow="{{ currentCardNumber }}" aria-valuemin="0" aria-valuemax="{{ numOfCards }}" style="width: {{ progress }}%;">
         <span class="sr-only">{{ currentCardNumber }} of {{ numOfCards }}</span>
       </div>
-   </div>
+    </div>
 
     <!-- 日本語 -->
     <div class="text-center">
