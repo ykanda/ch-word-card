@@ -10394,7 +10394,7 @@
 /* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __vue_template__ = "<nav class=\"navbar navbar-inverse\">\n    <div class=\"container-fluid text-center\">\n      <a href=\"/\" class=\"btn navbar-btn btn-primary\" role=\"button\"><span class=\"glyphicon glyphicon-home\" aria-hidden=\"true\"></span></a>\n    </div>\n  </nav>\n  <div class=\"container\">\n    <h2>Credit</h2>\n  </div>";
+	var __vue_template__ = "<nav class=\"navbar navbar-inverse\">\n    <div class=\"container-fluid text-center\">\n      <a href=\"/\" class=\"btn navbar-btn btn-primary\" role=\"button\"><span class=\"glyphicon glyphicon-home\" aria-hidden=\"true\"></span></a>\n    </div>\n  </nav>\n  <div class=\"container\">\n    <h2>Credit</h2>\n    <div class=\"text-center\">\n      ©2015 Yasruhiro KANDA\n    </div>\n    <div class=\"text-center\">\n      <a href=\"mailto:yasuhiro.kanda@gmail.com\" class=\"btn navbar-btn btn-primary\" role=\"button\"><span class=\"glyphicon glyphicon-envelope\" aria-hidden=\"true\"></span><br>yasuhiro.kanda@gmail.com</a>\n    </div>\n  </div>";
 	module.exports = {
 	  data : function () {
 	    return {
