@@ -10,7 +10,7 @@
       &copy;2015 Yasruhiro KANDA
     </div>
     <div class="text-center">
-      <a href="mailto:yasuhiro.kanda@gmail.com" class="btn navbar-btn btn-primary" href="#" role="button"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span><br>yasuhiro.kanda@gmail.com</a>
+      <a href="mailto:yasuhiro.kanda@gmail.com" class="btn navbar-btn btn-primary" role="button"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span><br>yasuhiro.kanda@gmail.com</a>
     </div>
   </div>
 </template>
