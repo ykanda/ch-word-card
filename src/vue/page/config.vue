@@ -52,8 +52,8 @@ module.exports = {
       set : function (v) { return config.phonetic(v) },
     },
     orthography : {
-      get : function ()  { return config.arthograpy()  },
-      set : function (v) { return config.arthograpy(v) }
+      get : function ()  { return config.arthography()  },
+      set : function (v) { return config.arthography(v) }
     }
   },
 

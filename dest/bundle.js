@@ -10309,9 +10309,10 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(74)("a.cwc-button,span.cwc-word{font-size:xx-large}");
-	var __vue_template__ = "<nav class=\"navbar navbar-inverse\">\n    <div class=\"container-fluid text-center\">\n      <a href=\"/\" class=\"btn navbar-btn btn-primary\" role=\"button\"><span class=\"glyphicon glyphicon-home\" aria-hidden=\"true\"></span></a>\n    </div>\n  </nav>\n  <div class=\"container\">\n    <div class=\"progress\" v-cloak=\"\">\n      <div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"{{ currentCardNumber }}\" aria-valuemin=\"0\" aria-valuemax=\"{{ numOfCards }}\" style=\"width: {{ progress }}%\">\n        <span class=\"sr-only\">{{ currentCardNumber }} of {{ numOfCards }}</span>\n      </div>\n    </div>\n\n    <!-- 日本語 -->\n    <div class=\"text-center\">\n      <span class=\"cwc-word\">{{ currentCard.jp }}</span>\n    </div>\n    <div class=\"text-center\">\n      <a href=\"\" class=\"btn btn-default\" v-on=\"click : openCh()\" v-show=\"openChineseWord == false\">\n        <span class=\"glyphicon glyphicon-chevron-down\" aria-hidden=\"true\"></span>\n      </a>\n    </div>\n\n    <!-- 繁体中国語, 注音 -->\n    <div class=\"text-center\" v-show=\"openChineseWord == true\">\n      <span class=\"cwc-word\">{{ currentCard.ch_t   }}</span><br>\n      <span class=\"cwc-word\">{{ currentCard.zhuyin }}</span><br>\n      <span v-show=\"isNotEndOfCards\">\n        <a href=\"#\" class=\"btn btn-default\" v-on=\"click : nextCard()\">\n          <span class=\"glyphicon glyphicon-chevron-down\" aria-hidden=\"true\"></span>\n        </a>\n      </span>\n      <span v-show=\"isEndOfCards\">\n        <a href=\"#\" class=\"btn btn-default\" v-on=\"click: reset()\"><span class=\"glyphicon glyphicon-repeat\" aria-hidden=\"true\"></span></a>\n      </span>\n    </div>\n\n    <!-- 簡体中国語 - 拼音 -->\n    <!--\n    <div>\n      {{currentCard.ch_s}}\n      {{currentCard.pinyin}}\n    </div>\n    <div>\n      <a href=\"\" v-on=\"click\">↓</a>\n    </div>\n    -->\n  </div><!-- /.container -->";
-	api    = __webpack_require__(33)
-	config = __webpack_require__(34)
+	var __vue_template__ = "<nav class=\"navbar navbar-inverse\">\n    <div class=\"container-fluid text-center\">\n      <a href=\"/\" class=\"btn navbar-btn btn-primary\" role=\"button\"><span class=\"glyphicon glyphicon-home\" aria-hidden=\"true\"></span></a>\n    </div>\n  </nav>\n  <div class=\"container\">\n    <div class=\"progress\" v-cloak=\"\">\n      <div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"{{ currentCardNumber }}\" aria-valuemin=\"0\" aria-valuemax=\"{{ numOfCards }}\" style=\"width: {{ progress }}%\">\n        <span class=\"sr-only\">{{ currentCardNumber }} of {{ numOfCards }}</span>\n      </div>\n    </div>\n\n    <!-- 日本語 -->\n    <div class=\"text-center\">\n      <span class=\"cwc-word\" v-text=\"currentCardJapanese\">{{ currentCardJapanese }}</span>\n    </div>\n    <div class=\"text-center\">\n      <a href=\"\" class=\"btn btn-default\" v-on=\"click : openCh()\" v-show=\"openChineseWord == false\">\n        <span class=\"glyphicon glyphicon-chevron-down\" aria-hidden=\"true\"></span>\n      </a>\n    </div>\n\n\n    <div class=\"text-center\" v-show=\"openChineseWord == true\">\n      <span class=\"cwc-word\">{{ currentCardChinese }}</span><br>\n      <span class=\"cwc-word\">{{ currentCardPhonetic }}</span><br>\n      <span v-show=\"isNotEndOfCards\">\n        <a href=\"#\" class=\"btn btn-default\" v-on=\"click : nextCard()\">\n          <span class=\"glyphicon glyphicon-chevron-down\" aria-hidden=\"true\"></span>\n        </a>\n      </span>\n      <span v-show=\"isEndOfCards\">\n        <a href=\"#\" class=\"btn btn-default\" v-on=\"click: reset()\"><span class=\"glyphicon glyphicon-repeat\" aria-hidden=\"true\"></span></a>\n      </span>\n    </div>\n  </div><!-- /.container -->";
+	'use strict'
+	var api    = __webpack_require__(33)
+	var config = __webpack_require__(34)
 
 
 	module.exports = {
@@ -10329,12 +10330,11 @@
 	    }
 	  },
 
-	  created : function () {
+	  compiled : function () {
 	    var option = {}
 	    var _this = this
 	    api.getCards(option).then(function(response) {
 	      _this.cards = response
-	      console.log(response)
 	    })
 	  },
 
@@ -10348,11 +10348,30 @@
 	    currentCardNumber : function () {
 	      return (this.index + 1)
 	    },
-	    currentCard : function () {
-	      return this.cards[ this.index ]
-	    },
+
 	    isNotEndOfCards : function () { return (this.index <  (this.cards.length - 1)) },
 	    isEndOfCards    : function () { return (this.index >= (this.cards.length - 1)) },
+	    
+	    currentCardJapanese : {
+	      get : function () {
+	        return this.cards[ this.index ].jp
+	      }
+	    },
+	    currentCardChinese : {
+	      get : function () {
+	        return (config.arthography() == 'traditional')
+	          ? this.cards[ this.index ].ch_t
+	          : this.cards[ this.index ].ch_s
+	      }
+	    },
+
+	    currentCardPhonetic : {
+	      get : function () {
+	        return (config.phonetic() == 'zhuyin')
+	          ? this.cards[ this.index ].zhuyin
+	          : this.cards[ this.index ].pinyin
+	      }
+	    }
 	  },
 
 	  methods : {
@@ -10397,8 +10416,8 @@
 	      set : function (v) { return config.phonetic(v) },
 	    },
 	    orthography : {
-	      get : function ()  { return config.arthograpy()  },
-	      set : function (v) { return config.arthograpy(v) }
+	      get : function ()  { return config.arthography()  },
+	      set : function (v) { return config.arthography(v) }
 	    }
 	  },
 
@@ -11951,44 +11970,44 @@
 /* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var lang   = __webpack_require__(65)
+	var lang   = __webpack_require__(48)
 	var extend = lang.extend
 
 	extend(exports, lang)
-	extend(exports, __webpack_require__(66))
-	extend(exports, __webpack_require__(67))
-	extend(exports, __webpack_require__(68))
-	extend(exports, __webpack_require__(69))
+	extend(exports, __webpack_require__(49))
+	extend(exports, __webpack_require__(50))
+	extend(exports, __webpack_require__(51))
+	extend(exports, __webpack_require__(52))
 
 /***/ },
 /* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// manipulation directives
-	exports.text       = __webpack_require__(48)
-	exports.html       = __webpack_require__(49)
-	exports.attr       = __webpack_require__(50)
-	exports.show       = __webpack_require__(51)
-	exports['class']   = __webpack_require__(52)
-	exports.el         = __webpack_require__(53)
-	exports.ref        = __webpack_require__(54)
-	exports.cloak      = __webpack_require__(55)
-	exports.style      = __webpack_require__(56)
-	exports.partial    = __webpack_require__(57)
-	exports.transition = __webpack_require__(58)
+	exports.text       = __webpack_require__(53)
+	exports.html       = __webpack_require__(54)
+	exports.attr       = __webpack_require__(55)
+	exports.show       = __webpack_require__(56)
+	exports['class']   = __webpack_require__(57)
+	exports.el         = __webpack_require__(58)
+	exports.ref        = __webpack_require__(59)
+	exports.cloak      = __webpack_require__(60)
+	exports.style      = __webpack_require__(61)
+	exports.partial    = __webpack_require__(62)
+	exports.transition = __webpack_require__(63)
 
 	// event listener directives
-	exports.on         = __webpack_require__(59)
+	exports.on         = __webpack_require__(64)
 	exports.model      = __webpack_require__(73)
 
 	// child vm directives
-	exports.component  = __webpack_require__(60)
-	exports.repeat     = __webpack_require__(61)
-	exports['if']      = __webpack_require__(62)
+	exports.component  = __webpack_require__(65)
+	exports.repeat     = __webpack_require__(66)
+	exports['if']      = __webpack_require__(67)
 
 	// child vm communication directives
-	exports['with']    = __webpack_require__(63)
-	exports.events     = __webpack_require__(64)
+	exports['with']    = __webpack_require__(68)
+	exports.events     = __webpack_require__(69)
 
 /***/ },
 /* 26 */
@@ -12738,14 +12757,15 @@
 	    var KEY_ARTHOGRAPHY  = 'arthograpy'
 	    var KEY_PHONETIC     = 'phonetic'
 
+
 	    var Config = function () {
 	      var s = window.localStorage
 	      if (s.getItem(KEY_ARTHOGRAPHY) === null) { s.setItem(KEY_ARTHOGRAPHY, "traditional") }
 	      if (s.getItem(KEY_PHONETIC)    === null) { s.setItem(KEY_PHONETIC,    "zhuyin")      }
 	    }
 
-	    Config.prototype.arthograpy = function () { return this._property ("arthography", arguments) }
-	    Config.prototype.phonetic   = function () { return this._property ("phonetic",    arguments) }
+	    Config.prototype.arthography = function () { return this._property ("arthography", arguments) }
+	    Config.prototype.phonetic    = function () { return this._property ("phonetic",    arguments) }
 
 	    // private 
 	    Config.prototype._property = function (KEY, args) {
@@ -12767,7 +12787,7 @@
 	    }
 
 	    /**
-	     * arthograpy ()
+	     * arthography ()
 	     */
 	    Config.prototype.arthograpy = function () {
 	      if (arguments.length > 0) {
@@ -15811,6 +15831,696 @@
 /* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/**
+	 * Check is a string starts with $ or _
+	 *
+	 * @param {String} str
+	 * @return {Boolean}
+	 */
+
+	exports.isReserved = function (str) {
+	  var c = (str + '').charCodeAt(0)
+	  return c === 0x24 || c === 0x5F
+	}
+
+	/**
+	 * Guard text output, make sure undefined outputs
+	 * empty string
+	 *
+	 * @param {*} value
+	 * @return {String}
+	 */
+
+	exports.toString = function (value) {
+	  return value == null
+	    ? ''
+	    : value.toString()
+	}
+
+	/**
+	 * Check and convert possible numeric numbers before
+	 * setting back to data
+	 *
+	 * @param {*} value
+	 * @return {*|Number}
+	 */
+
+	exports.toNumber = function (value) {
+	  return (
+	    isNaN(value) ||
+	    value === null ||
+	    typeof value === 'boolean'
+	  ) ? value
+	    : Number(value)
+	}
+
+	/**
+	 * Strip quotes from a string
+	 *
+	 * @param {String} str
+	 * @return {String | false}
+	 */
+
+	exports.stripQuotes = function (str) {
+	  var a = str.charCodeAt(0)
+	  var b = str.charCodeAt(str.length - 1)
+	  return a === b && (a === 0x22 || a === 0x27)
+	    ? str.slice(1, -1)
+	    : false
+	}
+
+	/**
+	 * Replace helper
+	 *
+	 * @param {String} _ - matched delimiter
+	 * @param {String} c - matched char
+	 * @return {String}
+	 */
+	function toUpper (_, c) {
+	  return c ? c.toUpperCase () : ''
+	}
+
+	/**
+	 * Camelize a hyphen-delmited string.
+	 *
+	 * @param {String} str
+	 * @return {String}
+	 */
+
+	var camelRE = /-(\w)/g
+	exports.camelize = function (str) {
+	  return str.replace(camelRE, toUpper)
+	}
+
+	/**
+	 * Converts hyphen/underscore/slash delimitered names into
+	 * camelized classNames.
+	 *
+	 * e.g. my-component => MyComponent
+	 *      some_else    => SomeElse
+	 *      some/comp    => SomeComp
+	 *
+	 * @param {String} str
+	 * @return {String}
+	 */
+
+	var classifyRE = /(?:^|[-_\/])(\w)/g
+	exports.classify = function (str) {
+	  return str.replace(classifyRE, toUpper)
+	}
+
+	/**
+	 * Simple bind, faster than native
+	 *
+	 * @param {Function} fn
+	 * @param {Object} ctx
+	 * @return {Function}
+	 */
+
+	exports.bind = function (fn, ctx) {
+	  return function () {
+	    return fn.apply(ctx, arguments)
+	  }
+	}
+
+	/**
+	 * Convert an Array-like object to a real Array.
+	 *
+	 * @param {Array-like} list
+	 * @param {Number} [start] - start index
+	 * @return {Array}
+	 */
+
+	exports.toArray = function (list, start) {
+	  start = start || 0
+	  var i = list.length - start
+	  var ret = new Array(i)
+	  while (i--) {
+	    ret[i] = list[i + start]
+	  }
+	  return ret
+	}
+
+	/**
+	 * Mix properties into target object.
+	 *
+	 * @param {Object} to
+	 * @param {Object} from
+	 */
+
+	exports.extend = function (to, from) {
+	  for (var key in from) {
+	    to[key] = from[key]
+	  }
+	  return to
+	}
+
+	/**
+	 * Quick object check - this is primarily used to tell
+	 * Objects from primitive values when we know the value
+	 * is a JSON-compliant type.
+	 *
+	 * @param {*} obj
+	 * @return {Boolean}
+	 */
+
+	exports.isObject = function (obj) {
+	  return obj && typeof obj === 'object'
+	}
+
+	/**
+	 * Strict object type check. Only returns true
+	 * for plain JavaScript objects.
+	 *
+	 * @param {*} obj
+	 * @return {Boolean}
+	 */
+
+	var toString = Object.prototype.toString
+	exports.isPlainObject = function (obj) {
+	  return toString.call(obj) === '[object Object]'
+	}
+
+	/**
+	 * Array type check.
+	 *
+	 * @param {*} obj
+	 * @return {Boolean}
+	 */
+
+	exports.isArray = function (obj) {
+	  return Array.isArray(obj)
+	}
+
+	/**
+	 * Define a non-enumerable property
+	 *
+	 * @param {Object} obj
+	 * @param {String} key
+	 * @param {*} val
+	 * @param {Boolean} [enumerable]
+	 */
+
+	exports.define = function (obj, key, val, enumerable) {
+	  Object.defineProperty(obj, key, {
+	    value        : val,
+	    enumerable   : !!enumerable,
+	    writable     : true,
+	    configurable : true
+	  })
+	}
+
+	/**
+	 * Debounce a function so it only gets called after the
+	 * input stops arriving after the given wait period.
+	 *
+	 * @param {Function} func
+	 * @param {Number} wait
+	 * @return {Function} - the debounced function
+	 */
+
+	exports.debounce = function(func, wait) {
+	  var timeout, args, context, timestamp, result
+	  var later = function() {
+	    var last = Date.now() - timestamp
+	    if (last < wait && last >= 0) {
+	      timeout = setTimeout(later, wait - last)
+	    } else {
+	      timeout = null
+	      result = func.apply(context, args)
+	      if (!timeout) context = args = null
+	    }
+	  }
+	  return function() {
+	    context = this
+	    args = arguments
+	    timestamp = Date.now()
+	    if (!timeout) {
+	      timeout = setTimeout(later, wait)
+	    }
+	    return result
+	  }
+	}
+
+/***/ },
+/* 49 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Can we use __proto__?
+	 *
+	 * @type {Boolean}
+	 */
+
+	exports.hasProto = '__proto__' in {}
+
+	/**
+	 * Indicates we have a window
+	 *
+	 * @type {Boolean}
+	 */
+
+	var toString = Object.prototype.toString
+	var inBrowser = exports.inBrowser =
+	  typeof window !== 'undefined' &&
+	  toString.call(window) !== '[object Object]'
+
+	/**
+	 * Defer a task to execute it asynchronously. Ideally this
+	 * should be executed as a microtask, so we leverage
+	 * MutationObserver if it's available, and fallback to
+	 * setTimeout(0).
+	 *
+	 * @param {Function} cb
+	 * @param {Object} ctx
+	 */
+
+	exports.nextTick = (function () {
+	  var callbacks = []
+	  var pending = false
+	  var timerFunc
+	  function handle () {
+	    pending = false
+	    var copies = callbacks.slice(0)
+	    callbacks = []
+	    for (var i = 0; i < copies.length; i++) {
+	      copies[i]()
+	    }
+	  }
+	  /* istanbul ignore if */
+	  if (typeof MutationObserver !== 'undefined') {
+	    var counter = 1
+	    var observer = new MutationObserver(handle)
+	    var textNode = document.createTextNode(counter)
+	    observer.observe(textNode, {
+	      characterData: true
+	    })
+	    timerFunc = function () {
+	      counter = (counter + 1) % 2
+	      textNode.data = counter
+	    }
+	  } else {
+	    timerFunc = setTimeout
+	  }
+	  return function (cb, ctx) {
+	    var func = ctx
+	      ? function () { cb.call(ctx) }
+	      : cb
+	    callbacks.push(func)
+	    if (pending) return
+	    pending = true
+	    timerFunc(handle, 0)
+	  }
+	})()
+
+	/**
+	 * Detect if we are in IE9...
+	 *
+	 * @type {Boolean}
+	 */
+
+	exports.isIE9 =
+	  inBrowser &&
+	  navigator.userAgent.indexOf('MSIE 9.0') > 0
+
+	/**
+	 * Sniff transition/animation events
+	 */
+
+	if (inBrowser && !exports.isIE9) {
+	  var isWebkitTrans =
+	    window.ontransitionend === undefined &&
+	    window.onwebkittransitionend !== undefined
+	  var isWebkitAnim =
+	    window.onanimationend === undefined &&
+	    window.onwebkitanimationend !== undefined
+	  exports.transitionProp = isWebkitTrans
+	    ? 'WebkitTransition'
+	    : 'transition'
+	  exports.transitionEndEvent = isWebkitTrans
+	    ? 'webkitTransitionEnd'
+	    : 'transitionend'
+	  exports.animationProp = isWebkitAnim
+	    ? 'WebkitAnimation'
+	    : 'animation'
+	  exports.animationEndEvent = isWebkitAnim
+	    ? 'webkitAnimationEnd'
+	    : 'animationend'
+	}
+
+/***/ },
+/* 50 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var config = __webpack_require__(37)
+
+	/**
+	 * Check if a node is in the document.
+	 * Note: document.documentElement.contains should work here
+	 * but always returns false for comment nodes in phantomjs,
+	 * making unit tests difficult. This is fixed byy doing the
+	 * contains() check on the node's parentNode instead of
+	 * the node itself.
+	 *
+	 * @param {Node} node
+	 * @return {Boolean}
+	 */
+
+	var doc =
+	  typeof document !== 'undefined' &&
+	  document.documentElement
+
+	exports.inDoc = function (node) {
+	  var parent = node && node.parentNode
+	  return doc === node ||
+	    doc === parent ||
+	    !!(parent && parent.nodeType === 1 && (doc.contains(parent)))
+	}
+
+	/**
+	 * Extract an attribute from a node.
+	 *
+	 * @param {Node} node
+	 * @param {String} attr
+	 */
+
+	exports.attr = function (node, attr) {
+	  attr = config.prefix + attr
+	  var val = node.getAttribute(attr)
+	  if (val !== null) {
+	    node.removeAttribute(attr)
+	  }
+	  return val
+	}
+
+	/**
+	 * Insert el before target
+	 *
+	 * @param {Element} el
+	 * @param {Element} target
+	 */
+
+	exports.before = function (el, target) {
+	  target.parentNode.insertBefore(el, target)
+	}
+
+	/**
+	 * Insert el after target
+	 *
+	 * @param {Element} el
+	 * @param {Element} target
+	 */
+
+	exports.after = function (el, target) {
+	  if (target.nextSibling) {
+	    exports.before(el, target.nextSibling)
+	  } else {
+	    target.parentNode.appendChild(el)
+	  }
+	}
+
+	/**
+	 * Remove el from DOM
+	 *
+	 * @param {Element} el
+	 */
+
+	exports.remove = function (el) {
+	  el.parentNode.removeChild(el)
+	}
+
+	/**
+	 * Prepend el to target
+	 *
+	 * @param {Element} el
+	 * @param {Element} target
+	 */
+
+	exports.prepend = function (el, target) {
+	  if (target.firstChild) {
+	    exports.before(el, target.firstChild)
+	  } else {
+	    target.appendChild(el)
+	  }
+	}
+
+	/**
+	 * Replace target with el
+	 *
+	 * @param {Element} target
+	 * @param {Element} el
+	 */
+
+	exports.replace = function (target, el) {
+	  var parent = target.parentNode
+	  if (parent) {
+	    parent.replaceChild(el, target)
+	  }
+	}
+
+	/**
+	 * Copy attributes from one element to another.
+	 *
+	 * @param {Element} from
+	 * @param {Element} to
+	 */
+
+	exports.copyAttributes = function (from, to) {
+	  if (from.hasAttributes()) {
+	    var attrs = from.attributes
+	    for (var i = 0, l = attrs.length; i < l; i++) {
+	      var attr = attrs[i]
+	      to.setAttribute(attr.name, attr.value)
+	    }
+	  }
+	}
+
+	/**
+	 * Add event listener shorthand.
+	 *
+	 * @param {Element} el
+	 * @param {String} event
+	 * @param {Function} cb
+	 */
+
+	exports.on = function (el, event, cb) {
+	  el.addEventListener(event, cb)
+	}
+
+	/**
+	 * Remove event listener shorthand.
+	 *
+	 * @param {Element} el
+	 * @param {String} event
+	 * @param {Function} cb
+	 */
+
+	exports.off = function (el, event, cb) {
+	  el.removeEventListener(event, cb)
+	}
+
+	/**
+	 * Add class with compatibility for IE & SVG
+	 *
+	 * @param {Element} el
+	 * @param {Strong} cls
+	 */
+
+	exports.addClass = function (el, cls) {
+	  if (el.classList) {
+	    el.classList.add(cls)
+	  } else {
+	    var cur = ' ' + (el.getAttribute('class') || '') + ' '
+	    if (cur.indexOf(' ' + cls + ' ') < 0) {
+	      el.setAttribute('class', (cur + cls).trim())
+	    }
+	  }
+	}
+
+	/**
+	 * Remove class with compatibility for IE & SVG
+	 *
+	 * @param {Element} el
+	 * @param {Strong} cls
+	 */
+
+	exports.removeClass = function (el, cls) {
+	  if (el.classList) {
+	    el.classList.remove(cls)
+	  } else {
+	    var cur = ' ' + (el.getAttribute('class') || '') + ' '
+	    var tar = ' ' + cls + ' '
+	    while (cur.indexOf(tar) >= 0) {
+	      cur = cur.replace(tar, ' ')
+	    }
+	    el.setAttribute('class', cur.trim())
+	  }
+	}
+
+	/**
+	 * Extract raw content inside an element into a temporary
+	 * container div
+	 *
+	 * @param {Element} el
+	 * @param {Boolean} asFragment
+	 * @return {Element}
+	 */
+
+	exports.extractContent = function (el, asFragment) {
+	  var child
+	  var rawContent
+	  if (el.hasChildNodes()) {
+	    rawContent = asFragment
+	      ? document.createDocumentFragment()
+	      : document.createElement('div')
+	    /* jshint boss:true */
+	    while (child = el.firstChild) {
+	      rawContent.appendChild(child)
+	    }
+	  }
+	  return rawContent
+	}
+
+
+/***/ },
+/* 51 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(52)
+
+	/**
+	 * Resolve read & write filters for a vm instance. The
+	 * filters descriptor Array comes from the directive parser.
+	 *
+	 * This is extracted into its own utility so it can
+	 * be used in multiple scenarios.
+	 *
+	 * @param {Vue} vm
+	 * @param {Array<Object>} filters
+	 * @param {Object} [target]
+	 * @return {Object}
+	 */
+
+	exports.resolveFilters = function (vm, filters, target) {
+	  if (!filters) {
+	    return
+	  }
+	  var res = target || {}
+	  // var registry = vm.$options.filters
+	  filters.forEach(function (f) {
+	    var def = vm.$options.filters[f.name]
+	    _.assertAsset(def, 'filter', f.name)
+	    if (!def) return
+	    var args = f.args
+	    var reader, writer
+	    if (typeof def === 'function') {
+	      reader = def
+	    } else {
+	      reader = def.read
+	      writer = def.write
+	    }
+	    if (reader) {
+	      if (!res.read) res.read = []
+	      res.read.push(function (value) {
+	        return args
+	          ? reader.apply(vm, [value].concat(args))
+	          : reader.call(vm, value)
+	      })
+	    }
+	    if (writer) {
+	      if (!res.write) res.write = []
+	      res.write.push(function (value, oldVal) {
+	        return args
+	          ? writer.apply(vm, [value, oldVal].concat(args))
+	          : writer.call(vm, value, oldVal)
+	      })
+	    }
+	  })
+	  return res
+	}
+
+	/**
+	 * Apply filters to a value
+	 *
+	 * @param {*} value
+	 * @param {Array} filters
+	 * @param {Vue} vm
+	 * @param {*} oldVal
+	 * @return {*}
+	 */
+
+	exports.applyFilters = function (value, filters, vm, oldVal) {
+	  if (!filters) {
+	    return value
+	  }
+	  for (var i = 0, l = filters.length; i < l; i++) {
+	    value = filters[i].call(vm, value, oldVal)
+	  }
+	  return value
+	}
+
+/***/ },
+/* 52 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var config = __webpack_require__(37)
+
+	/**
+	 * Enable debug utilities. The enableDebug() function and
+	 * all _.log() & _.warn() calls will be dropped in the
+	 * minified production build.
+	 */
+
+	enableDebug()
+
+	function enableDebug () {
+
+	  var hasConsole = typeof console !== 'undefined'
+	  
+	  /**
+	   * Log a message.
+	   *
+	   * @param {String} msg
+	   */
+
+	  exports.log = function (msg) {
+	    if (hasConsole && config.debug) {
+	      console.log('[Vue info]: ' + msg)
+	    }
+	  }
+
+	  /**
+	   * We've got a problem here.
+	   *
+	   * @param {String} msg
+	   */
+
+	  exports.warn = function (msg) {
+	    if (hasConsole && (!config.silent || config.debug)) {
+	      console.warn('[Vue warn]: ' + msg)
+	      /* istanbul ignore if */
+	      if (config.debug) {
+	        /* jshint debug: true */
+	        debugger
+	      }
+	    }
+	  }
+
+	  /**
+	   * Assert asset exists
+	   */
+
+	  exports.assertAsset = function (val, type, id) {
+	    if (!val) {
+	      exports.warn('Failed to resolve ' + type + ': ' + id)
+	    }
+	  }
+	}
+
+/***/ },
+/* 53 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var _ = __webpack_require__(24)
 
 	module.exports = {
@@ -15828,7 +16538,7 @@
 	}
 
 /***/ },
-/* 49 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(24)
@@ -15871,7 +16581,7 @@
 	}
 
 /***/ },
-/* 50 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// xlink
@@ -15908,7 +16618,7 @@
 	}
 
 /***/ },
-/* 51 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var transition = __webpack_require__(72)
@@ -15921,7 +16631,7 @@
 	}
 
 /***/ },
-/* 52 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(24)
@@ -15944,7 +16654,7 @@
 	}
 
 /***/ },
-/* 53 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
@@ -15962,7 +16672,7 @@
 	}
 
 /***/ },
-/* 54 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(24)
@@ -15990,7 +16700,7 @@
 	}
 
 /***/ },
-/* 55 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var config = __webpack_require__(37)
@@ -16007,7 +16717,7 @@
 	}
 
 /***/ },
-/* 56 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(24)
@@ -16112,12 +16822,12 @@
 	}
 
 /***/ },
-/* 57 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(24)
 	var templateParser = __webpack_require__(42)
-	var vIf = __webpack_require__(62)
+	var vIf = __webpack_require__(67)
 
 	module.exports = {
 
@@ -16167,7 +16877,7 @@
 	}
 
 /***/ },
-/* 58 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
@@ -16196,7 +16906,7 @@
 	}
 
 /***/ },
-/* 59 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(24)
@@ -16260,7 +16970,7 @@
 	}
 
 /***/ },
-/* 60 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(24)
@@ -16495,7 +17205,7 @@
 	}
 
 /***/ },
-/* 61 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(24)
@@ -17037,7 +17747,7 @@
 	}
 
 /***/ },
-/* 62 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(24)
@@ -17172,7 +17882,7 @@
 	}
 
 /***/ },
-/* 63 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(24)
@@ -17263,7 +17973,7 @@
 	}
 
 /***/ },
-/* 64 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(24)
@@ -17301,696 +18011,6 @@
 	  // when child is destroyed, all events are turned off,
 	  // so no need for unbind here.
 
-	}
-
-/***/ },
-/* 65 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Check is a string starts with $ or _
-	 *
-	 * @param {String} str
-	 * @return {Boolean}
-	 */
-
-	exports.isReserved = function (str) {
-	  var c = (str + '').charCodeAt(0)
-	  return c === 0x24 || c === 0x5F
-	}
-
-	/**
-	 * Guard text output, make sure undefined outputs
-	 * empty string
-	 *
-	 * @param {*} value
-	 * @return {String}
-	 */
-
-	exports.toString = function (value) {
-	  return value == null
-	    ? ''
-	    : value.toString()
-	}
-
-	/**
-	 * Check and convert possible numeric numbers before
-	 * setting back to data
-	 *
-	 * @param {*} value
-	 * @return {*|Number}
-	 */
-
-	exports.toNumber = function (value) {
-	  return (
-	    isNaN(value) ||
-	    value === null ||
-	    typeof value === 'boolean'
-	  ) ? value
-	    : Number(value)
-	}
-
-	/**
-	 * Strip quotes from a string
-	 *
-	 * @param {String} str
-	 * @return {String | false}
-	 */
-
-	exports.stripQuotes = function (str) {
-	  var a = str.charCodeAt(0)
-	  var b = str.charCodeAt(str.length - 1)
-	  return a === b && (a === 0x22 || a === 0x27)
-	    ? str.slice(1, -1)
-	    : false
-	}
-
-	/**
-	 * Replace helper
-	 *
-	 * @param {String} _ - matched delimiter
-	 * @param {String} c - matched char
-	 * @return {String}
-	 */
-	function toUpper (_, c) {
-	  return c ? c.toUpperCase () : ''
-	}
-
-	/**
-	 * Camelize a hyphen-delmited string.
-	 *
-	 * @param {String} str
-	 * @return {String}
-	 */
-
-	var camelRE = /-(\w)/g
-	exports.camelize = function (str) {
-	  return str.replace(camelRE, toUpper)
-	}
-
-	/**
-	 * Converts hyphen/underscore/slash delimitered names into
-	 * camelized classNames.
-	 *
-	 * e.g. my-component => MyComponent
-	 *      some_else    => SomeElse
-	 *      some/comp    => SomeComp
-	 *
-	 * @param {String} str
-	 * @return {String}
-	 */
-
-	var classifyRE = /(?:^|[-_\/])(\w)/g
-	exports.classify = function (str) {
-	  return str.replace(classifyRE, toUpper)
-	}
-
-	/**
-	 * Simple bind, faster than native
-	 *
-	 * @param {Function} fn
-	 * @param {Object} ctx
-	 * @return {Function}
-	 */
-
-	exports.bind = function (fn, ctx) {
-	  return function () {
-	    return fn.apply(ctx, arguments)
-	  }
-	}
-
-	/**
-	 * Convert an Array-like object to a real Array.
-	 *
-	 * @param {Array-like} list
-	 * @param {Number} [start] - start index
-	 * @return {Array}
-	 */
-
-	exports.toArray = function (list, start) {
-	  start = start || 0
-	  var i = list.length - start
-	  var ret = new Array(i)
-	  while (i--) {
-	    ret[i] = list[i + start]
-	  }
-	  return ret
-	}
-
-	/**
-	 * Mix properties into target object.
-	 *
-	 * @param {Object} to
-	 * @param {Object} from
-	 */
-
-	exports.extend = function (to, from) {
-	  for (var key in from) {
-	    to[key] = from[key]
-	  }
-	  return to
-	}
-
-	/**
-	 * Quick object check - this is primarily used to tell
-	 * Objects from primitive values when we know the value
-	 * is a JSON-compliant type.
-	 *
-	 * @param {*} obj
-	 * @return {Boolean}
-	 */
-
-	exports.isObject = function (obj) {
-	  return obj && typeof obj === 'object'
-	}
-
-	/**
-	 * Strict object type check. Only returns true
-	 * for plain JavaScript objects.
-	 *
-	 * @param {*} obj
-	 * @return {Boolean}
-	 */
-
-	var toString = Object.prototype.toString
-	exports.isPlainObject = function (obj) {
-	  return toString.call(obj) === '[object Object]'
-	}
-
-	/**
-	 * Array type check.
-	 *
-	 * @param {*} obj
-	 * @return {Boolean}
-	 */
-
-	exports.isArray = function (obj) {
-	  return Array.isArray(obj)
-	}
-
-	/**
-	 * Define a non-enumerable property
-	 *
-	 * @param {Object} obj
-	 * @param {String} key
-	 * @param {*} val
-	 * @param {Boolean} [enumerable]
-	 */
-
-	exports.define = function (obj, key, val, enumerable) {
-	  Object.defineProperty(obj, key, {
-	    value        : val,
-	    enumerable   : !!enumerable,
-	    writable     : true,
-	    configurable : true
-	  })
-	}
-
-	/**
-	 * Debounce a function so it only gets called after the
-	 * input stops arriving after the given wait period.
-	 *
-	 * @param {Function} func
-	 * @param {Number} wait
-	 * @return {Function} - the debounced function
-	 */
-
-	exports.debounce = function(func, wait) {
-	  var timeout, args, context, timestamp, result
-	  var later = function() {
-	    var last = Date.now() - timestamp
-	    if (last < wait && last >= 0) {
-	      timeout = setTimeout(later, wait - last)
-	    } else {
-	      timeout = null
-	      result = func.apply(context, args)
-	      if (!timeout) context = args = null
-	    }
-	  }
-	  return function() {
-	    context = this
-	    args = arguments
-	    timestamp = Date.now()
-	    if (!timeout) {
-	      timeout = setTimeout(later, wait)
-	    }
-	    return result
-	  }
-	}
-
-/***/ },
-/* 66 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Can we use __proto__?
-	 *
-	 * @type {Boolean}
-	 */
-
-	exports.hasProto = '__proto__' in {}
-
-	/**
-	 * Indicates we have a window
-	 *
-	 * @type {Boolean}
-	 */
-
-	var toString = Object.prototype.toString
-	var inBrowser = exports.inBrowser =
-	  typeof window !== 'undefined' &&
-	  toString.call(window) !== '[object Object]'
-
-	/**
-	 * Defer a task to execute it asynchronously. Ideally this
-	 * should be executed as a microtask, so we leverage
-	 * MutationObserver if it's available, and fallback to
-	 * setTimeout(0).
-	 *
-	 * @param {Function} cb
-	 * @param {Object} ctx
-	 */
-
-	exports.nextTick = (function () {
-	  var callbacks = []
-	  var pending = false
-	  var timerFunc
-	  function handle () {
-	    pending = false
-	    var copies = callbacks.slice(0)
-	    callbacks = []
-	    for (var i = 0; i < copies.length; i++) {
-	      copies[i]()
-	    }
-	  }
-	  /* istanbul ignore if */
-	  if (typeof MutationObserver !== 'undefined') {
-	    var counter = 1
-	    var observer = new MutationObserver(handle)
-	    var textNode = document.createTextNode(counter)
-	    observer.observe(textNode, {
-	      characterData: true
-	    })
-	    timerFunc = function () {
-	      counter = (counter + 1) % 2
-	      textNode.data = counter
-	    }
-	  } else {
-	    timerFunc = setTimeout
-	  }
-	  return function (cb, ctx) {
-	    var func = ctx
-	      ? function () { cb.call(ctx) }
-	      : cb
-	    callbacks.push(func)
-	    if (pending) return
-	    pending = true
-	    timerFunc(handle, 0)
-	  }
-	})()
-
-	/**
-	 * Detect if we are in IE9...
-	 *
-	 * @type {Boolean}
-	 */
-
-	exports.isIE9 =
-	  inBrowser &&
-	  navigator.userAgent.indexOf('MSIE 9.0') > 0
-
-	/**
-	 * Sniff transition/animation events
-	 */
-
-	if (inBrowser && !exports.isIE9) {
-	  var isWebkitTrans =
-	    window.ontransitionend === undefined &&
-	    window.onwebkittransitionend !== undefined
-	  var isWebkitAnim =
-	    window.onanimationend === undefined &&
-	    window.onwebkitanimationend !== undefined
-	  exports.transitionProp = isWebkitTrans
-	    ? 'WebkitTransition'
-	    : 'transition'
-	  exports.transitionEndEvent = isWebkitTrans
-	    ? 'webkitTransitionEnd'
-	    : 'transitionend'
-	  exports.animationProp = isWebkitAnim
-	    ? 'WebkitAnimation'
-	    : 'animation'
-	  exports.animationEndEvent = isWebkitAnim
-	    ? 'webkitAnimationEnd'
-	    : 'animationend'
-	}
-
-/***/ },
-/* 67 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var config = __webpack_require__(37)
-
-	/**
-	 * Check if a node is in the document.
-	 * Note: document.documentElement.contains should work here
-	 * but always returns false for comment nodes in phantomjs,
-	 * making unit tests difficult. This is fixed byy doing the
-	 * contains() check on the node's parentNode instead of
-	 * the node itself.
-	 *
-	 * @param {Node} node
-	 * @return {Boolean}
-	 */
-
-	var doc =
-	  typeof document !== 'undefined' &&
-	  document.documentElement
-
-	exports.inDoc = function (node) {
-	  var parent = node && node.parentNode
-	  return doc === node ||
-	    doc === parent ||
-	    !!(parent && parent.nodeType === 1 && (doc.contains(parent)))
-	}
-
-	/**
-	 * Extract an attribute from a node.
-	 *
-	 * @param {Node} node
-	 * @param {String} attr
-	 */
-
-	exports.attr = function (node, attr) {
-	  attr = config.prefix + attr
-	  var val = node.getAttribute(attr)
-	  if (val !== null) {
-	    node.removeAttribute(attr)
-	  }
-	  return val
-	}
-
-	/**
-	 * Insert el before target
-	 *
-	 * @param {Element} el
-	 * @param {Element} target
-	 */
-
-	exports.before = function (el, target) {
-	  target.parentNode.insertBefore(el, target)
-	}
-
-	/**
-	 * Insert el after target
-	 *
-	 * @param {Element} el
-	 * @param {Element} target
-	 */
-
-	exports.after = function (el, target) {
-	  if (target.nextSibling) {
-	    exports.before(el, target.nextSibling)
-	  } else {
-	    target.parentNode.appendChild(el)
-	  }
-	}
-
-	/**
-	 * Remove el from DOM
-	 *
-	 * @param {Element} el
-	 */
-
-	exports.remove = function (el) {
-	  el.parentNode.removeChild(el)
-	}
-
-	/**
-	 * Prepend el to target
-	 *
-	 * @param {Element} el
-	 * @param {Element} target
-	 */
-
-	exports.prepend = function (el, target) {
-	  if (target.firstChild) {
-	    exports.before(el, target.firstChild)
-	  } else {
-	    target.appendChild(el)
-	  }
-	}
-
-	/**
-	 * Replace target with el
-	 *
-	 * @param {Element} target
-	 * @param {Element} el
-	 */
-
-	exports.replace = function (target, el) {
-	  var parent = target.parentNode
-	  if (parent) {
-	    parent.replaceChild(el, target)
-	  }
-	}
-
-	/**
-	 * Copy attributes from one element to another.
-	 *
-	 * @param {Element} from
-	 * @param {Element} to
-	 */
-
-	exports.copyAttributes = function (from, to) {
-	  if (from.hasAttributes()) {
-	    var attrs = from.attributes
-	    for (var i = 0, l = attrs.length; i < l; i++) {
-	      var attr = attrs[i]
-	      to.setAttribute(attr.name, attr.value)
-	    }
-	  }
-	}
-
-	/**
-	 * Add event listener shorthand.
-	 *
-	 * @param {Element} el
-	 * @param {String} event
-	 * @param {Function} cb
-	 */
-
-	exports.on = function (el, event, cb) {
-	  el.addEventListener(event, cb)
-	}
-
-	/**
-	 * Remove event listener shorthand.
-	 *
-	 * @param {Element} el
-	 * @param {String} event
-	 * @param {Function} cb
-	 */
-
-	exports.off = function (el, event, cb) {
-	  el.removeEventListener(event, cb)
-	}
-
-	/**
-	 * Add class with compatibility for IE & SVG
-	 *
-	 * @param {Element} el
-	 * @param {Strong} cls
-	 */
-
-	exports.addClass = function (el, cls) {
-	  if (el.classList) {
-	    el.classList.add(cls)
-	  } else {
-	    var cur = ' ' + (el.getAttribute('class') || '') + ' '
-	    if (cur.indexOf(' ' + cls + ' ') < 0) {
-	      el.setAttribute('class', (cur + cls).trim())
-	    }
-	  }
-	}
-
-	/**
-	 * Remove class with compatibility for IE & SVG
-	 *
-	 * @param {Element} el
-	 * @param {Strong} cls
-	 */
-
-	exports.removeClass = function (el, cls) {
-	  if (el.classList) {
-	    el.classList.remove(cls)
-	  } else {
-	    var cur = ' ' + (el.getAttribute('class') || '') + ' '
-	    var tar = ' ' + cls + ' '
-	    while (cur.indexOf(tar) >= 0) {
-	      cur = cur.replace(tar, ' ')
-	    }
-	    el.setAttribute('class', cur.trim())
-	  }
-	}
-
-	/**
-	 * Extract raw content inside an element into a temporary
-	 * container div
-	 *
-	 * @param {Element} el
-	 * @param {Boolean} asFragment
-	 * @return {Element}
-	 */
-
-	exports.extractContent = function (el, asFragment) {
-	  var child
-	  var rawContent
-	  if (el.hasChildNodes()) {
-	    rawContent = asFragment
-	      ? document.createDocumentFragment()
-	      : document.createElement('div')
-	    /* jshint boss:true */
-	    while (child = el.firstChild) {
-	      rawContent.appendChild(child)
-	    }
-	  }
-	  return rawContent
-	}
-
-
-/***/ },
-/* 68 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(69)
-
-	/**
-	 * Resolve read & write filters for a vm instance. The
-	 * filters descriptor Array comes from the directive parser.
-	 *
-	 * This is extracted into its own utility so it can
-	 * be used in multiple scenarios.
-	 *
-	 * @param {Vue} vm
-	 * @param {Array<Object>} filters
-	 * @param {Object} [target]
-	 * @return {Object}
-	 */
-
-	exports.resolveFilters = function (vm, filters, target) {
-	  if (!filters) {
-	    return
-	  }
-	  var res = target || {}
-	  // var registry = vm.$options.filters
-	  filters.forEach(function (f) {
-	    var def = vm.$options.filters[f.name]
-	    _.assertAsset(def, 'filter', f.name)
-	    if (!def) return
-	    var args = f.args
-	    var reader, writer
-	    if (typeof def === 'function') {
-	      reader = def
-	    } else {
-	      reader = def.read
-	      writer = def.write
-	    }
-	    if (reader) {
-	      if (!res.read) res.read = []
-	      res.read.push(function (value) {
-	        return args
-	          ? reader.apply(vm, [value].concat(args))
-	          : reader.call(vm, value)
-	      })
-	    }
-	    if (writer) {
-	      if (!res.write) res.write = []
-	      res.write.push(function (value, oldVal) {
-	        return args
-	          ? writer.apply(vm, [value, oldVal].concat(args))
-	          : writer.call(vm, value, oldVal)
-	      })
-	    }
-	  })
-	  return res
-	}
-
-	/**
-	 * Apply filters to a value
-	 *
-	 * @param {*} value
-	 * @param {Array} filters
-	 * @param {Vue} vm
-	 * @param {*} oldVal
-	 * @return {*}
-	 */
-
-	exports.applyFilters = function (value, filters, vm, oldVal) {
-	  if (!filters) {
-	    return value
-	  }
-	  for (var i = 0, l = filters.length; i < l; i++) {
-	    value = filters[i].call(vm, value, oldVal)
-	  }
-	  return value
-	}
-
-/***/ },
-/* 69 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var config = __webpack_require__(37)
-
-	/**
-	 * Enable debug utilities. The enableDebug() function and
-	 * all _.log() & _.warn() calls will be dropped in the
-	 * minified production build.
-	 */
-
-	enableDebug()
-
-	function enableDebug () {
-
-	  var hasConsole = typeof console !== 'undefined'
-	  
-	  /**
-	   * Log a message.
-	   *
-	   * @param {String} msg
-	   */
-
-	  exports.log = function (msg) {
-	    if (hasConsole && config.debug) {
-	      console.log('[Vue info]: ' + msg)
-	    }
-	  }
-
-	  /**
-	   * We've got a problem here.
-	   *
-	   * @param {String} msg
-	   */
-
-	  exports.warn = function (msg) {
-	    if (hasConsole && (!config.silent || config.debug)) {
-	      console.warn('[Vue warn]: ' + msg)
-	      /* istanbul ignore if */
-	      if (config.debug) {
-	        /* jshint debug: true */
-	        debugger
-	      }
-	    }
-	  }
-
-	  /**
-	   * Assert asset exists
-	   */
-
-	  exports.assertAsset = function (val, type, id) {
-	    if (!val) {
-	      exports.warn('Failed to resolve ' + type + ': ' + id)
-	    }
-	  }
 	}
 
 /***/ },

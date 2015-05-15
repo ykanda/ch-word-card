@@ -9,14 +9,15 @@ if (util.canUseStorage())
     var KEY_ARTHOGRAPHY  = 'arthograpy'
     var KEY_PHONETIC     = 'phonetic'
 
+
     var Config = function () {
       var s = window.localStorage
       if (s.getItem(KEY_ARTHOGRAPHY) === null) { s.setItem(KEY_ARTHOGRAPHY, "traditional") }
       if (s.getItem(KEY_PHONETIC)    === null) { s.setItem(KEY_PHONETIC,    "zhuyin")      }
     }
 
-    Config.prototype.arthograpy = function () { return this._property ("arthography", arguments) }
-    Config.prototype.phonetic   = function () { return this._property ("phonetic",    arguments) }
+    Config.prototype.arthography = function () { return this._property ("arthography", arguments) }
+    Config.prototype.phonetic    = function () { return this._property ("phonetic",    arguments) }
 
     // private 
     Config.prototype._property = function (KEY, args) {
@@ -38,7 +39,7 @@ else {
     }
 
     /**
-     * arthograpy ()
+     * arthography ()
      */
     Config.prototype.arthograpy = function () {
       if (arguments.length > 0) {

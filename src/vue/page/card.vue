@@ -23,7 +23,7 @@
 
     <!-- 日本語 -->
     <div class="text-center">
-      <span class="cwc-word">{{ currentCard.jp }}</span>
+      <span class="cwc-word" v-text="currentCardJapanese">{{ currentCardJapanese }}</span>
     </div>
     <div class="text-center">
       <a href="" class="btn btn-default" v-on="click : openCh()" v-show="openChineseWord == false">
@@ -31,10 +31,10 @@
       </a>
     </div>
 
-    <!-- 繁体中国語, 注音 -->
+
     <div class="text-center" v-show="openChineseWord == true">
-      <span class="cwc-word">{{ currentCard.ch_t   }}</span><br />
-      <span class="cwc-word">{{ currentCard.zhuyin }}</span><br />
+      <span class="cwc-word">{{ currentCardChinese }}</span><br />
+      <span class="cwc-word">{{ currentCardPhonetic }}</span><br />
       <span v-show="isNotEndOfCards">
         <a href="#" class="btn btn-default" v-on="click : nextCard()">
           <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
@@ -44,23 +44,13 @@
         <a href="#" class="btn btn-default" v-on="click: reset()"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></a>
       </span>
     </div>
-
-    <!-- 簡体中国語 - 拼音 -->
-    <!--
-    <div>
-      {{currentCard.ch_s}}
-      {{currentCard.pinyin}}
-    </div>
-    <div>
-      <a href="" v-on="click">↓</a>
-    </div>
-    -->
   </div><!-- /.container -->
 </template>
 
 <script>
-api    = require('../api')
-config = require('../config')
+'use strict'
+var api    = require('../api')
+var config = require('../config')
 
 
 module.exports = {
@@ -78,12 +68,11 @@ module.exports = {
     }
   },
 
-  created : function () {
+  compiled : function () {
     var option = {}
     var _this = this
     api.getCards(option).then(function(response) {
       _this.cards = response
-      console.log(response)
     })
   },
 
@@ -97,11 +86,30 @@ module.exports = {
     currentCardNumber : function () {
       return (this.index + 1)
     },
-    currentCard : function () {
-      return this.cards[ this.index ]
-    },
+
     isNotEndOfCards : function () { return (this.index <  (this.cards.length - 1)) },
     isEndOfCards    : function () { return (this.index >= (this.cards.length - 1)) },
+    
+    currentCardJapanese : {
+      get : function () {
+        return this.cards[ this.index ].jp
+      }
+    },
+    currentCardChinese : {
+      get : function () {
+        return (config.arthography() == 'traditional')
+          ? this.cards[ this.index ].ch_t
+          : this.cards[ this.index ].ch_s
+      }
+    },
+
+    currentCardPhonetic : {
+      get : function () {
+        return (config.phonetic() == 'zhuyin')
+          ? this.cards[ this.index ].zhuyin
+          : this.cards[ this.index ].pinyin
+      }
+    }
   },
 
   methods : {
