@@ -1,6 +1,6 @@
 <template>
-  <div v-component="{{view}}">
-  </div>
+  <div v-component="menu"></div>
+  <div v-component="{{view}}"></div>
 </template>
 
 
@@ -11,6 +11,7 @@ module.exports = {
     view : 'page_top'
   },
   components : {
+    menu        : require('./menu.vue'),
     page_top    : require('./page/top.vue'),
     page_card   : require('./page/card.vue'),
     page_config : require('./page/config.vue'),
