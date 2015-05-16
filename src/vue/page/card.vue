@@ -9,6 +9,15 @@
 
 
 <template>
+  <div class="container">
+    <!-- progress bar -->
+    <div class="progress" v-cloak>
+      <div class="progress-bar" role="progressbar" aria-valuenow="{{ currentCardNumber }}" aria-valuemin="0" aria-valuemax="{{ numOfCards }}" style="width: {{ progress }}%;">
+      <span class="sr-only">{{ currentCardNumber }} of {{ numOfCards }}</span>
+    </div>
+  </div>
+
+  <div class="container">
     <!-- 日本語 -->
     <div class="text-center">
       <span class="cwc-word" v-text="currentCardJapanese">{{ currentCardJapanese }}</span>
@@ -18,7 +27,6 @@
         <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
       </a>
     </div>
-
 
     <div class="text-center" v-show="openChineseWord == true">
       <span class="cwc-word">{{ currentCardChinese }}</span><br />
