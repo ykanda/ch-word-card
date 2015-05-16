@@ -1,8 +1,4 @@
 <template>
-  <nav class="navbar navbar-inverse">
-    <div class="container-fluid text-center">
-    </div>
-  </nav>
   <div class="jumbotron" class='text-center'>
     <h1>日文・中文<br>単語練習帳</h1>
     <p class="text-center">...</p>

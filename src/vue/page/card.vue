@@ -9,18 +9,6 @@
 
 
 <template>
-  <nav class="navbar navbar-inverse">
-    <div class="container-fluid text-center">
-      <a href="/" class="btn navbar-btn btn-primary" href="#" role="button"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
-    </div>
-  </nav>
-  <div class="container">
-    <div class="progress" v-cloak>
-      <div class="progress-bar" role="progressbar" aria-valuenow="{{ currentCardNumber }}" aria-valuemin="0" aria-valuemax="{{ numOfCards }}" style="width: {{ progress }}%;">
-        <span class="sr-only">{{ currentCardNumber }} of {{ numOfCards }}</span>
-      </div>
-    </div>
-
     <!-- 日本語 -->
     <div class="text-center">
       <span class="cwc-word" v-text="currentCardJapanese">{{ currentCardJapanese }}</span>

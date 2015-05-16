@@ -14,8 +14,8 @@
       </div>
       <ul class="drawer-nav">
         <ul class="list-group">
-          <li class="list-group-item"><a href="/config"><h4><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;設定</a></h4></li>
-          <li class="list-group-item"><a href="/credit"><h4><span class="glyphicon glyphicon-flag"></span>&nbsp;&nbsp;クレジット</a></h4></li>
+          <li class="list-group-item"><a href="/config" v-on="click : closeMenu"><h4><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;設定</a></h4></li>
+          <li class="list-group-item"><a href="/credit" v-on="click : closeMenu"><h4><span class="glyphicon glyphicon-flag"></span>&nbsp;&nbsp;クレジット</a></h4></li>
         <ul>
       </ul>
       <!--
@@ -38,14 +38,29 @@
 'use strict'
 
 
+var jquery = require('jquery')
+require('bootstrap-drawer/dist/js/drawer.js')
+require('bootstrap-drawer/dist/css/bootstrap-drawer.css')
+
+
 module.exports = {
   data : function () {
     return {}
   },
   compiled : function () {},
-  created  : function () {},
+  created  : function () {
+    // Drawer
+    // see : https://github.com/clineamb/bootstrap-drawer/blob/master/example/index.html
+    jquery('#drawerMenu').drawer({
+      toggle : false
+    })
+  },
   computed : {},
-  methods  : {}
+  methods  : {
+    closeMenu : function () {
+      jquery('#drawerMenu').drawer('hide');
+    }
+  }
 }
 </script>
 <!-- vim: set ft=html: -->
