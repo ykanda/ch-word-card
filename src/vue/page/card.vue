@@ -17,30 +17,48 @@
     </div>
   </div>
 
+  <!-- 日本語 -->
   <div class="container">
-    <!-- 日本語 -->
     <div class="text-center">
       <span class="cwc-word" v-text="currentCardJapanese">{{ currentCardJapanese }}</span>
     </div>
-    <div class="text-center">
-      <a href="" class="btn btn-default" v-on="click : openCh()" v-show="openChineseWord == false">
+  </div>
+
+  <div class="container text-center">
+    <a href="" class="btn btn-default" v-on="click : openCh()" v-show="openChineseWord == false">
+      <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div class="container text-center" v-show="openChineseWord == true">
+    <span class="cwc-word">{{ currentCardChinese  }}</span><br />
+    <span class="cwc-word">{{ currentCardPhonetic }}</span><br />
+  </div><!-- /.container -->
+
+  <div class="container text-center" v-show="openChineseWord">
+    <span v-show="isNotEndOfCards">
+      <a href="#" class="btn btn-default" v-on="click : nextCard()">
         <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
       </a>
-    </div>
-
-    <div class="text-center" v-show="openChineseWord == true">
-      <span class="cwc-word">{{ currentCardChinese }}</span><br />
-      <span class="cwc-word">{{ currentCardPhonetic }}</span><br />
-      <span v-show="isNotEndOfCards">
-        <a href="#" class="btn btn-default" v-on="click : nextCard()">
-          <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-        </a>
-      </span>
-      <span v-show="isEndOfCards">
-        <a href="#" class="btn btn-default" v-on="click: reset()"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></a>
-      </span>
-    </div>
+    </span>
+    <span v-show="isEndOfCards">
+      <a href="#" class="btn btn-default" v-on="click: reset()"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></a>
+    </span>
   </div><!-- /.container -->
+
+  <!-- Ad -->
+  <br />
+  <div class="container">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <ins class="adsbygoogle"
+          style="display:block"
+          data-ad-client="ca-pub-9507195460927673"
+          data-ad-slot="6188667983"
+          data-ad-format="auto"></ins>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -62,6 +80,10 @@ module.exports = {
       index : 0,
       openChineseWord  : false, 
     }
+  },
+  created : function () {
+    // this.$watch('openAd') {
+    // }
   },
 
   compiled : function () {
@@ -106,6 +128,10 @@ module.exports = {
           : this.cards[ this.index ].pinyin
       }
     }
+  },
+
+  attached : function () {
+    (adsbygoogle = window.adsbygoogle || []).push({});
   },
 
   methods : {
