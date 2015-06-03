@@ -8,10 +8,8 @@ var gulp         = require('gulp');
 gulp.task('watch', function()
 {
   var watches = [
-    { glob: './src/html/**/*.html',     task: [ 'html'   ]},
-//  { glob: './src/css/**/*.less',      task: [ 'less'   ]},
-//  { glob: './src/coffee/**/*.coffee', task: [ 'coffee' ]},
-//  { glob: './src/js/**/*.js',         task: [ 'js'     ]},
+    { glob: './src/html/**/*.html', task: [ 'html' ]},
+    { glob: './src/vue/**/*.vue',   task: [ 'vue'  ]},
   ];
   watches.forEach(
     function (value, index, array) {
